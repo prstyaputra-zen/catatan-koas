@@ -3,9 +3,10 @@ import { SearchIndex, normalize, tokenize } from './search.js';
 import { createZip, readZip, entryBlob } from './zip.js';
 import * as sync from './sync.js';
 import { parseClaude, CLAUDE_PROMPT } from './paste.js';
+import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText } from './tools.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects } from './docs.js';
 
-const APP_VERSION = '0.5.0';
+const APP_VERSION = '0.6.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -753,6 +754,108 @@ function pickHint(k) {
   return { kasus: 'Pasien yang kamu temui', topik: 'Penyakit atau materi', obat: 'Dosis, indikasi, efek samping', prosedur: 'Langkah tindakan', bebas: 'Tanpa template' }[k];
 }
 
+// ---------- Alat: kalkulator klinis ----------
+
+function renderTools() {
+  releaseUrls();
+  view().innerHTML = `
+    <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Alat</span></div>
+    <div class="picker">
+      <a class="pick" href="#/alat/bmi"><span class="big">⚖️</span><b>Kalkulator IMT / BMI</b><small>Interpretasi Asia-Pasifik, WHO, Kemenkes, BB ideal</small></a>
+    </div>`;
+}
+
+// Skala warna IMT Asia-Pasifik untuk penanda posisi.
+const BMI_SCALE = { min: 14, max: 36, stops: [[18.5, 'under'], [23, 'ok'], [25, 'warn'], [30, 'high'], [36, 'severe']] };
+
+function bmiScaleHtml(bmi) {
+  const span = BMI_SCALE.max - BMI_SCALE.min;
+  let prev = BMI_SCALE.min;
+  const segs = BMI_SCALE.stops.map(([to, tone]) => {
+    const w = ((to - prev) / span) * 100; prev = to;
+    return `<span class="seg tone-${tone}" style="width:${w}%"></span>`;
+  }).join('');
+  const pos = Math.min(100, Math.max(0, ((bmi - BMI_SCALE.min) / span) * 100));
+  const ticks = [18.5, 23, 25, 30].map((t) => `<span class="tick" style="left:${((t - BMI_SCALE.min) / span) * 100}%">${String(t).replace('.', ',')}</span>`).join('');
+  return `<div class="bmi-scale"><div class="bar">${segs}<span class="marker" style="left:${pos}%"></span></div><div class="ticks">${ticks}</div></div>`;
+}
+
+function renderBmi() {
+  releaseUrls();
+  view().innerHTML = `
+    <div class="topbar"><a href="#/alat" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Kalkulator IMT</span></div>
+    <form class="editor calc" onsubmit="return false">
+      <div class="row">
+        <label class="field"><span>Tinggi badan</span><span class="unit"><input id="b-h" inputmode="decimal" placeholder="165" autocomplete="off"><i>cm</i></span></label>
+        <label class="field"><span>Berat badan</span><span class="unit"><input id="b-w" inputmode="decimal" placeholder="60" autocomplete="off"><i>kg</i></span></label>
+      </div>
+      <div class="row">
+        <label class="field"><span>Jenis kelamin (opsional)</span><select id="b-sex"><option value="">–</option><option value="L">Laki-laki</option><option value="P">Perempuan</option></select></label>
+        <label class="field"><span>Lingkar perut (opsional)</span><span class="unit"><input id="b-waist" inputmode="decimal" placeholder="85" autocomplete="off"><i>cm</i></span></label>
+      </div>
+    </form>
+    <div id="b-out" class="calc-out"><p class="hint">Isi tinggi dan berat badan untuk melihat hasilnya.</p></div>
+    <details class="calc-ref">
+      <summary>Tabel kategori dan catatan</summary>
+      ${Object.values(BMI_SYSTEMS).map((sys) => {
+        let lo = null;
+        const rows = sys.cats.map((c) => {
+          const f = (x) => x.toFixed(1).replace('.', ',');
+          const range = lo === null ? `< ${f(round1Next(c.max))}` : c.max === Infinity ? `≥ ${f(lo)}` : `${f(lo)} – ${f(c.max)}`;
+          lo = round1Next(c.max);
+          return `<tr><td>${range}</td><td>${esc(c.name)}</td></tr>`;
+        }).join('');
+        return `<h4>${esc(sys.label)}</h4><table>${rows}</table>`;
+      }).join('')}
+      <h4>Catatan</h4>
+      <ul>
+        <li>Tidak untuk anak dan remaja &lt; 18 tahun (pakai kurva IMT/U WHO atau CDC), ibu hamil, atlet berotot, serta pasien dengan edema atau asites.</li>
+        <li>BB ideal Broca modifikasi = (TB − 100) − 10%. Tanpa pengurangan 10% pada pria &lt; 160 cm dan wanita &lt; 150 cm.</li>
+        <li>Obesitas sentral (kriteria Asia/IDF): lingkar perut ≥ 90 cm pada pria dan ≥ 80 cm pada wanita.</li>
+      </ul>
+    </details>`;
+  const ids = ['#b-h', '#b-w', '#b-sex', '#b-waist'];
+  const calc = () => {
+    const input = { heightCm: parseNum($('#b-h').value), weightKg: parseNum($('#b-w').value), sex: $('#b-sex').value, waistCm: parseNum($('#b-waist').value) };
+    const out = $('#b-out');
+    if (!$('#b-h').value.trim() || !$('#b-w').value.trim()) { out.innerHTML = '<p class="hint">Isi tinggi dan berat badan untuk melihat hasilnya.</p>'; return; }
+    const r = computeBmi(input);
+    if (!r) { out.innerHTML = '<p class="hint">Periksa lagi angkanya (tinggi 50–250 cm, berat 2–400 kg).</p>'; return; }
+    const a = r.cats.asia;
+    out.innerHTML = `
+      <div class="bmi-main tone-${a.tone}-soft">
+        <div class="bmi-num">${r.bmiText}<small> kg/m²</small></div>
+        <div class="bmi-cat">${esc(a.name)}</div>
+        <div class="hint">Kategori Asia-Pasifik</div>
+      </div>
+      ${bmiScaleHtml(r.bmi)}
+      <dl class="bmi-list">
+        <div><dt>WHO</dt><dd>${esc(r.cats.who.name)}</dd></div>
+        <div><dt>Kemenkes</dt><dd>${esc(r.cats.kemenkes.name)}</dd></div>
+        <div><dt>BB normal untuk TB ini</dt><dd>${fmtKg(r.normalRange[0])} – ${fmtKg(r.normalRange[1])} kg${r.toNormal ? ` <span class="hint">(${r.toNormal > 0 ? 'kurang' : 'lebih'} ${fmtKg(Math.abs(r.toNormal))} kg)</span>` : ''}</dd></div>
+        ${r.broca ? `<div><dt>BB ideal (Broca)</dt><dd>${fmtKg(r.broca)} kg · ${Math.round(r.brocaPct)}% BBI, ${esc(brocaStatus(r.brocaPct))}</dd></div>` : ''}
+        ${r.waist ? `<div><dt>Lingkar perut</dt><dd>${r.waist.central ? '<b>Obesitas sentral</b>' : 'Normal'} (batas ${r.waist.cut} cm)</dd></div>` : ''}
+      </dl>
+      <p class="advice">${esc(r.advice)}</p>
+      <div class="row"><button type="button" class="btn ghost" id="b-copy">📋 Salin hasil</button><button type="button" class="btn ghost" id="b-note">📝 Jadikan catatan</button></div>`;
+    const text = bmiSummaryText(input, r);
+    $('#b-copy').onclick = async () => {
+      try { await navigator.clipboard.writeText(text); toast('Hasil disalin'); } catch { toast('Gagal menyalin'); }
+    };
+    $('#b-note').onclick = () => {
+      state.draft = { type: 'bebas', title: `IMT ${r.bmiText} (${a.name})`, body: text + '\n\nInterpretasi:\n' + r.advice, tags: ['imt', 'bmi'], stase: '', sources: [] };
+      location.hash = '#/baru/bebas';
+    };
+  };
+  ids.forEach((id) => { $(id).addEventListener('input', calc); $(id).addEventListener('change', calc); });
+  if (!matchMedia('(pointer: coarse)').matches) $('#b-h').focus();
+}
+
+// Batas bawah kategori berikutnya (mis. 18.4 -> 18.5) untuk tabel.
+function round1Next(max) {
+  return Math.round((max + 0.1) * 10) / 10;
+}
+
 // ---------- Tempel dari Claude ----------
 
 function renderPaste() {
@@ -1273,6 +1376,7 @@ async function route() {
     case 'catatan': return renderNote(arg);
     case 'baru': return arg ? renderEditor(null, arg) : renderNewPicker();
     case 'tempel': return renderPaste();
+    case 'alat': return arg === 'bmi' ? renderBmi() : renderTools();
     case 'ubah': return renderEditor(arg);
     case 'pengaturan': return renderSettings();
     case 'cari':

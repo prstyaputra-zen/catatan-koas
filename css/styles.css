@@ -311,3 +311,41 @@ body.noscroll { overflow: hidden; }
 .settings .field:focus { border-color: var(--accent); }
 .settings details { margin-top: 10px; color: var(--muted); font-size: 14px; }
 .sync-status { font-size: 13px; }
+
+/* Alat: kalkulator IMT */
+.toolsbtn { font-size: 20px; }
+.calc .field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+.calc .unit { position: relative; display: block; }
+.calc .unit i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-style: normal; color: var(--muted); font-size: 14px; pointer-events: none; }
+.calc .unit input { padding-right: 40px; }
+.calc-out { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+.calc-out .row { display: flex; gap: 10px; flex-wrap: wrap; }
+.calc-out .row .btn { flex: 1 1 140px; }
+.bmi-main { padding: 16px; border-radius: var(--radius); text-align: center; }
+.bmi-num { font-size: 40px; font-weight: 700; line-height: 1.1; }
+.bmi-num small { font-size: 15px; font-weight: 500; color: var(--muted); }
+.bmi-cat { font-size: 18px; font-weight: 600; margin-top: 4px; }
+.tone-under { background: #3b82f6; } .tone-ok { background: #16a34a; } .tone-warn { background: #eab308; } .tone-high { background: #f97316; } .tone-severe { background: #dc2626; }
+.tone-under-soft { background: #dbeafe; color: #1e3a8a; } .tone-ok-soft { background: #dcfce7; color: #14532d; } .tone-warn-soft { background: #fef9c3; color: #713f12; } .tone-high-soft { background: #ffedd5; color: #7c2d12; } .tone-severe-soft { background: #fee2e2; color: #7f1d1d; }
+.bmi-main .hint { color: inherit; opacity: .75; }
+.bmi-scale .bar { position: relative; display: flex; height: 12px; border-radius: 6px; overflow: visible; }
+.bmi-scale .seg:first-child { border-radius: 6px 0 0 6px; } .bmi-scale .seg:last-of-type { border-radius: 0 6px 6px 0; }
+.bmi-scale .marker { position: absolute; top: -5px; width: 4px; height: 22px; margin-left: -2px; background: var(--text); border-radius: 2px; box-shadow: 0 0 0 2px var(--bg, #fff); }
+.bmi-scale .ticks { position: relative; height: 18px; font-size: 11px; color: var(--muted); }
+.bmi-scale .tick { position: absolute; transform: translateX(-50%); top: 3px; }
+.bmi-list { margin: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.bmi-list > div { padding: 10px 14px; border-top: 1px solid var(--line); }
+.bmi-list > div:first-child { border-top: 0; }
+.bmi-list dt { font-size: 12px; color: var(--muted); }
+.bmi-list dd { margin: 2px 0 0; }
+.advice { margin: 0; line-height: 1.5; }
+.calc-ref { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.calc-ref summary { font-weight: 600; cursor: pointer; }
+.calc-ref h4 { margin: 14px 0 6px; font-size: 14px; }
+.calc-ref table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.calc-ref td { padding: 5px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.calc-ref td:first-child { width: 38%; white-space: nowrap; color: var(--muted); }
+.calc-ref ul { margin: 0; padding-left: 18px; line-height: 1.5; font-size: 14px; }
+@media (prefers-color-scheme: dark) {
+  .tone-under-soft { background: #1e3a5f; color: #dbeafe; } .tone-ok-soft { background: #14532d; color: #dcfce7; } .tone-warn-soft { background: #554405; color: #fef9c3; } .tone-high-soft { background: #6b2c0d; color: #ffedd5; } .tone-severe-soft { background: #6b1d1d; color: #fee2e2; }
+}
