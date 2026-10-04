@@ -125,7 +125,7 @@ select.chip { -webkit-appearance: none; appearance: none; padding-right: 12px; }
 .card-foot { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 8px; font-size: 12px; color: var(--muted); }
 .spacer { flex: 1; }
 .tag { color: var(--accent); font-weight: 500; }
-.thumb { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; flex: none; background: var(--surface-2); }
+.thumb { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; flex: none; background: var(--surface-2); border: 1px solid var(--line); }
 
 .empty { text-align: center; padding: 48px 12px; color: var(--muted); }
 .empty.small { padding: 24px 12px; }
@@ -220,3 +220,50 @@ figcaption { padding: 6px 10px; font-size: 13px; color: var(--muted); }
   opacity: 0; pointer-events: none; transition: .2s; z-index: 60; text-align: center;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Dokumen */
+body.noscroll { overflow: hidden; }
+.media-hit.doc-hit { -webkit-line-clamp: 2; }
+.doc-hit b { color: var(--text); font-weight: 600; }
+.gallery .m-doc { grid-column: 1 / -1; }
+.doc-card {
+  display: flex; gap: 12px; align-items: center; width: 100%; padding: 10px; border: 0; background: transparent;
+  color: var(--text); font: inherit; text-align: left; cursor: pointer;
+}
+.doc-thumb { flex: none; width: 64px; height: 84px; border-radius: 6px; overflow: hidden; background: var(--surface-2); display: grid; place-items: center; border: 1px solid var(--line); }
+.doc-thumb img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: auto; cursor: pointer; }
+.doc-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.doc-info b { overflow-wrap: anywhere; }
+.doc-info small { color: var(--muted); font-size: 13px; }
+.doc-info .hits { color: var(--accent); }
+.doc-icon { display: inline-grid; place-items: center; width: 100%; height: 100%; font-size: 11px; font-weight: 700; color: #fff; background: #64748b; letter-spacing: .02em; }
+.doc-icon.d-pdf { background: #c2410c; }
+.doc-icon.d-docx { background: #1d4ed8; }
+.doc-icon.d-pptx { background: #b45309; }
+.e-prev .doc-icon { border-radius: 8px; }
+.e-load { font-size: 24px; }
+
+.docviewer {
+  position: fixed; inset: 0; z-index: 40; display: flex; flex-direction: column; background: var(--bg);
+  padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);
+}
+.dv-bar { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.dv-title { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.dv-title b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dv-title small { color: var(--muted); font-size: 12px; }
+.dv-actions { display: flex; gap: 8px; padding: 8px 12px; overflow-x: auto; background: var(--surface); border-bottom: 1px solid var(--line); }
+.dv-actions .btn { flex: none; }
+.dv-hits { display: flex; gap: 6px; align-items: center; padding: 6px 12px; overflow-x: auto; font-size: 13px; color: var(--muted); white-space: nowrap; }
+.dv-hits .chip { height: 28px; font-size: 13px; }
+.dv-body { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; padding: 12px; }
+.dv-body.pdf { --zoom: 1; background: var(--surface-2); }
+.pdfpage { position: relative; width: calc(min(100%, 900px) * var(--zoom)); margin: 0 auto 10px; background: #fff; box-shadow: var(--shadow); }
+.pdfpage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pno { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #9aa5ae; font-size: 14px; }
+.dv-loading, .dv-note { color: var(--muted); text-align: center; padding: 20px; }
+.dv-note { padding: 0 0 8px; font-size: 13px; }
+.dv-page { max-width: 760px; margin: 0 auto; overflow-wrap: anywhere; }
+.dv-page p { margin: 0 0 8px; }
+.dv-versions { padding: 8px 12px 12px; border-top: 1px solid var(--line); background: var(--surface); max-height: 30vh; overflow: auto; }
+.dv-versions .section { margin-top: 4px; }
+.dv-ver { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 4px 0; color: var(--muted); font-size: 14px; }

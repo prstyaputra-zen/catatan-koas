@@ -110,7 +110,7 @@ function editDistance(a, b, max) {
   return prev[b.length];
 }
 
-const FIELD_WEIGHTS = { title: 6, tags: 4, stase: 3, media: 2, body: 1 };
+const FIELD_WEIGHTS = { title: 6, tags: 4, stase: 3, media: 2, body: 1, doc: 1 };
 
 export class SearchIndex {
   constructor(synonymGroups = SYNONYM_GROUPS) {

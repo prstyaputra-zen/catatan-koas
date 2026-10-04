@@ -1,8 +1,9 @@
 import { db } from './db.js';
 import { SearchIndex, normalize } from './search.js';
-import { createZip, readZip } from './zip.js';
+import { createZip, readZip, entryBlob } from './zip.js';
+import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf } from './docs.js';
 
-const APP_VERSION = '0.1.0';
+const APP_VERSION = '0.2.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -68,15 +69,46 @@ function toast(msg, ms = 2600) {
 
 // ---------- Indeks ----------
 
+// Lampiran aktif (versi lama dokumen yang sudah diganti tidak ikut ditampilkan atau dicari).
+function currentMedia(note) {
+  return note.mediaIds.map((id) => state.mediaMeta.get(id)).filter((m) => m && !m.supersededBy);
+}
+
 function indexNote(note) {
-  const media = note.mediaIds.map((id) => state.mediaMeta.get(id)).filter(Boolean);
+  const media = currentMedia(note);
   state.index.add(note.id, {
     title: note.title,
     tags: note.tags.join(' '),
     stase: note.stase + ' ' + (TYPES[note.type]?.label || ''),
     media: media.map((m) => `${m.caption || ''} ${m.name || ''} ${m.ocrText || ''} ${m.transcript || ''}`).join(' '),
     body: note.body,
+    doc: media.filter((m) => m.kind === 'doc').map((m) => (m.docPages || []).join('\n')).join('\n'),
   });
+}
+
+const KIND_ICON = { image: '🖼️', video: '🎬', audio: '🎙️', doc: '📄' };
+
+function hasTerm(text, terms) {
+  for (const m of text.matchAll(/[\p{L}\p{N}]+/gu)) if (terms.has(normalize(m[0]))) return true;
+  return false;
+}
+
+// Halaman dokumen pertama yang memuat kata yang dicari.
+function docHit(media, terms) {
+  for (const m of media) {
+    if (m.kind !== 'doc' || !m.docPages) continue;
+    for (let i = 0; i < m.docPages.length; i++) {
+      if (hasTerm(m.docPages[i], terms)) return { m, page: i };
+    }
+  }
+  return null;
+}
+
+function pagesWithTerms(m, terms) {
+  if (!terms || !terms.size || !m.docPages) return [];
+  const out = [];
+  m.docPages.forEach((t, i) => hasTerm(t, terms) && out.push(i));
+  return out;
 }
 
 async function loadAll() {
@@ -121,10 +153,14 @@ function snippet(body, terms, len = 160) {
 }
 
 // Markdown ringan: baris "Label:" ditebalkan, **tebal**, daftar, dan tautan [[Judul catatan]].
-function renderBody(body, terms, type) {
-  // Label template yang belum diisi tidak perlu ditampilkan.
+// Isi catatan tanpa label template yang belum diisi.
+function visibleBody(body, type) {
   const emptyLabels = new Set((TYPES[type]?.template || '').split('\n').map((l) => l.trim()).filter(Boolean));
-  const lines = body.split('\n').filter((l) => !emptyLabels.has(l.trim()));
+  return body.split('\n').filter((l) => !emptyLabels.has(l.trim())).join('\n');
+}
+
+function renderBody(body, terms, type) {
+  const lines = visibleBody(body, type).split('\n');
   let html = '';
   let inList = false;
   for (const raw of lines) {
@@ -242,22 +278,25 @@ function renderResults() {
 
 function cardHtml(n, terms) {
   const t = TYPES[n.type] || TYPES.bebas;
-  const media = n.mediaIds.map((id) => state.mediaMeta.get(id)).filter(Boolean);
-  const counts = { image: 0, video: 0, audio: 0 };
+  const media = currentMedia(n);
+  const counts = { image: 0, video: 0, audio: 0, doc: 0 };
   media.forEach((m) => counts[m.kind]++);
-  const firstImg = media.find((m) => m.kind === 'image');
-  const matchedMedia = terms && media.find((m) => [...(normalize(`${m.caption} ${m.name}`).split(' '))].some((w) => terms.has(w)));
+  const firstImg = media.find((m) => m.kind === 'image') || media.find((m) => m.kind === 'doc' && m.hasThumb);
+  const matchedMedia = terms && media.find((m) => hasTerm(`${m.caption || ''} ${m.name || ''}`, terms));
+  const bodyHit = terms && (hasTerm(n.title, terms) || hasTerm(n.body, terms));
+  const dh = terms && !bodyHit && !matchedMedia ? docHit(media, terms) : null;
   return `
     <a class="card" href="#/catatan/${n.id}">
       <div class="card-main">
         <div class="card-top"><span class="badge t-${n.type}">${t.icon} ${t.label}</span>${n.stase ? `<span class="badge">${esc(n.stase)}</span>` : ''}${n.pinned ? '<span class="pin">📌</span>' : ''}</div>
         <h3>${highlight(n.title || '(tanpa judul)', terms)}</h3>
-        <p class="snip">${snippet(n.body, terms)}</p>
-        ${matchedMedia ? `<p class="snip media-hit">${matchedMedia.kind === 'audio' ? '🎙️' : matchedMedia.kind === 'video' ? '🎬' : '🖼️'} ${highlight(matchedMedia.caption || matchedMedia.name, terms)}</p>` : ''}
+        <p class="snip">${snippet(visibleBody(n.body, n.type), terms)}</p>
+        ${matchedMedia ? `<p class="snip media-hit">${KIND_ICON[matchedMedia.kind]} ${highlight(matchedMedia.caption || matchedMedia.name, terms)}</p>` : ''}
+        ${dh ? `<p class="snip media-hit doc-hit"><b>📄 ${esc(dh.m.name)}${dh.m.pageCount ? ` · hal. ${dh.page + 1}` : ''}</b> ${snippet(dh.m.docPages[dh.page], terms, 120)}</p>` : ''}
         <div class="card-foot">
           ${n.tags.slice(0, 4).map((x) => `<span class="tag">#${highlight(x, terms)}</span>`).join('')}
           <span class="spacer"></span>
-          ${counts.image ? `<span>🖼️ ${counts.image}</span>` : ''}${counts.video ? `<span>🎬 ${counts.video}</span>` : ''}${counts.audio ? `<span>🎙️ ${counts.audio}</span>` : ''}
+          ${counts.image ? `<span>🖼️ ${counts.image}</span>` : ''}${counts.video ? `<span>🎬 ${counts.video}</span>` : ''}${counts.audio ? `<span>🎙️ ${counts.audio}</span>` : ''}${counts.doc ? `<span>📄 ${counts.doc}</span>` : ''}
           <span>${fmtDate(n.updated)}</span>
         </div>
       </div>
@@ -307,8 +346,13 @@ async function renderNote(id) {
     location.hash = '#/';
   };
   const gallery = $('#gallery');
-  for (const mid of n.mediaIds) {
-    const m = await db.getMedia(mid);
+  for (const meta of currentMedia(n)) {
+    if (meta.kind === 'doc') {
+      if (!gallery.isConnected) return;
+      gallery.appendChild(docFigure(n, meta, terms));
+      continue;
+    }
+    const m = await db.getMedia(meta.id);
     if (!m || !gallery.isConnected) continue;
     const url = objUrl(m.blob);
     const cap = m.caption ? `<figcaption>${highlight(m.caption, terms)}</figcaption>` : '';
@@ -334,6 +378,223 @@ function relatedHtml(n) {
   scored.sort((a, b) => b[1] - a[1] || b[0].updated - a[0].updated);
   if (!scored.length) return '';
   return `<h4 class="section">Catatan terkait</h4><div class="related">${scored.slice(0, 6).map(([o]) => `<a href="#/catatan/${o.id}">${TYPES[o.type]?.icon || ''} ${esc(o.title)}</a>`).join('')}</div>`;
+}
+
+// ---------- Dokumen: kartu di catatan & penampil ----------
+
+function docFigure(note, m, terms) {
+  const el = document.createElement('figure');
+  el.className = 'm-doc';
+  const hits = pagesWithTerms(m, terms);
+  const versions = olderVersions(m.id).length;
+  el.innerHTML = `
+    <button type="button" class="doc-card">
+      <span class="doc-thumb">${m.hasThumb ? '<img alt="">' : `<span class="doc-icon d-${m.docType}">${DOC_LABEL[m.docType] || 'Dok'}</span>`}</span>
+      <span class="doc-info">
+        <b>${highlight(m.name, terms)}</b>
+        <small>${DOC_LABEL[m.docType] || 'Dokumen'}${m.pageCount ? ` · ${m.pageCount} ${m.docType === 'pptx' ? 'slide' : 'hal'}` : ''} · ${fmtSize(m.size)}${versions ? ` · ${versions + 1} versi` : ''}</small>
+        ${m.caption ? `<small class="cap">${highlight(m.caption, terms)}</small>` : ''}
+        ${hits.length ? `<small class="hits">Ditemukan di ${m.pageCount ? 'hal. ' + hits.slice(0, 8).map((i) => i + 1).join(', ') + (hits.length > 8 ? '…' : '') : 'isi dokumen'}</small>` : ''}
+      </span>
+    </button>`;
+  el.querySelector('.doc-card').onclick = () => openDocViewer(note, m.id, hits[0] ?? 0, terms);
+  if (m.hasThumb) {
+    db.getMedia(m.id).then((full) => {
+      const img = el.querySelector('img');
+      if (full?.thumb && img) img.src = objUrl(full.thumb);
+    });
+  }
+  return el;
+}
+
+async function shareOrDownload(m) {
+  const file = new File([m.blob], m.name, { type: m.mime || 'application/octet-stream' });
+  if (navigator.canShare?.({ files: [file] })) {
+    try { await navigator.share({ files: [file] }); return; } catch (e) { if (e.name === 'AbortError') return; }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(file);
+  a.download = m.name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+
+async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
+  const m = await db.getMedia(mediaId);
+  if (!m) return;
+  const isCurrent = !m.supersededBy;
+  const hits = pagesWithTerms(m, terms);
+  const older = isCurrent ? olderVersions(m.id) : [];
+  const urls = [];
+  const ov = document.createElement('div');
+  ov.className = 'docviewer';
+  ov.innerHTML = `
+    <div class="dv-bar">
+      <button class="iconbtn" data-act="close" aria-label="Tutup">✕</button>
+      <div class="dv-title"><b>${esc(m.name)}</b><small>${DOC_LABEL[m.docType] || 'Dokumen'}${m.pageCount ? ` · ${m.pageCount} ${m.docType === 'pptx' ? 'slide' : 'hal'}` : ''} · ${fmtSize(m.size)}${isCurrent ? '' : ` · versi lama, ${fmtDate(m.created)}`}</small></div>
+      ${m.docType === 'pdf' ? '<button class="iconbtn" data-act="zoomout" aria-label="Perkecil">−</button><button class="iconbtn" data-act="zoomin" aria-label="Perbesar">＋</button>' : ''}
+    </div>
+    <div class="dv-actions">
+      <button class="btn small" data-act="open">${m.docType === 'docx' ? 'Edit di Word / Pages' : 'Buka di…'}</button>
+      ${isCurrent ? '<label class="btn small ghost">Simpan versi baru<input type="file" hidden data-act="newver"></label>' : ''}
+      ${(m.docPages || []).join('').trim() ? '<button class="btn small ghost" data-act="tonote">Jadikan catatan</button>' : ''}
+    </div>
+    ${hits.length && m.pageCount ? `<div class="dv-hits">Ditemukan di: ${hits.slice(0, 30).map((i) => `<button class="chip" data-page="${i}">hal. ${i + 1}</button>`).join('')}</div>` : ''}
+    <div class="dv-body"></div>
+    ${older.length ? `<div class="dv-versions"><h4 class="section">Versi sebelumnya</h4>${older.map((v) => `<div class="dv-ver"><span>${fmtDate(v.created)} · ${fmtSize(v.size)}</span><button class="btn small ghost" data-ver="${v.id}">Buka</button></div>`).join('')}</div>` : ''}`;
+  document.body.appendChild(ov);
+  document.body.classList.add('noscroll');
+  const body = ov.querySelector('.dv-body');
+  const newVerInput = ov.querySelector('[data-act="newver"]');
+  if (newVerInput) newVerInput.accept = DOC_ACCEPT;
+  let pdf = null;
+  let observer = null;
+  let zoom = 1;
+
+  const close = () => {
+    observer?.disconnect();
+    closePdf(pdf);
+    urls.forEach((u) => URL.revokeObjectURL(u));
+    ov.remove();
+    document.body.classList.remove('noscroll');
+    window.removeEventListener('hashchange', close);
+  };
+  window.addEventListener('hashchange', close);
+
+  ov.addEventListener('click', async (e) => {
+    const t = e.target.closest('[data-act],[data-page],[data-ver]');
+    if (!t) return;
+    if (t.dataset.page) return jumpTo(+t.dataset.page);
+    if (t.dataset.ver) { close(); return openDocViewer(note, t.dataset.ver, 0, terms); }
+    const act = t.dataset.act;
+    if (act === 'close') close();
+    else if (act === 'open') shareOrDownload(m);
+    else if (act === 'tonote') { close(); docToNote(note, m); }
+    else if (act === 'zoomin' || act === 'zoomout') setZoom(act === 'zoomin' ? 1.5 : 1 / 1.5);
+  });
+  newVerInput?.addEventListener('change', async (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    close();
+    await saveNewVersion(note, m, f);
+  });
+
+  if (m.docType === 'pdf') {
+    body.innerHTML = '<p class="dv-loading">Membuka PDF…</p>';
+    try {
+      pdf = await openPdf(m.blob);
+    } catch (err) {
+      body.innerHTML = `<p class="dv-loading">PDF tidak bisa ditampilkan (${esc(err?.message || err)}). Gunakan “Buka di…”.</p>`;
+      return;
+    }
+    if (!ov.isConnected) { closePdf(pdf); return; }
+    const first = (await pdf.getPage(1)).getViewport({ scale: 1 });
+    body.innerHTML = '';
+    body.classList.add('pdf');
+    const pages = [];
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const d = document.createElement('div');
+      d.className = 'pdfpage';
+      d.dataset.no = i;
+      d.style.aspectRatio = `${first.width} / ${first.height}`;
+      d.innerHTML = `<span class="pno">${i}</span>`;
+      body.appendChild(d);
+      pages.push(d);
+    }
+    const rendering = new Map();
+    const render = async (d) => {
+      const no = +d.dataset.no;
+      if (rendering.has(no)) return;
+      const task = (async () => {
+        const page = await pdf.getPage(no);
+        const base = page.getViewport({ scale: 1 });
+        d.style.aspectRatio = `${base.width} / ${base.height}`;
+        const cssW = d.clientWidth;
+        const scale = (cssW / base.width) * Math.min(2, window.devicePixelRatio || 1);
+        const vp = page.getViewport({ scale });
+        const c = document.createElement('canvas');
+        c.width = Math.round(vp.width);
+        c.height = Math.round(vp.height);
+        await page.render({ canvasContext: c.getContext('2d'), canvas: c, viewport: vp }).promise;
+        if (!rendering.has(no)) return;
+        d.querySelector('canvas')?.remove();
+        d.appendChild(c);
+      })().catch(() => {});
+      rendering.set(no, task);
+    };
+    const unrender = (d) => {
+      rendering.delete(+d.dataset.no);
+      const c = d.querySelector('canvas');
+      if (c) { c.width = 0; c.height = 0; c.remove(); }
+    };
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((en) => (en.isIntersecting ? render(en.target) : unrender(en.target)));
+    }, { root: body, rootMargin: '1200px 0px' });
+    pages.forEach((d) => observer.observe(d));
+    var jumpTo = (i) => pages[i]?.scrollIntoView({ block: 'start' });
+    var setZoom = (f) => {
+      zoom = Math.min(4, Math.max(1, zoom * f));
+      body.style.setProperty('--zoom', zoom);
+      pages.forEach((d) => { if (rendering.has(+d.dataset.no)) { unrender(d); render(d); } });
+    };
+    requestAnimationFrame(() => jumpTo(startPage));
+  } else {
+    var setZoom = () => {};
+    const parts = m.docPages || [];
+    if (!parts.join('').trim()) {
+      body.innerHTML = `<p class="dv-loading">Pratinjau tidak tersedia untuk file ini. File asli tersimpan utuh. Gunakan “Buka di…” untuk membukanya di aplikasi lain.</p>`;
+      var jumpTo = () => {};
+    } else {
+      body.innerHTML = `<p class="dv-note">Pratinjau teks. Format asli (tabel, gambar, gaya) tetap utuh di file.</p>` +
+        parts.map((t, i) => `<section class="dv-page" data-no="${i}">${parts.length > 1 ? `<h4 class="section">${m.docType === 'pptx' ? 'Slide' : 'Bagian'} ${i + 1}</h4>` : ''}${t.split('\n').map((l) => (l.trim() ? `<p>${highlight(l, terms)}</p>` : '')).join('')}</section>`).join('');
+      var jumpTo = (i) => body.querySelector(`.dv-page[data-no="${i}"]`)?.scrollIntoView({ block: 'start' });
+      const firstMark = body.querySelector('mark');
+      if (firstMark) requestAnimationFrame(() => firstMark.scrollIntoView({ block: 'center' }));
+    }
+  }
+}
+
+async function saveNewVersion(note, old, file) {
+  const docType = docTypeOf(file) || old.docType;
+  const nm = await buildDocMedia(file, docType, note.id);
+  nm.caption = old.caption || '';
+  const { isNew, dirty, ...stored } = nm;
+  note.updated = Date.now();
+  const { mediaIds, ...storedNote } = note;
+  try {
+    await db.saveNote(storedNote, [stored], [{ id: old.id, supersededBy: nm.id }]);
+  } catch (e) {
+    toast('Gagal menyimpan versi baru: ' + (e?.message || e), 6000);
+    return;
+  }
+  const { blob, thumb, ...meta } = stored;
+  state.mediaMeta.set(nm.id, meta);
+  const oldMeta = state.mediaMeta.get(old.id);
+  if (oldMeta) oldMeta.supersededBy = nm.id;
+  note.mediaIds.push(nm.id);
+  indexNote(note);
+  toast('Versi baru disimpan. Versi lama tetap bisa dibuka.', 4000);
+  renderNote(note.id);
+}
+
+async function docToNote(parent, m) {
+  const pages = m.docPages || [];
+  const text = pages.length > 1
+    ? pages.map((t, i) => `[${m.docType === 'pptx' ? 'Slide' : 'Halaman'} ${i + 1}]\n${t}`).join('\n\n')
+    : pages[0] || '';
+  const now = Date.now();
+  const n = {
+    id: uid(), type: 'bebas', title: m.name.replace(/\.[a-z0-9]+$/i, ''),
+    body: `Sumber: [[${parent.title}]] (${m.name})\n\n${text}`,
+    tags: [...parent.tags], stase: parent.stase, pinned: false, created: now, updated: now,
+  };
+  await db.saveNote(n);
+  n.mediaIds = [];
+  state.notes.set(n.id, n);
+  indexNote(n);
+  toast('Catatan baru dibuat dari dokumen. Silakan edit.', 4000);
+  location.hash = '#/ubah/' + n.id;
 }
 
 function openLightbox(url, caption) {
@@ -366,8 +627,10 @@ async function renderEditor(id, type) {
   const note = existing
     ? { ...existing, tags: [...existing.tags] }
     : { id: uid(), type: type || 'bebas', title: '', body: TYPES[type || 'bebas'].template, tags: [], stase: state.filterStase || '', pinned: false, created: Date.now(), updated: Date.now() };
-  const media = existing ? (await db.mediaForNote(id)).sort((a, b) => a.created - b.created).map((m) => ({ ...m, isNew: false, dirty: false })) : [];
-  state.editor = { note, media, removed: [], dirty: false, isNew: !existing };
+  // Blob tidak dimuat di sini agar membuka editor tetap cepat walau lampirannya besar.
+  const all = existing ? currentAndArchived(existing) : { current: [], archived: [] };
+  const media = all.current.map((m) => ({ ...m, isNew: false, dirty: false }));
+  state.editor = { note, media, archived: all.archived.map((m) => m.id), removed: [], dirty: false, isNew: !existing };
 
   view().innerHTML = `
     <div class="topbar">
@@ -390,6 +653,7 @@ async function renderEditor(id, type) {
         <label class="btn ghost">📷 Foto / video<input type="file" id="f-visual" accept="image/*,video/*" multiple hidden></label>
         <button type="button" class="btn ghost" id="rec">🎙️ Rekam suara</button>
         <label class="btn ghost">📎 File audio<input type="file" id="f-audio" accept="audio/*" multiple hidden></label>
+        <label class="btn ghost">📄 PDF / Word<input type="file" id="f-doc" accept="${DOC_ACCEPT}" multiple hidden></label>
       </div>
       <div id="recorder" class="recorder hidden"><span class="dot"></span><span id="rec-time">00:00</span><button type="button" class="btn small danger" id="rec-stop">Selesai</button></div>
       <div id="e-media" class="e-media"></div>
@@ -416,6 +680,7 @@ async function renderEditor(id, type) {
   $('#save').onclick = () => saveEditor();
   $('#f-visual').onchange = (e) => addFiles(e.target.files);
   $('#f-audio').onchange = (e) => addFiles(e.target.files);
+  $('#f-doc').onchange = (e) => addFiles(e.target.files);
   $('#rec').onclick = startRecording;
   if (state.editor.isNew) $('#e-title').focus();
   renderEditorMedia();
@@ -429,25 +694,72 @@ function renderEditorMedia() {
     const row = document.createElement('div');
     row.className = 'e-item';
     let preview;
-    if (m.kind === 'image') preview = `<img src="${objUrl(m.thumb || m.blob)}" alt="">`;
-    else if (m.kind === 'video') preview = `<video src="${objUrl(m.blob)}" muted playsinline preload="metadata"></video>`;
-    else preview = `<audio src="${objUrl(m.blob)}" controls preload="metadata"></audio>`;
+    if (m.kind === 'doc') preview = `<span class="doc-icon d-${m.docType}">${DOC_LABEL[m.docType] || 'Dok'}</span>`;
+    else if (m.blob || m.thumb) {
+      if (m.kind === 'image') preview = `<img src="${objUrl(m.thumb || m.blob)}" alt="">`;
+      else if (m.kind === 'video') preview = `<video src="${objUrl(m.blob)}" muted playsinline preload="metadata"></video>`;
+      else preview = `<audio src="${objUrl(m.blob)}" controls preload="metadata"></audio>`;
+    } else {
+      preview = `<span class="e-load" data-id="${m.id}">${KIND_ICON[m.kind]}</span>`;
+    }
     row.innerHTML = `
       <div class="e-prev ${m.kind}">${preview}</div>
       <div class="e-info">
         <input placeholder="Keterangan (ikut dicari), mis. EKG ST elevasi V1-V4" value="${esc(m.caption || '')}">
-        <small>${m.kind === 'image' ? 'Foto' : m.kind === 'video' ? 'Video' : 'Audio'} · ${fmtSize(m.size)}</small>
+        <small>${m.kind === 'doc' ? `${esc(m.name)} · ${m.pageCount ? m.pageCount + ' hal · ' : ''}` : m.kind === 'image' ? 'Foto · ' : m.kind === 'video' ? 'Video · ' : 'Audio · '}${fmtSize(m.size)}${m.kind === 'doc' && m.docType !== 'other' && !(m.docPages || []).join('').trim() ? ' · isi tidak terbaca' : ''}</small>
       </div>
       <button type="button" class="iconbtn" aria-label="Hapus lampiran">🗑️</button>`;
     row.querySelector('input').oninput = (e) => { m.caption = e.target.value; m.dirty = true; state.editor.dirty = true; };
     row.querySelector('button').onclick = () => {
-      if (!m.isNew) state.editor.removed.push(m.id);
+      if (!m.isNew) {
+        state.editor.removed.push(m.id, ...olderVersions(m.id).map((v) => v.id));
+        state.editor.archived = state.editor.archived.filter((id) => !state.editor.removed.includes(id));
+      }
       state.editor.media.splice(i, 1);
       state.editor.dirty = true;
       renderEditorMedia();
     };
     box.appendChild(row);
   });
+  box.querySelectorAll('.e-load').forEach(async (el) => {
+    const m = await db.getMedia(el.dataset.id);
+    if (!m || !el.isConnected) return;
+    if (m.kind === 'image') el.outerHTML = `<img src="${objUrl(m.thumb || m.blob)}" alt="">`;
+    else if (m.kind === 'video') el.outerHTML = `<video src="${objUrl(m.blob)}" muted playsinline preload="metadata"></video>`;
+    else el.outerHTML = `<audio src="${objUrl(m.blob)}" controls preload="metadata"></audio>`;
+  });
+}
+
+function currentAndArchived(note) {
+  const all = note.mediaIds.map((id) => state.mediaMeta.get(id)).filter(Boolean);
+  return { current: all.filter((m) => !m.supersededBy), archived: all.filter((m) => m.supersededBy) };
+}
+
+// Versi-versi lama sebuah dokumen, terbaru dulu.
+function olderVersions(id) {
+  const out = [];
+  let cur = id;
+  for (;;) {
+    const prev = [...state.mediaMeta.values()].find((m) => m.supersededBy === cur);
+    if (!prev) return out;
+    out.push(prev);
+    cur = prev.id;
+  }
+}
+
+async function buildDocMedia(file, docType, noteId) {
+  const label = DOC_LABEL[docType];
+  toast(`Membaca isi ${label}: ${file.name}…`, 60000);
+  const ex = await extractDocument(file, docType, (i, total) => {
+    if (i % 5 === 0 || i === total) toast(`Membaca ${file.name}: hal. ${i}/${total}`, 60000);
+  });
+  if (ex.error) toast(`${file.name} disimpan utuh, tapi isinya tidak bisa dibaca untuk pencarian.`, 5000);
+  return {
+    id: uid(), noteId, kind: 'doc', docType, name: file.name,
+    mime: file.type || 'application/octet-stream', size: file.size, caption: '',
+    blob: file, thumb: ex.thumb || null, hasThumb: !!ex.thumb,
+    docPages: ex.pages, pageCount: ex.pageCount, created: Date.now(), isNew: true,
+  };
 }
 
 function loadImage(blob) {
@@ -487,8 +799,13 @@ async function addFiles(fileList) {
   if (!files.length) return;
   toast('Memproses lampiran…', 10000);
   for (const f of files) {
-    const kind = f.type.startsWith('image/') ? 'image' : f.type.startsWith('video/') ? 'video' : f.type.startsWith('audio/') ? 'audio' : null;
+    const docType = docTypeOf(f);
+    const kind = docType ? 'doc' : f.type.startsWith('image/') ? 'image' : f.type.startsWith('video/') ? 'video' : f.type.startsWith('audio/') ? 'audio' : null;
     if (!kind) { toast('Jenis file tidak didukung: ' + f.name); continue; }
+    if (kind === 'doc') {
+      state.editor.media.push(await buildDocMedia(f, docType, state.editor.note.id));
+      continue;
+    }
     if (kind === 'video' && f.size > 300e6) toast('Video besar (' + fmtSize(f.size) + '). Pertimbangkan memotongnya agar memori tidak cepat penuh.', 5000);
     let blob = f;
     let thumb = null;
@@ -565,7 +882,7 @@ async function saveEditor(navigate = true) {
   }
   ed.removed.forEach((id) => state.mediaMeta.delete(id));
   ed.media.forEach((m) => { const { blob, thumb, ...meta } = strip(m); state.mediaMeta.set(m.id, meta); });
-  n.mediaIds = ed.media.map((m) => m.id);
+  n.mediaIds = [...ed.media.map((m) => m.id), ...ed.archived];
   state.notes.set(n.id, n);
   indexNote(n);
   state.editor = null;
@@ -678,7 +995,7 @@ async function importBackup(file) {
   try {
     toast('Memulihkan…', 20000);
     const files = await readZip(file);
-    const manifest = files.get('catatan-koas.json');
+    const manifest = await entryBlob(files.get('catatan-koas.json'));
     if (!manifest) throw new Error('Bukan file backup Catatan Koas');
     const data = JSON.parse(await manifest.text());
     let added = 0, updated = 0, skipped = 0;
@@ -695,7 +1012,7 @@ async function importBackup(file) {
     const mediaToPut = [];
     for (const m of data.media) {
       if (!keep.has(m.noteId) || state.mediaMeta.has(m.id)) continue;
-      const blob = files.get(m.path);
+      const blob = await entryBlob(files.get(m.path));
       if (!blob) continue;
       const { path, ...meta } = m;
       let thumb = null;

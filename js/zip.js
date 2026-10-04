@@ -73,33 +73,47 @@ export async function createZip(entries) {
   return new Blob([...parts, ...central, end.buffer], { type: 'application/zip' });
 }
 
-// Membaca ZIP buatan aplikasi ini (atau ZIP lain tanpa kompresi). Mengembalikan Map nama -> Blob.
+// Membaca daftar isi ZIP (backup aplikasi ini, juga .docx/.pptx yang memakai kompresi deflate).
+// Mengembalikan Map nama -> entri; ambil isinya dengan entryBlob(entri).
 export async function readZip(blob) {
-  const buf = new DataView(await blob.arrayBuffer());
+  const tailStart = Math.max(0, blob.size - 65557);
+  const tail = new DataView(await blob.slice(tailStart).arrayBuffer());
   let eocd = -1;
-  for (let i = buf.byteLength - 22; i >= Math.max(0, buf.byteLength - 65557); i--) {
-    if (buf.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+  for (let i = tail.byteLength - 22; i >= 0; i--) {
+    if (tail.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
   }
   if (eocd < 0) throw new Error('File bukan ZIP yang valid');
-  const count = buf.getUint16(eocd + 10, true);
-  let p = buf.getUint32(eocd + 16, true);
+  const count = tail.getUint16(eocd + 10, true);
+  const cdSize = tail.getUint32(eocd + 12, true);
+  const cdOffset = tail.getUint32(eocd + 16, true);
+  const cd = new DataView(await blob.slice(cdOffset, cdOffset + cdSize).arrayBuffer());
   const dec = new TextDecoder();
   const out = new Map();
+  let p = 0;
   for (let i = 0; i < count; i++) {
-    if (buf.getUint32(p, true) !== 0x02014b50) throw new Error('Struktur ZIP rusak');
-    const method = buf.getUint16(p + 10, true);
-    const size = buf.getUint32(p + 20, true);
-    const nameLen = buf.getUint16(p + 28, true);
-    const extraLen = buf.getUint16(p + 30, true);
-    const commentLen = buf.getUint16(p + 32, true);
-    const local = buf.getUint32(p + 42, true);
-    const name = dec.decode(new Uint8Array(buf.buffer, p + 46, nameLen));
-    if (method !== 0) throw new Error('ZIP terkompresi belum didukung: ' + name);
-    const lNameLen = buf.getUint16(local + 26, true);
-    const lExtraLen = buf.getUint16(local + 28, true);
-    const start = local + 30 + lNameLen + lExtraLen;
-    out.set(name, blob.slice(start, start + size));
+    if (cd.getUint32(p, true) !== 0x02014b50) throw new Error('Struktur ZIP rusak');
+    const method = cd.getUint16(p + 10, true);
+    const compressed = cd.getUint32(p + 20, true);
+    const size = cd.getUint32(p + 24, true);
+    const nameLen = cd.getUint16(p + 28, true);
+    const extraLen = cd.getUint16(p + 30, true);
+    const commentLen = cd.getUint16(p + 32, true);
+    const local = cd.getUint32(p + 42, true);
+    const name = dec.decode(new Uint8Array(cd.buffer, p + 46, nameLen));
+    out.set(name, { name, method, compressed, size, local, zip: blob });
     p += 46 + nameLen + extraLen + commentLen;
   }
   return out;
+}
+
+export async function entryBlob(entry) {
+  if (!entry) return null;
+  const head = new DataView(await entry.zip.slice(entry.local, entry.local + 30).arrayBuffer());
+  const start = entry.local + 30 + head.getUint16(26, true) + head.getUint16(28, true);
+  const raw = entry.zip.slice(start, start + entry.compressed);
+  if (entry.method === 0) return raw;
+  if (entry.method === 8 && typeof DecompressionStream !== 'undefined') {
+    return new Response(raw.stream().pipeThrough(new DecompressionStream('deflate-raw'))).blob();
+  }
+  throw new Error('Format kompresi tidak didukung browser ini: ' + entry.name);
 }
