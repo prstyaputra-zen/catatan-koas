@@ -281,3 +281,20 @@ body.noscroll { overflow: hidden; }
 .hl { position: absolute; z-index: 1; background: rgba(255, 221, 0, .5); mix-blend-mode: multiply; border-radius: 2px; pointer-events: none; }
 .hl.cur { background: rgba(255, 140, 0, .6); box-shadow: 0 0 0 2px #ea580c; }
 .pdfpage canvas ~ .pno { display: none; }
+
+/* Sinkron */
+.syncbtn { font-size: 22px; position: relative; }
+.syncbtn[data-status="busy"] { animation: spin 1s linear infinite; color: var(--accent); }
+.syncbtn[data-status="pending"]::after, .syncbtn[data-status="error"]::after {
+  content: ''; position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; border-radius: 4px; background: #f59e0b;
+}
+.syncbtn[data-status="error"]::after { background: var(--danger); }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .syncbtn[data-status="busy"] { animation: none; } }
+.settings .field {
+  flex: 1 1 200px; min-width: 0; height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius: 12px;
+  background: var(--bg); color: var(--text); font: inherit; font-size: 16px; outline: 0;
+}
+.settings .field:focus { border-color: var(--accent); }
+.settings details { margin-top: 10px; color: var(--muted); font-size: 14px; }
+.sync-status { font-size: 13px; }

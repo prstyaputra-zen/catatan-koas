@@ -80,6 +80,10 @@ export const db = {
     r.onsuccess = () => r.result.forEach((k) => ms.delete(k));
   }),
 
+  deleteMedia: (ids) => tx(['media'], 'readwrite', (t) => {
+    ids.forEach((id) => t.objectStore('media').delete(id));
+  }),
+
   putRaw: (notes, media) => tx(['notes', 'media'], 'readwrite', (t) => {
     notes.forEach((n) => t.objectStore('notes').put(n));
     media.forEach((m) => t.objectStore('media').put(m));

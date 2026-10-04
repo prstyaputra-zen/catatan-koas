@@ -1,9 +1,10 @@
 import { db } from './db.js';
 import { SearchIndex, normalize, tokenize } from './search.js';
 import { createZip, readZip, entryBlob } from './zip.js';
+import * as sync from './sync.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects } from './docs.js';
 
-const APP_VERSION = '0.3.0';
+const APP_VERSION = '0.4.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -331,14 +332,18 @@ async function renderNote(id) {
     </article>`;
   $('#pin').onclick = async () => {
     n.pinned = !n.pinned;
+    n.updated = Date.now();
     const { mediaIds, ...stored } = n;
     await db.saveNote(stored);
+    scheduleSync();
     $('#pin').textContent = n.pinned ? '📌' : '📍';
     toast(n.pinned ? 'Disematkan di atas daftar' : 'Sematan dilepas');
   };
   $('#del').onclick = async () => {
     if (!confirm('Hapus catatan ini beserta semua medianya? Tidak bisa dibatalkan.')) return;
     await db.deleteNote(n.id);
+    await addTombstone(n.id);
+    scheduleSync();
     n.mediaIds.forEach((m) => state.mediaMeta.delete(m));
     state.index.remove(n.id);
     state.notes.delete(n.id);
@@ -690,6 +695,7 @@ async function saveNewVersion(note, old, file) {
   note.mediaIds.push(nm.id);
   indexNote(note);
   toast('Versi baru disimpan. Versi lama tetap bisa dibuka.', 4000);
+  scheduleSync();
   renderNote(note.id);
 }
 
@@ -709,6 +715,7 @@ async function docToNote(parent, m) {
   state.notes.set(n.id, n);
   indexNote(n);
   toast('Catatan baru dibuat dari dokumen. Silakan edit.', 4000);
+  scheduleSync();
   location.hash = '#/ubah/' + n.id;
 }
 
@@ -1003,6 +1010,7 @@ async function saveEditor(navigate = true) {
   state.editor = null;
   requestPersistence();
   toast('Tersimpan');
+  scheduleSync();
   if (navigate) location.replace('#/catatan/' + n.id);
   return true;
 }
@@ -1015,6 +1023,9 @@ async function renderSettings() {
   const persisted = navigator.storage?.persisted ? await navigator.storage.persisted() : null;
   const lastBackup = await db.getMeta('lastBackup');
   const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  const syncHtml = await syncSectionHtml();
+  // Halaman ini dirender asinkron; jangan menimpa tampilan lain bila pengguna sudah pindah.
+  if (location.hash !== '#/pengaturan') return;
   view().innerHTML = `
     <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Pengaturan</span></div>
     <div class="settings">
@@ -1028,6 +1039,7 @@ async function renderSettings() {
         <ol><li>Buka halaman ini di <b>Safari</b>.</li><li>Ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas).</li><li>Pilih <b>Tambah ke Layar Utama</b>.</li></ol>
         <p>Setelah itu aplikasi terbuka seperti app biasa dan berjalan tanpa internet.</p>
       </section>`}
+      ${syncHtml}
       <section>
         <h4>Backup</h4>
         <p>Terakhir: <b>${lastBackup ? fmtDate(lastBackup) : 'belum pernah'}</b>. Simpan file backup ke laptop, iCloud Drive, atau hard disk. File berisi catatan (juga dalam format Markdown, bisa dibuka di Obsidian) dan semua media.</p>
@@ -1035,13 +1047,14 @@ async function renderSettings() {
       </section>
       <section>
         <h4>Privasi pasien</h4>
-        <p>Semua data hanya ada di perangkat ini, tidak dikirim ke server mana pun. Tetap hindari menyimpan nama, No. RM, NIK, alamat, atau wajah pasien. Minta izin sebelum memotret atau merekam, dan ikuti aturan rumah sakit.</p>
+        <p>Data tersimpan di perangkat ini. Jika sinkron aktif, salinannya dienkripsi dengan kata sandi sinkronmu sebelum disimpan di Google Drive, sehingga Google tidak bisa membaca isinya. Tetap hindari menyimpan nama, No. RM, NIK, alamat, atau wajah pasien. Minta izin sebelum memotret atau merekam, dan ikuti aturan rumah sakit.</p>
       </section>
       <section>
         <h4>Tentang</h4>
         <p>Catatan Koas versi ${APP_VERSION} · ${navigator.onLine ? 'online' : 'offline'} · siap dipakai tanpa internet setelah dibuka sekali.</p>
       </section>
     </div>`;
+  bindSyncSection();
   $('#export').onclick = exportBackup;
   $('#import').onchange = (e) => e.target.files[0] && importBackup(e.target.files[0]);
 }
@@ -1143,6 +1156,7 @@ async function importBackup(file) {
     }
     requestPersistence();
     toast(`Pulih: ${added} baru, ${updated} diperbarui, ${skipped} sudah ada`, 5000);
+    scheduleSync();
     renderSettings();
   } catch (e) {
     console.error(e);
@@ -1210,12 +1224,171 @@ window.addEventListener('beforeunload', (e) => {
   if (state.editor?.dirty) { e.preventDefault(); e.returnValue = ''; }
 });
 
+
+// ---------- Sinkronisasi Google Drive ----------
+
+let syncing = false;
+let syncTimer = null;
+
+async function addTombstone(id) {
+  const list = (await db.getMeta('tombstones')) || [];
+  list.push({ id, at: Date.now() });
+  await db.setMeta('tombstones', list);
+}
+
+async function reloadAll() {
+  state.notes.clear();
+  state.mediaMeta.clear();
+  state.index = new SearchIndex();
+  await loadAll();
+}
+
+function scheduleSync() {
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => runSync(), 4000);
+}
+
+async function updateSyncBadge(status) {
+  const btn = $('#syncbtn');
+  if (!btn) return;
+  const enabled = await db.getMeta('syncEnabled');
+  btn.classList.toggle('hidden', !enabled);
+  if (!enabled) return;
+  if (!status) status = (await sync.getToken()) ? 'ok' : 'pending';
+  btn.dataset.status = status;
+  btn.title = { ok: 'Sinkron', busy: 'Sedang sinkron…', pending: 'Ketuk untuk sinkron', error: 'Sinkron gagal, ketuk untuk coba lagi' }[status];
+}
+
+async function runSync({ manual = false } = {}) {
+  if (syncing || !(await db.getMeta('syncEnabled'))) return;
+  if (state.editor) { if (manual) toast('Simpan catatan dulu, lalu sinkron.'); else scheduleSync(); return; }
+  if (!navigator.onLine) { if (manual) toast('Tidak ada internet. Sinkron otomatis saat online lagi.'); return; }
+  if (!(await sync.getToken())) {
+    await updateSyncBadge('pending');
+    if (manual) { await db.setMeta('syncAfterAuth', true); await sync.startAuth(); }
+    return;
+  }
+  syncing = true;
+  await updateSyncBadge('busy');
+  try {
+    const st = await sync.syncNow((t) => { if (manual && t) toast(t, 60000); });
+    if (st.down || st.deleted) {
+      await reloadAll();
+      if (!state.editor && !document.querySelector('.docviewer')) route();
+    }
+    await updateSyncBadge('ok');
+    if (manual) {
+      const parts = [];
+      if (st.up) parts.push(`${st.up} terkirim`);
+      if (st.down) parts.push(`${st.down} diterima`);
+      if (st.deleted) parts.push(`${st.deleted} dihapus`);
+      toast(parts.length ? 'Sinkron selesai: ' + parts.join(', ') : 'Sudah sinkron');
+    }
+    if (location.hash === '#/pengaturan' && !state.editor) renderSettings();
+  } catch (e) {
+    console.error(e);
+    if (e instanceof sync.AuthError) {
+      await updateSyncBadge('pending');
+      if (manual) { await db.setMeta('syncAfterAuth', true); await sync.startAuth(); }
+    } else {
+      await updateSyncBadge('error');
+      if (manual) toast('Sinkron gagal: ' + (e?.message || e), 6000);
+    }
+  } finally {
+    syncing = false;
+  }
+}
+
+async function syncSectionHtml() {
+  const clientId = await sync.getClientId();
+  const enabled = await db.getMeta('syncEnabled');
+  const key = await sync.getKey();
+  const token = await sync.getToken();
+  const last = await db.getMeta('lastSync');
+  let inner;
+  if (!clientId) {
+    inner = `
+      <p>Agar catatan di iPhone dan laptop otomatis sama, sambungkan ke Google Drive. Isinya dienkripsi dengan kata sandimu sebelum diunggah.</p>
+      <p>Langkah awal: tempel <b>Client ID Google</b> dari panduan Claude.</p>
+      <div class="row"><input id="g-client" class="field" placeholder="xxxx.apps.googleusercontent.com" autocapitalize="off" spellcheck="false"><button class="btn" id="g-client-save">Simpan</button></div>`;
+  } else if (enabled && key) {
+    inner = `
+      <p>Tersambung ke Google Drive. Terakhir sinkron: <b>${last ? new Date(last).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : 'belum pernah'}</b>.</p>
+      <p>Sinkron berjalan otomatis saat aplikasi dibuka dan setelah kamu menyimpan. Jika login Google sudah kedaluwarsa (setiap sekitar 1 jam), ketuk tombol di bawah atau ikon ⟳ di atas.</p>
+      <div class="row"><button class="btn" id="g-sync">⟳ Sinkron sekarang</button><button class="btn ghost" id="g-off">Putuskan</button></div>`;
+  } else if (!token) {
+    inner = `
+      <p>Sambungkan ke Google Drive agar catatan, foto, dan dokumen sama di semua perangkat. Data disimpan di folder aplikasi tersembunyi di Drive-mu, terenkripsi.</p>
+      <div class="row"><button class="btn" id="g-connect">Hubungkan Google Drive</button></div>
+      <details><summary>Ganti Client ID</summary><div class="row"><input id="g-client" class="field" value="${esc(clientId)}" autocapitalize="off" spellcheck="false"><button class="btn ghost" id="g-client-save">Simpan</button></div></details>`;
+  } else {
+    let hasRemote = null;
+    try { hasRemote = await sync.remoteHasPassword(token); } catch (e) { hasRemote = null; }
+    inner = hasRemote === null
+      ? `<p>Google Drive tidak bisa dihubungi. Periksa internet lalu buka halaman ini lagi.</p>`
+      : hasRemote
+        ? `<p>Drive ini sudah dipakai perangkat lain. Masukkan <b>kata sandi sinkron</b> yang kamu buat di sana.</p>
+           <div class="row"><input id="g-pass" class="field" type="password" placeholder="Kata sandi sinkron" autocomplete="current-password"><button class="btn" id="g-pass-save">Sambungkan</button></div>`
+        : `<p>Buat <b>kata sandi sinkron</b> (minimal 8 karakter). Kata sandi ini mengenkripsi catatanmu di Drive dan diperlukan saat menyambungkan perangkat lain. Jika lupa, data di Drive tidak bisa dibuka, tapi data di perangkat tetap aman.</p>
+           <div class="row"><input id="g-pass" class="field" type="password" placeholder="Kata sandi baru" autocomplete="new-password"><input id="g-pass2" class="field" type="password" placeholder="Ulangi kata sandi" autocomplete="new-password"><button class="btn" id="g-pass-save">Buat & sinkron</button></div>`;
+  }
+  return `<section class="sync"><h4>Sinkron iPhone & laptop (Google Drive)</h4>${inner}<p class="sync-status" id="g-status"></p></section>`;
+}
+
+function bindSyncSection() {
+  const status = (t) => { const el = $('#g-status'); if (el) el.textContent = t; };
+  $('#g-client-save') && ($('#g-client-save').onclick = async () => {
+    const v = $('#g-client').value.trim();
+    if (!/\.apps\.googleusercontent\.com$/.test(v)) { toast('Client ID biasanya berakhiran .apps.googleusercontent.com'); return; }
+    await db.setMeta('gClientId', v);
+    renderSettings();
+  });
+  $('#g-connect') && ($('#g-connect').onclick = () => sync.startAuth().catch((e) => toast(e.message)));
+  $('#g-sync') && ($('#g-sync').onclick = () => runSync({ manual: true }));
+  $('#g-off') && ($('#g-off').onclick = async () => {
+    if (!confirm('Putuskan sinkronisasi di perangkat ini? Catatan di perangkat dan di Drive tetap ada.')) return;
+    await sync.disconnect();
+    await updateSyncBadge();
+    renderSettings();
+  });
+  $('#g-pass-save') && ($('#g-pass-save').onclick = async () => {
+    const pass = $('#g-pass').value;
+    const pass2 = $('#g-pass2');
+    if (pass.length < 8) { toast('Kata sandi minimal 8 karakter'); return; }
+    if (pass2 && pass2.value !== pass) { toast('Kedua kata sandi tidak sama'); return; }
+    const btn = $('#g-pass-save');
+    btn.disabled = true;
+    status('Menyiapkan enkripsi…');
+    try {
+      const token = await sync.getToken();
+      if (!token) throw new sync.AuthError('Login Google kedaluwarsa');
+      await sync.setupPassword(token, pass);
+      await db.setMeta('syncEnabled', true);
+      await updateSyncBadge();
+      status('');
+      await runSync({ manual: true });
+      renderSettings();
+    } catch (e) {
+      status('');
+      btn.disabled = false;
+      if (e instanceof sync.AuthError) { toast('Login Google kedaluwarsa, hubungkan lagi.'); renderSettings(); }
+      else toast(e?.message || String(e), 5000);
+    }
+  });
+}
+
 function updateOnline() {
   $('#net').textContent = navigator.onLine ? '' : 'offline';
   $('#net').classList.toggle('hidden', navigator.onLine);
 }
 
 async function start() {
+  let authResult = null;
+  try {
+    authResult = await sync.handleAuthRedirect();
+  } catch (e) {
+    authResult = 'Login Google gagal: ' + (e?.message || e);
+  }
   try {
     await loadAll();
   } catch (e) {
@@ -1227,6 +1400,22 @@ async function start() {
   window.addEventListener('offline', updateOnline);
   updateOnline();
   route();
+  await updateSyncBadge();
+  $('#syncbtn').onclick = () => runSync({ manual: true });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') runSync(); });
+  window.addEventListener('online', () => runSync());
+  if (authResult === 'ok') {
+    if (await db.getMeta('syncAfterAuth')) {
+      await db.setMeta('syncAfterAuth', false);
+      runSync({ manual: true });
+    } else {
+      toast('Google Drive tersambung');
+    }
+  } else if (authResult) {
+    toast(authResult, 6000);
+  } else {
+    runSync();
+  }
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }

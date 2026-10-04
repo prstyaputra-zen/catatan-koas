@@ -12,6 +12,12 @@ Aplikasi catatan klinis pribadi (PWA) untuk iPhone dan laptop. Semua data tersim
 - (0.2) Dokumen PDF, Word, PowerPoint, dan teks disimpan utuh. Isinya diekstrak di perangkat dan ikut dicari, lengkap dengan nomor halaman.
 - (0.2) Pembaca PDF bawaan, pratinjau teks Word/PowerPoint, "Buka di…" untuk mengedit di Word/Pages, riwayat versi, dan "Jadikan catatan".
 
+- (0.3) Sorotan kuning kata yang dicari di halaman PDF, cari di dalam dokumen dengan tombol lompat.
+- (0.4) Sinkron otomatis iPhone dan laptop lewat folder aplikasi tersembunyi di Google Drive, terenkripsi end-to-end (PBKDF2 + AES-GCM) dengan kata sandi sinkron.
+
+## Sinkron Google Drive
+Isi `googleClientId` di `js/config.js` (OAuth Client ID tipe Web application, origin `https://prstyaputra-zen.github.io`, redirect URI `https://prstyaputra-zen.github.io/catatan-koas/`, scope `drive.appdata`), atau tempel di Pengaturan aplikasi.
+
 ## Menjalankan
 Butuh hosting HTTPS statis (GitHub Pages, Netlify, Cloudflare Pages). Untuk uji lokal: `npx http-server .` lalu buka http://localhost:8080.
 
