@@ -160,3 +160,36 @@ export async function extractDocument(file, docType, onProgress) {
   }
   return { pages: [], pageCount: null };
 }
+
+// Posisi kata yang cocok di satu halaman PDF, dalam pecahan lebar/tinggi halaman (0..1),
+// agar sorotan tetap pas di semua tingkat zoom. Urutannya mengikuti urutan teks halaman.
+let measureCtx = null;
+export async function pageMatchRects(page, isMatch) {
+  const pdfjs = await loadPdfjs();
+  const vp = page.getViewport({ scale: 1 });
+  const tc = await page.getTextContent();
+  measureCtx ||= document.createElement('canvas').getContext('2d');
+  const rects = [];
+  for (const item of tc.items) {
+    if (!item.str) continue;
+    const words = [...item.str.matchAll(/[\p{L}\p{N}]+/gu)].filter((w) => isMatch(w[0]));
+    if (!words.length) continue;
+    const tx = pdfjs.Util.transform(vp.transform, item.transform);
+    const fontH = Math.hypot(tx[2], tx[3]);
+    if (!fontH || Math.abs(tx[1]) > Math.abs(tx[0])) continue; // teks miring/vertikal dilewati
+    measureCtx.font = `${Math.max(8, fontH)}px ${item.fontName && tc.styles[item.fontName]?.fontFamily || 'sans-serif'}`;
+    const full = measureCtx.measureText(item.str).width || 1;
+    const totalW = item.width || full;
+    for (const w of words) {
+      const x0 = (measureCtx.measureText(item.str.slice(0, w.index)).width / full) * totalW;
+      const ww = (measureCtx.measureText(w[0]).width / full) * totalW;
+      rects.push({
+        x: (tx[4] + x0 - 1) / vp.width,
+        y: (tx[5] - fontH * 0.82) / vp.height,
+        w: (ww + 2) / vp.width,
+        h: (fontH * 1.08) / vp.height,
+      });
+    }
+  }
+  return rects;
+}

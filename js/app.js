@@ -1,9 +1,9 @@
 import { db } from './db.js';
-import { SearchIndex, normalize } from './search.js';
+import { SearchIndex, normalize, tokenize } from './search.js';
 import { createZip, readZip, entryBlob } from './zip.js';
-import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf } from './docs.js';
+import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects } from './docs.js';
 
-const APP_VERSION = '0.2.0';
+const APP_VERSION = '0.3.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -420,13 +420,26 @@ async function shareOrDownload(m) {
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
 }
 
+function countTerms(text, terms) {
+  let n = 0;
+  for (const m of text.matchAll(/[\p{L}\p{N}]+/gu)) if (terms.has(normalize(m[0]))) n++;
+  return n;
+}
+
+// Kata yang disorot untuk kueri: hasil perluasan indeks (sinonim, awalan, salah ketik) plus kata kueri itu sendiri.
+function termsForQuery(q) {
+  if (!q.trim()) return new Set();
+  return new Set([...state.index.search(q).terms, ...tokenize(q)]);
+}
+
 async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
   const m = await db.getMedia(mediaId);
   if (!m) return;
   const isCurrent = !m.supersededBy;
-  const hits = pagesWithTerms(m, terms);
   const older = isCurrent ? olderVersions(m.id) : [];
-  const urls = [];
+  const hasText = (m.docPages || []).join('').trim().length > 0;
+  let query = terms && terms.size ? state.query : '';
+  terms = terms || new Set();
   const ov = document.createElement('div');
   ov.className = 'docviewer';
   ov.innerHTML = `
@@ -438,46 +451,92 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
     <div class="dv-actions">
       <button class="btn small" data-act="open">${m.docType === 'docx' ? 'Edit di Word / Pages' : 'Buka di…'}</button>
       ${isCurrent ? '<label class="btn small ghost">Simpan versi baru<input type="file" hidden data-act="newver"></label>' : ''}
-      ${(m.docPages || []).join('').trim() ? '<button class="btn small ghost" data-act="tonote">Jadikan catatan</button>' : ''}
+      ${hasText ? '<button class="btn small ghost" data-act="tonote">Jadikan catatan</button>' : ''}
     </div>
-    ${hits.length && m.pageCount ? `<div class="dv-hits">Ditemukan di: ${hits.slice(0, 30).map((i) => `<button class="chip" data-page="${i}">hal. ${i + 1}</button>`).join('')}</div>` : ''}
+    ${hasText ? `<div class="dv-find">
+      <input id="dv-q" type="search" placeholder="Cari di dokumen ini" value="${esc(query)}" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+      <span class="dv-count" id="dv-count"></span>
+      <button class="iconbtn" data-act="prev" aria-label="Hasil sebelumnya">⌃</button>
+      <button class="iconbtn" data-act="next" aria-label="Hasil berikutnya">⌄</button>
+    </div>` : ''}
     <div class="dv-body"></div>
     ${older.length ? `<div class="dv-versions"><h4 class="section">Versi sebelumnya</h4>${older.map((v) => `<div class="dv-ver"><span>${fmtDate(v.created)} · ${fmtSize(v.size)}</span><button class="btn small ghost" data-ver="${v.id}">Buka</button></div>`).join('')}</div>` : ''}`;
   document.body.appendChild(ov);
   document.body.classList.add('noscroll');
   const body = ov.querySelector('.dv-body');
+  const countEl = ov.querySelector('#dv-count');
   const newVerInput = ov.querySelector('[data-act="newver"]');
   if (newVerInput) newVerInput.accept = DOC_ACCEPT;
   let pdf = null;
   let observer = null;
   let zoom = 1;
+  let matches = []; // { page, k }: kemunculan ke-k di halaman itu
+  let cur = -1;
+  // Diisi oleh mode PDF atau mode teks di bawah.
+  let applyTerms = () => {};
+  let showMatch = () => {};
+  let setZoom = () => {};
 
   const close = () => {
     observer?.disconnect();
     closePdf(pdf);
-    urls.forEach((u) => URL.revokeObjectURL(u));
     ov.remove();
     document.body.classList.remove('noscroll');
     window.removeEventListener('hashchange', close);
   };
   window.addEventListener('hashchange', close);
 
+  const updateCount = () => {
+    if (!countEl) return;
+    countEl.textContent = !query.trim() ? '' : matches.length ? `${cur + 1}/${matches.length}` : 'Tidak ada';
+  };
+  const goTo = (i) => {
+    if (!matches.length) { updateCount(); return; }
+    cur = (i + matches.length) % matches.length;
+    updateCount();
+    showMatch(matches[cur]);
+  };
+  const recompute = () => {
+    matches = [];
+    if (terms.size) (m.docPages || []).forEach((t, page) => {
+      const n = countTerms(t, terms);
+      for (let k = 0; k < n; k++) matches.push({ page, k });
+    });
+    cur = -1;
+    applyTerms();
+  };
+
   ov.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-act],[data-page],[data-ver]');
+    const t = e.target.closest('[data-act],[data-ver]');
     if (!t) return;
-    if (t.dataset.page) return jumpTo(+t.dataset.page);
     if (t.dataset.ver) { close(); return openDocViewer(note, t.dataset.ver, 0, terms); }
     const act = t.dataset.act;
     if (act === 'close') close();
     else if (act === 'open') shareOrDownload(m);
     else if (act === 'tonote') { close(); docToNote(note, m); }
     else if (act === 'zoomin' || act === 'zoomout') setZoom(act === 'zoomin' ? 1.5 : 1 / 1.5);
+    else if (act === 'next') goTo(cur + 1);
+    else if (act === 'prev') goTo(cur - 1);
   });
   newVerInput?.addEventListener('change', async (e) => {
     const f = e.target.files[0];
     if (!f) return;
     close();
     await saveNewVersion(note, m, f);
+  });
+  const qInput = ov.querySelector('#dv-q');
+  let qTimer;
+  qInput?.addEventListener('input', () => {
+    clearTimeout(qTimer);
+    qTimer = setTimeout(() => {
+      query = qInput.value;
+      terms = termsForQuery(query);
+      recompute();
+      goTo(0);
+    }, 200);
+  });
+  qInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); goTo(cur + (e.shiftKey ? -1 : 1)); qInput.blur(); }
   });
 
   if (m.docType === 'pdf') {
@@ -503,6 +562,40 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
       pages.push(d);
     }
     const rendering = new Map();
+    const rectCache = new Map(); // nomor halaman -> posisi sorotan untuk kata yang sedang dicari
+    let pending = null; // hasil yang ingin disorot setelah halamannya selesai digambar
+
+    const focusPending = (d) => {
+      if (!pending || pending.page + 1 !== +d.dataset.no) return;
+      const els = d.querySelectorAll('.hl');
+      if (!els.length) return;
+      body.querySelectorAll('.hl.cur').forEach((x) => x.classList.remove('cur'));
+      const el = els[Math.min(pending.k, els.length - 1)];
+      el.classList.add('cur');
+      el.scrollIntoView({ block: 'center', inline: 'center' });
+      pending = null;
+    };
+    const drawHighlights = async (d) => {
+      const no = +d.dataset.no;
+      d.querySelectorAll('.hl').forEach((x) => x.remove());
+      if (!terms.size || !matches.some((mt) => mt.page === no - 1)) return;
+      const termsAtStart = terms;
+      let rects = rectCache.get(no);
+      if (!rects) {
+        const page = await pdf.getPage(no);
+        rects = await pageMatchRects(page, (w) => termsAtStart.has(normalize(w)));
+        if (termsAtStart !== terms) return; // kueri berubah saat menghitung
+        rectCache.set(no, rects);
+      }
+      d.querySelectorAll('.hl').forEach((x) => x.remove());
+      for (const r of rects) {
+        const hl = document.createElement('span');
+        hl.className = 'hl';
+        hl.style.cssText = `left:${r.x * 100}%;top:${r.y * 100}%;width:${r.w * 100}%;height:${r.h * 100}%`;
+        d.appendChild(hl);
+      }
+      focusPending(d);
+    };
     const render = async (d) => {
       const no = +d.dataset.no;
       if (rendering.has(no)) return;
@@ -510,8 +603,7 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
         const page = await pdf.getPage(no);
         const base = page.getViewport({ scale: 1 });
         d.style.aspectRatio = `${base.width} / ${base.height}`;
-        const cssW = d.clientWidth;
-        const scale = (cssW / base.width) * Math.min(2, window.devicePixelRatio || 1);
+        const scale = (d.clientWidth / base.width) * Math.min(2, window.devicePixelRatio || 1);
         const vp = page.getViewport({ scale });
         const c = document.createElement('canvas');
         c.width = Math.round(vp.width);
@@ -519,7 +611,9 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
         await page.render({ canvasContext: c.getContext('2d'), canvas: c, viewport: vp }).promise;
         if (!rendering.has(no)) return;
         d.querySelector('canvas')?.remove();
-        d.appendChild(c);
+        d.prepend(c);
+        if (!d.querySelector('.hl')) await drawHighlights(d);
+        else focusPending(d);
       })().catch(() => {});
       rendering.set(no, task);
     };
@@ -532,27 +626,48 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
       entries.forEach((en) => (en.isIntersecting ? render(en.target) : unrender(en.target)));
     }, { root: body, rootMargin: '1200px 0px' });
     pages.forEach((d) => observer.observe(d));
-    var jumpTo = (i) => pages[i]?.scrollIntoView({ block: 'start' });
-    var setZoom = (f) => {
+
+    applyTerms = () => {
+      rectCache.clear();
+      pages.forEach((d) => (rendering.has(+d.dataset.no) ? drawHighlights(d) : d.querySelectorAll('.hl').forEach((x) => x.remove())));
+    };
+    showMatch = (mt) => {
+      pending = mt;
+      const d = pages[mt.page];
+      if (!d) return;
+      d.scrollIntoView({ block: 'start' });
+      focusPending(d);
+    };
+    setZoom = (f) => {
       zoom = Math.min(4, Math.max(1, zoom * f));
       body.style.setProperty('--zoom', zoom);
       pages.forEach((d) => { if (rendering.has(+d.dataset.no)) { unrender(d); render(d); } });
     };
-    requestAnimationFrame(() => jumpTo(startPage));
+    recompute();
+    const firstOnPage = matches.findIndex((mt) => mt.page >= startPage);
+    if (firstOnPage >= 0) requestAnimationFrame(() => goTo(firstOnPage));
+    else requestAnimationFrame(() => pages[startPage]?.scrollIntoView({ block: 'start' }));
   } else {
-    var setZoom = () => {};
     const parts = m.docPages || [];
-    if (!parts.join('').trim()) {
+    if (!hasText) {
       body.innerHTML = `<p class="dv-loading">Pratinjau tidak tersedia untuk file ini. File asli tersimpan utuh. Gunakan “Buka di…” untuk membukanya di aplikasi lain.</p>`;
-      var jumpTo = () => {};
-    } else {
+      return;
+    }
+    applyTerms = () => {
       body.innerHTML = `<p class="dv-note">Pratinjau teks. Format asli (tabel, gambar, gaya) tetap utuh di file.</p>` +
         parts.map((t, i) => `<section class="dv-page" data-no="${i}">${parts.length > 1 ? `<h4 class="section">${m.docType === 'pptx' ? 'Slide' : 'Bagian'} ${i + 1}</h4>` : ''}${t.split('\n').map((l) => (l.trim() ? `<p>${highlight(l, terms)}</p>` : '')).join('')}</section>`).join('');
-      var jumpTo = (i) => body.querySelector(`.dv-page[data-no="${i}"]`)?.scrollIntoView({ block: 'start' });
-      const firstMark = body.querySelector('mark');
-      if (firstMark) requestAnimationFrame(() => firstMark.scrollIntoView({ block: 'center' }));
-    }
+      // Di mode teks, setiap <mark> adalah satu hasil, urut sesuai dokumen.
+      matches = [...body.querySelectorAll('mark')].map((el, k) => ({ page: 0, k, el }));
+    };
+    showMatch = (mt) => {
+      body.querySelectorAll('mark.cur').forEach((x) => x.classList.remove('cur'));
+      mt.el.classList.add('cur');
+      mt.el.scrollIntoView({ block: 'center' });
+    };
+    recompute();
+    if (matches.length) requestAnimationFrame(() => goTo(0));
   }
+  updateCount();
 }
 
 async function saveNewVersion(note, old, file) {
