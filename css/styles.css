@@ -172,6 +172,19 @@ figcaption { padding: 6px 10px; font-size: 13px; color: var(--muted); }
 .picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
 .pick { display: flex; flex-direction: column; gap: 4px; padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
 .pick small { color: var(--muted); }
+.pick-claude { grid-column: 1 / -1; background: var(--accent-soft); border-color: transparent; }
+
+/* Tempel dari Claude */
+.paste { display: flex; flex-direction: column; gap: 12px; }
+.paste .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.steps { margin: 0; padding: 14px 14px 14px 34px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; gap: 8px; line-height: 1.5; }
+.steps .btn { margin-top: 6px; display: inline-flex; }
+.paste-box { width: 100%; min-height: 200px; font: inherit; font-size: 16px; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; outline: 0; resize: vertical; line-height: 1.5; }
+.paste-box:focus { border-color: var(--accent); }
+.paste-preview { padding: 12px 14px; border-radius: 12px; background: var(--accent-soft); display: flex; flex-direction: column; gap: 3px; }
+.pv-title { font-weight: 600; }
+.pv-meta { font-size: 13px; color: var(--muted); word-break: break-word; }
+a.extlink { color: var(--accent); text-decoration: underline; word-break: break-all; }
 
 /* Editor */
 .editor { display: flex; flex-direction: column; gap: 10px; }

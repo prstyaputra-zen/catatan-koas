@@ -14,6 +14,7 @@ Aplikasi catatan klinis pribadi (PWA) untuk iPhone dan laptop. Semua data tersim
 
 - (0.3) Sorotan kuning kata yang dicari di halaman PDF, cari di dalam dokumen dengan tombol lompat.
 - (0.4) Sinkron otomatis iPhone dan laptop lewat folder aplikasi tersembunyi di Google Drive, terenkripsi end-to-end (PBKDF2 + AES-GCM) dengan kata sandi sinkron.
+- (0.5) "Tempel dari Claude": jawaban/rangkuman yang disalin dari aplikasi Claude dirapikan jadi catatan (judul, jenis, stase, tag, bagian, dan daftar sumber), plus prompt rangkuman siap salin. Tautan di catatan bisa diketuk.
 
 ## Sinkron Google Drive
 Isi `googleClientId` di `js/config.js` (OAuth Client ID tipe Web application, origin `https://prstyaputra-zen.github.io`, redirect URI `https://prstyaputra-zen.github.io/catatan-koas/`, scope `drive.appdata`), atau tempel di Pengaturan aplikasi.

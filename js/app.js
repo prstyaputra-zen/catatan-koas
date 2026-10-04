@@ -2,9 +2,10 @@ import { db } from './db.js';
 import { SearchIndex, normalize, tokenize } from './search.js';
 import { createZip, readZip, entryBlob } from './zip.js';
 import * as sync from './sync.js';
+import { parseClaude, CLAUDE_PROMPT } from './paste.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects } from './docs.js';
 
-const APP_VERSION = '0.4.1';
+const APP_VERSION = '0.5.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -25,6 +26,7 @@ const state = {
   filterStase: '',
   objectUrls: [],
   editor: null,
+  draft: null, // catatan hasil "Tempel dari Claude" yang menunggu dibuka di editor
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -156,8 +158,15 @@ function snippet(body, terms, len = 160) {
 // Markdown ringan: baris "Label:" ditebalkan, **tebal**, daftar, dan tautan [[Judul catatan]].
 // Isi catatan tanpa label template yang belum diisi.
 function visibleBody(body, type) {
-  const emptyLabels = new Set((TYPES[type]?.template || '').split('\n').map((l) => l.trim()).filter(Boolean));
-  return body.split('\n').filter((l) => !emptyLabels.has(l.trim())).join('\n');
+  const labels = new Set((TYPES[type]?.template || '').split('\n').map((l) => l.trim()).filter(Boolean));
+  const lines = body.split('\n');
+  // Label template disembunyikan hanya bila bagiannya kosong (isi di baris bawahnya tetap dianggap isi).
+  const isHeading = (l) => labels.has(l.trim()) || /^[^:\-•*]{1,60}:$/.test(l.trim());
+  return lines.filter((l, i) => {
+    if (!labels.has(l.trim())) return true;
+    const next = lines.slice(i + 1).find((x) => x.trim());
+    return next !== undefined && !isHeading(next);
+  }).join('\n');
 }
 
 function renderBody(body, terms, type) {
@@ -171,6 +180,7 @@ function renderBody(body, terms, type) {
     let line = listItem ? listItem[1] : raw;
     let h = highlight(line, terms);
     h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    h = h.replace(/https?:\/\/[^\s<>"]+[^\s<>".,;:)]/g, (u) => `<a href="${u}" target="_blank" rel="noopener" class="extlink">${u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 48)}${u.length > 56 ? '…' : ''}</a>`);
     h = h.replace(/\[\[(.+?)\]\]/g, (_, t) => `<a href="#/cari/${encodeURIComponent(t.replace(/<[^>]+>/g, ''))}" class="wikilink">${t}</a>`);
     const label = !listItem && h.match(/^([^:<]{1,60}):(.*)$/);
     if (label) h = `<span class="label">${label[1]}:</span>${label[2]}`;
@@ -735,6 +745,7 @@ function renderNewPicker() {
     <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Catatan baru</span></div>
     <div class="picker">
       ${Object.entries(TYPES).map(([k, t]) => `<a class="pick" href="#/baru/${k}"><span class="big">${t.icon}</span><b>${t.label}</b><small>${pickHint(k)}</small></a>`).join('')}
+      <a class="pick pick-claude" href="#/tempel"><span class="big">✨</span><b>Tempel dari Claude</b><small>Jadikan obrolan dengan Claude catatan baru</small></a>
     </div>`;
 }
 
@@ -742,22 +753,80 @@ function pickHint(k) {
   return { kasus: 'Pasien yang kamu temui', topik: 'Penyakit atau materi', obat: 'Dosis, indikasi, efek samping', prosedur: 'Langkah tindakan', bebas: 'Tanpa template' }[k];
 }
 
+// ---------- Tempel dari Claude ----------
+
+function renderPaste() {
+  releaseUrls();
+  view().innerHTML = `
+    <div class="topbar"><a href="#/baru" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Tempel dari Claude</span></div>
+    <div class="paste">
+      <ol class="steps">
+        <li>Di akhir obrolan dengan Claude, kirim prompt rangkuman ini supaya hasilnya rapi. <button type="button" class="btn small ghost" id="copyprompt">📋 Salin prompt</button></li>
+        <li>Di aplikasi Claude, ketuk <b>Salin</b> (Copy) di bawah jawabannya.</li>
+        <li>Kembali ke sini dan tempel. Jawaban biasa tanpa format juga bisa.</li>
+      </ol>
+      <div class="row"><button type="button" class="btn" id="pastebtn">📥 Tempel</button><span class="hint grow">atau tahan lalu pilih Tempel di kotak bawah</span></div>
+      <textarea id="p-text" class="paste-box" placeholder="Tempel jawaban Claude di sini…"></textarea>
+      <div id="p-preview" class="paste-preview hidden"></div>
+      <p class="hint">🔒 Periksa lagi isinya. Jawaban AI bisa keliru, cocokkan dengan guideline atau buku sebelum dipakai.</p>
+      <button type="button" class="btn" id="p-next" disabled>Lanjut ke editor</button>
+    </div>`;
+  const box = $('#p-text');
+  let parsed = null;
+  const update = () => {
+    const raw = box.value;
+    parsed = raw.trim() ? parseClaude(raw, { knownStase: allStase() }) : null;
+    $('#p-next').disabled = !parsed;
+    const pv = $('#p-preview');
+    pv.classList.toggle('hidden', !parsed);
+    if (!parsed) return;
+    const t = TYPES[parsed.type] || TYPES.bebas;
+    pv.innerHTML = `<div class="pv-title">${t.icon} ${esc(parsed.title || '(tanpa judul)')}</div>
+      <div class="pv-meta">${esc(t.label)}${parsed.stase ? ' · ' + esc(parsed.stase) : ''} · ${parsed.tags.map((x) => '#' + esc(x)).join(' ')}</div>
+      <div class="pv-meta">${parsed.body.split('\n').filter((l) => /:$/.test(l.trim())).length} bagian · ${parsed.sources.length} sumber</div>`;
+  };
+  box.addEventListener('input', update);
+  $('#pastebtn').onclick = async () => {
+    try {
+      const txt = await navigator.clipboard.readText();
+      if (!txt.trim()) { toast('Clipboard kosong. Salin jawaban Claude dulu.'); return; }
+      box.value = txt;
+      update();
+    } catch {
+      box.focus();
+      toast('Tahan di kotak teks lalu pilih Tempel', 3500);
+    }
+  };
+  $('#copyprompt').onclick = async () => {
+    try { await navigator.clipboard.writeText(CLAUDE_PROMPT); toast('Prompt disalin. Tempel di obrolan Claude.'); }
+    catch { box.value = CLAUDE_PROMPT; box.select(); toast('Salin teks prompt dari kotak, lalu hapus'); }
+  };
+  $('#p-next').onclick = () => {
+    if (!parsed) return;
+    state.draft = parsed;
+    location.hash = '#/baru/' + parsed.type;
+  };
+}
+
 async function renderEditor(id, type) {
   releaseUrls();
   const existing = id ? state.notes.get(id) : null;
   if (id && !existing) { location.hash = '#/'; return; }
+  const draft = !existing && state.draft;
+  state.draft = null;
   const note = existing
     ? { ...existing, tags: [...existing.tags] }
+    : draft ? { id: uid(), type: draft.type, title: draft.title, body: draft.body, tags: draft.tags, stase: draft.stase, pinned: false, created: Date.now(), updated: Date.now() }
     : { id: uid(), type: type || 'bebas', title: '', body: TYPES[type || 'bebas'].template, tags: [], stase: state.filterStase || '', pinned: false, created: Date.now(), updated: Date.now() };
   // Blob tidak dimuat di sini agar membuka editor tetap cepat walau lampirannya besar.
   const all = existing ? currentAndArchived(existing) : { current: [], archived: [] };
   const media = all.current.map((m) => ({ ...m, isNew: false, dirty: false }));
-  state.editor = { note, media, archived: all.archived.map((m) => m.id), removed: [], dirty: false, isNew: !existing };
+  state.editor = { note, media, archived: all.archived.map((m) => m.id), removed: [], dirty: !!draft, isNew: !existing };
 
   view().innerHTML = `
     <div class="topbar">
       <button class="iconbtn" id="cancel" aria-label="Batal">✕</button>
-      <span class="grow title">${existing ? 'Ubah catatan' : 'Catatan baru'}</span>
+      <span class="grow title">${existing ? 'Ubah catatan' : draft ? 'Periksa hasil tempel' : 'Catatan baru'}</span>
       <button class="btn small" id="save">Simpan</button>
     </div>
     <form class="editor" onsubmit="return false">
@@ -804,7 +873,8 @@ async function renderEditor(id, type) {
   $('#f-audio').onchange = (e) => addFiles(e.target.files);
   $('#f-doc').onchange = (e) => addFiles(e.target.files);
   $('#rec').onclick = startRecording;
-  if (state.editor.isNew) $('#e-title').focus();
+  if (draft) toast('Periksa dan rapikan dulu, lalu ketuk Simpan', 3500);
+  else if (state.editor.isNew) $('#e-title').focus();
   renderEditorMedia();
 }
 
@@ -1202,6 +1272,7 @@ async function route() {
   switch (page) {
     case 'catatan': return renderNote(arg);
     case 'baru': return arg ? renderEditor(null, arg) : renderNewPicker();
+    case 'tempel': return renderPaste();
     case 'ubah': return renderEditor(arg);
     case 'pengaturan': return renderSettings();
     case 'cari':
