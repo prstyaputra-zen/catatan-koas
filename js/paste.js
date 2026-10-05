@@ -1,4 +1,5 @@
 // Mengubah jawaban yang disalin dari Claude (Markdown) menjadi catatan Catatan Koas.
+import { convertTabRuns } from './table.js';
 
 // Prompt yang disalin ke Claude agar rangkumannya langsung cocok dengan format aplikasi.
 export const CLAUDE_PROMPT = `Buatkan rangkuman dari obrolan kita untuk aplikasi catatan koas-ku, dalam bahasa Indonesia, dengan format persis seperti ini:
@@ -12,6 +13,11 @@ Tag: <3-6 kata kunci, pisahkan dengan koma>
 <isi ringkas, boleh pakai poin "- ">
 
 (ulangi untuk setiap bagian yang relevan)
+
+Aturan tabel: setiap tabel yang ada di obrolan kita WAJIB ditulis ulang sebagai tabel Markdown lengkap (semua baris dan kolom, isi sel tidak diringkas), jangan diubah menjadi poin atau paragraf. Contoh:
+| Obat | Dosis |
+|---|---|
+| Parasetamol | 10-15 mg/kgBB |
 
 ## Sumber
 - <judul sumber> (<link>)
@@ -52,7 +58,8 @@ function guessType(headings, text) {
 
 // Mengembalikan { title, type, stase, tags, body, sources }.
 export function parseClaude(raw, { knownStase = [] } = {}) {
-  const text = String(raw || '').replace(/\r\n?/g, '\n').replace(/ /g, ' ').trim();
+  // Tabel yang disalin dengan memblok teks (bukan tombol Salin) datang sebagai teks bertab: ubah jadi tabel Markdown.
+  const text = convertTabRuns(String(raw || '').replace(/\r\n?/g, '\n').replace(/\u00a0/g, ' ')).text.trim();
   const meta = {};
   const headings = [];
   const out = [];
