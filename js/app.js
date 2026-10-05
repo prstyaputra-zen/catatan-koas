@@ -5,9 +5,9 @@ import * as sync from './sync.js';
 import { parseClaude, CLAUDE_PROMPT } from './paste.js';
 import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText } from './tools.js';
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
-import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects } from './docs.js';
+import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.7.1';
+const APP_VERSION = '0.8.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -86,12 +86,18 @@ function indexNote(note) {
     tags: note.tags.join(' '),
     stase: note.stase + ' ' + (TYPES[note.type]?.label || ''),
     media: media.map((m) => `${m.caption || ''} ${m.name || ''} ${m.ocrText || ''} ${m.transcript || ''}`).join(' '),
-    body: note.body,
+    body: plainBody(note.body),
     doc: media.filter((m) => m.kind === 'doc').map((m) => (m.docPages || []).join('\n')).join('\n'),
   });
 }
 
 const KIND_ICON = { image: '🖼️', video: '🎬', audio: '🎙️', doc: '📄' };
+
+// Gambar di dalam teks catatan ditulis sebagai ![keterangan](img:<id lampiran>) pada barisnya sendiri.
+const IMG_LINE = /^\s*!\[([^\]]*)\]\(img:([\w-]+)\)\s*$/;
+const IMG_REF_G = /!\[([^\]]*)\]\(img:([\w-]+)\)/g;
+const inlineImageIds = (body) => new Set([...(body || '').matchAll(IMG_REF_G)].map((x) => x[2]));
+const plainBody = (body) => (body || '').replace(IMG_REF_G, '$1');
 
 function hasTerm(text, terms) {
   for (const m of text.matchAll(/[\p{L}\p{N}]+/gu)) if (terms.has(normalize(m[0]))) return true;
@@ -144,7 +150,7 @@ function highlight(text, terms) {
 
 function snippet(body, terms, len = 160) {
   // Tabel Markdown diringkas menjadi "sel · sel" agar cuplikan tetap terbaca.
-  const text = body.replace(/^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/gm, '').replace(/^[ \t]*\|[ \t]*|[ \t]*\|[ \t]*$/gm, '').replace(/[ \t]*(?<!\\)\|[ \t]*/g, ' · ').replace(/(\s*·)+\s/g, ' · ').replace(/\s+/g, ' ').trim();
+  const text = plainBody(body).replace(/^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/gm, '').replace(/^[ \t]*\|[ \t]*|[ \t]*\|[ \t]*$/gm, '').replace(/[ \t]*(?<!\\)\|[ \t]*/g, ' · ').replace(/(\s*·)+\s/g, ' · ').replace(/\s+/g, ' ').trim();
   if (!text) return '';
   let pos = -1;
   if (terms && terms.size) {
@@ -193,6 +199,12 @@ function renderBody(body, terms, type) {
     if (block.type === 'table') { html += tableHtml(block.rows, block.header, terms); continue; }
     let inList = false;
     for (const raw of block.lines) {
+      const img = raw.match(IMG_LINE);
+      if (img) {
+        if (inList) { html += '</ul>'; inList = false; }
+        html += `<figure class="inline-img" data-mid="${esc(img[2])}"><span class="img-ph">🖼️</span>${img[1].trim() ? `<figcaption>${inlineHtml(img[1], terms)}</figcaption>` : ''}</figure>`;
+        continue;
+      }
       const listItem = raw.match(/^\s*[-*•]\s+(.*)$/);
       if (listItem && !inList) { html += '<ul>'; inList = true; }
       if (!listItem && inList) { html += '</ul>'; inList = false; }
@@ -389,8 +401,11 @@ async function renderNote(id) {
     toast('Catatan dihapus');
     location.hash = '#/';
   };
+  hydrateInlineImages(view(), n);
   const gallery = $('#gallery');
+  const inline = inlineImageIds(n.body);
   for (const meta of currentMedia(n)) {
+    if (inline.has(meta.id)) continue;
     if (meta.kind === 'doc') {
       if (!gallery.isConnected) return;
       gallery.appendChild(docFigure(n, meta, terms));
@@ -408,6 +423,140 @@ async function renderNote(id) {
     if (m.kind === 'image') el.querySelector('img').onclick = () => openLightbox(url, m.caption);
     gallery.appendChild(el);
   }
+}
+
+// Mengisi gambar di dalam teks catatan dari penyimpanan perangkat.
+async function hydrateInlineImages(root, note) {
+  for (const fig of root.querySelectorAll('figure.inline-img[data-mid]')) {
+    const m = note.mediaIds.includes(fig.dataset.mid) ? await db.getMedia(fig.dataset.mid) : null;
+    if (!fig.isConnected) return;
+    const ph = fig.querySelector('.img-ph');
+    if (!m || m.kind !== 'image') { ph.textContent = 'Gambar belum tersedia di perangkat ini'; ph.classList.add('missing'); continue; }
+    const url = objUrl(m.blob);
+    const cap = fig.querySelector('figcaption')?.textContent || m.caption || '';
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = cap || m.name || 'Gambar';
+    img.loading = 'lazy';
+    img.onclick = () => openLightbox(url, cap);
+    ph.replaceWith(img);
+  }
+}
+
+// Menyimpan gambar baru langsung ke catatan (dipakai dari penampil dokumen) dan menaruhnya di akhir teks.
+async function saveImagesToNote(note, items) {
+  const add = [];
+  const refs = [];
+  for (const it of items) {
+    const { blob, thumb } = await processImage(it.blob);
+    const id = uid();
+    add.push({ id, noteId: note.id, kind: 'image', name: it.name || 'gambar.jpg', mime: blob.type || 'image/jpeg', size: blob.size, caption: it.caption || '', blob, thumb, created: Date.now() });
+    refs.push(`![${(it.caption || '').replace(/[\[\]]/g, '')}](img:${id})`);
+  }
+  if (!add.length) return;
+  // Dikumpulkan di bawah label "Gambar:" agar tidak terbaca sebagai isi bagian terakhir (mis. Sumber).
+  const head = /^Gambar:\s*$/m.test(note.body) ? '' : 'Gambar:\n';
+  note.body = (note.body.replace(/\s+$/, '') + '\n\n' + head + refs.join('\n\n')).replace(/^\s+/, '');
+  note.updated = Date.now();
+  const { mediaIds, ...stored } = note;
+  try {
+    await db.saveNote(stored, add);
+  } catch (e) {
+    toast('Gagal menyimpan gambar: ' + (e?.name === 'QuotaExceededError' ? 'memori penuh' : e?.message || e), 6000);
+    return;
+  }
+  add.forEach(({ blob, thumb, ...meta }) => state.mediaMeta.set(meta.id, meta));
+  note.mediaIds = [...note.mediaIds, ...add.map((m) => m.id)];
+  state.notes.set(note.id, note);
+  indexNote(note);
+  scheduleSync();
+  toast(add.length > 1 ? `${add.length} gambar disimpan ke catatan` : 'Gambar disimpan ke catatan');
+}
+
+// Memotong gambar: seret untuk memilih bagian. Mengembalikan Blob JPEG atau null bila batal.
+function cropImage(blob, title = 'Pilih bagian gambar') {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(blob);
+    const ov = document.createElement('div');
+    ov.className = 'cropper';
+    ov.innerHTML = `
+      <div class="topbar"><button class="iconbtn" data-act="cancel" aria-label="Batal">✕</button><span class="grow title">${esc(title)}</span><button class="btn small" data-act="ok">Simpan</button></div>
+      <p class="hint">Seret di gambar untuk memilih bagian yang ingin disimpan.</p>
+      <div class="crop-stage"><img src="${url}" alt="" draggable="false"><div class="crop-box"></div></div>
+      <div class="row"><button type="button" class="btn small ghost" data-act="all">Seluruh halaman</button></div>`;
+    document.body.appendChild(ov);
+    const img = ov.querySelector('img');
+    const box = ov.querySelector('.crop-box');
+    let sel = { x: 0.04, y: 0.04, w: 0.92, h: 0.92 }; // pecahan ukuran gambar
+    const draw = () => { box.style.cssText = `left:${sel.x * 100}%;top:${sel.y * 100}%;width:${sel.w * 100}%;height:${sel.h * 100}%`; };
+    draw();
+    const stage = ov.querySelector('.crop-stage');
+    let start = null;
+    const pt = (e) => {
+      const r = img.getBoundingClientRect();
+      return { x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)) };
+    };
+    stage.addEventListener('pointerdown', (e) => { e.preventDefault(); stage.setPointerCapture(e.pointerId); start = pt(e); });
+    stage.addEventListener('pointermove', (e) => {
+      if (!start) return;
+      const p = pt(e);
+      sel = { x: Math.min(start.x, p.x), y: Math.min(start.y, p.y), w: Math.abs(p.x - start.x), h: Math.abs(p.y - start.y) };
+      draw();
+    });
+    stage.addEventListener('pointerup', () => {
+      start = null;
+      if (sel.w < 0.02 || sel.h < 0.02) { sel = { x: 0, y: 0, w: 1, h: 1 }; draw(); }
+    });
+    const done = (v) => { URL.revokeObjectURL(url); ov.remove(); resolve(v); };
+    ov.addEventListener('click', (e) => {
+      const act = e.target.closest('button')?.dataset.act;
+      if (act === 'cancel') done(null);
+      else if (act === 'all') { sel = { x: 0, y: 0, w: 1, h: 1 }; draw(); }
+      else if (act === 'ok') {
+        const W = img.naturalWidth; const H = img.naturalHeight;
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(sel.w * W));
+        c.height = Math.max(1, Math.round(sel.h * H));
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, c.width, c.height);
+        ctx.drawImage(img, sel.x * W, sel.y * H, c.width, c.height, 0, 0, c.width, c.height);
+        c.toBlob((b) => done(b), 'image/jpeg', 0.9);
+      }
+    });
+  });
+}
+
+// Memilih beberapa gambar dari daftar (gambar yang tertanam di dokumen).
+function pickImages(items, title) {
+  return new Promise((resolve) => {
+    const urls = items.map((it) => URL.createObjectURL(it.blob));
+    const ov = document.createElement('div');
+    ov.className = 'cropper';
+    ov.innerHTML = `
+      <div class="topbar"><button class="iconbtn" data-act="cancel" aria-label="Batal">✕</button><span class="grow title">${esc(title)}</span><button class="btn small" data-act="ok">Simpan</button></div>
+      <div class="row"><span class="hint grow">Ketuk gambar untuk memilih.</span><button type="button" class="btn small ghost" data-act="all">Pilih semua</button></div>
+      <div class="img-pick">${items.map((it, i) => `<button type="button" class="pick-img" data-i="${i}"><img src="${urls[i]}" alt="${esc(it.name)}"><span class="check">✓</span></button>`).join('')}</div>`;
+    document.body.appendChild(ov);
+    const chosen = new Set();
+    const sync = () => {
+      ov.querySelectorAll('.pick-img').forEach((b) => b.classList.toggle('on', chosen.has(+b.dataset.i)));
+      ov.querySelector('[data-act="ok"]').textContent = chosen.size ? `Simpan (${chosen.size})` : 'Simpan';
+    };
+    const done = (v) => { urls.forEach((u) => URL.revokeObjectURL(u)); ov.remove(); resolve(v); };
+    ov.addEventListener('click', (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      if (b.dataset.i) { const i = +b.dataset.i; chosen.has(i) ? chosen.delete(i) : chosen.add(i); sync(); return; }
+      const act = b.dataset.act;
+      if (act === 'cancel') done([]);
+      else if (act === 'all') { items.forEach((_, i) => chosen.add(i)); sync(); }
+      else if (act === 'ok') {
+        if (!chosen.size) { toast('Pilih minimal satu gambar'); return; }
+        done([...chosen].sort((a, b2) => a - b2).map((i) => items[i]));
+      }
+    });
+  });
 }
 
 function relatedHtml(n) {
@@ -496,6 +645,8 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
       <button class="btn small" data-act="open">${m.docType === 'docx' ? 'Edit di Word / Pages' : 'Buka di…'}</button>
       ${isCurrent ? '<label class="btn small ghost">Simpan versi baru<input type="file" hidden data-act="newver"></label>' : ''}
       ${hasText ? '<button class="btn small ghost" data-act="tonote">Jadikan catatan</button>' : ''}
+      ${m.docType === 'pdf' ? '<button class="btn small ghost" data-act="grab">✂️ Ambil gambar</button>' : ''}
+      ${['docx', 'pptx', 'xlsx'].includes(m.docType) ? '<button class="btn small ghost" data-act="docimgs">🖼️ Gambar di dokumen</button>' : ''}
     </div>
     ${hasText ? `<div class="dv-find">
       <input id="dv-q" type="search" placeholder="Cari di dokumen ini" value="${esc(query)}" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
@@ -558,6 +709,8 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
     if (act === 'close') close();
     else if (act === 'open') shareOrDownload(m);
     else if (act === 'tonote') { close(); docToNote(note, m); }
+    else if (act === 'grab') grabPdfImage();
+    else if (act === 'docimgs') grabDocImages();
     else if (act === 'zoomin' || act === 'zoomout') setZoom(act === 'zoomin' ? 1.5 : 1 / 1.5);
     else if (act === 'next') goTo(cur + 1);
     else if (act === 'prev') goTo(cur - 1);
@@ -582,6 +735,33 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
   qInput?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); goTo(cur + (e.shiftKey ? -1 : 1)); qInput.blur(); }
   });
+
+  // Ambil gambar dari halaman PDF yang sedang terlihat, lalu simpan ke catatan.
+  const grabPdfImage = async () => {
+    if (!pdf) return;
+    const pageEls = [...body.querySelectorAll('.pdfpage')];
+    const mid = window.innerHeight * 0.45;
+    const el = pageEls.find((d) => d.getBoundingClientRect().bottom > mid) || pageEls[0];
+    const no = +(el?.dataset.no || 1);
+    toast('Menyiapkan halaman…');
+    const pageBlob = await renderPdfPageToBlob(pdf, no, 2000, 0.92);
+    const cropped = await cropImage(pageBlob, `Halaman ${no}`);
+    if (!cropped) return;
+    await saveImagesToNote(note, [{ blob: cropped, name: `${m.name} hal ${no}.jpg`, caption: `${m.name.replace(/\.[a-z0-9]+$/i, '')}, hal. ${no}` }]);
+    close();
+    if (location.hash === '#/catatan/' + note.id) renderNote(note.id);
+  };
+  const grabDocImages = async () => {
+    let imgs = [];
+    try { imgs = await extractDocImages(m.blob); } catch (e) { console.warn(e); }
+    if (!imgs.length) { toast('Tidak ada gambar yang bisa diambil dari dokumen ini'); return; }
+    const chosen = await pickImages(imgs, `${imgs.length} gambar di dokumen`);
+    if (!chosen.length) return;
+    const base = m.name.replace(/\.[a-z0-9]+$/i, '');
+    await saveImagesToNote(note, chosen.map((it) => ({ blob: it.blob, name: it.name, caption: base })));
+    close();
+    if (location.hash === '#/catatan/' + note.id) renderNote(note.id);
+  };
 
   if (m.docType === 'pdf') {
     body.innerHTML = '<p class="dv-loading">Membuka PDF…</p>';
@@ -884,6 +1064,26 @@ function round1Next(max) {
   return Math.round((max + 0.1) * 10) / 10;
 }
 
+// ---------- Gambar di dalam teks (editor) ----------
+
+async function addInlineImages(files) {
+  files = files.filter((f) => f && f.type.startsWith('image/'));
+  if (!files.length || !state.editor) return;
+  toast('Memproses gambar…', 10000);
+  const refs = [];
+  for (const f of files) {
+    const { blob, thumb } = await processImage(f);
+    const id = uid();
+    state.editor.media.push({ id, noteId: state.editor.note.id, kind: 'image', name: f.name || 'gambar.jpg', mime: blob.type || f.type, size: blob.size, caption: '', blob, thumb, created: Date.now(), isNew: true });
+    refs.push(`![](img:${id})`);
+  }
+  if (!state.editor) return;
+  insertIntoBody(refs.join('\n\n'));
+  state.editor.dirty = true;
+  renderEditorMedia();
+  toast('Gambar disisipkan. Tulis keterangan di dalam [ ] bila perlu, lalu Simpan.', 4000);
+}
+
 // ---------- Tabel di editor ----------
 
 // Menyisipkan teks di posisi kursor (atau mengganti rentang), dengan baris kosong di sekitar tabel.
@@ -952,6 +1152,9 @@ async function importTableFile(file) {
 function onBodyPaste(e) {
   const cd = e.clipboardData;
   if (!cd) return;
+  // Gambar yang disalin (screenshot, gambar dari web atau aplikasi lain) langsung disisipkan.
+  const imgs = [...(cd.files || [])].filter((f) => f.type.startsWith('image/'));
+  if (imgs.length) { e.preventDefault(); addInlineImages(imgs); return; }
   const text = cd.getData('text/plain') || '';
   const html = cd.getData('text/html') || '';
   let out = null;
@@ -1149,6 +1352,7 @@ async function renderEditor(id, type) {
       <input id="e-tags" placeholder="Tag, pisahkan dengan koma (mis. kardio, ugd)" value="${esc(note.tags.join(', '))}" autocapitalize="off">
       <div class="body-tools">
         <button type="button" class="btn small ghost" id="t-table">▦ Tabel</button>
+        <label class="btn small ghost">🖼️ Gambar<input type="file" id="f-inline" accept="image/*" multiple hidden></label>
         <label class="btn small ghost">📊 Impor tabel Excel / CSV<input type="file" id="f-table" accept=".csv,.tsv,.xlsx,.xlsm,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></label>
       </div>
       <textarea id="e-body" placeholder="Tulis catatan… Gunakan [[Judul catatan lain]] untuk menautkan.">${esc(note.body)}</textarea>
@@ -1190,6 +1394,17 @@ async function renderEditor(id, type) {
   $('#t-table').onclick = () => editTableAtCursor();
   $('#f-table').onchange = (e) => { const f = e.target.files[0]; e.target.value = ''; if (f) importTableFile(f); };
   body.addEventListener('paste', onBodyPaste);
+  $('#f-inline').onchange = (e) => { const fs = [...e.target.files]; e.target.value = ''; addInlineImages(fs); };
+  body.addEventListener('dragover', (e) => { if (e.dataTransfer?.types?.includes('Files')) e.preventDefault(); });
+  body.addEventListener('drop', (e) => {
+    const fs = [...(e.dataTransfer?.files || [])];
+    if (!fs.length) return;
+    e.preventDefault();
+    const imgs = fs.filter((f) => f.type.startsWith('image/'));
+    const others = fs.filter((f) => !f.type.startsWith('image/'));
+    if (imgs.length) addInlineImages(imgs);
+    if (others.length) addFiles(others);
+  });
   // Posisi kursor terakhir diingat, karena membuka pemilih file atau editor tabel membuat kotak teks kehilangan fokus.
   const remember = () => { if (state.editor) state.editor.caret = [body.selectionStart, body.selectionEnd]; };
   ['input', 'select', 'click', 'keyup', 'blur'].forEach((ev) => body.addEventListener(ev, remember));
@@ -1202,6 +1417,7 @@ function renderEditorMedia() {
   const box = $('#e-media');
   if (!box) return;
   box.innerHTML = '';
+  const inTextIds = inlineImageIds($('#e-body')?.value);
   state.editor.media.forEach((m, i) => {
     const row = document.createElement('div');
     row.className = 'e-item';
@@ -1218,11 +1434,19 @@ function renderEditorMedia() {
       <div class="e-prev ${m.kind}">${preview}</div>
       <div class="e-info">
         <input placeholder="Keterangan (ikut dicari), mis. EKG ST elevasi V1-V4" value="${esc(m.caption || '')}">
-        <small>${m.kind === 'doc' ? `${esc(m.name)} · ${m.pageCount ? m.pageCount + ' ' + pageUnit(m) + ' · ' : ''}` : m.kind === 'image' ? 'Foto · ' : m.kind === 'video' ? 'Video · ' : 'Audio · '}${fmtSize(m.size)}${m.kind === 'doc' && m.docType !== 'other' && !(m.docPages || []).join('').trim() ? ' · isi tidak terbaca' : ''}</small>
+        <small>${m.kind === 'doc' ? `${esc(m.name)} · ${m.pageCount ? m.pageCount + ' ' + pageUnit(m) + ' · ' : ''}` : m.kind === 'image' ? 'Foto · ' : m.kind === 'video' ? 'Video · ' : 'Audio · '}${fmtSize(m.size)}${m.kind === 'doc' && m.docType !== 'other' && !(m.docPages || []).join('').trim() ? ' · isi tidak terbaca' : ''}${m.kind === 'image' && inTextIds.has(m.id) ? ' · di dalam teks' : ''}</small>
+        ${m.kind === 'image' && !inTextIds.has(m.id) ? '<button type="button" class="linkbtn e-inline">↩︎ Sisipkan ke teks</button>' : ''}
       </div>
-      <button type="button" class="iconbtn" aria-label="Hapus lampiran">🗑️</button>`;
+      <button type="button" class="iconbtn e-del" aria-label="Hapus lampiran">🗑️</button>`;
     row.querySelector('input').oninput = (e) => { m.caption = e.target.value; m.dirty = true; state.editor.dirty = true; };
-    row.querySelector('button').onclick = () => {
+    const ins = row.querySelector('.e-inline');
+    if (ins) ins.onclick = () => { insertIntoBody(`![${(m.caption || '').replace(/[\[\]]/g, '')}](img:${m.id})`); renderEditorMedia(); };
+    row.querySelector('.e-del').onclick = () => {
+      const bodyEl = $('#e-body');
+      if (bodyEl && inTextIds.has(m.id)) {
+        bodyEl.value = bodyEl.value.replace(new RegExp(`\\n*!\\[[^\\]]*\\]\\(img:${m.id}\\)[ \\t]*`, 'g'), '');
+        bodyEl.dispatchEvent(new Event('input', { bubbles: true }));
+      }
       if (!m.isNew) {
         state.editor.removed.push(m.id, ...olderVersions(m.id).map((v) => v.id));
         state.editor.archived = state.editor.archived.filter((id) => !state.editor.removed.includes(id));
@@ -1469,7 +1693,9 @@ async function exportBackup() {
     const mediaList = [];
     const usedNames = new Set();
     for (const n of state.notes.values()) {
-      const lines = ['---', `jenis: ${n.type}`, `stase: ${n.stase || ''}`, `tag: [${n.tags.map((t) => JSON.stringify(t)).join(', ')}]`, `dibuat: ${new Date(n.created).toISOString()}`, `diubah: ${new Date(n.updated).toISOString()}`, '---', '', `# ${n.title}`, '', n.body, ''];
+      const inline = inlineImageIds(n.body);
+      const paths = new Map();
+      const tail = [];
       for (const mid of n.mediaIds) {
         const m = await db.getMedia(mid);
         if (!m) continue;
@@ -1477,8 +1703,12 @@ async function exportBackup() {
         const { blob, thumb, ...meta } = m;
         mediaList.push({ ...meta, path });
         entries.push({ name: path, data: blob });
-        lines.push(`![[${path}]]${m.caption ? ' ' + m.caption : ''}`);
+        paths.set(m.id, path);
+        if (!inline.has(m.id)) tail.push(`![[${path}]]${m.caption ? ' ' + m.caption : ''}`);
       }
+      // Gambar di dalam teks diubah ke format Obsidian agar tampil di tempatnya.
+      const mdBody = n.body.replace(IMG_REF_G, (all, cap, id) => (paths.has(id) ? `![[${paths.get(id)}]]${cap ? '\n' + cap : ''}` : cap));
+      const lines = ['---', `jenis: ${n.type}`, `stase: ${n.stase || ''}`, `tag: [${n.tags.map((t) => JSON.stringify(t)).join(', ')}]`, `dibuat: ${new Date(n.created).toISOString()}`, `diubah: ${new Date(n.updated).toISOString()}`, '---', '', `# ${n.title}`, '', mdBody, '', ...tail];
       let base = safeName(n.title);
       let name = base;
       for (let i = 2; usedNames.has(name.toLowerCase()); i++) name = `${base} ${i}`;

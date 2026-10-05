@@ -150,7 +150,7 @@ async function extractPdf(blob, onProgress) {
   return { pages, pageCount: pages.length, thumb };
 }
 
-export async function renderPdfPageToBlob(pdf, pageNo, width) {
+export async function renderPdfPageToBlob(pdf, pageNo, width, quality = 0.75) {
   const page = await pdf.getPage(pageNo);
   const base = page.getViewport({ scale: 1 });
   const viewport = page.getViewport({ scale: width / base.width });
@@ -161,7 +161,24 @@ export async function renderPdfPageToBlob(pdf, pageNo, width) {
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   await page.render({ canvasContext: ctx, canvas, viewport }).promise;
-  return new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.75));
+  return new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+}
+
+const IMG_MIME = { png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp', bmp: 'image/bmp' };
+
+// Gambar yang tertanam di file Word / PowerPoint / Excel (folder media di dalam ZIP-nya).
+// Format vektor Office (EMF/WMF) dilewati karena tidak bisa ditampilkan browser.
+export async function extractDocImages(blob) {
+  const files = await readZip(blob);
+  const out = [];
+  for (const [name, entry] of files) {
+    const mm = name.match(/^(?:word|ppt|xl)\/media\/([^/]+)\.([a-z0-9]+)$/i);
+    if (!mm || !IMG_MIME[mm[2].toLowerCase()]) continue;
+    const b = await entryBlob(entry);
+    if (!b || b.size < 2000) continue; // ikon/garis kecil tidak berguna
+    out.push({ name: `${mm[1]}.${mm[2]}`, blob: new Blob([b], { type: IMG_MIME[mm[2].toLowerCase()] }) });
+  }
+  return out.sort((x, y) => x.name.localeCompare(y.name, undefined, { numeric: true }));
 }
 
 // Mengembalikan { pages: [teks per halaman], pageCount, thumb? }. Tidak pernah melempar galat:
