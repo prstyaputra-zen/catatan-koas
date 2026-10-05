@@ -66,7 +66,10 @@ export function parseClaude(raw, { knownStase = [] } = {}) {
     if (/^\s*```/.test(line)) { inCode = !inCode; continue; }
     if (inCode) { out.push(line); continue; }
     if (/^\s*([-*_])(\s*\1){2,}\s*$/.test(line)) continue;              // garis pemisah
-    if (/^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(line)) continue; // pemisah tabel
+    if (/^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(line)) {     // pemisah tabel
+      if (line.includes('|')) out.push(line.trim());
+      continue;
+    }
 
     const m = !out.some((l) => l.trim()) && line.match(META);
     if (m && m[2]) {
@@ -99,8 +102,12 @@ export function parseClaude(raw, { knownStase = [] } = {}) {
       continue;
     }
 
-    // Tabel Markdown: sel digabung dengan " · ".
-    if (/^\s*\|.*\|\s*$/.test(line)) line = line.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim()).join(' · ');
+    // Tabel Markdown tetap tabel (aplikasi menampilkannya sebagai tabel); hanya format sel yang dirapikan.
+    if (/^\s*\|.*\|\s*$/.test(line) && !inSources) {
+      for (const lm of line.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g)) addSource({ title: lm[1].trim(), url: lm[2] });
+      out.push(cleanInline(line.trim()));
+      continue;
+    }
     // "**Label:** isi" menjadi "Label: isi" agar tampil sebagai label seperti template.
     line = line.replace(/^\s*\*\*([^*:]{1,60}):\*\*\s*/, '$1: ').replace(/^\s*\*\*([^*:]{1,60})\*\*:\s*/, '$1: ');
     line = line.replace(/^(\s*)\d+[.)]\s+/, (_, sp) => sp + '- ').replace(/^(\s*)[*+•]\s+/, '$1- ');

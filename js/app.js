@@ -4,9 +4,10 @@ import { createZip, readZip, entryBlob } from './zip.js';
 import * as sync from './sync.js';
 import { parseClaude, CLAUDE_PROMPT } from './paste.js';
 import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText } from './tools.js';
+import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects } from './docs.js';
 
-const APP_VERSION = '0.6.0';
+const APP_VERSION = '0.7.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -142,7 +143,8 @@ function highlight(text, terms) {
 }
 
 function snippet(body, terms, len = 160) {
-  const text = body.replace(/\s+/g, ' ').trim();
+  // Tabel Markdown diringkas menjadi "sel · sel" agar cuplikan tetap terbaca.
+  const text = body.replace(/^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/gm, '').replace(/^[ \t]*\|[ \t]*|[ \t]*\|[ \t]*$/gm, '').replace(/[ \t]*(?<!\\)\|[ \t]*/g, ' · ').replace(/(\s*·)+\s/g, ' · ').replace(/\s+/g, ' ').trim();
   if (!text) return '';
   let pos = -1;
   if (terms && terms.size) {
@@ -170,25 +172,51 @@ function visibleBody(body, type) {
   }).join('\n');
 }
 
+function inlineHtml(text, terms) {
+  let h = highlight(text, terms);
+  h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  h = h.replace(/https?:\/\/[^\s<>"]+[^\s<>".,;:)]/g, (u) => `<a href="${u}" target="_blank" rel="noopener" class="extlink">${u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 48)}${u.length > 56 ? '…' : ''}</a>`);
+  h = h.replace(/\[\[(.+?)\]\]/g, (_, t) => `<a href="#/cari/${encodeURIComponent(t.replace(/<[^>]+>/g, ''))}" class="wikilink">${t}</a>`);
+  return h;
+}
+
+function tableHtml(rows, header, terms) {
+  const cell = (c, tag) => `<${tag}>${inlineHtml(c, terms)}</${tag}>`;
+  const head = header ? `<thead><tr>${rows[0].map((c) => cell(c, 'th')).join('')}</tr></thead>` : '';
+  const bodyRows = (header ? rows.slice(1) : rows).map((r) => `<tr>${r.map((c) => cell(c, 'td')).join('')}</tr>`).join('');
+  return `<div class="tbl-wrap"><table class="note-table">${head}<tbody>${bodyRows}</tbody></table></div>`;
+}
+
 function renderBody(body, terms, type) {
-  const lines = visibleBody(body, type).split('\n');
   let html = '';
-  let inList = false;
-  for (const raw of lines) {
-    const listItem = raw.match(/^\s*[-*•]\s+(.*)$/);
-    if (listItem && !inList) { html += '<ul>'; inList = true; }
-    if (!listItem && inList) { html += '</ul>'; inList = false; }
-    let line = listItem ? listItem[1] : raw;
-    let h = highlight(line, terms);
-    h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    h = h.replace(/https?:\/\/[^\s<>"]+[^\s<>".,;:)]/g, (u) => `<a href="${u}" target="_blank" rel="noopener" class="extlink">${u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 48)}${u.length > 56 ? '…' : ''}</a>`);
-    h = h.replace(/\[\[(.+?)\]\]/g, (_, t) => `<a href="#/cari/${encodeURIComponent(t.replace(/<[^>]+>/g, ''))}" class="wikilink">${t}</a>`);
-    const label = !listItem && h.match(/^([^:<]{1,60}):(.*)$/);
-    if (label) h = `<span class="label">${label[1]}:</span>${label[2]}`;
-    html += listItem ? `<li>${h}</li>` : h.trim() ? `<p>${h}</p>` : '<div class="gap"></div>';
+  for (const block of splitBlocks(visibleBody(body, type))) {
+    if (block.type === 'table') { html += tableHtml(block.rows, block.header, terms); continue; }
+    let inList = false;
+    for (const raw of block.lines) {
+      const listItem = raw.match(/^\s*[-*•]\s+(.*)$/);
+      if (listItem && !inList) { html += '<ul>'; inList = true; }
+      if (!listItem && inList) { html += '</ul>'; inList = false; }
+      let h = inlineHtml(listItem ? listItem[1] : raw, terms);
+      const label = !listItem && h.match(/^([^:<]{1,60}):(.*)$/);
+      if (label) h = `<span class="label">${label[1]}:</span>${label[2]}`;
+      html += listItem ? `<li>${h}</li>` : h.trim() ? `<p>${h}</p>` : '<div class="gap"></div>';
+    }
+    if (inList) html += '</ul>';
   }
-  if (inList) html += '</ul>';
   return html;
+}
+
+// Teks dokumen (pratinjau Word/Excel/teks): paragraf biasa, tabel Markdown tampil sebagai tabel.
+function docTextHtml(text, terms) {
+  return splitBlocks(text).map((b) => (b.type === 'table'
+    ? tableHtml(b.rows, b.header, terms)
+    : b.lines.map((l) => (l.trim() ? `<p>${highlight(l, terms)}</p>` : '')).join(''))).join('');
+}
+
+// Satuan halaman dokumen untuk label.
+function pageUnit(m, cap = false) {
+  const u = m.docType === 'pptx' ? 'slide' : m.docType === 'xlsx' ? 'sheet' : 'hal';
+  return cap ? { slide: 'Slide', sheet: 'Sheet', hal: 'Halaman' }[u] : u;
 }
 
 // ---------- Tampilan: beranda & pencarian ----------
@@ -408,7 +436,7 @@ function docFigure(note, m, terms) {
       <span class="doc-thumb">${m.hasThumb ? '<img alt="">' : `<span class="doc-icon d-${m.docType}">${DOC_LABEL[m.docType] || 'Dok'}</span>`}</span>
       <span class="doc-info">
         <b>${highlight(m.name, terms)}</b>
-        <small>${DOC_LABEL[m.docType] || 'Dokumen'}${m.pageCount ? ` · ${m.pageCount} ${m.docType === 'pptx' ? 'slide' : 'hal'}` : ''} · ${fmtSize(m.size)}${versions ? ` · ${versions + 1} versi` : ''}</small>
+        <small>${DOC_LABEL[m.docType] || 'Dokumen'}${m.pageCount ? ` · ${m.pageCount} ${pageUnit(m)}` : ''} · ${fmtSize(m.size)}${versions ? ` · ${versions + 1} versi` : ''}</small>
         ${m.caption ? `<small class="cap">${highlight(m.caption, terms)}</small>` : ''}
         ${hits.length ? `<small class="hits">Ditemukan di ${m.pageCount ? 'hal. ' + hits.slice(0, 8).map((i) => i + 1).join(', ') + (hits.length > 8 ? '…' : '') : 'isi dokumen'}</small>` : ''}
       </span>
@@ -461,7 +489,7 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
   ov.innerHTML = `
     <div class="dv-bar">
       <button class="iconbtn" data-act="close" aria-label="Tutup">✕</button>
-      <div class="dv-title"><b>${esc(m.name)}</b><small>${DOC_LABEL[m.docType] || 'Dokumen'}${m.pageCount ? ` · ${m.pageCount} ${m.docType === 'pptx' ? 'slide' : 'hal'}` : ''} · ${fmtSize(m.size)}${isCurrent ? '' : ` · versi lama, ${fmtDate(m.created)}`}</small></div>
+      <div class="dv-title"><b>${esc(m.name)}</b><small>${DOC_LABEL[m.docType] || 'Dokumen'}${m.pageCount ? ` · ${m.pageCount} ${pageUnit(m)}` : ''} · ${fmtSize(m.size)}${isCurrent ? '' : ` · versi lama, ${fmtDate(m.created)}`}</small></div>
       ${m.docType === 'pdf' ? '<button class="iconbtn" data-act="zoomout" aria-label="Perkecil">−</button><button class="iconbtn" data-act="zoomin" aria-label="Perbesar">＋</button>' : ''}
     </div>
     <div class="dv-actions">
@@ -671,7 +699,7 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
     }
     applyTerms = () => {
       body.innerHTML = `<p class="dv-note">Pratinjau teks. Format asli (tabel, gambar, gaya) tetap utuh di file.</p>` +
-        parts.map((t, i) => `<section class="dv-page" data-no="${i}">${parts.length > 1 ? `<h4 class="section">${m.docType === 'pptx' ? 'Slide' : 'Bagian'} ${i + 1}</h4>` : ''}${t.split('\n').map((l) => (l.trim() ? `<p>${highlight(l, terms)}</p>` : '')).join('')}</section>`).join('');
+        parts.map((t, i) => `<section class="dv-page" data-no="${i}">${parts.length > 1 ? `<h4 class="section">${m.docType === 'pptx' ? 'Slide' : m.docType === 'xlsx' ? 'Sheet' : 'Bagian'} ${i + 1}</h4>` : ''}${docTextHtml(t, terms)}</section>`).join('');
       // Di mode teks, setiap <mark> adalah satu hasil, urut sesuai dokumen.
       matches = [...body.querySelectorAll('mark')].map((el, k) => ({ page: 0, k, el }));
     };
@@ -713,7 +741,7 @@ async function saveNewVersion(note, old, file) {
 async function docToNote(parent, m) {
   const pages = m.docPages || [];
   const text = pages.length > 1
-    ? pages.map((t, i) => `[${m.docType === 'pptx' ? 'Slide' : 'Halaman'} ${i + 1}]\n${t}`).join('\n\n')
+    ? pages.map((t, i) => `[${pageUnit(m, true)} ${i + 1}]\n${t}`).join('\n\n')
     : pages[0] || '';
   const now = Date.now();
   const n = {
@@ -856,6 +884,185 @@ function round1Next(max) {
   return Math.round((max + 0.1) * 10) / 10;
 }
 
+// ---------- Tabel di editor ----------
+
+// Menyisipkan teks di posisi kursor (atau mengganti rentang), dengan baris kosong di sekitar tabel.
+function insertIntoBody(text, start, end, block = true) {
+  const body = $('#e-body');
+  if (start == null) [start, end] = bodyCaret();
+  const before = body.value.slice(0, start);
+  const after = body.value.slice(end);
+  const pre = block && before && !before.endsWith('\n\n') ? (before.endsWith('\n') ? '\n' : '\n\n') : '';
+  const post = block && after && !after.startsWith('\n\n') ? (after.startsWith('\n') ? '\n' : '\n\n') : '';
+  body.value = before + pre + text + post + after;
+  const caret = (before + pre + text).length;
+  body.setSelectionRange(caret, caret);
+  if (state.editor) state.editor.caret = [caret, caret];
+  body.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+function bodyCaret() {
+  const body = $('#e-body');
+  const c = state.editor?.caret;
+  if (c && c[0] != null && c[0] <= body.value.length) return [c[0], Math.min(c[1] ?? c[0], body.value.length)];
+  return [body.value.length, body.value.length];
+}
+
+function editTableAtCursor() {
+  const body = $('#e-body');
+  const [caretStart] = bodyCaret();
+  const found = tableAt(body.value, caretStart);
+  if (found) {
+    openTableEditor(found.rows, {
+      editing: true,
+      onSave: (md) => insertIntoBody(md, found.start, found.end, false),
+      onDelete: () => insertIntoBody('', found.start, found.end, false),
+    });
+  } else {
+    const [start, end] = bodyCaret();
+    openTableEditor([['Kolom 1', 'Kolom 2', 'Kolom 3'], ['', '', ''], ['', '', '']], { onSave: (md) => insertIntoBody(md, start, end) });
+  }
+}
+
+const GRID_LIMIT = 3000; // sel; tabel lebih besar langsung disisipkan tanpa editor kisi
+
+async function importTableFile(file) {
+  const [start, end] = bodyCaret();
+  let sheets;
+  try {
+    sheets = /\.xls[xm]$/i.test(file.name) || file.type.includes('spreadsheetml')
+      ? await readXlsx(file)
+      : [{ name: file.name, rows: fromCsv(await file.text()) }];
+  } catch (e) {
+    console.warn(e);
+    toast('File tidak bisa dibaca. Simpan sebagai .xlsx atau .csv lalu coba lagi.', 5000);
+    return;
+  }
+  sheets = sheets.filter((sh) => sh.rows.length);
+  if (!sheets.length) { toast('Tidak ada tabel di file ini'); return; }
+  const big = sheets[0].rows.length * sheets[0].rows[0].length > GRID_LIMIT;
+  if (big && sheets.length === 1) {
+    insertIntoBody(toMarkdown(sheets[0].rows), start, end);
+    toast(`Tabel ${sheets[0].rows.length} baris disisipkan`);
+    return;
+  }
+  openTableEditor(sheets[0].rows, { sheets, onSave: (md) => insertIntoBody(md, start, end) });
+}
+
+function onBodyPaste(e) {
+  const cd = e.clipboardData;
+  if (!cd) return;
+  const text = cd.getData('text/plain') || '';
+  const html = cd.getData('text/html') || '';
+  let out = null;
+  let count = 0;
+  if (looksTabular(text)) {
+    out = toMarkdown(fromDelimited(text.replace(/\n+$/, ''), '\t'));
+    count = 1;
+  } else if (text.includes('\t')) {
+    ({ text: out, count } = convertTabRuns(text));
+  }
+  if (!count && /<table/i.test(html)) {
+    // Tabel dari halaman web yang teks biasanya tidak memakai tab.
+    const tables = tablesFromHtml(html);
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    doc.querySelectorAll('table').forEach((t) => t.remove());
+    if (tables.length && !doc.body.textContent.trim()) { out = tables.map(toMarkdown).join('\n\n'); count = tables.length; }
+  }
+  if (!count || !out) return;
+  e.preventDefault();
+  insertIntoBody(out, undefined, undefined, true);
+  toast(count > 1 ? `${count} tabel dikonversi` : 'Tabel dikonversi. Ketuk tabel lalu ▦ Tabel untuk mengedit.', 3500);
+}
+
+// Editor kisi: baris pertama adalah judul kolom.
+function openTableEditor(initialRows, { editing = false, sheets = null, onSave, onDelete } = {}) {
+  let rows = initialRows.map((r) => [...r]);
+  const ov = document.createElement('div');
+  ov.className = 'tbl-editor';
+  ov.innerHTML = `
+    <div class="tbl-panel" role="dialog" aria-label="Edit tabel">
+      <div class="topbar">
+        <button class="iconbtn" data-act="cancel" aria-label="Batal">✕</button>
+        <span class="grow title">${editing ? 'Edit tabel' : 'Tabel baru'}</span>
+        <button class="btn small" data-act="save">${editing ? 'Simpan' : 'Sisipkan'}</button>
+      </div>
+      ${sheets && sheets.length > 1 ? `<select class="tbl-sheet" aria-label="Pilih sheet">${sheets.map((sh, i) => `<option value="${i}">${esc(sh.name)} (${sh.rows.length} baris)</option>`).join('')}</select>` : ''}
+      <p class="hint">Baris pertama menjadi judul kolom. Tempel sel dari Excel atau Numbers ke kotak mana pun untuk mengisi banyak sel sekaligus.</p>
+      <div class="tbl-scroll"><table class="tbl-grid"></table></div>
+      <div class="row tbl-actions">
+        <button type="button" class="btn small ghost" data-act="addrow">＋ Baris</button>
+        <button type="button" class="btn small ghost" data-act="addcol">＋ Kolom</button>
+        ${editing ? '<button type="button" class="btn small ghost danger-text" data-act="delete">Hapus tabel</button>' : ''}
+      </div>
+    </div>`;
+  document.body.appendChild(ov);
+  document.body.classList.add('modal-open');
+  const grid = ov.querySelector('.tbl-grid');
+
+  const readGrid = () => {
+    grid.querySelectorAll('input').forEach((inp) => { rows[+inp.dataset.r][+inp.dataset.c] = inp.value; });
+  };
+  const draw = (focus) => {
+    const cols = Math.max(1, ...rows.map((r) => r.length));
+    rows = rows.map((r) => Array.from({ length: cols }, (_, k) => r[k] ?? ''));
+    grid.innerHTML = `<thead><tr><th></th>${rows[0].map((_, c) => `<th><button type="button" class="tbl-x" data-delcol="${c}" aria-label="Hapus kolom ${c + 1}" ${cols < 2 ? 'disabled' : ''}>✕</button></th>`).join('')}</tr></thead>
+      <tbody>${rows.map((r, ri) => `<tr class="${ri === 0 ? 'tbl-head' : ''}"><th><button type="button" class="tbl-x" data-delrow="${ri}" aria-label="Hapus baris ${ri + 1}" ${rows.length < 2 ? 'disabled' : ''}>✕</button></th>${r.map((c, ci) => `<td><input data-r="${ri}" data-c="${ci}" value="${esc(c)}" ${ri === 0 ? 'placeholder="Judul"' : ''} autocomplete="off"></td>`).join('')}</tr>`).join('')}</tbody>`;
+    if (focus) grid.querySelector(`input[data-r="${focus[0]}"][data-c="${focus[1]}"]`)?.focus();
+  };
+  draw();
+
+  const close = () => { ov.remove(); document.body.classList.remove('modal-open'); };
+  ov.addEventListener('click', (e) => {
+    const t = e.target.closest('button');
+    if (!t) return;
+    readGrid();
+    if (t.dataset.delrow) { rows.splice(+t.dataset.delrow, 1); draw(); return; }
+    if (t.dataset.delcol) { rows.forEach((r) => r.splice(+t.dataset.delcol, 1)); draw(); return; }
+    const act = t.dataset.act;
+    if (act === 'addrow') { rows.push(rows[0].map(() => '')); draw([rows.length - 1, 0]); }
+    else if (act === 'addcol') { rows.forEach((r, i) => r.push(i === 0 ? `Kolom ${r.length + 1}` : '')); draw([1, rows[0].length - 1]); }
+    else if (act === 'cancel') close();
+    else if (act === 'delete') { if (confirm('Hapus tabel ini dari catatan?')) { close(); onDelete?.(); } }
+    else if (act === 'save') {
+      const md = toMarkdown(rows);
+      if (!md) { toast('Tabel masih kosong'); return; }
+      close();
+      onSave(md);
+    }
+  });
+  ov.querySelector('.tbl-sheet')?.addEventListener('change', (e) => { rows = sheets[+e.target.value].rows.map((r) => [...r]); draw(); });
+  // Enter pindah ke baris berikutnya (menambah baris bila perlu), seperti di spreadsheet.
+  grid.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' || !e.target.dataset.r) return;
+    e.preventDefault();
+    readGrid();
+    const r = +e.target.dataset.r + 1;
+    if (r >= rows.length) rows.push(rows[0].map(() => ''));
+    draw([r, +e.target.dataset.c]);
+  });
+  // Tempel blok sel dari spreadsheet: mengisi mulai dari sel yang sedang aktif.
+  grid.addEventListener('paste', (e) => {
+    const inp = e.target;
+    if (!inp.dataset?.r) return;
+    const text = e.clipboardData?.getData('text/plain') || '';
+    const html = e.clipboardData?.getData('text/html') || '';
+    let block = null;
+    if (/[\t\n]/.test(text.replace(/\n+$/, ''))) block = fromDelimited(text.replace(/\n+$/, ''), text.includes('\t') ? '\t' : '\u0000');
+    else if (/<table/i.test(html)) block = tablesFromHtml(html)[0];
+    if (!block || (block.length < 2 && (block[0]?.length || 0) < 2)) return;
+    e.preventDefault();
+    readGrid();
+    const r0 = +inp.dataset.r; const c0 = +inp.dataset.c;
+    block.forEach((br, i) => {
+      while (rows.length <= r0 + i) rows.push(rows[0].map(() => ''));
+      br.forEach((v, j) => { rows[r0 + i][c0 + j] = v; });
+    });
+    draw([r0, c0]);
+    toast(`${block.length} baris ditempel`);
+  });
+}
+
 // ---------- Tempel dari Claude ----------
 
 function renderPaste() {
@@ -940,6 +1147,10 @@ async function renderEditor(id, type) {
       </div>
       <input id="e-title" class="title-input" placeholder="Judul (mis. STEMI anterior, Metformin)" value="${esc(note.title)}">
       <input id="e-tags" placeholder="Tag, pisahkan dengan koma (mis. kardio, ugd)" value="${esc(note.tags.join(', '))}" autocapitalize="off">
+      <div class="body-tools">
+        <button type="button" class="btn small ghost" id="t-table">▦ Tabel</button>
+        <label class="btn small ghost">📊 Impor tabel Excel / CSV<input type="file" id="f-table" accept=".csv,.tsv,.xlsx,.xlsm,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></label>
+      </div>
       <textarea id="e-body" placeholder="Tulis catatan… Gunakan [[Judul catatan lain]] untuk menautkan.">${esc(note.body)}</textarea>
       ${note.type === 'kasus' ? '<p class="hint">🔒 Jangan tulis nama, No. RM, NIK, atau alamat pasien. Gunakan inisial dan usia.</p>' : ''}
       <h4 class="section">Lampiran</h4>
@@ -976,6 +1187,12 @@ async function renderEditor(id, type) {
   $('#f-audio').onchange = (e) => addFiles(e.target.files);
   $('#f-doc').onchange = (e) => addFiles(e.target.files);
   $('#rec').onclick = startRecording;
+  $('#t-table').onclick = () => editTableAtCursor();
+  $('#f-table').onchange = (e) => { const f = e.target.files[0]; e.target.value = ''; if (f) importTableFile(f); };
+  body.addEventListener('paste', onBodyPaste);
+  // Posisi kursor terakhir diingat, karena membuka pemilih file atau editor tabel membuat kotak teks kehilangan fokus.
+  const remember = () => { if (state.editor) state.editor.caret = [body.selectionStart, body.selectionEnd]; };
+  ['input', 'select', 'click', 'keyup', 'blur'].forEach((ev) => body.addEventListener(ev, remember));
   if (draft) toast('Periksa dan rapikan dulu, lalu ketuk Simpan', 3500);
   else if (state.editor.isNew) $('#e-title').focus();
   renderEditorMedia();
@@ -1001,7 +1218,7 @@ function renderEditorMedia() {
       <div class="e-prev ${m.kind}">${preview}</div>
       <div class="e-info">
         <input placeholder="Keterangan (ikut dicari), mis. EKG ST elevasi V1-V4" value="${esc(m.caption || '')}">
-        <small>${m.kind === 'doc' ? `${esc(m.name)} · ${m.pageCount ? m.pageCount + ' hal · ' : ''}` : m.kind === 'image' ? 'Foto · ' : m.kind === 'video' ? 'Video · ' : 'Audio · '}${fmtSize(m.size)}${m.kind === 'doc' && m.docType !== 'other' && !(m.docPages || []).join('').trim() ? ' · isi tidak terbaca' : ''}</small>
+        <small>${m.kind === 'doc' ? `${esc(m.name)} · ${m.pageCount ? m.pageCount + ' ' + pageUnit(m) + ' · ' : ''}` : m.kind === 'image' ? 'Foto · ' : m.kind === 'video' ? 'Video · ' : 'Audio · '}${fmtSize(m.size)}${m.kind === 'doc' && m.docType !== 'other' && !(m.docPages || []).join('').trim() ? ' · isi tidak terbaca' : ''}</small>
       </div>
       <button type="button" class="iconbtn" aria-label="Hapus lampiran">🗑️</button>`;
     row.querySelector('input').oninput = (e) => { m.caption = e.target.value; m.dirty = true; state.editor.dirty = true; };

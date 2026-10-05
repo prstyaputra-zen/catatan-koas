@@ -1,5 +1,6 @@
-// Dokumen (PDF, Word, PowerPoint, teks): deteksi jenis, ekstraksi teks untuk pencarian, dan render PDF.
+// Dokumen (PDF, Word, PowerPoint, Excel, teks): deteksi jenis, ekstraksi teks untuk pencarian, dan render PDF.
 import { readZip, entryBlob } from './zip.js';
+import { toMarkdown, readXlsx, fromCsv } from './table.js';
 
 const PDFJS_BASE = new URL('../vendor/pdfjs/', import.meta.url).href;
 let pdfjsPromise = null;
@@ -34,12 +35,12 @@ const DOC_EXT = {
   docx: 'docx', docm: 'docx', dotx: 'docx',
   pptx: 'pptx', ppsx: 'pptx',
   txt: 'text', md: 'text', csv: 'text', rtf: 'other',
-  doc: 'other', ppt: 'other', xls: 'other', xlsx: 'other', odt: 'other', pages: 'other', key: 'other',
+  doc: 'other', ppt: 'other', xls: 'other', xlsx: 'xlsx', xlsm: 'xlsx', odt: 'other', pages: 'other', key: 'other',
 };
 
-export const DOC_ACCEPT = '.pdf,.doc,.docx,.ppt,.pptx,.txt,.md,.csv,.rtf,.odt,.xls,.xlsx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation,text/plain';
+export const DOC_ACCEPT = '.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.pdf,.doc,.docx,.ppt,.pptx,.txt,.md,.csv,.rtf,.odt,.xls,.xlsx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation,text/plain';
 
-export const DOC_LABEL = { pdf: 'PDF', docx: 'Word', pptx: 'PowerPoint', text: 'Teks', other: 'Dokumen' };
+export const DOC_LABEL = { pdf: 'PDF', docx: 'Word', pptx: 'PowerPoint', xlsx: 'Excel', text: 'Teks', other: 'Dokumen' };
 
 export function docTypeOf(file) {
   const ext = (file.name || '').toLowerCase().match(/\.([a-z0-9]+)$/)?.[1];
@@ -47,6 +48,7 @@ export function docTypeOf(file) {
   if (file.type === 'application/pdf') return 'pdf';
   if (file.type.includes('wordprocessingml')) return 'docx';
   if (file.type.includes('presentationml')) return 'pptx';
+  if (file.type.includes('spreadsheetml')) return 'xlsx';
   if (file.type === 'application/msword') return 'other';
   if (file.type.startsWith('text/')) return 'text';
   return null;
@@ -67,7 +69,7 @@ async function zipText(files, name) {
 function wordParagraphs(xmlText) {
   const doc = parseXml(xmlText);
   const out = [];
-  for (const p of doc.getElementsByTagNameNS(W_NS, 'p')) {
+  const paraText = (p) => {
     let line = '';
     const walk = (node) => {
       for (const c of node.childNodes) {
@@ -79,8 +81,24 @@ function wordParagraphs(xmlText) {
       }
     };
     walk(p);
-    out.push(line);
-  }
+    return line;
+  };
+  // Tabel Word menjadi tabel Markdown; isi sel yang berparagraf digabung dengan spasi.
+  const tableRows = (tbl) => [...tbl.childNodes].filter((n) => n.localName === 'tr').map((tr) =>
+    [...tr.childNodes].filter((n) => n.localName === 'tc').flatMap((tc) => {
+      const text = [...tc.getElementsByTagNameNS(W_NS, 'p')].map(paraText).filter((t) => t.trim()).join(' ');
+      const span = parseInt(tc.getElementsByTagNameNS(W_NS, 'gridSpan')[0]?.getAttributeNS(W_NS, 'val'), 10) || 1;
+      return [text, ...Array(span - 1).fill('')];
+    }));
+  const visit = (node) => {
+    for (const c of node.childNodes) {
+      if (c.namespaceURI !== W_NS) { if (c.nodeType === 1) visit(c); continue; }
+      if (c.localName === 'p') out.push(paraText(c));
+      else if (c.localName === 'tbl') { const md = toMarkdown(tableRows(c)); if (md) out.push('', md, ''); }
+      else visit(c);
+    }
+  };
+  visit(doc.documentElement);
   return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
@@ -153,7 +171,14 @@ export async function extractDocument(file, docType, onProgress) {
     if (docType === 'pdf') return await extractPdf(file, onProgress);
     if (docType === 'docx') return await extractDocx(file);
     if (docType === 'pptx') return await extractPptx(file);
-    if (docType === 'text') return { pages: [await file.text()], pageCount: null };
+    if (docType === 'xlsx') {
+      const sheets = await readXlsx(file);
+      return { pages: sheets.map((sh) => `${sh.name}\n\n${toMarkdown(sh.rows)}`), pageCount: sheets.length };
+    }
+    if (docType === 'text') {
+      const t = await file.text();
+      return { pages: [/\.csv$/i.test(file.name || '') ? toMarkdown(fromCsv(t)) || t : t], pageCount: null };
+    }
   } catch (e) {
     console.warn('Ekstraksi gagal', file.name, e);
     return { pages: [], pageCount: null, error: String(e?.message || e) };
