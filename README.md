@@ -18,6 +18,7 @@ Aplikasi catatan klinis pribadi (PWA) untuk iPhone dan laptop. Semua data tersim
 - (0.6) Menu Alat (🧮) dengan kalkulator IMT/BMI: kategori Asia-Pasifik, WHO, dan Kemenkes, skala warna, rentang BB normal, BB ideal Broca, obesitas sentral dari lingkar perut, saran singkat, salin hasil atau jadikan catatan.
 - (0.7) Tabel di catatan: buat dan edit lewat editor kisi (▦ Tabel), tempel dari Excel/Numbers/Word/web otomatis jadi tabel, impor dari .xlsx/.csv, tabel di file Word/Excel/CSV yang dilampirkan ikut terbaca dan dicari. Disimpan sebagai tabel Markdown (kompatibel Obsidian).
 - (0.8) Gambar di dalam teks catatan: tombol 🖼️ Gambar (kamera/galeri), tempel gambar dari clipboard, seret-lepas di laptop, sisipkan foto lampiran ke teks, potong gambar dari halaman PDF, dan ambil gambar yang tertanam di Word/PowerPoint/Excel. Disimpan sebagai ![keterangan](img:id), diekspor ke format Obsidian.
+- (0.9) Ilmu baru otomatis: rutin Claude terjadwal (setiap 3 jam) menulis rangkuman bersumber guideline/jurnal ke `feed/ilmu.json` (lihat `feed/PANDUAN-RUTIN.md`); aplikasi mengimpornya sebagai catatan #ilmu-baru saat online. Juga: cari di dalam catatan (🔍).
 
 ## Sinkron Google Drive
 Isi `googleClientId` di `js/config.js` (OAuth Client ID tipe Web application, origin `https://prstyaputra-zen.github.io`, redirect URI `https://prstyaputra-zen.github.io/catatan-koas/`, scope `drive.appdata`), atau tempel di Pengaturan aplikasi.

@@ -1,5 +1,5 @@
 // Service worker: menyimpan seluruh aplikasi di perangkat agar terbuka tanpa internet.
-const CACHE = 'catatan-koas-v12';
+const CACHE = 'catatan-koas-v14';
 const ASSETS = [
   './',
   'index.html',
@@ -56,7 +56,10 @@ self.addEventListener('activate', (e) => {
 
 // Cache dulu (cepat & offline), lalu perbarui diam-diam di latar belakang bila ada internet.
 self.addEventListener('fetch', (e) => {
-  if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
+  const url = new URL(e.request.url);
+  if (e.request.method !== 'GET' || url.origin !== location.origin) return;
+  // Feed ilmu baru selalu diambil langsung dari internet, tidak dari cache.
+  if (url.pathname.includes('/feed/')) return;
   e.respondWith(
     caches.open(CACHE).then(async (cache) => {
       const cached = await cache.match(e.request, { ignoreSearch: true });

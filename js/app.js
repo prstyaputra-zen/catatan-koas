@@ -7,7 +7,7 @@ import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText }
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.8.2';
+const APP_VERSION = '0.9.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -28,7 +28,9 @@ const state = {
   filterStase: '',
   objectUrls: [],
   editor: null,
-  draft: null, // catatan hasil "Tempel dari Claude" yang menunggu dibuka di editor
+  draft: null,
+  filterFresh: false,     // hanya tampilkan catatan "ilmu baru"
+  feedUnread: new Set(),  // id catatan ilmu baru yang belum dibuka di perangkat ini // catatan hasil "Tempel dari Claude" yang menunggu dibuka di editor
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -130,6 +132,7 @@ async function loadAll() {
     state.notes.set(n.id, n);
     indexNote(n);
   });
+  state.feedUnread = new Set(((await db.getMeta('feedUnread')) || []).filter((id) => state.notes.has(id)));
 }
 
 // ---------- Teks & sorotan ----------
@@ -243,6 +246,7 @@ function renderHome() {
         <button id="clearq" class="iconbtn ${state.query ? '' : 'hidden'}" aria-label="Hapus pencarian">✕</button>
       </div>
       <div class="filters">
+        ${hasFreshNotes() ? `<button class="chip fresh-chip ${state.filterFresh ? 'on' : ''}" data-fresh>✨ Ilmu baru${state.feedUnread.size ? ` <b class="dot-count">${state.feedUnread.size}</b>` : ''}</button>` : ''}
         <button class="chip ${state.filterType === '' ? 'on' : ''}" data-type="">Semua</button>
         ${Object.entries(TYPES).map(([k, t]) => `<button class="chip ${state.filterType === k ? 'on' : ''}" data-type="${k}">${t.icon} ${t.label}</button>`).join('')}
         <select id="stasefilter" class="chip ${state.filterStase ? 'on' : ''}" aria-label="Filter stase">
@@ -269,6 +273,8 @@ function renderHome() {
     }
   });
   $('#clearq').onclick = () => { state.query = ''; q.value = ''; q.focus(); $('#clearq').classList.add('hidden'); renderResults(); };
+  const freshChip = view().querySelector('[data-fresh]');
+  if (freshChip) freshChip.onclick = () => { state.filterFresh = !state.filterFresh; freshChip.classList.toggle('on', state.filterFresh); renderResults(); };
   view().querySelectorAll('.chip[data-type]').forEach((b) => (b.onclick = () => {
     state.filterType = b.dataset.type;
     view().querySelectorAll('.chip[data-type]').forEach((x) => x.classList.toggle('on', x === b));
@@ -298,6 +304,7 @@ function renderResults() {
   } else {
     items = [...state.notes.values()].sort((a, b) => (b.pinned - a.pinned) || (b.updated - a.updated));
   }
+  if (state.filterFresh) items = items.filter(isFreshNote).sort((a, b) => b.created - a.created);
   if (state.filterType) items = items.filter((n) => n.type === state.filterType);
   if (state.filterStase) items = items.filter((n) => n.stase === state.filterStase);
   const ms = performance.now() - started;
@@ -338,7 +345,7 @@ function cardHtml(n, terms) {
   const bodyHit = terms && (hasTerm(n.title, terms) || hasTerm(n.body, terms));
   const dh = terms && !bodyHit && !matchedMedia ? docHit(media, terms) : null;
   return `
-    <a class="card" href="#/catatan/${n.id}">
+    <a class="card ${state.feedUnread.has(n.id) ? 'unread' : ''}" href="#/catatan/${n.id}">
       <div class="card-main">
         <div class="card-top"><span class="badge t-${n.type}">${t.icon} ${t.label}</span>${n.stase ? `<span class="badge">${esc(n.stase)}</span>` : ''}${n.pinned ? '<span class="pin">📌</span>' : ''}</div>
         <h3>${highlight(n.title || '(tanpa judul)', terms)}</h3>
@@ -362,6 +369,7 @@ async function renderNote(id) {
   releaseUrls();
   const n = state.notes.get(id);
   if (!n) { location.hash = '#/'; return; }
+  if (state.feedUnread.delete(id)) db.setMeta('feedUnread', [...state.feedUnread]);
   const t = TYPES[n.type] || TYPES.bebas;
   const terms = state.query.trim() ? state.index.search(state.query).terms : null;
   view().innerHTML = `
@@ -384,6 +392,7 @@ async function renderNote(id) {
       <h1>${highlight(n.title || '(tanpa judul)', terms)}</h1>
       <div class="meta-line">Dibuat ${fmtDate(n.created)} · diubah ${fmtDate(n.updated)}</div>
       ${n.tags.length ? `<div class="tags">${n.tags.map((x) => `<a class="tag" href="#/cari/${encodeURIComponent(x)}">#${esc(x)}</a>`).join('')}</div>` : ''}
+      ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di bagian bawah. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
       <div class="body">${renderBody(n.body, terms, n.type)}</div>
       <div id="gallery" class="gallery"></div>
       ${relatedHtml(n)}
@@ -1730,6 +1739,7 @@ async function renderSettings() {
   const lastBackup = await db.getMeta('lastBackup');
   const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
   const syncHtml = await syncSectionHtml();
+  const feedHtml = await feedSectionHtml();
   // Halaman ini dirender asinkron; jangan menimpa tampilan lain bila pengguna sudah pindah.
   if (location.hash !== '#/pengaturan') return;
   view().innerHTML = `
@@ -1746,6 +1756,7 @@ async function renderSettings() {
         <p>Setelah itu aplikasi terbuka seperti app biasa dan berjalan tanpa internet.</p>
       </section>`}
       ${syncHtml}
+      ${feedHtml}
       <section>
         <h4>Backup</h4>
         <p>Terakhir: <b>${lastBackup ? fmtDate(lastBackup) : 'belum pernah'}</b>. Simpan file backup ke laptop, iCloud Drive, atau hard disk. File berisi catatan (juga dalam format Markdown, bisa dibuka di Obsidian) dan semua media.</p>
@@ -1761,6 +1772,7 @@ async function renderSettings() {
       </section>
     </div>`;
   bindSyncSection();
+  bindFeedSection();
   $('#export').onclick = exportBackup;
   $('#import').onchange = (e) => e.target.files[0] && importBackup(e.target.files[0]);
 }
@@ -1939,6 +1951,97 @@ window.addEventListener('beforeunload', (e) => {
 });
 
 
+// ---------- Ilmu baru otomatis ----------
+// Claude menulis rangkuman ilmu baru (berdasarkan guideline/buku/jurnal) ke feed/ilmu.json di situs ini secara terjadwal.
+// Aplikasi memeriksanya saat dibuka dan online, lalu menambahkannya sebagai catatan bertag #ilmu-baru.
+
+const FEED_URL = 'feed/ilmu.json';
+const FEED_TAG = 'ilmu-baru';
+let feedChecking = false;
+
+const isFreshNote = (n) => n.id.startsWith('ilmu-') || n.tags.includes(FEED_TAG);
+const hasFreshNotes = () => [...state.notes.values()].some(isFreshNote);
+
+function feedItemToNote(it, id) {
+  const type = TYPES[it.type] ? it.type : 'topik';
+  let body = String(it.body || '').replace(/\s+$/, '');
+  const sources = (it.sources || []).filter((x) => x && (x.title || x.url));
+  if (sources.length && !/^Sumber:\s*$/m.test(body)) {
+    body += '\n\nSumber:\n' + sources.map((x) => `- ${[x.title, x.publisher, x.year].filter(Boolean).join(', ')}${x.url ? ` (${x.url})` : ''}`).join('\n');
+  }
+  const when = Date.parse(it.created) || Date.now();
+  // updated = created agar dua perangkat yang mengimpor item yang sama menghasilkan catatan identik saat sinkron.
+  return {
+    id, type, title: String(it.title).slice(0, 200), body,
+    tags: [...new Set([...(it.tags || []).map(String), FEED_TAG])],
+    stase: it.stase || '', pinned: false, created: when, updated: when,
+  };
+}
+
+async function checkFeed({ manual = false } = {}) {
+  if (feedChecking || !navigator.onLine) { if (manual && !navigator.onLine) toast('Perlu internet untuk mengambil ilmu baru'); return; }
+  if (!manual && (await db.getMeta('feedEnabled')) === false) return;
+  feedChecking = true;
+  try {
+    const res = await fetch(`${FEED_URL}?t=${Date.now()}`, { cache: 'no-store' });
+    if (res.status === 404) { if (manual) toast('Belum ada ilmu baru'); return; }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const feed = await res.json();
+    const imported = new Set((await db.getMeta('feedImported')) || []);
+    const tomb = new Set(((await db.getMeta('tombstones')) || []).map((x) => x.id));
+    let added = 0;
+    for (const it of feed.items || []) {
+      if (!it || !it.id || !it.title || !it.body) continue;
+      const id = 'ilmu-' + String(it.id).replace(/[^\w-]/g, '').slice(0, 60);
+      // Catatan yang pernah diimpor tidak ditambahkan lagi, termasuk bila sudah kamu hapus.
+      if (imported.has(id) || state.notes.has(id) || tomb.has(id)) { imported.add(id); continue; }
+      const note = feedItemToNote(it, id);
+      await db.saveNote(note);
+      note.mediaIds = [];
+      state.notes.set(id, note);
+      indexNote(note);
+      imported.add(id);
+      state.feedUnread.add(id);
+      added++;
+    }
+    await db.setMeta('feedImported', [...imported]);
+    await db.setMeta('feedUnread', [...state.feedUnread]);
+    await db.setMeta('feedChecked', Date.now());
+    if (added) {
+      toast(`✨ ${added} ilmu baru ditambahkan ke catatan`, 4000);
+      scheduleSync();
+      if (!location.hash || location.hash === '#/') renderHome();
+    } else if (manual) toast('Belum ada ilmu baru');
+  } catch (e) {
+    console.warn('Feed', e);
+    if (manual) toast('Gagal memeriksa ilmu baru: ' + (e?.message || e), 5000);
+  } finally {
+    feedChecking = false;
+  }
+}
+
+async function feedSectionHtml() {
+  const enabled = (await db.getMeta('feedEnabled')) !== false;
+  const checked = await db.getMeta('feedChecked');
+  const count = [...state.notes.values()].filter(isFreshNote).length;
+  return `<section>
+    <h4>✨ Ilmu baru otomatis</h4>
+    <p>Setiap 3 jam Claude merangkum satu topik dari guideline, buku ajar, atau jurnal tepercaya, lengkap dengan sumbernya. Rangkuman itu otomatis masuk ke catatanmu (tag <b>#${FEED_TAG}</b>) saat aplikasi dibuka dan ada internet.</p>
+    <label class="switch-row"><input type="checkbox" id="feed-on" ${enabled ? 'checked' : ''}> Terima ilmu baru otomatis</label>
+    <p class="hint">${count} catatan ilmu baru · terakhir diperiksa ${checked ? fmtDate(checked) + ' ' + new Date(checked).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'belum pernah'}</p>
+    <div class="row"><button class="btn ghost" id="feed-check">Periksa sekarang</button></div>
+  </section>`;
+}
+
+function bindFeedSection() {
+  $('#feed-on')?.addEventListener('change', async (e) => {
+    await db.setMeta('feedEnabled', e.target.checked);
+    toast(e.target.checked ? 'Ilmu baru otomatis aktif' : 'Ilmu baru otomatis dimatikan');
+    if (e.target.checked) checkFeed();
+  });
+  $('#feed-check')?.addEventListener('click', () => checkFeed({ manual: true }));
+}
+
 // ---------- Sinkronisasi Google Drive ----------
 
 let syncing = false;
@@ -2116,8 +2219,10 @@ async function start() {
   route();
   await updateSyncBadge();
   $('#syncbtn').onclick = () => runSync({ manual: true });
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') runSync(); });
-  window.addEventListener('online', () => runSync());
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { runSync(); checkFeed(); } });
+  window.addEventListener('online', () => { runSync(); checkFeed(); });
+  checkFeed();
+  setInterval(() => document.visibilityState === 'visible' && checkFeed(), 30 * 60 * 1000);
   if (authResult === 'ok') {
     if (await db.getMeta('syncAfterAuth')) {
       await db.setMeta('syncAfterAuth', false);

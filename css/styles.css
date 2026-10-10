@@ -408,3 +408,12 @@ body.modal-open { overflow: hidden; }
 .note-find input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--text); outline: 0; }
 .note-find input:focus { border-color: var(--accent); }
 .note-find .iconbtn { font-size: 18px; }
+
+/* Ilmu baru otomatis */
+.fresh-chip { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.dot-count { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 2px; border-radius: 99px; background: var(--danger); color: #fff; font-size: 11px; line-height: 18px; text-align: center; }
+.card.unread { border-left: 4px solid var(--accent); }
+.card.unread h3::before { content: '✨ '; }
+.switch-row { display: flex; align-items: center; gap: 10px; font-weight: 500; margin: 6px 0; }
+.switch-row input { width: 20px; height: 20px; accent-color: var(--accent); }
+.fresh-note { margin: 4px 0 12px; padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); font-size: 14px; line-height: 1.45; }

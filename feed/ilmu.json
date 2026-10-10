@@ -1,0 +1,28 @@
+{
+ "version": 1,
+ "updated": "2026-10-10T08:00:00Z",
+ "items": [
+  {
+   "id": "20261010-hipokalemia",
+   "created": "2026-10-10T08:00:00Z",
+   "title": "Hipokalemia: derajat, EKG, dan koreksi kalium",
+   "type": "topik",
+   "stase": "IPD",
+   "tags": [
+    "hipokalemia",
+    "elektrolit",
+    "kalium",
+    "EKG"
+   ],
+   "body": "Ringkasan:\nHipokalemia adalah kalium serum < 3,5 mEq/L (normal 3,5-5,0 mEq/L). Gejala biasanya baru muncul bila K+ < 3,0 mEq/L, dan K+ < 2,5 mEq/L dapat mengancam nyawa.\n\nDerajat:\n| Derajat | Kalium serum | Terapi awal |\n|---|---|---|\n| Ringan | 3,0-3,4 mEq/L | Oral, sekitar 72 mmol/hari |\n| Sedang | 2,5-2,9 mEq/L | Oral, sekitar 96 mmol/hari |\n| Berat | < 2,5 mEq/L atau bergejala | Intravena dengan monitor EKG |\n\nGambaran EKG:\n- Depresi segmen ST, amplitudo gelombang T menurun, gelombang U makin tinggi (sering di V4-V6).\n- Aritmia: bradikardia sinus, ekstrasistol atrium/ventrikel, takikardia paroksismal, blok AV, hingga VT/VF.\n- EKG dianjurkan pada semua pasien hipokalemia.\n\nPenyebab utama:\n- Kehilangan lewat saluran cerna: diare kronik, penyalahgunaan laksatif.\n- Perpindahan ke intrasel: insulin, agonis beta-2, paralisis periodik (tirotoksik/familial).\n- Kehilangan lewat ginjal: hiperaldosteronisme primer, sindrom Cushing, Bartter/Gitelman, hipomagnesemia.\n- Obat: diuretik tiazid dan loop, amfoterisin B, penisilin dosis tinggi, teofilin.\n\nKoreksi intravena (hipokalemia berat):\n- KCl 40 mmol dalam 1 L NaCl 0,9%. NaCl lebih dipilih daripada dekstrosa 5% karena glukosa memicu perpindahan kalium ke intrasel.\n- Kecepatan standar 10 mmol/jam, maksimal 20 mmol/jam, dengan monitor EKG kontinu dan cek kalium serial.\n- Perkiraan defisit: tiap penurunan 1 mEq/L setara kehilangan sekitar 200-400 mEq kalium total (hanya perkiraan kasar).\n\nMagnesium:\n- Koreksi hipomagnesemia sangat penting; tanpa itu kalium sulit naik.\n- Contoh di ulasan: MgSO4 50% 4 mL (8 mmol) diencerkan dalam 10 mL NaCl 0,9% selama 20 menit, lalu infus KCl 40 mmol pertama, dilanjutkan penggantian magnesium.\n\nPemantauan:\n- Ringan-sedang: cek kalium setiap hari dan sesuaikan dosis.\n- Berat: monitor EKG kontinu dan kalium serial.\n\nPoin untuk koas:\n- Pada kelemahan otot akut dengan K+ rendah, pikirkan paralisis periodik hipokalemik dan cari pemicu (tirotoksikosis, diuretik, diare).\n- Selalu cek magnesium dan EKG sebelum menaikkan dosis kalium.\n- Ikuti protokol RS setempat untuk konsentrasi dan kecepatan infus lewat vena perifer atau sentral.",
+   "sources": [
+    {
+     "title": "Kardalas E, et al. Hypokalemia: a clinical update",
+     "publisher": "Endocrine Connections 7(4):R135-R146",
+     "year": 2018,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5881435/"
+    }
+   ]
+  }
+ ]
+}
