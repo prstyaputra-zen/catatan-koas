@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-10T14:06:00Z",
+ "updated": "2026-10-10T22:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -163,6 +163,56 @@
      "publisher": "MOST Project, Arlington VA",
      "year": 2005,
      "url": "https://cdn.who.int/media/docs/default-source/2021-dha-docs/pnadk428.pdf"
+    }
+   ]
+  },
+  {
+   "id": "20261011-0505-preeklampsia-mgso4",
+   "created": "2026-10-10T22:06:00Z",
+   "title": "Preeklampsia: kriteria diagnosis dan regimen MgSO4",
+   "type": "topik",
+   "stase": "Obgyn",
+   "tags": [
+    "preeklampsia",
+    "eklampsia",
+    "MgSO4",
+    "hipertensi kehamilan",
+    "kegawatdaruratan"
+   ],
+   "body": "Ringkasan:\nPreeklampsia adalah hipertensi yang muncul pada atau setelah usia kehamilan 20 minggu disertai proteinuria, disfungsi organ ibu, atau disfungsi uteroplasenta. Dua hal yang paling sering ditanyakan saat jaga: kapan disebut hipertensi berat, dan bagaimana memberi MgSO4 dengan aman.\n\nDiagnosis (ISSHP 2021):\n- Hipertensi: TD sistolik ≥ 140 dan/atau diastolik ≥ 90 mmHg (rerata minimal dua pengukuran).\n- Hipertensi berat: sistolik ≥ 160 atau diastolik ≥ 110 mmHg.\n- Proteinuria: rasio protein:kreatinin urin sewaktu ≥ 30 mg/mmol, rasio albumin:kreatinin ≥ 8 mg/mmol, ≥ 0,3 g/24 jam, atau dipstik ≥ 2+ bila tes konfirmasi tidak tersedia.\n- Tanpa proteinuria pun bisa didiagnosis bila ada disfungsi organ ibu (neurologis, ginjal, hati, hematologi) atau disfungsi uteroplasenta (mis. PlGF rendah atau rasio sFlt-1/PlGF meningkat).\n- Sindrom HELLP dianggap manifestasi berat preeklampsia, bukan penyakit terpisah.\n\nKapan memberi MgSO4:\n- ISSHP: preeklampsia dengan proteinuria dan hipertensi berat, atau hipertensi dengan gejala/tanda neurologis, untuk mencegah eklampsia. Juga untuk eklampsia.\n- Gunakan dosis standar; sesuaikan bila ada gangguan ginjal.\n\nRegimen MgSO4 (label produk prakualifikasi WHO):\n| Regimen | Dosis awal | Rumatan |\n|---|---|---|\n| IV (Zuspan) | 4 g IV dalam 5 menit (20 mL larutan 20%) | 1 g/jam infus kontinu (5 mL larutan 20% per jam) |\n| IM (Pritchard) | 4 g IV dalam 5 menit + 10 g IM (5 g tiap bokong, dengan 1 mL lidokain 2%) | 5 g IM (10 mL larutan 50%) tiap 4 jam, bergantian bokong |\n- Lanjutkan sampai 24 jam setelah persalinan atau setelah kejang terakhir, mana yang paling akhir.\n- Kejang berulang setelah 15 menit: 2 g IV (10 mL larutan 20%) dalam 5 menit.\n\n{{gambar:1}}\n\nPemantauan toksisitas:\n- Sebelum tiap dosis (atau tiap jam selama infus): laju napas ≥ 16 x/menit, refleks patela ada, urin ≥ 30 mL/jam dalam 4 jam terakhir.\n- Bila salah satu tidak terpenuhi: tunda dosis berikutnya atau hentikan infus.\n- Henti napas: kalsium glukonat 1 g (10 mL larutan 10%) IV pelan dalam 3 menit dan bantu napas.\n\nAntihipertensi dan terminasi (ISSHP 2021):\n- Hipertensi berat: pilihan obat lini pertama nifedipin oral, labetalol oral atau IV, atau hidralazin IV (dosis sesuai protokol setempat).\n- Target diastolik 85 mmHg.\n- Preeklampsia pada usia kehamilan ≥ 37 minggu: tawarkan persalinan (dasar uji HYPITAT).\n\nPencegahan pada ibu berisiko:\n- Aspirin dosis rendah malam hari, sebaiknya dimulai sebelum 16 minggu dan dihentikan paling lambat 36 minggu; 150 mg/malam bila skrining multivariabel, 100-162 mg/hari bila skrining faktor risiko klinis.\n- Ibu dengan asupan kalsium rendah (< 600 mg/hari): suplementasi kalsium minimal 500 mg/hari.\n\nPoin untuk koas:\n- Diagnosis hipertensi memakai rerata minimal dua pengukuran: ukur ulang sebelum melabel.\n- Catat laju napas, refleks patela, dan urin per jam di lembar observasi MgSO4; siapkan kalsium glukonat di samping pasien.\n- Pada pola Pritchard, 5 g IM memakai larutan 50% (10 mL); jangan tertukar dengan larutan 20% (diencerkan) untuk IV.",
+   "images": [
+    {
+     "file": "img/20261011-0505-preeklampsia-mgso4-1.svg",
+     "caption": "Skema regimen MgSO4 IV (Zuspan) dan IM (Pritchard) beserta pemantauan dan antidot",
+     "credit": "Digambar Claude berdasarkan WHOPAR RH086 (WHO, 2020)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "ISSHP",
+     "title": "Magee LA, et al. The 2021 ISSHP classification, diagnosis & management recommendations for international practice (Pregnancy Hypertension)",
+     "year": 2022,
+     "url": "https://www.duo.uio.no/bitstream/10852/98656/4/Red-Magee_et_al_2022_manuscript.pdf"
+    },
+    {
+     "org": "WHO",
+     "title": "WHO recommendations for prevention and treatment of pre-eclampsia and eclampsia",
+     "year": 2011,
+     "url": "https://www.who.int/publications/i/item/9789241548335"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Magee LA, et al. The 2021 International Society for the Study of Hypertension in Pregnancy classification, diagnosis & management recommendations (naskah penulis)",
+     "publisher": "Pregnancy Hypertension",
+     "year": 2022,
+     "url": "https://www.duo.uio.no/bitstream/10852/98656/4/Red-Magee_et_al_2022_manuscript.pdf"
+    },
+    {
+     "title": "WHO Prequalification. WHOPAR Part 4 (SmPC) Magnesium sulfate 500 mg/mL solution for injection (RH086)",
+     "publisher": "World Health Organization, Juni 2020 (rev. Maret 2022)",
+     "year": 2020,
+     "url": "https://extranet.who.int/prequal/sites/default/files/whopar_files/RH086part4.pdf"
     }
    ]
   }

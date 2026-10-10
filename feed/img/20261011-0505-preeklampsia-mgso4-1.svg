@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" width="900" height="640" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="900" height="640" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Magnesium sulfat (MgSO4) pada preeklampsia berat/eklampsia</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik · regimen sesuai label produk prakualifikasi WHO · ikuti protokol RS setempat</text>
+<line x1="150" y1="330" x2="870" y2="330" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="150" y1="324" x2="150" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="150" y="354" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">Mulai</text>
+<line x1="300" y1="324" x2="300" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="300" y="354" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">+1 jam</text>
+<line x1="450" y1="324" x2="450" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="450" y="354" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">+4 jam</text>
+<line x1="600" y1="324" x2="600" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="600" y="354" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">+8 jam</text>
+<line x1="850" y1="324" x2="850" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="850" y="354" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">Selesai</text>
+<line x1="690" y1="86" x2="690" y2="330" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="850" y1="80" x2="850" y2="330" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="770" y="96" font-size="12.5" font-weight="700" fill="#6b7280" text-anchor="middle">lanjut 24 jam</text>
+<text x="690" y="80" font-size="12.5" font-weight="700" fill="#6b7280" text-anchor="end">Persalinan / kejang terakhir</text>
+<text x="20" y="136" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="start">IV (Zuspan)</text>
+<rect x="150" y="112" width="100" height="46" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+<text x="200" y="132" font-size="14" font-weight="700" fill="#1e3a8a" text-anchor="middle">4 g IV</text>
+<text x="200" y="150" font-size="12" font-weight="400" fill="#1e3a8a" text-anchor="middle">dalam 5 menit</text>
+<rect x="258" y="112" width="592" height="46" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+<text x="554" y="140" font-size="14" font-weight="700" fill="#1e3a8a" text-anchor="middle">Rumatan 1 g/jam infus kontinu</text>
+<text x="20" y="216" font-size="15" font-weight="700" fill="#7c3aed" text-anchor="start">IM (Pritchard)</text>
+<rect x="150" y="186" width="150" height="58" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<text x="225" y="206" font-size="13" font-weight="700" fill="#4c1d95" text-anchor="middle">4 g IV (5 menit)</text>
+<text x="225" y="224" font-size="13" font-weight="700" fill="#4c1d95" text-anchor="middle">+ 10 g IM</text>
+<text x="225" y="239" font-size="11.5" font-weight="400" fill="#4c1d95" text-anchor="middle">(5 g tiap bokong)</text>
+<circle cx="450" cy="215" r="20" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+<text x="450" y="220" font-size="12.5" font-weight="700" fill="#4c1d95" text-anchor="middle">5 g</text>
+<circle cx="600" cy="215" r="20" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+<text x="600" y="220" font-size="12.5" font-weight="700" fill="#4c1d95" text-anchor="middle">5 g</text>
+<circle cx="770" cy="215" r="20" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+<text x="770" y="220" font-size="12.5" font-weight="700" fill="#4c1d95" text-anchor="middle">5 g</text>
+<text x="525" y="266" font-size="13" font-weight="400" fill="#4c1d95" text-anchor="middle">5 g IM tiap 4 jam, bergantian bokong</text>
+<rect x="20" y="378" width="420" height="176" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+<text x="36" y="404" font-size="15" font-weight="700" fill="#92400e" text-anchor="start">Cek SEBELUM tiap dosis / tiap jam infus</text>
+<text x="44" y="434" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">✓ Laju napas ≥ 16 x/menit</text>
+<text x="44" y="462" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">✓ Refleks patela ada</text>
+<text x="44" y="490" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">✓ Urin ≥ 30 mL/jam (4 jam terakhir)</text>
+<text x="44" y="518" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">! Bila tidak terpenuhi: tunda dosis / hentikan infus</text>
+<rect x="460" y="378" width="420" height="82" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+<text x="476" y="404" font-size="15" font-weight="700" fill="#991b1b" text-anchor="start">Henti napas: antidot</text>
+<text x="476" y="430" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">Kalsium glukonat 1 g (10 mL larutan 10%)</text>
+<text x="476" y="450" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">IV pelan dalam 3 menit + bantu napas</text>
+<rect x="460" y="472" width="420" height="82" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+<text x="476" y="498" font-size="15" font-weight="700" fill="#166534" text-anchor="start">Kejang berulang (&gt; 15 menit)</text>
+<text x="476" y="524" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">2 g IV (10 mL larutan 20%) dalam 5 menit</text>
+<text x="476" y="544" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">Lalu lanjutkan rumatan</text>
+<text x="20" y="590" font-size="13" font-weight="400" fill="#374151" text-anchor="start">Durasi: sampai 24 jam setelah persalinan atau setelah kejang terakhir (pilih yang paling akhir).</text>
+<text x="20" y="614" font-size="12" font-weight="400" fill="#6b7280" text-anchor="start">Sumber: WHOPAR RH086 Magnesium sulfate 500 mg/mL (WHO, 2020); WHO recommendations pre-eclampsia &amp; eclampsia (2011).</text>
+</svg>
