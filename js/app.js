@@ -2026,7 +2026,7 @@ async function feedSectionHtml() {
   const count = [...state.notes.values()].filter(isFreshNote).length;
   return `<section>
     <h4>✨ Ilmu baru otomatis</h4>
-    <p>Setiap 3 jam Claude merangkum satu topik dari guideline, buku ajar, atau jurnal tepercaya, lengkap dengan sumbernya. Rangkuman itu otomatis masuk ke catatanmu (tag <b>#${FEED_TAG}</b>) saat aplikasi dibuka dan ada internet.</p>
+    <p>Setiap 4 jam (05.00-23.00 WIB) Claude merangkum satu topik dari guideline, buku ajar, atau jurnal tepercaya, lengkap dengan sumbernya. Rangkuman itu otomatis masuk ke catatanmu (tag <b>#${FEED_TAG}</b>) saat aplikasi dibuka dan ada internet.</p>
     <label class="switch-row"><input type="checkbox" id="feed-on" ${enabled ? 'checked' : ''}> Terima ilmu baru otomatis</label>
     <p class="hint">${count} catatan ilmu baru · terakhir diperiksa ${checked ? fmtDate(checked) + ' ' + new Date(checked).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'belum pernah'}</p>
     <div class="row"><button class="btn ghost" id="feed-check">Periksa sekarang</button></div>

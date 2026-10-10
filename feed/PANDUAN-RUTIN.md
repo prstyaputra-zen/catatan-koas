@@ -1,6 +1,6 @@
 # Panduan rutin "Ilmu baru" (dibaca Claude setiap kali rutin berjalan)
 
-Tujuan: setiap 3 jam menambahkan SATU rangkuman ilmu kedokteran baru untuk koas ke `feed/ilmu.json`.
+Tujuan: setiap 4 jam (05.00-23.00 WIB) menambahkan SATU rangkuman ilmu kedokteran baru untuk koas ke `feed/ilmu.json`.
 Aplikasi Catatan Koas mengambil file ini dan menjadikannya catatan bertag #ilmu-baru.
 
 ## 1. Pilih topik
