@@ -401,3 +401,6 @@ body.modal-open { overflow: hidden; }
 .pick-img .check { position: absolute; top: 6px; right: 6px; width: 26px; height: 26px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: transparent; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 .pick-img.on { border-color: var(--accent); }
 .pick-img.on .check { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.dv-notext { margin: 0; padding: 10px 14px; font-size: 14px; line-height: 1.5; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.dv-notext .btn { margin-left: 4px; }
+.warn-text { color: var(--danger); }

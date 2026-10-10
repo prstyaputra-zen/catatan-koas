@@ -7,7 +7,7 @@ import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText }
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.8.0';
+const APP_VERSION = '0.8.1';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -585,7 +585,7 @@ function docFigure(note, m, terms) {
       <span class="doc-thumb">${m.hasThumb ? '<img alt="">' : `<span class="doc-icon d-${m.docType}">${DOC_LABEL[m.docType] || 'Dok'}</span>`}</span>
       <span class="doc-info">
         <b>${highlight(m.name, terms)}</b>
-        <small>${DOC_LABEL[m.docType] || 'Dokumen'}${m.pageCount ? ` · ${m.pageCount} ${pageUnit(m)}` : ''} · ${fmtSize(m.size)}${versions ? ` · ${versions + 1} versi` : ''}</small>
+        <small>${DOC_LABEL[m.docType] || 'Dokumen'}${m.pageCount ? ` · ${m.pageCount} ${pageUnit(m)}` : ''} · ${fmtSize(m.size)}${versions ? ` · ${versions + 1} versi` : ''}${(m.docPages || []).join('').trim() ? '' : ' · <span class="warn-text">isi tidak bisa dicari</span>'}</small>
         ${m.caption ? `<small class="cap">${highlight(m.caption, terms)}</small>` : ''}
         ${hits.length ? `<small class="hits">Ditemukan di ${m.pageCount ? 'hal. ' + hits.slice(0, 8).map((i) => i + 1).join(', ') + (hits.length > 8 ? '…' : '') : 'isi dokumen'}</small>` : ''}
       </span>
@@ -625,6 +625,33 @@ function termsForQuery(q) {
   return new Set([...state.index.search(q).terms, ...tokenize(q)]);
 }
 
+// Penjelasan mengapa dokumen tidak bisa dicari.
+function noTextReason(m) {
+  if (m.docType === 'other') return '🔍 Format ini (misalnya .doc, .ppt, .xls lama, atau Pages) tidak bisa dibaca aplikasi, jadi isinya tidak bisa dicari. Simpan ulang sebagai .docx, .pptx, .xlsx, atau PDF, lalu pakai “Simpan versi baru”.';
+  if (m.docType === 'pdf') return '🔍 PDF ini tidak memiliki teks yang bisa dibaca, biasanya karena hasil scan atau foto halaman, jadi isinya belum bisa dicari.';
+  return '🔍 Teks dokumen ini tidak terbaca, jadi isinya belum bisa dicari.';
+}
+
+// Membaca ulang teks dokumen (mis. file lama atau pembacaan sebelumnya gagal) lalu menyimpannya.
+async function rereadDocText(note, m) {
+  const file = new File([m.blob], m.name || 'dokumen', { type: m.mime || m.blob.type || '' });
+  const ex = await extractDocument(file, m.docType);
+  const pages = ex.pages || [];
+  if (!pages.join('').trim()) {
+    toast(m.docType === 'pdf' ? 'Tetap tidak ada teks. PDF ini kemungkinan hasil scan.' : 'Teks tetap tidak terbaca.', 5000);
+    return false;
+  }
+  const patch = { id: m.id, docPages: pages, pageCount: ex.pageCount ?? m.pageCount ?? null };
+  note.updated = Date.now();
+  const { mediaIds, ...stored } = note;
+  await db.saveNote(stored, [], [patch]);
+  state.mediaMeta.set(m.id, { ...state.mediaMeta.get(m.id), ...patch });
+  indexNote(note);
+  scheduleSync();
+  toast('Teks berhasil dibaca. Sekarang bisa dicari.');
+  return true;
+}
+
 async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
   const m = await db.getMedia(mediaId);
   if (!m) return;
@@ -648,6 +675,7 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
       ${m.docType === 'pdf' ? '<button class="btn small ghost" data-act="grab">✂️ Ambil gambar</button>' : ''}
       ${['docx', 'pptx', 'xlsx'].includes(m.docType) ? '<button class="btn small ghost" data-act="docimgs">🖼️ Gambar di dokumen</button>' : ''}
     </div>
+    ${hasText ? '' : `<div class="dv-notext">${noTextReason(m)}${m.docType !== 'other' ? ' <button class="btn small ghost" data-act="reread">Baca ulang teks</button>' : ''}</div>`}
     ${hasText ? `<div class="dv-find">
       <input id="dv-q" type="search" placeholder="Cari di dokumen ini" value="${esc(query)}" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
       <span class="dv-count" id="dv-count"></span>
@@ -710,6 +738,13 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
     else if (act === 'open') shareOrDownload(m);
     else if (act === 'tonote') { close(); docToNote(note, m); }
     else if (act === 'grab') grabPdfImage();
+    else if (act === 'reread') {
+      t.disabled = true;
+      t.textContent = 'Membaca…';
+      const ok = await rereadDocText(note, m);
+      if (ok) { close(); openDocViewer(note, m.id, 0, terms); }
+      else { t.disabled = false; t.textContent = 'Baca ulang teks'; }
+    }
     else if (act === 'docimgs') grabDocImages();
     else if (act === 'zoomin' || act === 'zoomout') setZoom(act === 'zoomin' ? 1.5 : 1 / 1.5);
     else if (act === 'next') goTo(cur + 1);
