@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" width="900" height="640" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="900" height="640" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Diare akut pada anak: derajat dehidrasi dan rencana terapi</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik ringkas · ikuti buku bagan MTBS dan protokol RS setempat</text>
+<rect x="190" y="66" width="520" height="84" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="204" y="92" font-size="16" font-weight="700" fill="#111827">Nilai tanda dehidrasi</text>
+<text x="204" y="116" font-size="13.5" font-weight="400" fill="#1f2937">Keadaan umum, mata, rasa haus/minum, cubitan kulit perut.</text>
+<text x="204" y="136" font-size="13.5" font-weight="400" fill="#1f2937">Klasifikasi bila ada ≥ 2 tanda dari satu kolom.</text>
+<line x1="450" y1="150" x2="160" y2="176" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="20" y="180" width="280" height="110" rx="12" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+<text x="34" y="206" font-size="16" font-weight="700" fill="#065f46">Tanpa dehidrasi</text>
+<text x="34" y="230" font-size="13.5" font-weight="400" fill="#1f2937">Tanda belum cukup untuk</text>
+<text x="34" y="250" font-size="13.5" font-weight="400" fill="#1f2937">kategori lain</text>
+<line x1="160" y1="290" x2="160" y2="318" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="20" y="322" width="280" height="176" rx="12" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+<text x="34" y="348" font-size="16" font-weight="700" fill="#065f46">Rencana A (di rumah)</text>
+<text x="34" y="372" font-size="13.5" font-weight="400" fill="#1f2937">Oralit tiap BAB cair:</text>
+<text x="34" y="392" font-size="13.5" font-weight="700" fill="#1f2937">&lt; 1 th: 50-100 mL</text>
+<text x="34" y="412" font-size="13.5" font-weight="700" fill="#1f2937">1-5 th: 100-200 mL</text>
+<text x="34" y="432" font-size="13.5" font-weight="400" fill="#1f2937">Lanjutkan ASI/makan</text>
+<text x="34" y="452" font-size="13.5" font-weight="400" fill="#1f2937">Zinc 10 hari</text>
+<text x="34" y="472" font-size="13.5" font-weight="400" fill="#1f2937">Kembali bila memburuk</text>
+<line x1="450" y1="150" x2="450" y2="176" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="310" y="180" width="280" height="110" rx="12" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+<text x="324" y="206" font-size="16" font-weight="700" fill="#92400e">Dehidrasi ringan/sedang</text>
+<text x="324" y="230" font-size="13.5" font-weight="400" fill="#1f2937">Rewel/gelisah, mata cekung,</text>
+<text x="324" y="250" font-size="13.5" font-weight="400" fill="#1f2937">haus minum lahap,</text>
+<text x="324" y="270" font-size="13.5" font-weight="400" fill="#1f2937">cubitan kembali lambat</text>
+<line x1="450" y1="290" x2="450" y2="318" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="310" y="322" width="280" height="176" rx="12" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+<text x="324" y="348" font-size="16" font-weight="700" fill="#92400e">Rencana B (oralit di klinik)</text>
+<text x="324" y="372" font-size="13.5" font-weight="700" fill="#1f2937">Oralit 75 mL/kgBB</text>
+<text x="324" y="392" font-size="13.5" font-weight="400" fill="#1f2937">MTBS: dalam 3 jam</text>
+<text x="324" y="412" font-size="13.5" font-weight="400" fill="#1f2937">MSF/WHO: dalam 4 jam</text>
+<text x="324" y="432" font-size="13.5" font-weight="400" fill="#1f2937">Lanjutkan ASI</text>
+<text x="324" y="452" font-size="13.5" font-weight="400" fill="#1f2937">Nilai ulang, lalu pilih</text>
+<text x="324" y="472" font-size="13.5" font-weight="400" fill="#1f2937">rencana A/B/C</text>
+<line x1="450" y1="150" x2="740" y2="176" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="600" y="180" width="280" height="110" rx="12" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+<text x="614" y="206" font-size="16" font-weight="700" fill="#991b1b">Dehidrasi berat</text>
+<text x="614" y="230" font-size="13.5" font-weight="400" fill="#1f2937">Letargis/tidak sadar, mata</text>
+<text x="614" y="250" font-size="13.5" font-weight="400" fill="#1f2937">cekung, tidak bisa/malas</text>
+<text x="614" y="270" font-size="13.5" font-weight="400" fill="#1f2937">minum, cubitan sangat lambat</text>
+<line x1="740" y1="290" x2="740" y2="318" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="600" y="322" width="280" height="176" rx="12" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+<text x="614" y="348" font-size="16" font-weight="700" fill="#991b1b">Rencana C (infus cepat)</text>
+<text x="614" y="372" font-size="13.5" font-weight="400" fill="#1f2937">RL 100 mL/kgBB (atau NaCl 0,9%)</text>
+<text x="614" y="392" font-size="13.5" font-weight="700" fill="#1f2937">Bayi &lt; 12 bl: 30 mL/kg 1 jam,</text>
+<text x="614" y="412" font-size="13.5" font-weight="700" fill="#1f2937">  lalu 70 mL/kg 5 jam</text>
+<text x="614" y="432" font-size="13.5" font-weight="700" fill="#1f2937">Anak 1-5 th: 30 mL/kg 30 mnt,</text>
+<text x="614" y="452" font-size="13.5" font-weight="700" fill="#1f2937">  lalu 70 mL/kg 2½ jam</text>
+<text x="614" y="472" font-size="13.5" font-weight="400" fill="#1f2937">Ulangi 30 mL/kg bila nadi lemah</text>
+<text x="20" y="534" font-size="13" fill="#374151">Zinc untuk semua anak diare (kecuali bayi muda) setiap hari selama 10 hari penuh, walau diare sudah berhenti.</text>
+<text x="20" y="556" font-size="13" fill="#374151">Contoh dosis (tablet 20 mg, panduan WHO/USAID 2005): &lt; 6 bulan ½ tablet/hari, ≥ 6 bulan 1 tablet/hari.</text>
+<text x="20" y="578" font-size="13" fill="#374151">Rencana C: pantau tanda vital tiap 15-30 menit; beri oralit 5 mL/kg/jam begitu anak bisa minum; nilai ulang dehidrasi.</text>
+<text x="20" y="612" font-size="12" fill="#6b7280">Sumber: Buku Bagan MTBS Kemenkes RI 2015; MSF Clinical Guidelines, Appendix 14 (2025, diadaptasi dari WHO Pocket Book 2013).</text>
+</svg>

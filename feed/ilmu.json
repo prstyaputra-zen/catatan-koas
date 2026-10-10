@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-10T10:06:00Z",
+ "updated": "2026-10-10T14:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -100,6 +100,69 @@
      "publisher": "Scientific Advisory, Juni 2019",
      "year": 2019,
      "url": "https://www.redcross.org/content/dam/redcross/docs/Burn%20Cooling%E2%80%94ADVISORY.pdf"
+    }
+   ]
+  },
+  {
+   "id": "20261010-2106-diare-dehidrasi-anak",
+   "created": "2026-10-10T14:06:00Z",
+   "title": "Diare akut pada anak: menilai dehidrasi dan Rencana Terapi A, B, C",
+   "type": "topik",
+   "stase": "Anak",
+   "tags": [
+    "diare",
+    "dehidrasi",
+    "MTBS",
+    "oralit",
+    "zinc",
+    "rehidrasi"
+   ],
+   "body": "Ringkasan:\nPada anak dengan diare akut, langkah terpenting adalah menilai derajat dehidrasi, lalu memilih Rencana Terapi A, B, atau C. Semua anak diare juga mendapat zinc 10 hari dan tetap diberi ASI/makan.\n\nMenilai dehidrasi (MTBS):\n| Tanda | Tanpa dehidrasi | Ringan/sedang | Berat |\n|---|---|---|---|\n| Keadaan umum | Baik | Rewel, mudah marah/gelisah | Letargis atau tidak sadar |\n| Mata | Normal | Cekung | Cekung |\n| Minum | Biasa, tidak haus | Haus, minum dengan lahap | Tidak bisa atau malas minum |\n| Cubitan kulit perut | Kembali segera (< 1 detik) | Kembali lambat | Kembali sangat lambat (> 2 detik) |\n- Klasifikasi bila ada 2 tanda atau lebih dari satu kolom. \"Tanpa dehidrasi\" bila tanda belum cukup untuk dua kategori lainnya.\n- Mata cekung bisa normal pada sebagian anak: tanyakan ke orang tua apakah lebih cekung dari biasanya.\n\n{{gambar:1}}\n\nRencana A (tanpa dehidrasi, di rumah):\n- Beri cairan lebih banyak (ASI, oralit, cairan lain). Oralit setiap kali BAB cair: < 1 tahun 50-100 mL; 1-5 tahun 100-200 mL.\n- Anak < 2 tahun: satu sendok teh tiap 1-2 menit; hindari botol susu.\n- Lanjutkan ASI dan makan, beri zinc 10 hari, dan ajari tanda bahaya untuk kembali.\n\nRencana B (dehidrasi ringan/sedang, oralit di sarana kesehatan):\n- Oralit 75 mL × BB (kg). MTBS Kemenkes: dalam 3 jam pertama; MSF (diadaptasi dari WHO): dalam 4 jam. Ikuti protokol setempat.\n- Bila BB tidak diketahui (MTBS): ≤ 4 bulan (< 6 kg) 200-400 mL; 4 bulan-< 1 tahun (6-< 10 kg) 400-700 mL; 1-< 2 tahun (10-< 12 kg) 700-900 mL; 2-< 5 tahun (12-19 kg) 900-1.400 mL.\n- Tambah oralit untuk BAB yang terus berlangsung, lanjutkan ASI, hentikan oralit bila kelopak mata sembap. Nilai ulang setelah selesai, lalu pilih rencana A, B, atau C.\n\nRencana C (dehidrasi berat, infus cepat):\n- Ringer Laktat 100 mL/kgBB (bila tidak ada, NaCl 0,9%).\n- Bayi (> 28 hari-< 12 bulan): 30 mL/kg dalam 1 jam, lalu 70 mL/kg dalam 5 jam.\n- Anak 12 bulan-5 tahun: 30 mL/kg dalam 30 menit, lalu 70 mL/kg dalam 2½ jam.\n- Ulangi 30 mL/kg bila nadi radialis masih lemah atau tidak teraba. Pantau tanda vital tiap 15-30 menit dan waspada kelebihan cairan.\n- Begitu anak bisa minum, beri oralit sekitar 5 mL/kg/jam. Nilai ulang dehidrasi di akhir resusitasi (sekitar 3 jam pada anak, 6 jam pada bayi).\n- Bila infus tidak bisa dipasang: oralit lewat sonde nasogastrik atau rujuk segera.\n\nZinc dan makan:\n- Zinc untuk semua anak diare (kecuali bayi muda), setiap hari selama 10 hari penuh walau diare sudah berhenti (MTBS); WHO menyebut 10-14 hari.\n- Dosis contoh (tablet 20 mg, panduan WHO/USAID 2005): < 6 bulan ½ tablet/hari; ≥ 6 bulan 1 tablet/hari.\n- Lanjutkan ASI dan makanan bergizi selama diare.\n\nPoin untuk koas:\n- Selalu timbang anak: semua dosis cairan dihitung per kgBB.\n- Tulis derajat dehidrasi dan tanda yang dipakai di rekam medis, lalu nilai ulang setelah tiap rencana selesai.\n- Diare berdarah, diare ≥ 14 hari, atau gizi buruk punya tatalaksana berbeda (mis. gizi buruk memakai ReSoMal): jangan langsung pakai Rencana C standar.",
+   "images": [
+    {
+     "file": "img/20261010-2106-diare-dehidrasi-anak-1.svg",
+     "caption": "Alur skematik derajat dehidrasi dan Rencana Terapi A, B, C",
+     "credit": "Digambar Claude berdasarkan Buku Bagan MTBS Kemenkes 2015 dan MSF Clinical Guidelines 2025"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kemenkes RI",
+     "title": "Buku Bagan Manajemen Terpadu Balita Sakit (MTBS)",
+     "year": 2015,
+     "url": "https://platform.who.int/docs/default-source/mca-documents/policy-documents/guideline/IDN-CH-20-01-GUIDELINE-2015-ind-Chart-Book-of-Integrated-Management-of-Sick-Toddler.pdf"
+    },
+    {
+     "org": "WHO",
+     "title": "Pocket Book of Hospital Care for Children, 2nd ed. (Bab 5: Diare)",
+     "year": 2013,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK154447/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. Manajemen Terpadu Balita Sakit (MTBS): Buku Bagan",
+     "publisher": "Kemenkes RI, Jakarta",
+     "year": 2015,
+     "url": "https://platform.who.int/docs/default-source/mca-documents/policy-documents/guideline/IDN-CH-20-01-GUIDELINE-2015-ind-Chart-Book-of-Integrated-Management-of-Sick-Toddler.pdf"
+    },
+    {
+     "title": "Médecins Sans Frontières. Clinical Guidelines, Appendix 14: WHO rehydration plan in patients with diarrhoea",
+     "publisher": "MSF Medical Guidelines",
+     "year": 2025,
+     "url": "https://medicalguidelines.msf.org/sites/default/files/2026-05/14_Appendix_2025.pdf"
+    },
+    {
+     "title": "World Health Organization. Diarrhoeal disease (fact sheet)",
+     "publisher": "WHO, 7 Maret 2024",
+     "year": 2024,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/diarrhoeal-disease"
+    },
+    {
+     "title": "MOST/USAID, WHO. Diarrhoea Treatment Guidelines including new recommendations for the use of ORS and zinc supplementation",
+     "publisher": "MOST Project, Arlington VA",
+     "year": 2005,
+     "url": "https://cdn.who.int/media/docs/default-source/2021-dha-docs/pnadk428.pdf"
     }
    ]
   }
