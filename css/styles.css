@@ -404,3 +404,7 @@ body.modal-open { overflow: hidden; }
 .dv-notext { margin: 0; padding: 10px 14px; font-size: 14px; line-height: 1.5; background: var(--surface-2); border-bottom: 1px solid var(--line); }
 .dv-notext .btn { margin-left: 4px; }
 .warn-text { color: var(--danger); }
+.note-find { position: sticky; z-index: 9; display: flex; align-items: center; gap: 4px; margin: 0 -16px 8px; padding: 6px 8px 6px 16px; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: 0 4px 10px rgba(0, 0, 0, .05); }
+.note-find input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--text); outline: 0; }
+.note-find input:focus { border-color: var(--accent); }
+.note-find .iconbtn { font-size: 18px; }

@@ -7,7 +7,7 @@ import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText }
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.8.1';
+const APP_VERSION = '0.8.2';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -368,8 +368,16 @@ async function renderNote(id) {
     <div class="topbar">
       <a href="#/" class="iconbtn" aria-label="Kembali">‹</a>
       <span class="grow"></span>
+      <button class="iconbtn" id="findbtn" aria-label="Cari di catatan ini">🔍</button>
       <button class="iconbtn" id="pin" aria-label="Sematkan">${n.pinned ? '📌' : '📍'}</button>
       <a class="btn small" href="#/ubah/${n.id}">Ubah</a>
+    </div>
+    <div class="note-find hidden" id="nf">
+      <input id="nf-q" type="search" placeholder="Cari di catatan ini" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+      <span class="dv-count" id="nf-count"></span>
+      <button class="iconbtn" data-nf="prev" aria-label="Hasil sebelumnya">⌃</button>
+      <button class="iconbtn" data-nf="next" aria-label="Hasil berikutnya">⌄</button>
+      <button class="iconbtn" data-nf="close" aria-label="Tutup pencarian">✕</button>
     </div>
     <article class="note">
       <div class="card-top"><span class="badge t-${n.type}">${t.icon} ${t.label}</span>${n.stase ? `<span class="badge">${esc(n.stase)}</span>` : ''}</div>
@@ -402,6 +410,7 @@ async function renderNote(id) {
     location.hash = '#/';
   };
   hydrateInlineImages(view(), n);
+  bindNoteFind(n, terms);
   const gallery = $('#gallery');
   const inline = inlineImageIds(n.body);
   for (const meta of currentMedia(n)) {
@@ -422,6 +431,54 @@ async function renderNote(id) {
     else el.innerHTML = `<div class="audio-row"><span>🎙️</span><audio src="${url}" controls preload="metadata"></audio></div>${cap}`;
     if (m.kind === 'image') el.querySelector('img').onclick = () => openLightbox(url, m.caption);
     gallery.appendChild(el);
+  }
+}
+
+// Cari kata di dalam catatan yang sedang dibuka: sorot semua, lompat antar hasil.
+function bindNoteFind(n, initialTerms) {
+  const bar = $('#nf');
+  const input = $('#nf-q');
+  const countEl = $('#nf-count');
+  const bodyEl = view().querySelector('.note .body');
+  const titleEl = view().querySelector('.note h1');
+  let marks = [];
+  let cur = -1;
+  bar.style.top = ($('.appbar')?.offsetHeight || 0) + 'px';
+  const show = (i) => {
+    if (!marks.length) { cur = -1; countEl.textContent = input.value.trim() ? 'Tidak ada' : ''; return; }
+    cur = (i + marks.length) % marks.length;
+    marks.forEach((el, k) => el.classList.toggle('cur', k === cur));
+    countEl.textContent = `${cur + 1}/${marks.length}`;
+    marks[cur].scrollIntoView({ block: 'center', behavior: 'smooth' });
+  };
+  const apply = (terms, jump = true) => {
+    titleEl.innerHTML = highlight(n.title || '(tanpa judul)', terms);
+    bodyEl.innerHTML = renderBody(n.body, terms, n.type);
+    hydrateInlineImages(bodyEl, n);
+    marks = [...view().querySelectorAll('.note h1 mark, .note .body mark')];
+    if (jump) show(0); else { cur = -1; countEl.textContent = marks.length ? `${marks.length} hasil` : ''; }
+  };
+  const open = () => { bar.classList.remove('hidden'); input.focus(); };
+  let t;
+  input.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => apply(termsForQuery(input.value)), 150); });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); show(cur + (e.shiftKey ? -1 : 1)); }
+    if (e.key === 'Escape') bar.querySelector('[data-nf="close"]').click();
+  });
+  bar.addEventListener('click', (e) => {
+    const act = e.target.closest('[data-nf]')?.dataset.nf;
+    if (act === 'next') show(cur + 1);
+    else if (act === 'prev') show(cur - 1);
+    else if (act === 'close') { bar.classList.add('hidden'); input.value = ''; apply(new Set(), false); }
+  });
+  $('#findbtn').onclick = () => (bar.classList.contains('hidden') ? open() : input.focus());
+  // Dibuka dari hasil pencarian: kata yang dicari sudah disorot, langsung tampilkan bilah cari.
+  if (initialTerms && initialTerms.size && state.query.trim()) {
+    bar.classList.remove('hidden');
+    input.value = state.query;
+    marks = [...view().querySelectorAll('.note h1 mark, .note .body mark')];
+    countEl.textContent = marks.length ? `${marks.length} hasil` : '';
+    if (marks.length) requestAnimationFrame(() => show(0));
   }
 }
 
