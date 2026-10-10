@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 700" width="760" height="700" font-family="Helvetica, Arial, sans-serif">
+<rect width="760" height="700" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Rule of nines: perkiraan luas luka bakar (% TBSA)</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik · angka = total depan + belakang tiap bagian</text>
+<text x="200" y="92" font-size="17" font-weight="700" fill="#991b1b" text-anchor="middle">Dewasa</text>
+<circle cx="200" cy="144" r="34" fill="#fde68a" stroke="#374151" stroke-width="1.5"/>
+<text x="200" y="149" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">9%</text>
+<rect x="145.0" y="186" width="110" height="170" rx="14" fill="#fecaca" stroke="#374151" stroke-width="1.5"/>
+<text x="200" y="246" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">Depan</text>
+<text x="200" y="264" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">18%</text>
+<text x="200" y="298" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">Belakang</text>
+<text x="200" y="316" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">18%</text>
+<rect x="105.0" y="190" width="34" height="190" rx="16" fill="#bfdbfe" stroke="#374151" stroke-width="1.5"/>
+<text x="122.0" y="289.0" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">9%</text>
+<rect x="261.0" y="190" width="34" height="190" rx="16" fill="#bfdbfe" stroke="#374151" stroke-width="1.5"/>
+<text x="278.0" y="289.0" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">9%</text>
+<rect x="148.0" y="362" width="48" height="230" rx="18" fill="#bbf7d0" stroke="#374151" stroke-width="1.5"/>
+<text x="172.0" y="482.0" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">18%</text>
+<rect x="204.0" y="362" width="48" height="230" rx="18" fill="#bbf7d0" stroke="#374151" stroke-width="1.5"/>
+<text x="228.0" y="482.0" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">18%</text>
+<rect x="186" y="358" width="28" height="22" rx="5" fill="#e9d5ff" stroke="#374151" stroke-width="1.2"/>
+<text x="200" y="374" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">1%</text>
+<text x="560" y="92" font-size="17" font-weight="700" fill="#991b1b" text-anchor="middle">Anak (contoh usia ±1 tahun)</text>
+<circle cx="560" cy="156" r="46" fill="#fde68a" stroke="#374151" stroke-width="1.5"/>
+<text x="560" y="161" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">18%</text>
+<rect x="505.0" y="210" width="110" height="170" rx="14" fill="#fecaca" stroke="#374151" stroke-width="1.5"/>
+<text x="560" y="270" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">Depan</text>
+<text x="560" y="288" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">18%</text>
+<text x="560" y="322" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">Belakang</text>
+<text x="560" y="340" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">18%</text>
+<rect x="465.0" y="214" width="34" height="190" rx="16" fill="#bfdbfe" stroke="#374151" stroke-width="1.5"/>
+<text x="482.0" y="313.0" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">9%</text>
+<rect x="621.0" y="214" width="34" height="190" rx="16" fill="#bfdbfe" stroke="#374151" stroke-width="1.5"/>
+<text x="638.0" y="313.0" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">9%</text>
+<rect x="508.0" y="386" width="48" height="206" rx="18" fill="#bbf7d0" stroke="#374151" stroke-width="1.5"/>
+<text x="532.0" y="494.0" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">13,5%</text>
+<rect x="564.0" y="386" width="48" height="206" rx="18" fill="#bbf7d0" stroke="#374151" stroke-width="1.5"/>
+<text x="588.0" y="494.0" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">13,5%</text>
+<rect x="546" y="382" width="28" height="22" rx="5" fill="#e9d5ff" stroke="#374151" stroke-width="1.2"/>
+<text x="560" y="398" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">1%</text>
+<text x="20" y="652" font-size="13" fill="#374151">Lengan 9% tiap sisi. Perineum 1%. Total 100%. Telapak + jari tangan pasien ≈ 1% TBSA (luka kecil/tersebar).</text>
+<text x="20" y="672" font-size="13" fill="#374151">Anak: setiap tahun setelah usia 12 bulan, kepala −1% dan tiap tungkai +0,5% (PNPK Luka Bakar 2019).</text>
+<text x="20" y="690" font-size="12" fill="#6b7280">Hitung hanya luka bakar derajat dua (dermal) dan tiga (full thickness) untuk resusitasi cairan.</text>
+</svg>

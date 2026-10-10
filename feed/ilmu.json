@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-10T14:00:00Z",
+ "updated": "2026-10-10T10:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -44,6 +44,62 @@
      "title": "Clase CM, et al. Potassium homeostasis and management of dyskalemia in kidney diseases: conclusions from a KDIGO Controversies Conference",
      "year": 2020,
      "url": "https://doi.org/10.1016/j.kint.2019.09.018"
+    }
+   ]
+  },
+  {
+   "id": "20261010-1706-luka-bakar",
+   "created": "2026-10-10T10:06:00Z",
+   "title": "Luka bakar: pertolongan pertama, luas (rule of nines), dan resusitasi cairan",
+   "type": "topik",
+   "stase": "Bedah",
+   "tags": [
+    "luka bakar",
+    "rule of nines",
+    "Parkland",
+    "resusitasi cairan",
+    "kegawatdaruratan"
+   ],
+   "body": "Ringkasan:\nLuka bakar luas memerlukan tiga hal sejak awal: menghentikan proses terbakar dan mendinginkan luka, survei primer ABC (waspada trauma inhalasi), lalu menghitung luas luka bakar untuk resusitasi cairan dan keputusan rujukan.\n\nPertolongan pertama:\n- Hentikan proses terbakar; lepas pakaian dan perhiasan di area luka (bisa tetap menahan panas).\n- Dinginkan dengan air mengalir yang sejuk/dingin minimal 10 menit, idealnya 20 menit; jangan lebih dari 40 menit (risiko hipotermia). Masih bermanfaat hingga 3 jam setelah kejadian.\n- Jangan pakai es atau kompres es. Pantau hipotermia pada luka bakar luas dan anak kecil.\n\nSurvei primer:\n- Airway: cari luka bakar di mulut/wajah yang bisa menyebabkan edema dan sumbatan jalan napas.\n- Breathing: waspada keracunan karbon monoksida (tampak cherry pink, tidak bernapas), hipoksia; luka bakar melingkar di dada dapat membatasi napas, pertimbangkan eskarotomi.\n- Pada luka bakar api yang luas: pertimbangkan trauma inhalasi, CO, dan sianida; berikan oksigen aliran tinggi.\n\nLuas luka bakar (% TBSA):\n- Rule of nines dewasa: kepala 9%, tiap lengan 9%, batang tubuh depan 18%, belakang 18%, tiap tungkai 18%, perineum 1%.\n- Anak: kepala relatif lebih besar (contoh: kepala 18%, tiap tungkai 13,5%). Setiap tahun setelah usia 12 bulan, kepala dikurangi 1% dan tiap tungkai ditambah 0,5%.\n- Luka kecil/tersebar: telapak dan jari tangan pasien sendiri ≈ 1% TBSA.\n\n{{gambar:1}}\n\nKedalaman (klasifikasi PNPK, mengikuti ANZBA/EMSB):\n| Kedalaman | Warna | Bula | Pengisian kapiler | Nyeri | Penyembuhan |\n|---|---|---|---|---|---|\n| Epidermal | Merah | Tidak ada | Ada | Ada | ± 7 hari, tanpa parut |\n| Dermal superfisial | Merah muda pucat | Kecil | Ada | Nyeri | ± 14 hari |\n| Mid dermal | Merah muda lebih gelap | Ada | Lambat | Berkurang | Tidak selalu spontan |\n| Dermal dalam | Merah gelap berbercak | Dasar merah tidak rata | Tidak ada/berkurang | Tidak nyeri | Tidak sembuh spontan |\n| Full thickness | Putih, seperti lilin, atau gosong | Tidak ada | Tidak ada | Tidak ada | Tidak spontan; terbentuk eskar keras seperti kulit |\n\nResusitasi cairan:\n- Indikasi: luka bakar derajat dua atau tiga > 20% TBSA pada dewasa, > 10% TBSA pada anak.\n- Formula Parkland: 3-4 mL × BB (kg) × % TBSA, cairan Ringer Laktat (anak: ditambah cairan rumatan).\n- Setengah volume diberikan dalam 8 jam pertama, sisanya dalam 16 jam berikutnya. Waktu dihitung sejak kejadian luka bakar, bukan sejak pasien tiba.\n- Contoh: 70 kg, 30% TBSA, 4 mL → 8.400 mL/24 jam; 4.200 mL dalam 8 jam pertama (525 mL/jam), lalu 4.200 mL dalam 16 jam (± 262 mL/jam).\n- Formula hanya perkiraan awal: titrasi dengan produksi urin, tanda vital, dan status mental. Target urin di PNPK: 0,5-1,0 mL/kgBB/jam (dewasa) dan 1,0-1,5 mL/kgBB/jam (anak); bagian rekomendasi titrasinya menyebut 0,3-0,5 mL/kg/jam (dewasa) dan hingga 1 mL/kg/jam (anak). Hindari kelebihan cairan (fluid creep).\n\nRujuk ke unit luka bakar bila (PNPK):\n- > 10% TBSA (dewasa), > 5% TBSA pada anak, atau full thickness > 5% TBSA.\n- Area khusus: wajah, tangan, kaki, genitalia, perineum, sendi besar, luka melingkar, dada.\n- Trauma inhalasi, luka bakar listrik atau kimia, penyakit penyerta, trauma mayor, usia ekstrem, kehamilan, atau curiga kekerasan (non-accidental).\n\nPoin untuk koas:\n- Tulis jam kejadian di rekam medis: perhitungan Parkland dimulai dari situ.\n- Derajat satu/epidermal tidak dihitung dalam % TBSA untuk resusitasi.\n- Pasang kateter urin pada luka bakar luas untuk memantau target urin tiap jam.\n- Luka bakar di wajah, suara serak, atau terjebak di ruang tertutup: curigai trauma inhalasi dan konsultasikan jalan napas lebih awal.\n- Ikuti protokol RS setempat untuk volume awal (3 atau 4 mL) dan pemantauan.",
+   "images": [
+    {
+     "file": "img/20261010-1706-luka-bakar-1.svg",
+     "caption": "Ilustrasi skematik rule of nines dewasa dan anak",
+     "credit": "Digambar Claude berdasarkan PNPK Tata Laksana Luka Bakar 2019 dan StatPearls"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kemenkes RI",
+     "title": "PNPK Tata Laksana Luka Bakar (KMK No. HK.01.07/MENKES/555/2019)",
+     "year": 2019,
+     "url": "https://www.kemkes.go.id/eng/pnpk---tata-laksana-luka-bakar"
+    },
+    {
+     "org": "American Red Cross Scientific Advisory Council",
+     "title": "Burn Cooling (Advisory)",
+     "year": 2019,
+     "url": "https://www.redcross.org/content/dam/redcross/docs/Burn%20Cooling%E2%80%94ADVISORY.pdf"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. Pedoman Nasional Pelayanan Kedokteran Tata Laksana Luka Bakar",
+     "publisher": "KMK HK.01.07/MENKES/555/2019",
+     "year": 2019,
+     "url": "https://www.kemkes.go.id/app_asset/file_content_download/1701156228656595849db438.81927217.pdf"
+    },
+    {
+     "title": "Schaefer TJ, Szymanski KD. Burn Evaluation and Management",
+     "publisher": "StatPearls, NCBI Bookshelf (diperbarui 8 Agu 2023, berstatus arsip)",
+     "year": 2023,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK430741/"
+    },
+    {
+     "title": "American Red Cross Scientific Advisory Council. Burn Cooling",
+     "publisher": "Scientific Advisory, Juni 2019",
+     "year": 2019,
+     "url": "https://www.redcross.org/content/dam/redcross/docs/Burn%20Cooling%E2%80%94ADVISORY.pdf"
     }
    ]
   }
