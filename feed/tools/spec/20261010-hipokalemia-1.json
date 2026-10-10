@@ -1,0 +1,138 @@
+{
+ "title": "EKG normal vs hipokalemia (lead prekordial)",
+ "note": "Urutan khas: T mendatar, lalu depresi ST dan gelombang U. PR serta QT/QU dapat memanjang.",
+ "seconds": 2.4,
+ "hr": 75,
+ "strips": [
+  {
+   "label": "Normal (K+ 3,5-5,0 mEq/L)",
+   "waves": {
+    "P": [
+     0.15,
+     0.1,
+     0.022
+    ],
+    "Q": [
+     -0.1,
+     0.205,
+     0.008
+    ],
+    "R": [
+     1.1,
+     0.225,
+     0.01
+    ],
+    "S": [
+     -0.25,
+     0.245,
+     0.009
+    ],
+    "T": [
+     0.32,
+     0.46,
+     0.045
+    ],
+    "U": [
+     0.03,
+     0.63,
+     0.028
+    ]
+   },
+   "notes": [
+    {
+     "text": "T tegak",
+     "wave": "T",
+     "beat": 1,
+     "dx": 4,
+     "dy": -46
+    },
+    {
+     "text": "ST isoelektrik",
+     "wave": "T",
+     "beat": 0,
+     "at": -0.13,
+     "dx": 30,
+     "dy": 70
+    },
+    {
+     "text": "U kecil/tak tampak",
+     "wave": "U",
+     "beat": 2,
+     "dx": -14,
+     "dy": -60,
+     "anchor": "end"
+    }
+   ]
+  },
+  {
+   "label": "Hipokalemia (mis. K+ < 2,5 mEq/L)",
+   "waves": {
+    "P": [
+     0.2,
+     0.09,
+     0.024
+    ],
+    "Q": [
+     -0.1,
+     0.215,
+     0.008
+    ],
+    "R": [
+     1.05,
+     0.235,
+     0.01
+    ],
+    "S": [
+     -0.25,
+     0.255,
+     0.009
+    ],
+    "ST": [
+     -0.1,
+     0.36,
+     0.055
+    ],
+    "T": [
+     0.1,
+     0.45,
+     0.04
+    ],
+    "U": [
+     0.2,
+     0.61,
+     0.04
+    ]
+   },
+   "notes": [
+    {
+     "text": "Depresi ST",
+     "wave": "ST",
+     "beat": 0,
+     "dx": 6,
+     "dy": 78
+    },
+    {
+     "text": "T mendatar",
+     "wave": "T",
+     "beat": 1,
+     "dx": 0,
+     "dy": -70
+    },
+    {
+     "text": "U menonjol (U > T)",
+     "wave": "U",
+     "beat": 0,
+     "dx": 40,
+     "dy": -84
+    },
+    {
+     "text": "P lebih tinggi",
+     "wave": "P",
+     "beat": 2,
+     "dx": 10,
+     "dy": -66
+    }
+   ]
+  }
+ ]
+}

@@ -409,7 +409,7 @@ body.modal-open { overflow: hidden; }
 .note-find input:focus { border-color: var(--accent); }
 .note-find .iconbtn { font-size: 18px; }
 
-/* Ilmu baru otomatis */
+/* Auto updates */
 .fresh-chip { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
 .dot-count { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 2px; border-radius: 99px; background: var(--danger); color: #fff; font-size: 11px; line-height: 18px; text-align: center; }
 .card.unread { border-left: 4px solid var(--accent); }

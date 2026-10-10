@@ -7,7 +7,7 @@ import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText }
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.9.0';
+const APP_VERSION = '0.10.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -29,8 +29,8 @@ const state = {
   objectUrls: [],
   editor: null,
   draft: null,
-  filterFresh: false,     // hanya tampilkan catatan "ilmu baru"
-  feedUnread: new Set(),  // id catatan ilmu baru yang belum dibuka di perangkat ini // catatan hasil "Tempel dari Claude" yang menunggu dibuka di editor
+  filterFresh: false,     // hanya tampilkan catatan "auto updates"
+  feedUnread: new Set(),  // id catatan auto updates yang belum dibuka di perangkat ini // catatan hasil "Tempel dari Claude" yang menunggu dibuka di editor
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -129,6 +129,7 @@ async function loadAll() {
   media.forEach((m) => state.mediaMeta.set(m.id, m));
   notes.forEach((n) => {
     n.mediaIds = media.filter((m) => m.noteId === n.id).sort((a, b) => a.created - b.created).map((m) => m.id);
+    if (migrateFeedTag(n)) { const { mediaIds, ...stored } = n; db.saveNote(stored); }
     state.notes.set(n.id, n);
     indexNote(n);
   });
@@ -246,7 +247,7 @@ function renderHome() {
         <button id="clearq" class="iconbtn ${state.query ? '' : 'hidden'}" aria-label="Hapus pencarian">✕</button>
       </div>
       <div class="filters">
-        ${hasFreshNotes() ? `<button class="chip fresh-chip ${state.filterFresh ? 'on' : ''}" data-fresh>✨ Ilmu baru${state.feedUnread.size ? ` <b class="dot-count">${state.feedUnread.size}</b>` : ''}</button>` : ''}
+        ${hasFreshNotes() ? `<button class="chip fresh-chip ${state.filterFresh ? 'on' : ''}" data-fresh>✨ Auto updates${state.feedUnread.size ? ` <b class="dot-count">${state.feedUnread.size}</b>` : ''}</button>` : ''}
         <button class="chip ${state.filterType === '' ? 'on' : ''}" data-type="">Semua</button>
         ${Object.entries(TYPES).map(([k, t]) => `<button class="chip ${state.filterType === k ? 'on' : ''}" data-type="${k}">${t.icon} ${t.label}</button>`).join('')}
         <select id="stasefilter" class="chip ${state.filterStase ? 'on' : ''}" aria-label="Filter stase">
@@ -1951,70 +1952,153 @@ window.addEventListener('beforeunload', (e) => {
 });
 
 
-// ---------- Ilmu baru otomatis ----------
-// Claude menulis rangkuman ilmu baru (berdasarkan guideline/buku/jurnal) ke feed/ilmu.json di situs ini secara terjadwal.
-// Aplikasi memeriksanya saat dibuka dan online, lalu menambahkannya sebagai catatan bertag #ilmu-baru.
+// ---------- Auto updates ----------
+// Claude menulis rangkuman ilmu baru (berdasarkan guideline/buku/jurnal) ke feed/ilmu.json di situs ini secara terjadwal,
+// lengkap dengan gambar/ilustrasi (feed/img) dan guideline terkait. Aplikasi memeriksanya saat dibuka dan online,
+// lalu menambahkannya sebagai catatan bertag #auto-updates.
 
 const FEED_URL = 'feed/ilmu.json';
-const FEED_TAG = 'ilmu-baru';
+const FEED_TAG = 'auto-updates';
+const LEGACY_FEED_TAG = 'ilmu-baru';
 let feedChecking = false;
 
 const isFreshNote = (n) => n.id.startsWith('ilmu-') || n.tags.includes(FEED_TAG);
 const hasFreshNotes = () => [...state.notes.values()].some(isFreshNote);
 
-function feedItemToNote(it, id) {
+// Tag lama #ilmu-baru diganti #auto-updates. Waktu "diubah" tidak disentuh agar tidak memicu sinkron ulang.
+function migrateFeedTag(n) {
+  if (!n.tags?.includes(LEGACY_FEED_TAG)) return false;
+  n.tags = [...new Set(n.tags.map((t) => (t === LEGACY_FEED_TAG ? FEED_TAG : t)))];
+  return true;
+}
+
+const feedRev = (it) => Math.max(1, parseInt(it.rev, 10) || 1);
+const feedUpdated = (it) => Date.parse(it.revised) || Date.parse(it.created) || Date.now();
+
+async function fetchFeedImage(img) {
+  const url = new URL(String(img.file || img.url || ''), new URL(FEED_URL, location.href)).href;
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  let blob = await res.blob();
+  if (/\.svg(\?|$)/i.test(url) && blob.type !== 'image/svg+xml') blob = new Blob([blob], { type: 'image/svg+xml' });
+  return blob;
+}
+
+// Mengembalikan { note, media } untuk satu item feed. Gambar yang gagal diambil dilewati.
+async function feedItemToNote(it, id) {
   const type = TYPES[it.type] ? it.type : 'topik';
+  const rev = feedRev(it);
+  const media = [];
+  const refs = [];
+  const images = (it.images || []).filter((x) => x && (x.file || x.url)).slice(0, 6);
+  for (let k = 0; k < images.length; k++) {
+    const img = images[k];
+    try {
+      const raw = await fetchFeedImage(img);
+      const { blob, thumb } = await processImage(raw);
+      const caption = [img.caption, img.credit].filter(Boolean).join(' · ').slice(0, 300);
+      const mid = `${id}-r${rev}-img${k + 1}`;
+      const name = String(img.file || img.url).split('/').pop().split('?')[0] || 'gambar';
+      media.push({ id: mid, noteId: id, kind: 'image', name, mime: blob.type || raw.type || 'image/png', size: blob.size, caption, blob, thumb, created: feedUpdated(it) + k });
+      refs[k] = `![${caption.replace(/[\[\]]/g, '')}](img:${mid})`;
+    } catch (e) {
+      console.warn('Gambar feed', img, e);
+    }
+  }
   let body = String(it.body || '').replace(/\s+$/, '');
+  // {{gambar:N}} di body diganti gambar ke-N; gambar yang tidak disebut ditaruh di bawah label "Gambar:".
+  const placed = new Set();
+  body = body.replace(/^[ \t]*\{\{\s*gambar\s*:\s*(\d+)\s*\}\}[ \t]*$/gim, (_, n) => {
+    const k = parseInt(n, 10) - 1;
+    if (!refs[k]) return '';
+    placed.add(k);
+    return refs[k];
+  }).replace(/\n{3,}/g, '\n\n');
+  const rest = refs.filter((r, k) => r && !placed.has(k));
+  if (rest.length) body += '\n\nGambar:\n' + rest.join('\n\n');
+  const guidelines = (it.guidelines || []).filter((x) => x && (x.title || x.url));
+  if (guidelines.length) {
+    body += '\n\nGuideline terkait:\n' + guidelines.map((x) => `- ${[x.org, x.title, x.year].filter(Boolean).join(', ')}${x.url ? ` (${x.url})` : ''}`).join('\n');
+  }
   const sources = (it.sources || []).filter((x) => x && (x.title || x.url));
   if (sources.length && !/^Sumber:\s*$/m.test(body)) {
     body += '\n\nSumber:\n' + sources.map((x) => `- ${[x.title, x.publisher, x.year].filter(Boolean).join(', ')}${x.url ? ` (${x.url})` : ''}`).join('\n');
   }
-  const when = Date.parse(it.created) || Date.now();
-  // updated = created agar dua perangkat yang mengimpor item yang sama menghasilkan catatan identik saat sinkron.
-  return {
-    id, type, title: String(it.title).slice(0, 200), body,
+  // created/updated diambil dari feed agar dua perangkat yang mengimpor item yang sama menghasilkan catatan identik saat sinkron.
+  const note = {
+    id, type, title: String(it.title).slice(0, 200), body: body.trim(),
     tags: [...new Set([...(it.tags || []).map(String), FEED_TAG])],
-    stase: it.stase || '', pinned: false, created: when, updated: when,
+    stase: it.stase || '', pinned: false, created: Date.parse(it.created) || Date.now(), updated: feedUpdated(it),
   };
+  return { note, media };
 }
 
 async function checkFeed({ manual = false } = {}) {
-  if (feedChecking || !navigator.onLine) { if (manual && !navigator.onLine) toast('Perlu internet untuk mengambil ilmu baru'); return; }
+  if (feedChecking || !navigator.onLine) { if (manual && !navigator.onLine) toast('Perlu internet untuk mengambil auto updates'); return; }
   if (!manual && (await db.getMeta('feedEnabled')) === false) return;
   feedChecking = true;
   try {
     const res = await fetch(`${FEED_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if (res.status === 404) { if (manual) toast('Belum ada ilmu baru'); return; }
+    if (res.status === 404) { if (manual) toast('Belum ada auto updates baru'); return; }
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const feed = await res.json();
     const imported = new Set((await db.getMeta('feedImported')) || []);
+    const revs = (await db.getMeta('feedRevs')) || {};
     const tomb = new Set(((await db.getMeta('tombstones')) || []).map((x) => x.id));
     let added = 0;
+    let revised = 0;
     for (const it of feed.items || []) {
       if (!it || !it.id || !it.title || !it.body) continue;
       const id = 'ilmu-' + String(it.id).replace(/[^\w-]/g, '').slice(0, 60);
-      // Catatan yang pernah diimpor tidak ditambahkan lagi, termasuk bila sudah kamu hapus.
-      if (imported.has(id) || state.notes.has(id) || tomb.has(id)) { imported.add(id); continue; }
-      const note = feedItemToNote(it, id);
-      await db.saveNote(note);
-      note.mediaIds = [];
+      const rev = feedRev(it);
+      if (tomb.has(id)) { imported.add(id); continue; } // sudah kamu hapus: tidak ditambahkan lagi
+      const existing = state.notes.get(id);
+      if (imported.has(id) || existing) {
+        imported.add(id);
+        const known = revs[id] || { rev: 1, updated: existing ? existing.created : 0 };
+        if (!existing || rev <= known.rev) continue;
+        // Revisi (mis. tambahan gambar/guideline) hanya dipasang bila catatannya belum kamu ubah.
+        if (existing.updated === feedUpdated(it)) { revs[id] = { rev, updated: existing.updated }; continue; } // sudah tiba lewat sinkron
+        if (existing.updated !== known.updated) { revs[id] = { rev, updated: known.updated }; continue; }
+        const { note, media } = await feedItemToNote(it, id);
+        const remove = existing.mediaIds.filter((m) => !media.some((x) => x.id === m));
+        await db.saveNote(note, media, [], remove);
+        remove.forEach((m) => state.mediaMeta.delete(m));
+        media.forEach(({ blob, thumb, ...meta }) => state.mediaMeta.set(meta.id, meta));
+        note.mediaIds = media.map((m) => m.id);
+        state.notes.set(id, note);
+        indexNote(note);
+        revs[id] = { rev, updated: note.updated };
+        state.feedUnread.add(id);
+        revised++;
+        continue;
+      }
+      const { note, media } = await feedItemToNote(it, id);
+      await db.saveNote(note, media);
+      media.forEach(({ blob, thumb, ...meta }) => state.mediaMeta.set(meta.id, meta));
+      note.mediaIds = media.map((m) => m.id);
       state.notes.set(id, note);
       indexNote(note);
       imported.add(id);
+      revs[id] = { rev, updated: note.updated };
       state.feedUnread.add(id);
       added++;
     }
     await db.setMeta('feedImported', [...imported]);
+    await db.setMeta('feedRevs', revs);
     await db.setMeta('feedUnread', [...state.feedUnread]);
     await db.setMeta('feedChecked', Date.now());
-    if (added) {
-      toast(`✨ ${added} ilmu baru ditambahkan ke catatan`, 4000);
+    if (added || revised) {
+      const parts = [];
+      if (added) parts.push(`${added} catatan baru`);
+      if (revised) parts.push(`${revised} catatan diperbarui`);
+      toast(`✨ Auto updates: ${parts.join(', ')}`, 4000);
       scheduleSync();
       if (!location.hash || location.hash === '#/') renderHome();
-    } else if (manual) toast('Belum ada ilmu baru');
+    } else if (manual) toast('Belum ada auto updates baru');
   } catch (e) {
     console.warn('Feed', e);
-    if (manual) toast('Gagal memeriksa ilmu baru: ' + (e?.message || e), 5000);
+    if (manual) toast('Gagal memeriksa auto updates: ' + (e?.message || e), 5000);
   } finally {
     feedChecking = false;
   }
@@ -2025,10 +2109,10 @@ async function feedSectionHtml() {
   const checked = await db.getMeta('feedChecked');
   const count = [...state.notes.values()].filter(isFreshNote).length;
   return `<section>
-    <h4>✨ Ilmu baru otomatis</h4>
-    <p>Setiap 4 jam (05.00-23.00 WIB) Claude merangkum satu topik dari guideline, buku ajar, atau jurnal tepercaya, lengkap dengan sumbernya. Rangkuman itu otomatis masuk ke catatanmu (tag <b>#${FEED_TAG}</b>) saat aplikasi dibuka dan ada internet.</p>
-    <label class="switch-row"><input type="checkbox" id="feed-on" ${enabled ? 'checked' : ''}> Terima ilmu baru otomatis</label>
-    <p class="hint">${count} catatan ilmu baru · terakhir diperiksa ${checked ? fmtDate(checked) + ' ' + new Date(checked).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'belum pernah'}</p>
+    <h4>✨ Auto updates</h4>
+    <p>Setiap 4 jam (05.00-23.00 WIB) Claude merangkum satu topik dari guideline, buku ajar, atau jurnal tepercaya, lengkap dengan sumber, guideline terkait, dan gambar atau ilustrasi yang relevan (mis. contoh EKG). Rangkuman itu otomatis masuk ke catatanmu (tag <b>#${FEED_TAG}</b>) saat aplikasi dibuka dan ada internet.</p>
+    <label class="switch-row"><input type="checkbox" id="feed-on" ${enabled ? 'checked' : ''}> Terima auto updates</label>
+    <p class="hint">${count} catatan auto updates · terakhir diperiksa ${checked ? fmtDate(checked) + ' ' + new Date(checked).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'belum pernah'}</p>
     <div class="row"><button class="btn ghost" id="feed-check">Periksa sekarang</button></div>
   </section>`;
 }
@@ -2036,7 +2120,7 @@ async function feedSectionHtml() {
 function bindFeedSection() {
   $('#feed-on')?.addEventListener('change', async (e) => {
     await db.setMeta('feedEnabled', e.target.checked);
-    toast(e.target.checked ? 'Ilmu baru otomatis aktif' : 'Ilmu baru otomatis dimatikan');
+    toast(e.target.checked ? 'Auto updates aktif' : 'Auto updates dimatikan');
     if (e.target.checked) checkFeed();
   });
   $('#feed-check')?.addEventListener('click', () => checkFeed({ manual: true }));
