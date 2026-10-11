@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600" font-family="Helvetica, Arial, sans-serif">
+<rect width="900" height="600" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Pemantauan fisik pasien yang memakai antipsikotik</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik dari Tabel 6 PNPK Tata Laksana Skizofrenia 2025 · ● = periksa</text>
+<rect x="20" y="78" width="860" height="54" fill="#0f766e" rx="8"/>
+<text x="32" y="111" font-size="14" font-weight="700" fill="#ffffff" text-anchor="start">Pemeriksaan</text>
+<text x="277.0" y="111" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Awal</text>
+<text x="411.0" y="103" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Tiap bulan</text>
+<text x="411.0" y="121" font-size="11.5" font-weight="400" fill="#ccfbf1" text-anchor="middle">(6 bln pertama)</text>
+<text x="545.0" y="111" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">4 bulan</text>
+<text x="679.0" y="103" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Tiap 3 bulan</text>
+<text x="679.0" y="121" font-size="11.5" font-weight="400" fill="#ccfbf1" text-anchor="middle">(sesudahnya)</text>
+<text x="813.0" y="111" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Tiap tahun</text>
+<rect x="20" y="132" width="860" height="52" fill="#f0fdfa"/>
+<text x="32" y="163" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">BB, TB, IMT</text>
+<text x="277.0" y="163" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle">●</text>
+<text x="411.0" y="163" font-size="12.5" font-weight="700" fill="#0f766e" text-anchor="middle">● IMT</text>
+<text x="679.0" y="163" font-size="12.5" font-weight="700" fill="#0f766e" text-anchor="middle">● IMT</text>
+<rect x="20" y="184" width="860" height="52" fill="#ffffff"/>
+<text x="32" y="215" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">GDP atau HbA1c</text>
+<text x="277.0" y="215" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle">●</text>
+<text x="545.0" y="215" font-size="12.5" font-weight="700" fill="#0f766e" text-anchor="middle">● *</text>
+<rect x="20" y="236" width="860" height="52" fill="#f0fdfa"/>
+<text x="32" y="267" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">Profil lipid</text>
+<text x="277.0" y="267" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle">●</text>
+<text x="545.0" y="267" font-size="12.5" font-weight="700" fill="#0f766e" text-anchor="middle">● *</text>
+<rect x="20" y="288" width="860" height="52" fill="#ffffff"/>
+<text x="32" y="319" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">Sindrom metabolik</text>
+<text x="277.0" y="319" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle">●</text>
+<text x="545.0" y="319" font-size="12.5" font-weight="700" fill="#0f766e" text-anchor="middle">● *</text>
+<rect x="20" y="340" width="860" height="52" fill="#f0fdfa"/>
+<text x="32" y="371" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">Gejala prolaktin tinggi</text>
+<text x="277.0" y="371" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle">●</text>
+<rect x="352" y="354" width="386" height="24" rx="12" fill="#ccfbf1" stroke="#0f766e"/>
+<text x="545.0" y="371" font-size="12.5" font-weight="700" fill="#115e59" text-anchor="middle">tiap kunjungan s.d. stabil</text>
+<text x="813.0" y="371" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle">●</text>
+<rect x="20" y="392" width="860" height="52" fill="#ffffff"/>
+<text x="32" y="423" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">Gangguan gerak (klinis)</text>
+<text x="277.0" y="423" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle">●</text>
+<rect x="352" y="406" width="386" height="24" rx="12" fill="#ccfbf1" stroke="#0f766e"/>
+<text x="545.0" y="423" font-size="12.5" font-weight="700" fill="#115e59" text-anchor="middle">tiap kunjungan</text>
+<rect x="20" y="78" width="860" height="366" fill="none" stroke="#99f6e4" stroke-width="1.5" rx="8"/>
+<text x="20" y="474" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">* Pemeriksaan ulang glukosa, lipid, dan sindrom metabolik: 4 bulan setelah mulai antipsikotik, paling lambat 1 tahun.</text>
+<text x="20" y="496" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Skala gerak terstruktur (ESRS, AIMS, Barnes): minimal tiap 6 bulan bila risiko tinggi, tiap 12 bulan pada lainnya.</text>
+<text x="20" y="518" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">EKG sebelum memulai obat pemanjang QT (mis. klorpromazin, ziprasidon, pimozid) atau bila ada faktor risiko jantung.</text>
+<text x="20" y="540" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Kadar prolaktin diperiksa hanya bila ada indikasi klinis.</text>
+<text x="20" y="586" font-size="12" font-weight="400" fill="#6b7280" text-anchor="start">Sumber: PNPK Tata Laksana Skizofrenia, KMK HK.01.07/MENKES/970/2025 (Tabel 6).</text>
+</svg>

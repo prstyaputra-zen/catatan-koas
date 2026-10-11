@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-11T02:06:00Z",
+ "updated": "2026-10-11T06:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -264,6 +264,44 @@
      "publisher": "KMK HK.01.07/MENKES/394/2019",
      "year": 2019,
      "url": "https://kemkes.go.id/app_asset/file_content_download/17012246726566a0e07ff362.57895885.pdf"
+    }
+   ]
+  },
+  {
+   "id": "20261011-1305-skizofrenia-pnpk-2025",
+   "created": "2026-10-11T06:06:00Z",
+   "title": "Skizofrenia: kriteria diagnosis dan pemantauan antipsikotik (PNPK 2025)",
+   "type": "topik",
+   "stase": "Jiwa",
+   "tags": [
+    "skizofrenia",
+    "psikosis",
+    "antipsikotik",
+    "sindrom metabolik",
+    "PPDGJ"
+   ],
+   "body": "Ringkasan:\nKemenkes menerbitkan PNPK Tata Laksana Skizofrenia terbaru (KMK HK.01.07/MENKES/970/2025, ditetapkan 10 Oktober 2025). Catatan ini merangkum kriteria diagnosis, prinsip terapi episode pertama, dan jadwal pemantauan fisik pengguna antipsikotik.\n\nKriteria diagnosis:\n| | ICD-10 / PPDGJ-III | DSM-5 |\n|---|---|---|\n| Gejala | ≥ 1 gejala khas (thought echo/insertion/withdrawal/broadcasting, waham kendali/pasivitas, halusinasi suara yang mengomentari atau orang ketiga), atau ≥ 2 gejala lain | ≥ 2 dari: waham, halusinasi, bicara kacau, perilaku kacau/katatonia, gejala negatif |\n| Lama gejala | ≥ 1 bulan | Gejala aktif ≥ 1 bulan (kecuali berhasil diobati); total ≥ 6 bulan termasuk prodromal/residual |\n| Fungsi | Tidak disyaratkan | Disfungsi sosial/pekerjaan |\n| Singkirkan | Gangguan mood, gangguan mental organik, intoksikasi alkohol/zat | Skizoafektif, bipolar, kondisi medis umum, zat |\n- Diagnosis ditegakkan dengan ICD-10/PPDGJ-III atau DSM-5. Instrumen terstruktur (MINI, SCID) untuk penelitian.\n\nPrinsip terapi episode pertama:\n- Mulai antipsikotik dengan dosis rendah lalu titrasi bertahap, terutama pada usia muda.\n- Antipsikotik generasi kedua lebih dipilih karena tolerabilitas lebih baik dan risiko ekstrapiramidal lebih rendah.\n- Pelayanan menyeluruh untuk psikosis episode pertama diberikan berkelanjutan selama 2-5 tahun (Grade A); 5 tahun pertama adalah periode kritis.\n- Ketidakpatuhan minum antipsikotik adalah faktor risiko utama kekambuhan; libatkan keluarga dalam intervensi psikososial.\n- Indikasi rawat inap antara lain risiko menyakiti diri, agitasi atau kekerasan berat yang membahayakan orang lain, dan katatonia.\n\nPemantauan fisik pengguna antipsikotik:\n{{gambar:1}}\n- BB, TB, IMT saat awal; IMT tiap kunjungan bulanan selama 6 bulan, lalu minimal tiap 3 bulan.\n- Gula darah puasa atau HbA1c, profil lipid, dan sindrom metabolik saat awal, lalu 4 bulan setelah mulai antipsikotik (paling lambat 1 tahun).\n- Gejala hiperprolaktinemia ditanyakan tiap kunjungan sampai stabil, lalu tiap tahun; kadar prolaktin hanya bila ada indikasi.\n- Gangguan gerak dinilai klinis tiap kunjungan; skala terstruktur (ESRS, AIMS, Barnes Akathisia) minimal tiap 6 bulan pada risiko tinggi dan tiap 12 bulan pada lainnya.\n- EKG sebelum memulai obat yang memperpanjang QT (mis. klorpromazin, droperidol, iloperidon, pimozid, tioridazin, ziprasidon) atau bila ada faktor risiko jantung.\n\nPoin untuk koas:\n- Saat anamnesis psikosis, tanyakan lama gejala: kriteria ICD-10 dan DSM-5 berbeda (1 bulan vs total 6 bulan).\n- Singkirkan penyebab organik dan zat sebelum melabel skizofrenia.\n- Catat BB/IMT, GDP, dan lipid awal sebelum antipsikotik dimulai; ini sering terlewat di poli.\n- Edukasi keluarga soal kepatuhan obat karena putus obat adalah pemicu utama kambuh.",
+   "images": [
+    {
+     "file": "img/20261011-1305-skizofrenia-pnpk-2025-1.svg",
+     "caption": "Jadwal pemantauan fisik pasien yang memakai antipsikotik",
+     "credit": "Digambar Claude berdasarkan Tabel 6 PNPK Tata Laksana Skizofrenia 2025"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kemenkes RI",
+     "title": "Pedoman Nasional Pelayanan Klinis Tata Laksana Skizofrenia (KMK No. HK.01.07/MENKES/970/2025)",
+     "year": 2025,
+     "url": "https://kemkes.go.id/id/pnpk-tata-laksana-skizofrenia-2025"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. Pedoman Nasional Pelayanan Klinis Tata Laksana Skizofrenia",
+     "publisher": "KMK HK.01.07/MENKES/970/2025, ditetapkan 10 Oktober 2025",
+     "year": 2025,
+     "url": "https://www.kemkes.go.id/app_asset/file_content_download/176639567569490f1b052745.29038885.pdf"
     }
    ]
   }
