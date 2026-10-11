@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 590" width="900" height="590" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="900" height="590" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Stroke iskemik akut: jendela waktu reperfusi</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik · dihitung dari onset / terakhir terlihat normal · sumbu waktu tidak proporsional</text>
+<line x1="170" y1="330" x2="870" y2="330" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="170" y1="324" x2="170" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="170" y="354" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">0 jam</text>
+<line x1="170" y1="86" x2="170" y2="330" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="430" y1="324" x2="430" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="430" y="354" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">4,5 jam</text>
+<line x1="430" y1="86" x2="430" y2="330" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="500" y1="324" x2="500" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="500" y="354" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">6 jam</text>
+<line x1="500" y1="86" x2="500" y2="330" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="600" y1="324" x2="600" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="600" y="354" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">9 jam</text>
+<line x1="600" y1="86" x2="600" y2="330" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="860" y1="324" x2="860" y2="336" stroke="#374151" stroke-width="2"/>
+<text x="860" y="354" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">24 jam</text>
+<line x1="860" y1="86" x2="860" y2="330" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="170" y="372" font-size="12" font-weight="400" fill="#6b7280" text-anchor="middle">onset</text>
+<text x="20" y="118" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="start">Trombolisis IV</text>
+<rect x="170" y="96" width="260" height="40" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+<text x="300.0" y="121" font-size="13.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">Direkomendasikan (Kelas I)</text>
+<rect x="434" y="96" width="166" height="40" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+<text x="515.0" y="114" font-size="12" font-weight="400" fill="#1e3a8a" text-anchor="middle">Pertimbangkan bila</text>
+<text x="515.0" y="129" font-size="12" font-weight="400" fill="#1e3a8a" text-anchor="middle">perfusi: ada penumbra (IIa)</text>
+<text x="20" y="186" font-size="15" font-weight="700" fill="#7c3aed" text-anchor="start">Trombektomi</text>
+<text x="20" y="204" font-size="12" font-weight="400" fill="#6b7280" text-anchor="start">(oklusi pembuluh besar)</text>
+<rect x="170" y="164" width="330" height="40" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<text x="335.0" y="189" font-size="13.5" font-weight="700" fill="#4c1d95" text-anchor="middle">0-6 jam (Kelas I)</text>
+<rect x="504" y="164" width="356" height="40" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+<text x="680.0" y="189" font-size="13.5" font-weight="700" fill="#4c1d95" text-anchor="middle">6-24 jam pada pasien terpilih (Kelas I)</text>
+<text x="20" y="254" font-size="15" font-weight="700" fill="#b45309" text-anchor="start">Saat tiba di IGD</text>
+<rect x="170" y="232" width="330" height="52" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+<text x="182" y="254" font-size="13.5" font-weight="700" fill="#92400e" text-anchor="start">CT nonkontras / MRI-DWI ≤ 20 menit</text>
+<text x="182" y="274" font-size="13" font-weight="400" fill="#92400e" text-anchor="start">GDS wajib sebelum trombolisis · IGD &lt; 1 jam</text>
+<rect x="20" y="384" width="420" height="150" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+<text x="36" y="410" font-size="15" font-weight="700" fill="#1e3a8a" text-anchor="start">Dosis trombolitik</text>
+<text x="36" y="438" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">Alteplase 0,9 mg/kgBB (maks. 90 mg):</text>
+<text x="36" y="458" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">10% bolus 1 menit, sisanya infus 60 menit</text>
+<text x="36" y="488" font-size="14" font-weight="700" fill="#1f2937" text-anchor="start">Tenecteplase 0,25 mg/kgBB (maks. 25 mg):</text>
+<text x="36" y="508" font-size="14" font-weight="400" fill="#1f2937" text-anchor="start">bolus IV tunggal</text>
+<rect x="460" y="384" width="420" height="150" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+<text x="476" y="410" font-size="15" font-weight="700" fill="#991b1b" text-anchor="start">Tekanan darah &amp; antiplatelet</text>
+<text x="476" y="438" font-size="13.5" font-weight="400" fill="#1f2937" text-anchor="start">Sebelum rtPA &lt; 185/110; 24 jam sesudah &lt; 180/105</text>
+<text x="476" y="458" font-size="12" font-weight="400" fill="#6b7280" text-anchor="start">(PNPK 2019)</text>
+<text x="476" y="484" font-size="13.5" font-weight="400" fill="#1f2937" text-anchor="start">Trombektomi: ≤ 180/105 hingga 24 jam</text>
+<text x="476" y="510" font-size="13.5" font-weight="400" fill="#1f2937" text-anchor="start">Aspirin 160-325 mg dalam 24-48 jam;</text>
+<text x="476" y="528" font-size="13.5" font-weight="400" fill="#1f2937" text-anchor="start">tunda 24 jam bila mendapat trombolisis</text>
+<text x="20" y="570" font-size="12" font-weight="400" fill="#6b7280" text-anchor="start">Sumber: PNPK Tata Laksana Stroke, KMK HK.01.07/MENKES/304/2026 (menggantikan KMK 394/2019); PNPK Stroke 2019.</text>
+</svg>

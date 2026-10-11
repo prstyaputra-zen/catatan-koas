@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-10T22:06:00Z",
+ "updated": "2026-10-11T02:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -213,6 +213,57 @@
      "publisher": "World Health Organization, Juni 2020 (rev. Maret 2022)",
      "year": 2020,
      "url": "https://extranet.who.int/prequal/sites/default/files/whopar_files/RH086part4.pdf"
+    }
+   ]
+  },
+  {
+   "id": "20261011-0905-stroke-iskemik-reperfusi",
+   "created": "2026-10-11T02:06:00Z",
+   "title": "Stroke iskemik akut: jendela trombolisis dan trombektomi (PNPK Stroke terbaru)",
+   "type": "topik",
+   "stase": "Saraf",
+   "tags": [
+    "stroke",
+    "trombolisis",
+    "alteplase",
+    "tenecteplase",
+    "trombektomi",
+    "kegawatdaruratan"
+   ],
+   "body": "Ringkasan:\nPada stroke iskemik akut, waktu adalah otak. Kemenkes menerbitkan PNPK Tata Laksana Stroke terbaru (KMK HK.01.07/MENKES/304/2026) yang menggantikan PNPK 2019, termasuk memasukkan tenecteplase dan memperluas jendela trombolisis dengan pencitraan perfusi.\n\nKenali di luar RS:\n- PNPK memakai akronim SeGeRa Ke RS untuk gejala stroke: wajah tidak simetris, kelemahan anggota gerak mendadak, gangguan bicara, baal, gangguan penglihatan, serta nyeri kepala hebat mendadak atau gangguan keseimbangan.\n- Bila rujukan diputuskan, pasien diberangkatkan ≤ 30 menit sejak keputusan.\n\nDi IGD:\n- Standar waktu penanganan di IGD < 1 jam (Kelas I).\n- CT kepala nonkontras atau MRI-DWI dalam 20 menit pertama sejak tiba pada calon trombolisis/trombektomi (Kelas I).\n- Gula darah sewaktu wajib diperiksa sebelum trombolisis (Kelas I). Hindari cairan glukosa/dekstrosa kecuali hipoglikemia.\n\n{{gambar:1}}\n\nTrombolisis intravena:\n| Obat | Dosis | Cara |\n|---|---|---|\n| Alteplase | 0,9 mg/kgBB, maks. 90 mg | 10% bolus 1 menit, sisanya infus 60 menit |\n| Tenecteplase | 0,25 mg/kgBB, maks. 25 mg | Bolus IV tunggal |\n- Onset < 4,5 jam dengan defisit yang menimbulkan disabilitas: direkomendasikan, berapa pun NIHSS-nya (Kelas I).\n- 4,5-9 jam sejak terakhir terlihat normal: dapat dipertimbangkan bila pencitraan perfusi menunjukkan jaringan yang masih bisa diselamatkan (Kelas IIa).\n- Tekanan darah: PNPK 2019 menetapkan TD diturunkan < 185/110 mmHg sebelum rtPA dan dipertahankan < 180/105 mmHg selama 24 jam setelahnya. PNPK terbaru tidak mencantumkan angka khusus trombolisis; ikuti protokol RS.\n\nTrombektomi mekanik (oklusi pembuluh darah besar):\n- Onset 0-6 jam dan 6-24 jam pada pasien yang memenuhi kriteria (Kelas I).\n- Oklusi arteri basilaris dapat ditangani hingga 24 jam dari onset (Kelas I).\n- TD dipertahankan ≤ 180/105 mmHg selama prosedur hingga 24 jam sesudahnya.\n\nTekanan darah dan antiplatelet tanpa reperfusi:\n- Bukan kandidat trombolisis/trombektomi dan tanpa komorbid: TD tidak perlu diturunkan dalam 48-72 jam pertama (Kelas IIb). Bila ada komorbid yang memerlukan, turunkan segera.\n- Aspirin 160-325 mg dalam 24-48 jam setelah onset (Kelas I). Pada pasien yang mendapat trombolisis, aspirin ditunda sampai 24 jam setelah terapi.\n\nPoin untuk koas:\n- Tanyakan dan tulis jam terakhir pasien terlihat normal; semua jendela dihitung dari situ.\n- Ingat target 20 menit untuk CT/MRI pada calon reperfusi dan GDS wajib sebelum trombolisis.\n- Timbang atau taksir BB untuk dosis trombolitik; perhatikan beda dosis alteplase (infus 60 menit) dan tenecteplase (bolus tunggal).\n- Pada pasien yang mendapat trombolisis, jangan beri aspirin dalam 24 jam pertama.",
+   "images": [
+    {
+     "file": "img/20261011-0905-stroke-iskemik-reperfusi-1.svg",
+     "caption": "Skema jendela waktu trombolisis IV dan trombektomi, dosis trombolitik, serta target tekanan darah",
+     "credit": "Digambar Claude berdasarkan PNPK Tata Laksana Stroke (KMK 304/2026 dan KMK 394/2019)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kemenkes RI",
+     "title": "Pedoman Nasional Pelayanan Klinis Tata Laksana Stroke (KMK No. HK.01.07/MENKES/304/2026)",
+     "year": 2026,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan1780387545_996111.pdf"
+    },
+    {
+     "org": "Kemenkes RI",
+     "title": "PNPK Tata Laksana Stroke (KMK No. HK.01.07/MENKES/394/2019, sudah digantikan)",
+     "year": 2019,
+     "url": "https://kemkes.go.id/app_asset/file_content_download/17012246726566a0e07ff362.57895885.pdf"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. Pedoman Nasional Pelayanan Klinis Tata Laksana Stroke",
+     "publisher": "KMK HK.01.07/MENKES/304/2026",
+     "year": 2026,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan1780387545_996111.pdf"
+    },
+    {
+     "title": "Kementerian Kesehatan RI. Pedoman Nasional Pelayanan Kedokteran Tata Laksana Stroke",
+     "publisher": "KMK HK.01.07/MENKES/394/2019",
+     "year": 2019,
+     "url": "https://kemkes.go.id/app_asset/file_content_download/17012246726566a0e07ff362.57895885.pdf"
     }
    ]
   }
