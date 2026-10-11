@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" width="900" height="640" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="900" height="640" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Mata merah: cari tanda bahaya dulu, baru konjungtivitis</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik ringkas untuk layanan primer</text>
+<rect x="250" y="70" width="400" height="160" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="264" y="96" font-size="15" font-weight="700" fill="#111827" text-anchor="start">Ada tanda bahaya?</text>
+<text x="264" y="119" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Visus turun · nyeri berat / fotofobia</text>
+<text x="264" y="138" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Pupil tidak normal (lebar, kecil, tidak rata)</text>
+<text x="264" y="157" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Kornea keruh / bercak putih / ulkus</text>
+<text x="264" y="176" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Trauma, zat kimia, operasi mata baru-baru ini</text>
+<text x="264" y="195" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Pus sangat banyak · pengguna lensa kontak</text>
+<text x="264" y="214" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Riwayat herpes, infeksi berulang</text>
+<line x1="250" y1="150" x2="190" y2="270" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<text x="200" y="210" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">Ya</text>
+<line x1="650" y1="150" x2="710" y2="270" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<text x="700" y="210" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">Tidak</text>
+<rect x="20" y="274" width="340" height="270" rx="12" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+<text x="34" y="300" font-size="15" font-weight="700" fill="#991b1b" text-anchor="start">Rujuk segera ke dokter mata</text>
+<text x="34" y="323" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Keratitis: kornea keruh, fotofobia,</text>
+<text x="34" y="342" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">  sekret mukopurulen, bisa hipopion</text>
+<text x="34" y="361" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Iritis: pupil kecil, injeksi siliar,</text>
+<text x="34" y="380" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">  nyeri ke alis/pelipis</text>
+<text x="34" y="399" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Glaukoma akut: pupil lebar reaktif</text>
+<text x="34" y="418" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">  lemah, bola mata keras, halo, nyeri</text>
+<text x="34" y="437" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">  hebat berdenyut, visus turun tajam</text>
+<text x="34" y="456" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Konjungtivitis hiperakut (gonokokus):</text>
+<text x="34" y="475" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">  pus sangat banyak, perlu terapi sistemik</text>
+<text x="34" y="494" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Trauma / luka bakar kimia</text>
+<rect x="380" y="274" width="500" height="270" rx="12" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+<text x="394" y="300" font-size="15" font-weight="700" fill="#065f46" text-anchor="start">Visus normal: kemungkinan konjungtivitis</text>
+<rect x="394" y="318" width="148" height="214" rx="10" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+<text x="468" y="342" font-size="14" font-weight="700" fill="#065f46" text-anchor="middle">Virus</text>
+<text x="404" y="366" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Sekret encer</text>
+<text x="404" y="388" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Sering satu mata</text>
+<text x="404" y="410" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">lalu mata lain</text>
+<text x="404" y="432" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">dalam 1-2 hari</text>
+<text x="404" y="454" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">KGB preaurikular,</text>
+<text x="404" y="476" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">folikel</text>
+<text x="404" y="498" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Menular 10-14 hr</text>
+<rect x="554" y="318" width="148" height="214" rx="10" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+<text x="628" y="342" font-size="14" font-weight="700" fill="#065f46" text-anchor="middle">Bakteri</text>
+<text x="564" y="366" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Sekret purulen</text>
+<text x="564" y="388" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">ringan-sedang</text>
+<text x="564" y="410" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Mata lengket</text>
+<text x="564" y="432" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">saat bangun</text>
+<text x="564" y="454" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">(prediktor terbaik)</text>
+<text x="564" y="476" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Edema kelopak</text>
+<text x="564" y="498" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Sering sembuh sendiri</text>
+<rect x="714" y="318" width="148" height="214" rx="10" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+<text x="788" y="342" font-size="14" font-weight="700" fill="#065f46" text-anchor="middle">Alergi</text>
+<text x="724" y="366" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Gatal hebat</text>
+<text x="724" y="388" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Dua mata</text>
+<text x="724" y="410" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Sekret berserat/</text>
+<text x="724" y="432" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">encer</text>
+<text x="724" y="454" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Papil cobblestone,</text>
+<text x="724" y="476" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">kemosis</text>
+<text x="724" y="498" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Tidak nyeri</text>
+<text x="20" y="576" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Rujuk juga bila tidak membaik: virus &gt; 7-10 hari, bakteri &gt; 1 minggu, atau sering kambuh / kronis.</text>
+<text x="20" y="598" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Hindari steroid atau antibiotik topikal tanpa indikasi jelas (AAO).</text>
+<text x="20" y="628" font-size="12" font-weight="400" fill="#6b7280" text-anchor="start">Sumber: Cronau H, et al. Am Fam Physician 2010;81(2):137-144; AAO Conjunctivitis Preferred Practice Pattern 2023.</text>
+</svg>

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-11T10:06:00Z",
+ "updated": "2026-10-11T14:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -358,6 +358,50 @@
      "publisher": "WHO, 31 Mei 2023",
      "year": 2023,
      "url": "https://www.who.int/news-room/fact-sheets/detail/scabies"
+    }
+   ]
+  },
+  {
+   "id": "20261011-2105-mata-merah",
+   "created": "2026-10-11T14:06:00Z",
+   "title": "Mata merah: tanda bahaya dan membedakan konjungtivitis virus, bakteri, alergi",
+   "type": "topik",
+   "stase": "Mata",
+   "tags": [
+    "mata merah",
+    "konjungtivitis",
+    "glaukoma akut",
+    "keratitis",
+    "SKDI 4A"
+   ],
+   "body": "Ringkasan:\nMata merah paling sering disebabkan konjungtivitis yang umumnya sembuh sendiri. Tugas utama di layanan primer adalah menyaring tanda bahaya yang menunjukkan keratitis, iritis, glaukoma akut, konjungtivitis hiperakut, atau trauma, lalu merujuk segera.\n\nTanda bahaya (rujuk segera ke dokter mata):\n- Penurunan visus.\n- Nyeri berat yang tidak hilang dengan anestesi topikal, atau fotofobia.\n- Pupil tidak normal (lebar dan reaktif lemah, kecil, atau tidak rata).\n- Kornea terlibat: keruh, bercak putih, ulkus pada pewarnaan fluoresein.\n- Sekret purulen sangat banyak.\n- Trauma, luka bakar kimia, operasi mata baru-baru ini.\n- Riwayat infeksi herpes atau infeksi berulang; pengguna lensa kontak (risiko keratitis, perlu cakupan Pseudomonas).\n\n{{gambar:1}}\n\nPenyebab serius yang harus dikenali:\n| Kondisi | Tanda kunci | Gejala kunci |\n|---|---|---|\n| Keratitis | Kornea keruh, ulkus fluoresein, bisa hipopion | Nyeri, fotofobia, sekret mukopurulen, rasa mengganjal |\n| Iritis | Pupil kecil reaktif lemah, injeksi siliar | Nyeri menetap menjalar ke alis/pelipis, fotofobia |\n| Glaukoma akut sudut tertutup | Pupil lebar reaktif lemah, bola mata keras dan nyeri tekan | Nyeri hebat berdenyut mendadak, halo, visus turun tajam |\n| Konjungtivitis hiperakut (gonokokus) | Kemosis, bisa melibatkan kornea | Pus sangat banyak, nyeri hebat, visus turun |\n| Skleritis | Edema dan nyeri tekan sklera | Nyeri dalam, memberat malam hari |\n\nMembedakan konjungtivitis:\n| Ciri | Virus | Bakteri | Alergi |\n|---|---|---|---|\n| Sekret | Encer-serosa | Purulen ringan-sedang | Berserat atau encer |\n| Gatal | Kadang, ringan | Bukan ciri utama | Hebat |\n| Mata | Sering satu, mata lain dalam 1-2 hari | Bervariasi | Dua mata |\n| Lain-lain | KGB preaurikular, folikel | Mata lengket saat bangun (prediktor terbaik), edema kelopak | Papil cobblestone, kemosis |\n- Tidak ada pemeriksaan sederhana yang andal membedakan virus dan bakteri.\n\nTatalaksana:\n- Virus: suportif dan higiene (sering cuci tangan, handuk dan bantal terpisah). Menular sekitar 10-14 hari sejak onset dan tidak merespons antibiotik.\n- Bakteri ringan: cenderung sembuh sendiri; tidak ada antibiotik topikal yang terbukti lebih unggul. Menunda antibiotik wajar pada pasien tanpa faktor risiko.\n- Gonokokus: mengancam penglihatan, butuh terapi sistemik segera.\n- Hindari antibiotik atau steroid topikal tanpa indikasi jelas.\n- Rujuk bila konjungtivitis virus tidak membaik dalam 7-10 hari, bakteri tidak membaik dalam 1 minggu, kronis, atau sering kambuh. Konjungtivitis kronis bisa menandakan keganasan (mis. karsinoma sebasea), pemfigoid, atau klamidia.\n\nPoin untuk koas:\n- Periksa visus pada setiap pasien mata merah sebelum diagnosis apa pun.\n- Lihat pupil dan kornea (senter, fluoresein bila ada) untuk menyaring kondisi serius.\n- Tanyakan lensa kontak, trauma, dan zat kimia.\n- Edukasi pasien konjungtivitis virus tentang masa menular dan kebersihan tangan.",
+   "images": [
+    {
+     "file": "img/20261011-2105-mata-merah-1.svg",
+     "caption": "Alur skematik mata merah: tanda bahaya untuk rujukan dan ciri konjungtivitis virus, bakteri, alergi",
+     "credit": "Digambar Claude berdasarkan Cronau dkk. (AFP 2010) dan AAO PPP 2023"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "American Academy of Ophthalmology",
+     "title": "Conjunctivitis Preferred Practice Pattern",
+     "year": 2023,
+     "url": "https://www.aao.org/education/preferred-practice-pattern/conjunctivitis-ppp-2023"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Cronau H, Kankankala RR, Mauger T. Diagnosis and Management of Red Eye in Primary Care",
+     "publisher": "American Family Physician 81(2):137-144",
+     "year": 2010,
+     "url": "https://www.aafp.org/pubs/afp/issues/2010/0115/p137.html"
+    },
+    {
+     "title": "AAO Cornea/External Disease Committee. Conjunctivitis Preferred Practice Pattern",
+     "publisher": "American Academy of Ophthalmology",
+     "year": 2023,
+     "url": "https://www.aao.org/education/preferred-practice-pattern/conjunctivitis-ppp-2023"
     }
    ]
   }
