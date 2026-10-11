@@ -20,14 +20,35 @@ Aplikasi Catatan Koas mengambil file ini dan menjadikannya catatan bertag #auto-
 - Utamakan terbitan ≤ 10 tahun; sebutkan tahunnya. Bila ada perbedaan antarsumber, tulis keduanya.
 - Bila tidak ada sumber layak yang berhasil dibuka dan diverifikasi, JANGAN menerbitkan apa pun. Akhiri rutin.
 
-## 3. Tulis item
-Bahasa Indonesia, 350-700 kata, ringkas dan praktis. Isi `body` memakai format aplikasi:
-- Judul bagian ditulis sebagai baris sendiri yang diakhiri titik dua, mis. `Definisi:`, `Diagnosis:`, `Tatalaksana:`.
+## 3. Tulis item (komprehensif, permintaan Prasetya 11 Okt 2026)
+Bahasa Indonesia, sekitar 900-1.800 kata. Tujuannya MEMAHAMI, bukan sekadar hafal: jelaskan "mengapa", bukan hanya "apa".
+Urutan bagian WAJIB (lewati hanya bila benar-benar tidak relevan, mis. anatomi pada topik psikiatri boleh diganti neurobiologi):
+1. `Definisi:` definisi resmi dari sumber + klasifikasi/derajat bila ada.
+2. `Anatomi dan fisiologi terkait:` struktur dan fungsi normal yang perlu dipahami dulu (mis. distribusi kalium intra/ekstrasel, lapisan kulit, aliran humor akuos).
+3. `Patofisiologi:` rantai sebab-akibat langkah demi langkah dari penyebab sampai gejala. Boleh memakai panah teks "→" dalam poin.
+   Hubungkan setiap gejala/tanda utama dengan mekanismenya.
+4. `Etiologi dan faktor risiko:` bila relevan.
+5. `Manifestasi klinis:` / `Diagnosis:` kriteria, pemeriksaan, temuan khas.
+6. `Tatalaksana:` dosis dengan satuan, rute, dan alasan farmakologis singkat ("mengapa obat ini").
+7. `Komplikasi:` dan `Kapan merujuk:` bila relevan.
+8. `Analogi:` 1-2 analogi sehari-hari yang membuat mekanisme mudah dibayangkan (tulis jelas bahwa ini analogi).
+9. `Mnemonik:` 1-3 mnemonik. Utamakan mnemonik yang sudah dikenal luas; bila membuat sendiri, tandai "(mnemonik buatan)".
+   Mnemonik harus akurat terhadap isi catatan, tidak boleh memasukkan hal yang tidak ada di sumber.
+10. `Poin untuk koas:` 4-6 poin praktis jaga/UKMPPD.
+11. `Singkatan:` daftar SEMUA singkatan yang dipakai beserta kepanjangannya (mis. `- TD: tekanan darah`).
+
+Aturan singkatan: setiap singkatan ditulis lengkap saat PERTAMA kali muncul, mis. "tekanan darah (TD)", "elektrokardiogram (EKG)",
+lalu juga dicantumkan di bagian `Singkatan:`. Termasuk singkatan umum (IV, IM, BB, IGD) dan nama obat/uji yang disingkat.
+
+Format aplikasi:
+- Judul bagian ditulis sebagai baris sendiri yang diakhiri titik dua.
 - Poin memakai `- `. Tabel memakai tabel Markdown (`| a | b |` dengan baris `|---|---|`).
-- Akhiri dengan bagian `Poin untuk koas:` (3-5 poin klinis praktis).
 - Jangan menulis bagian Sumber atau Guideline di `body`; isi field `sources` dan `guidelines`.
-- Taruh `{{gambar:1}}`, `{{gambar:2}}`, ... pada baris sendiri di tempat gambar ke-N ingin muncul (mis. tepat setelah bagian EKG). Gambar yang tidak disebut otomatis ditaruh di akhir.
+- Taruh `{{gambar:1}}`, `{{gambar:2}}`, ... pada baris sendiri di tempat gambar ke-N ingin muncul. Gambar yang tidak disebut otomatis ditaruh di akhir.
+  Utamakan gambar yang menjelaskan anatomi/patofisiologi (mis. skema mekanisme) selain alur tatalaksana; boleh 2 gambar.
 - Tanpa identitas pasien. Dosis selalu dengan satuan dan rute; sebut bila mengikuti protokol RS setempat.
+- Angka (dosis, batas, kriteria) WAJIB dari sumber yang dibuka. Penjelasan fisiologi/patofisiologi konseptual boleh dari
+  buku ajar standar, tetapi tidak boleh bertentangan dengan sumber dan tidak boleh memuat angka yang tidak diverifikasi.
 
 ## 3a. Gambar dan guideline (wajib bila relevan)
 - Setiap item WAJIB punya minimal satu gambar bila topiknya punya unsur visual: EKG, algoritma/alur tatalaksana,
