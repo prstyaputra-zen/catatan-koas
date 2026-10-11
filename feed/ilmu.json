@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-11T14:45:32Z",
+ "updated": "2026-10-11T22:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -418,6 +418,66 @@
    ],
    "rev": 2,
    "revised": "2026-10-11T14:45:32Z"
+  },
+  {
+   "id": "20261012-0505-otitis-media-akut",
+   "created": "2026-10-11T22:06:00Z",
+   "title": "Otitis media akut: tuba Eustachius, stadium, dan kapan memberi antibiotik",
+   "type": "topik",
+   "stase": "THT",
+   "tags": [
+    "otitis media akut",
+    "OMA",
+    "amoksisilin",
+    "telinga anak",
+    "SKDI 4A"
+   ],
+   "body": "Definisi:\nOtitis media akut (OMA) adalah infeksi akut telinga tengah dengan cairan (efusi) di telinga tengah disertai tanda radang, biasanya pada anak. Menurut ulasan American Family Physician (AFP) 2019, diagnosis OMA ditegakkan bila ada:\n- Membran timpani menonjol (bulging) sedang sampai berat, atau otorea (keluar cairan dari telinga) yang baru dan bukan karena otitis eksterna; atau\n- Bulging ringan disertai nyeri telinga yang baru (< 48 jam) atau eritema membran timpani yang hebat.\n- Efusi telinga tengah dibuktikan dengan otoskopi pneumatik atau timpanometri.\nBedakan dengan otitis media efusi (OME): ada cairan di telinga tengah tanpa tanda radang akut; membran timpani netral atau tertarik ke dalam (tidak bulging) dengan warna kuning kecokelatan (amber) atau kebiruan, bukan putih atau kuning pucat.\nBuku ajar telinga, hidung, tenggorok (THT) di Indonesia juga membagi OMA menjadi lima stadium: oklusi tuba, hiperemis (presupurasi), supurasi, perforasi, dan resolusi. Pembagian ini sejalan dengan rantai patofisiologi di bawah.\n\nAnatomi dan fisiologi terkait:\n- Telinga tengah adalah rongga berisi udara di belakang membran timpani, berisi tiga tulang pendengaran (osikel: maleus, inkus, stapes) yang menghantarkan getaran dari membran timpani ke telinga dalam.\n- Supaya membran timpani bergetar bebas, tekanan udara di telinga tengah harus sama dengan tekanan udara luar.\n- Tuba Eustachius menghubungkan telinga tengah dengan nasofaring dan punya tiga fungsi: ventilasi (menyamakan tekanan, misalnya saat menelan atau menguap), drainase (mengalirkan sekret telinga tengah ke nasofaring), dan proteksi (mencegah sekret nasofaring naik ke telinga tengah).\n- Pada anak, tuba Eustachius lebih pendek, lebih datar (horizontal), dan lebih lebar dibandingkan dewasa. Akibatnya drainase kurang baik dan sekret serta kuman dari nasofaring lebih mudah naik ke telinga tengah. Jaringan adenoid di nasofaring anak juga dapat menjadi sumber kuman dan menekan muara tuba.\n- Membran timpani normal tampak tipis, transparan keabuan, dengan refleks cahaya; pada otoskopi pneumatik ia bergerak saat diberi tekanan udara. Cairan di belakangnya membuat gerakan ini berkurang, itulah dasar otoskopi pneumatik.\n\nPatofisiologi:\n- Infeksi saluran pernapasan atas (ISPA) virus atau alergi → mukosa nasofaring dan tuba Eustachius membengkak → tuba tersumbat (stadium oklusi tuba).\n- Tuba tersumbat → udara di telinga tengah diserap mukosa dan tidak diganti → tekanan negatif → membran timpani tertarik ke dalam, cairan tertarik keluar dari pembuluh mukosa → efusi.\n- Kuman dari nasofaring (terbantu tuba anak yang pendek dan datar) masuk ke efusi yang merupakan media tumbuh yang baik → infeksi bakteri → mukosa dan membran timpani hiperemis (stadium hiperemis).\n- Sel radang dan pus menumpuk di rongga tertutup → tekanan naik → membran timpani menonjol (bulging), nyeri hebat, demam, rewel, anak menarik-narik telinga (stadium supurasi).\n- Tekanan terus naik → membran timpani pecah → pus keluar sebagai otorea, dan nyeri biasanya berkurang karena tekanannya terlepas (stadium perforasi).\n- Bila infeksi teratasi → sekret berkurang, perforasi kecil dapat menutup (stadium resolusi). Bila tidak teratasi, OMA dapat berlanjut menjadi otitis media supuratif kronik (OMSK).\n- Cairan di telinga tengah menghambat getaran osikel → gangguan pendengaran konduktif, yang bisa menetap selama efusi masih ada.\n\nEtiologi dan faktor risiko:\n- Bakteri tersering: Streptococcus pneumoniae, Haemophilus influenzae, dan Moraxella catarrhalis.\n- Pada usia 3 tahun, 50-85% anak pernah mengalami minimal satu episode OMA; insidens tertinggi pada usia 6-15 bulan.\n- Faktor yang tidak bisa diubah: usia < 5 tahun, kelainan kraniofasial, riwayat keluarga, berat lahir rendah, laki-laki, prematuritas, riwayat infeksi telinga, ISPA virus baru-baru ini.\n- Faktor yang bisa diubah: asap rokok atau polusi udara, hunian padat, refluks gastroesofagus, tidak menyusu ASI, penggunaan dot (empeng) setelah usia 6 bulan, dan minum botol sambil berbaring.\n\nManifestasi klinis dan diagnosis:\n- Nyeri telinga (pada bayi tampak rewel, menarik telinga, sulit tidur), demam, kadang otorea, dan riwayat ISPA sebelumnya.\n- Otoskopi: membran timpani bulging, keruh, hiperemis, gerakan berkurang pada otoskopi pneumatik; pada stadium perforasi tampak lubang dan pus.\n- Otoskopi pneumatik dapat mencapai sensitivitas hingga 94% dan spesifisitas 90%; timpanometri sensitivitas 70-94% dan spesifisitas 90%.\n- Kemerahan membran timpani saja (mis. karena menangis) tidak cukup untuk diagnosis; carilah bulging.\n\n{{gambar:1}}\n\nTatalaksana:\nNyeri:\n- Atasi nyeri sesuai kebutuhan; ibuprofen atau parasetamol oral memberi pereda nyeri jangka pendek (< 48 jam). Dosis mengikuti berat badan (BB) anak.\n\nAntibiotik atau observasi (anak ≥ 6 bulan, AFP 2019):\n| Kondisi | Tindakan |\n|---|---|\n| Otorea | Antibiotik |\n| Gejala berat (tampak toksik, nyeri > 48 jam, atau suhu ≥ 39 °C dalam 48 jam terakhir) atau kontrol tidak terjamin | Antibiotik |\n| Bilateral, usia 6 bulan-2 tahun | Antibiotik |\n| Bilateral atau unilateral, usia ≥ 2 tahun | Antibiotik atau observasi |\n- Observasi berarti menunda antibiotik 48-72 jam pada anak risiko rendah, dengan syarat ada mekanisme kontrol dalam 48-72 jam.\n- Bayi ≤ 8 minggu berisiko sekuele berat; tabel di atas tidak berlaku untuk bayi < 6 bulan.\n- Mengapa boleh observasi: sebagian besar OMA membaik sendiri, sedangkan antibiotik membawa efek samping dan mendorong resistensi.\n\nPilihan antibiotik (tabel dosis American Academy of Pediatrics/AAP):\n| Obat | Dosis | Lama |\n|---|---|---|\n| Amoksisilin (lini pertama) | 80-90 mg/kgBB/hari oral dibagi 2 dosis; maks. 2 g/dosis, 4 g/hari | Lihat lama terapi di bawah |\n| Amoksisilin-klavulanat (bila amoksisilin dalam 30 hari terakhir, konjungtivitis purulen bersamaan, atau gagal terapi) | 90 mg/kgBB/hari komponen amoksisilin + 6,4 mg/kgBB/hari klavulanat oral dibagi 2 dosis | 10 hari |\n| Sefdinir (alergi penisilin tidak berat) | 14 mg/kgBB/hari oral dalam 1-2 dosis; maks. 600 mg/hari | 10 hari |\n| Sefuroksim (alergi penisilin tidak berat) | 30 mg/kgBB/hari oral dibagi 2 dosis; maks. 500 mg/dosis | 10 hari |\n| Seftriakson | 50 mg/kgBB IM/IV sekali sehari; maks. 2 g/dosis | 1-3 hari |\n- Lama terapi: 10 hari bila usia < 2 tahun atau gejala berat; anak ≥ 2 tahun tanpa gejala berat cukup 5-7 hari (tabel AAP: 7 hari untuk usia 2-5 tahun, 5-7 hari untuk usia ≥ 6 tahun).\n- Mengapa amoksisilin dosis tinggi: S. pneumoniae yang kurang peka penisilin masih bisa diatasi bila kadar amoksisilin di telinga tengah cukup tinggi. Klavulanat ditambahkan karena sebagian H. influenzae dan M. catarrhalis menghasilkan beta-laktamase yang merusak amoksisilin; klavulanat menghambat enzim tersebut.\n- Gagal terapi: diagnosis OMA kembali dalam 30 hari setelah terapi dimulai.\n\nKomplikasi dan kapan merujuk:\n- Komplikasi: perforasi menetap dan OMSK, gangguan pendengaran (yang pada anak dapat mengganggu perkembangan bicara), mastoiditis, paresis saraf fasialis, serta komplikasi intrakranial.\n- Rujuk ke dokter spesialis THT untuk pertimbangan pemasangan pipa timpanostomi (pipa ventilasi) bila ≥ 3 episode OMA dalam 6 bulan, atau 4 episode dalam 1 tahun dengan 1 episode dalam 6 bulan terakhir.\n- Rujuk segera bila ada tanda komplikasi: bengkak dan nyeri di belakang telinga, wajah mencong, nyeri kepala hebat, muntah proyektil, atau penurunan kesadaran.\n\nPencegahan:\n- ASI eksklusif sampai usia 6 bulan menurunkan risiko OMA 43%.\n- Vaksin influenza menurunkan episode OMA secara absolut 4%. Vaksin pneumokokus menurunkan OMA akibat pneumokokus.\n- Hindari paparan asap rokok, empeng setelah 6 bulan, dan minum botol sambil berbaring.\n\nAnalogi:\n- Telinga tengah seperti ruangan tertutup yang hanya punya satu pipa ventilasi (tuba Eustachius) ke dapur (nasofaring). Pada anak, pipanya pendek dan datar, sehingga asap dan kotoran dari dapur gampang masuk, sementara air di ruangan sulit dibuang. Bila pipa tersumbat, udara di ruangan \"tersedot\" dan dinding (membran timpani) tertarik ke dalam; bila ruangan terisi nanah, dinding menggelembung seperti balon dan bisa pecah.\n- Nyeri yang tiba-tiba mereda setelah telinga berair seperti balon yang meletus: tekanannya hilang, tetapi lubangnya perlu diperhatikan.\n\nMnemonik:\n- Lima stadium \"O-H-S-P-R\" (mnemonik buatan): Oklusi tuba, Hiperemis, Supurasi, Perforasi, Resolusi.\n- Tiga bakteri \"Pneumo-Hemo-Mora\" (mnemonik buatan): S. pneumoniae, H. influenzae, M. catarrhalis.\n- Rujuk timpanostomi \"3 dalam 6, 4 dalam 12\" (mnemonik buatan): ≥ 3 episode dalam 6 bulan, atau 4 episode dalam 12 bulan.\n- Amoksisilin \"80-90 dibagi 2\" (mnemonik buatan): 80-90 mg/kgBB/hari dalam 2 dosis.\n\nPoin untuk koas:\n- Lihat membran timpani dengan teknik yang benar (tarik daun telinga ke atas belakang pada anak besar dan dewasa; ke bawah belakang pada bayi) dan cari bulging, bukan hanya merah.\n- Tentukan usia, satu atau dua telinga, dan derajat gejala sebelum memutuskan antibiotik atau observasi.\n- Hitung dosis amoksisilin berdasarkan BB dan tulis lamanya sesuai usia.\n- Tanyakan riwayat amoksisilin dalam 30 hari terakhir dan konjungtivitis purulen: keduanya alasan memilih amoksisilin-klavulanat.\n- Edukasi orang tua tentang tanda bahaya dan jadwal kontrol 48-72 jam bila diobservasi.\n\nSingkatan:\n- AAP: American Academy of Pediatrics\n- AFP: American Family Physician\n- ASI: air susu ibu\n- BB: berat badan\n- IM: intramuskular\n- ISPA: infeksi saluran pernapasan atas\n- IV: intravena\n- OMA: otitis media akut\n- OME: otitis media efusi (otitis media with effusion)\n- OMSK: otitis media supuratif kronik\n- THT: telinga, hidung, tenggorok",
+   "images": [
+    {
+     "file": "img/20261012-0505-otitis-media-akut-1.svg",
+     "caption": "Tuba Eustachius anak vs dewasa dan rantai patofisiologi otitis media akut",
+     "credit": "Digambar Claude berdasarkan Gaddey dkk. (AFP 2019) dan konsep anatomi buku ajar standar"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "American Academy of Family Physicians",
+     "title": "Otitis Media: Rapid Evidence Review (Am Fam Physician 2019;100(6):350-356)",
+     "year": 2019,
+     "url": "https://www.aafp.org/pubs/afp/issues/2019/0915/p350.html"
+    },
+    {
+     "org": "American Academy of Pediatrics (EQIPP)",
+     "title": "Initial Antibiotic Management: Dosage and Course Table",
+     "url": "https://eqipp.aap.org/File%20Library/Courses/Antibiotics/InitialAntibioticManagementDosageAndCourseTable.pdf"
+    },
+    {
+     "org": "Kemenkes RI",
+     "title": "PNPK Tata Laksana Otitis Media Supuratif Kronik (KMK No. HK.01.07/MENKES/350/2018)",
+     "year": 2018,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan_1610417137_99276.pdf"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Gaddey HL, Wright MT, Nelson TN. Otitis Media: Rapid Evidence Review",
+     "publisher": "American Family Physician 100(6):350-356",
+     "year": 2019,
+     "url": "https://www.aafp.org/pubs/afp/issues/2019/0915/p350.html"
+    },
+    {
+     "title": "American Academy of Pediatrics. Initial Antibiotic Management: Dosage and Course Table",
+     "publisher": "AAP EQIPP",
+     "url": "https://eqipp.aap.org/File%20Library/Courses/Antibiotics/InitialAntibioticManagementDosageAndCourseTable.pdf"
+    },
+    {
+     "title": "Kementerian Kesehatan RI. Pedoman Nasional Pelayanan Kedokteran Tata Laksana Otitis Media Supuratif Kronik",
+     "publisher": "KMK HK.01.07/MENKES/350/2018",
+     "year": 2018,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan_1610417137_99276.pdf"
+    }
+   ]
   }
  ]
 }
