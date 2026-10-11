@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-11T06:06:00Z",
+ "updated": "2026-10-11T10:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -302,6 +302,62 @@
      "publisher": "KMK HK.01.07/MENKES/970/2025, ditetapkan 10 Oktober 2025",
      "year": 2025,
      "url": "https://www.kemkes.go.id/app_asset/file_content_download/176639567569490f1b052745.29038885.pdf"
+    }
+   ]
+  },
+  {
+   "id": "20261011-1705-skabies",
+   "created": "2026-10-11T10:06:00Z",
+   "title": "Skabies: lokasi khas, terapi permetrin/ivermectin, dan penanganan kontak",
+   "type": "topik",
+   "stase": "Kulit",
+   "tags": [
+    "skabies",
+    "permetrin",
+    "ivermectin",
+    "gatal malam",
+    "SKDI 4A"
+   ],
+   "body": "Ringkasan:\nSkabies disebabkan tungau Sarcoptes scabiei yang menggali terowongan di kulit. WHO memperkirakan sedikitnya 200 juta orang terkena pada satu waktu, dengan 5-50% anak di daerah miskin sumber daya. Kunci terapi: skabisid yang tepat, diulang, dan semua kontak serumah diobati bersamaan.\n\nPenularan dan inkubasi:\n- Terutama lewat kontak kulit-ke-kulit yang lama (mis. serumah). Lewat baju, handuk, atau sprei lebih jarang pada skabies biasa, tetapi penting pada skabies berkrusta.\n- Tungau umumnya tidak bertahan lebih dari 2-3 hari di luar kulit manusia.\n- Inkubasi infestasi pertama: 4-6 minggu (WHO) atau 4-8 minggu (CDC). Penderita sudah bisa menularkan sebelum bergejala.\n- Wabah sering di tempat padat: panti jompo, penitipan anak, lapas, dan tempat penampungan.\n\nGejala dan lokasi khas:\n- Gatal hebat, terutama malam hari, disertai ruam seperti jerawat kecil dan terowongan halus.\n- Dewasa: sela jari, lipatan pergelangan tangan, siku, lutut, ketiak, penis, puting, pinggang, bokong, dan tulang belikat.\n- Bayi dan anak kecil: ruam juga di kepala, wajah, leher, telapak tangan, dan telapak kaki.\n\n{{gambar:1}}\n\nTerapi skabies biasa:\n| Obat | Cara pakai | Catatan |\n|---|---|---|\n| Permetrin 5% krim | Oles seluruh tubuh dari leher ke bawah, bilas setelah 8-14 jam | Biasanya 1 kali cukup; dapat diulang ± 1 minggu kemudian. Disetujui FDA untuk usia ≥ 2 bulan |\n| Ivermectin oral | 200 µg/kg/dosis bersama makanan, 2 dosis berjarak 7-14 hari | Keamanan belum terbukti pada hamil dan anak < 15 kg |\n- Alternatif topikal (WHO): malation 0,5%, benzil benzoat 10-25%, salep sulfur 5-10%.\n- Obat tidak membunuh telur, jadi terapi perlu diulang. Gatal dapat memberat 1-2 minggu setelah terapi dimulai; jelaskan ke pasien agar tidak dianggap gagal.\n\nKontak dan lingkungan:\n- Obati semua anggota keluarga dan kontak erat pada waktu yang sama, walau tanpa gejala.\n- Cuci sprei, baju, dan handuk dengan air > 50 °C selama 10 menit lalu keringkan dengan panas, atau simpan dalam kantong plastik tertutup minimal 72 jam.\n\nSkabies berkrusta (Norwegia):\n- Terjadi pada imunokompromais (mis. HIV), berisi ribuan hingga jutaan tungau, sering kurang gatal, sangat menular, dan dapat mengancam nyawa.\n- Terapi kombinasi ivermectin oral dan skabisid topikal; krim keratolitik dapat dipakai di hari tanpa permetrin.\n\nKomplikasi:\n- Garukan memicu impetigo yang dapat berlanjut ke sepsis.\n- Wabah skabies merupakan faktor risiko utama glomerulonefritis akut pascastreptokokus; impetigo juga berperan pada demam rematik dan penyakit jantung rematik.\n\nPoin untuk koas:\n- Tanyakan apakah anggota keluarga atau teman sekamar juga gatal malam hari.\n- Ajari cara oles permetrin: seluruh tubuh dari leher ke bawah termasuk sela jari dan lipatan, bukan hanya di lesi.\n- Pada anak dengan impetigo luas, cari skabies sebagai penyebab dasar.\n- Pada pasien imunokompromais dengan krusta tebal dan sedikit gatal, curigai skabies berkrusta.",
+   "images": [
+    {
+     "file": "img/20261011-1705-skabies-1.svg",
+     "caption": "Lokasi predileksi skabies pada dewasa dan bayi, terapi, serta penanganan kontak",
+     "credit": "Digambar Claude berdasarkan CDC (2024) dan WHO (2023)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "CDC",
+     "title": "Clinical Care of Scabies",
+     "year": 2024,
+     "url": "https://www.cdc.gov/scabies/hcp/clinical-care/index.html"
+    },
+    {
+     "org": "WHO",
+     "title": "Scabies (fact sheet, termasuk rekomendasi pemberian obat massal)",
+     "year": 2023,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/scabies"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Centers for Disease Control and Prevention. About Scabies",
+     "publisher": "CDC, 9 September 2024",
+     "year": 2024,
+     "url": "https://www.cdc.gov/scabies/about/index.html"
+    },
+    {
+     "title": "Centers for Disease Control and Prevention. Clinical Care of Scabies",
+     "publisher": "CDC",
+     "year": 2024,
+     "url": "https://www.cdc.gov/scabies/hcp/clinical-care/index.html"
+    },
+    {
+     "title": "World Health Organization. Scabies (fact sheet)",
+     "publisher": "WHO, 31 Mei 2023",
+     "year": 2023,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/scabies"
     }
    ]
   }

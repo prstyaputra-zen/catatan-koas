@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650" width="900" height="650" font-family="Helvetica, Arial, sans-serif">
+<rect width="900" height="650" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Skabies: lokasi khas dan langkah terapi</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik · titik merah = lokasi predileksi pada dewasa</text>
+<text x="170" y="88" font-size="14" font-weight="700" fill="#374151" text-anchor="middle">Depan</text>
+<circle cx="170" cy="122" r="24" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<rect x="156" y="144" width="28" height="14" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M122,158 L218,158 L210,296 L130,296 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M122,160 L96,256 L88,332 L104,334 L114,260 L130,196 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M218,160 L244,256 L252,332 L236,334 L226,260 L210,196 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M130,296 L166,296 L162,496 L136,496 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M174,296 L210,296 L204,496 L178,496 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<text x="430" y="88" font-size="14" font-weight="700" fill="#374151" text-anchor="middle">Belakang</text>
+<circle cx="430" cy="122" r="24" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<rect x="416" y="144" width="28" height="14" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M382,158 L478,158 L470,296 L390,296 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M382,160 L356,256 L348,332 L364,334 L374,260 L390,196 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M478,160 L504,256 L512,332 L496,334 L486,260 L470,196 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M390,296 L426,296 L422,496 L396,496 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<path d="M434,296 L470,296 L464,496 L438,496 Z" fill="#f5e1d3" stroke="#6b4f3a" stroke-width="1.6"/>
+<circle cx="96" cy="332" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="96" y1="332" x2="30" y2="364" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="30" y="368" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">sela jari</text>
+<circle cx="95" cy="312" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="95" y1="312" x2="30" y2="324" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="30" y="328" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">pergelangan</text>
+<circle cx="108" cy="236" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="108" y1="236" x2="30" y2="232" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="30" y="236" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">siku</text>
+<circle cx="130" cy="176" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="130" y1="176" x2="30" y2="184" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="30" y="188" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">ketiak</text>
+<circle cx="190" cy="200" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="190" y1="200" x2="262" y2="200" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="262" y="204" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">puting</text>
+<circle cx="170" cy="282" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="170" y1="282" x2="262" y2="278" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="262" y="282" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">pinggang</text>
+<circle cx="170" cy="310" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="170" y1="310" x2="262" y2="328" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="262" y="332" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">genitalia</text>
+<circle cx="406" cy="188" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="406" y1="188" x2="530" y2="178" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="530" y="182" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">tulang belikat</text>
+<circle cx="452" cy="188" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="430" cy="310" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="430" y1="310" x2="530" y2="306" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="530" y="310" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">bokong</text>
+<circle cx="410" cy="396" r="6.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="410" y1="396" x2="530" y2="392" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="530" y="396" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">lipatan lutut</text>
+<rect x="645" y="80" width="240" height="120" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="659" y="106" font-size="15" font-weight="700" fill="#92400e" text-anchor="start">Bayi &amp; anak kecil</text>
+<text x="659" y="130" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Ruam juga di kepala, wajah,</text>
+<text x="659" y="150" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">leher, telapak tangan, dan</text>
+<text x="659" y="170" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">telapak kaki.</text>
+<text x="659" y="190" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Gatal hebat, memberat malam</text>
+<rect x="645" y="214" width="240" height="186" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+<text x="659" y="240" font-size="15" font-weight="700" fill="#1e3a8a" text-anchor="start">Terapi</text>
+<text x="659" y="264" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Permetrin 5% krim:</text>
+<text x="659" y="284" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">seluruh tubuh dari leher ke</text>
+<text x="659" y="304" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">bawah, bilas 8-14 jam; ulang</text>
+<text x="659" y="324" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">±1 minggu bila perlu</text>
+<text x="659" y="344" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Ivermectin oral 200 µg/kg:</text>
+<text x="659" y="364" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">2 dosis, jarak 7-14 hari</text>
+<text x="659" y="384" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">(tidak untuk hamil / &lt; 15 kg)</text>
+<rect x="645" y="414" width="240" height="170" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+<text x="659" y="440" font-size="15" font-weight="700" fill="#065f46" text-anchor="start">Kontak &amp; lingkungan</text>
+<text x="659" y="464" font-size="13" font-weight="700" fill="#1f2937" text-anchor="start">Obati semua kontak serumah</text>
+<text x="659" y="484" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">bersamaan, walau tanpa gejala</text>
+<text x="659" y="504" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Cuci sprei/baju/handuk</text>
+<text x="659" y="524" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">&gt; 50 °C 10 menit, keringkan</text>
+<text x="659" y="544" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">panas, atau simpan dalam</text>
+<text x="659" y="564" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">plastik tertutup ≥ 72 jam</text>
+<text x="20" y="576" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Inkubasi infestasi pertama 4-8 minggu (CDC); penderita sudah bisa menularkan sebelum gejala muncul.</text>
+<text x="20" y="598" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">Gatal dapat memberat 1-2 minggu setelah terapi dimulai (WHO).</text>
+<text x="20" y="632" font-size="12" font-weight="400" fill="#6b7280" text-anchor="start">Sumber: CDC Scabies (2024): About Scabies &amp; Clinical Care; WHO Fact sheet Scabies (31 Mei 2023).</text>
+</svg>
