@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-12T06:24:00Z",
+ "updated": "2026-10-12T10:07:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -574,6 +574,56 @@
      "publisher": "European Heart Journal 44(38):3720-3826",
      "year": 2023,
      "url": "https://academic.oup.com/eurheartj/article/44/38/3720/7243210"
+    }
+   ]
+  },
+  {
+   "id": "20261012-1705-tb-paru-dewasa",
+   "created": "2026-10-12T10:07:00Z",
+   "title": "TB paru dewasa sensitif obat: patogenesis, diagnosis, dan paduan 2RHZE/4HR",
+   "type": "topik",
+   "stase": "Pulmonologi",
+   "tags": [
+    "tuberkulosis",
+    "TB paru",
+    "OAT",
+    "rifampisin",
+    "SKDI 4A"
+   ],
+   "body": "Definisi:\nTuberkulosis (TB) adalah penyakit infeksi oleh Mycobacterium tuberculosis yang paling sering menyerang paru. Indonesia menyumbang sekitar 10% kasus TB dunia, terbanyak kedua setelah India (World Health Organization/WHO, lembar fakta 24 Maret 2026). Pada 2024 diperkirakan 10,7 juta orang sakit TB dan 1,23 juta meninggal di seluruh dunia.\nPedoman nasional yang dipakai: Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Tuberkulosis (Keputusan Menteri Kesehatan/KMK HK.01.07/MENKES/755/2019). Klasifikasi pasien berdasarkan cara diagnosis:\n- Terkonfirmasi bakteriologis: kuman TB terbukti dari spesimen (mis. dahak) melalui mikroskopis, tes cepat molekuler (TCM), atau biakan.\n- Terdiagnosis klinis: tidak memenuhi kriteria bakteriologis, tetapi dokter menilai pasien menderita TB aktif dan memutuskan memberi pengobatan.\nInfeksi TB laten adalah keadaan terinfeksi kuman TB tanpa gejala dan tanpa penyakit aktif.\n\nAnatomi dan fisiologi terkait:\n- Udara masuk melalui saluran napas yang bercabang makin kecil sampai alveolus, tempat pertukaran gas. Partikel besar tersaring di hidung dan bronkus, tetapi partikel droplet yang sangat kecil (droplet nuclei) dapat mencapai alveolus.\n- Di alveolus, makrofag alveolar bertugas \"memakan\" partikel dan kuman yang lolos.\n- Pertahanan terhadap TB terutama diperankan imunitas seluler: limfosit T (khususnya sel T CD4) mengaktifkan makrofag agar mampu membunuh kuman, dan membentuk granuloma, yaitu kumpulan makrofag, sel epiteloid, sel datia Langhans, dan limfosit yang mengurung kuman.\n- Bagian apeks (puncak) paru mempunyai kadar oksigen relatif tinggi karena ventilasi lebih besar dibanding perfusinya. Mycobacterium tuberculosis bersifat aerob, sehingga apeks menjadi lokasi favorit reaktivasi.\n\nPatofisiologi:\n- Pasien TB paru aktif batuk, bersin, atau meludah → droplet nuclei berisi kuman melayang di udara → terhirup orang lain → mencapai alveolus.\n- Makrofag alveolar menelan kuman, tetapi kuman TB mampu bertahan dan berkembang biak di dalam makrofag → menyebar ke kelenjar getah bening hilus.\n- Beberapa minggu kemudian imunitas seluler terbentuk → sel T mengaktifkan makrofag → granuloma terbentuk dan bagian tengahnya mengalami nekrosis kaseosa (seperti keju) → kuman terkurung.\n- Pada sebagian besar orang, kuman tetap terkurung dalam keadaan dorman → infeksi laten (tidak bergejala, tidak menular). WHO memperkirakan sekitar seperempat penduduk dunia telah terinfeksi.\n- Sekitar 5-10% orang yang terinfeksi akhirnya bergejala dan menjadi TB aktif, terutama bila imunitas seluler menurun (mis. infeksi HIV, diabetes melitus, malnutrisi).\n- Pada TB aktif, nekrosis kaseosa mencair dan pecah ke bronkus → terbentuk kavitas berisi sangat banyak kuman → dahak menjadi sangat infeksius → batuk menyebarkan kuman ke orang lain. Kerusakan dinding pembuluh di sekitar kavitas dapat menimbulkan batuk darah.\n- Gejala sistemik (demam, keringat malam, berat badan turun, lemas) timbul karena sitokin radang yang dilepas tubuh untuk melawan kuman, misalnya tumor necrosis factor (TNF).\n\nEtiologi dan faktor risiko:\n- Penyebab: Mycobacterium tuberculosis, basil tahan asam (BTA) yang tumbuh lambat. Sifat tumbuh lambat dan kemampuan dorman inilah alasan pengobatan harus lama.\n- Faktor yang meningkatkan risiko infeksi menjadi TB aktif: HIV, diabetes melitus, malnutrisi, ketergantungan alkohol, dan kondisi imunokompromais lain; kontak serumah dengan pasien TB paru meningkatkan risiko tertular.\n\nManifestasi klinis dan diagnosis:\n- Gejala: batuk lama (kadang berdarah), nyeri dada, lemas, mudah lelah, berat badan turun, demam, dan keringat malam (WHO).\n- Diagnosis TB paru dewasa harus diupayakan terkonfirmasi bakteriologis. Tidak dibenarkan mendiagnosis TB hanya berdasarkan foto toraks.\n- Bila TCM tersedia, TCM dipakai untuk diagnosis. Pemeriksaan mikroskopis dahak memakai 2 spesimen; BTA positif bila salah satu atau kedua spesimen positif.\n- Bila kedua spesimen BTA negatif, diagnosis klinis dapat ditegakkan dengan minimal foto toraks sebagai penunjang.\n\n{{gambar:1}}\n\nTatalaksana:\nPaduan obat anti-tuberkulosis (OAT) untuk TB paru sensitif obat (PNPK 2019):\n- 2RHZE/4HR selama 6 bulan: fase intensif 2 bulan rifampisin (R), isoniazid (H), pirazinamid (Z), etambutol (E), lalu fase lanjutan 4 bulan isoniazid dan rifampisin.\n- Bila dosis harian tidak memungkinkan, dapat dipakai 2RHZE/4R3H3 (fase lanjutan 3 kali seminggu) dengan pengawasan menelan obat yang lebih ketat.\n- Obat kombinasi dosis tetap (KDT) mempermudah pemberian obat; jumlah tablet mengikuti tabel kelompok berat badan dari program TB nasional.\n\nDosis OAT (mg/kgBB):\n| Obat | Harian | 3 kali seminggu |\n|---|---|---|\n| Isoniazid (H) | 5 (4-6), maks. 300 mg | 10 (8-12), maks. 900 mg |\n| Rifampisin (R) | 10 (8-12), maks. 600 mg | 10 (8-12), maks. 600 mg |\n| Pirazinamid (Z) | 25 (20-30) | 35 (30-40) |\n| Etambutol (E) | 15 (15-20) | 30 (25-35) |\n\nMengapa kombinasi dan selama ini:\n- Satu populasi kuman TB berisi sebagian kecil mutan yang sudah kebal terhadap satu obat. Bila hanya satu obat, mutan itu bertahan dan menjadi dominan (resisten). Kombinasi beberapa obat memastikan kuman yang kebal satu obat dibunuh obat lain.\n- Fase intensif membunuh cepat kuman yang aktif membelah sehingga pasien cepat tidak menular; fase lanjutan \"menyapu\" kuman yang membelah lambat atau dorman agar tidak kambuh.\n- Cara kerja singkat: isoniazid menghambat sintesis asam mikolat (komponen dinding sel kuman), rifampisin menghambat RNA polimerase kuman, pirazinamid aktif pada suasana asam (mis. di dalam makrofag), dan etambutol menghambat pembentukan dinding sel serta mencegah resistensi.\n\nPemantauan:\n- BTA dahak di akhir fase intensif (akhir bulan ke-2 pada pasien baru). Bila masih positif, ulang di bulan ke-3.\n- BTA positif di bulan ke-5 atau di akhir pengobatan berarti pengobatan gagal.\n- Berat badan ditimbang setiap bulan dan dosis disesuaikan.\n- Hasil pengobatan: sembuh, pengobatan lengkap, gagal, meninggal, putus obat (tidak minum obat 2 bulan berturut-turut atau lebih), dan tidak dievaluasi. Keberhasilan pengobatan = sembuh + pengobatan lengkap.\n\nEfek samping:\n- Efek samping berat (mis. ruam kulit berat, ikterus seperti hepatitis tanpa penyakit hati lain, kebingungan, gangguan penglihatan, gagal ginjal akut): hentikan obat yang diduga penyebab. Pada ikterus karena obat, OAT dihentikan.\n- Efek samping ringan: OAT dilanjutkan dengan terapi simtomatik.\n- Piridoksin (vitamin B6) 25 mg/hari sebagai pencegahan pada kelompok berisiko neuropati: hamil, HIV, ketergantungan alkohol, malnutrisi, diabetes, penyakit hati kronik, dan gagal ginjal. Neuropati karena isoniazid diobati dengan piridoksin 50-75 mg/hari. Alasannya: isoniazid mengganggu metabolisme vitamin B6 yang diperlukan saraf tepi.\n- Etambutol dapat mengganggu penglihatan (neuritis optik), sehingga keluhan penglihatan harus ditanyakan.\n\nKomplikasi dan kapan merujuk:\n- Komplikasi: batuk darah masif, pneumotoraks, efusi pleura, penyebaran ke organ lain, dan resistensi obat bila pengobatan tidak tuntas.\n- Rujuk bila diduga resistan obat (mis. gagal pengobatan atau kontak pasien TB resistan obat), efek samping berat, atau batuk darah masif.\n- Kontak serumah perlu diskrining dan kelompok berisiko tinggi diberi terapi pencegahan TB (TPT), yang mencegah infeksi laten berkembang menjadi penyakit.\n\nAnalogi:\n- Granuloma seperti penjara: kuman yang tertangkap dikurung oleh tembok sel radang. Selama penjaga (imunitas seluler) kuat, tahanan diam (infeksi laten). Bila penjaga melemah (HIV, diabetes, malnutrisi), tahanan kabur dan merusak (TB aktif).\n- Pengobatan kombinasi seperti mengepung pencuri dari empat pintu sekaligus: bila hanya satu pintu dijaga, pencuri lolos lewat pintu lain (resistensi). Fase lanjutan seperti menyisir sisa persembunyian setelah penangkapan besar.\n\nMnemonik:\n- Paduan \"2-4-4-2\" (mnemonik buatan): 2 bulan dengan 4 obat (RHZE), lalu 4 bulan dengan 2 obat (HR).\n- Dosis harian \"H-R-Z-E = 5-10-25-15\" (mnemonik buatan): isoniazid 5, rifampisin 10, pirazinamid 25, etambutol 15 mg/kgBB.\n- Efek samping khas (konsep buku ajar farmakologi): rifampisin membuat urine/air mata kemerahan, isoniazid neuropati perifer, etambutol gangguan penglihatan (\"E = Eye\"), pirazinamid hiperurisemia.\n\nPoin untuk koas:\n- Jangan mendiagnosis TB paru dewasa hanya dari foto toraks; upayakan TCM atau BTA dahak 2 spesimen.\n- Hitung dosis OAT dengan berat badan dan timbang ulang setiap bulan.\n- Catat jadwal BTA ulang di akhir bulan ke-2, ke-5, dan akhir pengobatan.\n- Berikan piridoksin 25 mg/hari pada kelompok berisiko neuropati.\n- Tanyakan kontak serumah, terutama anak dan orang dengan HIV, untuk skrining dan TPT.\n\nSingkatan:\n- BB: berat badan\n- BTA: basil tahan asam\n- CD4: cluster of differentiation 4 (penanda sel T helper)\n- E: etambutol\n- H: isoniazid\n- HIV: human immunodeficiency virus\n- KDT: kombinasi dosis tetap\n- KMK: Keputusan Menteri Kesehatan\n- OAT: obat anti-tuberkulosis\n- PNPK: Pedoman Nasional Pelayanan Kedokteran\n- R: rifampisin\n- TB: tuberkulosis\n- TCM: tes cepat molekuler\n- TNF: tumor necrosis factor\n- TPT: terapi pencegahan tuberkulosis (TB preventive treatment)\n- WHO: World Health Organization\n- Z: pirazinamid",
+   "images": [
+    {
+     "file": "img/20261012-1705-tb-paru-dewasa-1.svg",
+     "caption": "Perjalanan infeksi TB (droplet, granuloma, laten, aktif) dan linimasa paduan 2RHZE/4HR dengan jadwal BTA",
+     "credit": "Digambar Claude berdasarkan PNPK Tata Laksana Tuberkulosis 2019 dan WHO Tuberculosis fact sheet 2026"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kemenkes RI",
+     "title": "Pedoman Nasional Pelayanan Kedokteran Tata Laksana Tuberkulosis (KMK No. HK.01.07/MENKES/755/2019)",
+     "year": 2019,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan_1610422577_801904.pdf"
+    },
+    {
+     "org": "WHO",
+     "title": "Tuberculosis (fact sheet)",
+     "year": 2026,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. Pedoman Nasional Pelayanan Kedokteran Tata Laksana Tuberkulosis",
+     "publisher": "KMK HK.01.07/MENKES/755/2019",
+     "year": 2019,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan_1610422577_801904.pdf"
+    },
+    {
+     "title": "World Health Organization. Tuberculosis (fact sheet)",
+     "publisher": "WHO, 24 Maret 2026",
+     "year": 2026,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
     }
    ]
   }

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 660" width="900" height="660" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="900" height="660" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">TB paru: perjalanan infeksi dan linimasa pengobatan</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik</text>
+<rect x="20" y="72" width="250" height="84" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="32" y="95" font-size="14.5" font-weight="700" fill="#111827" text-anchor="start">Droplet nuclei</text>
+<text x="32" y="115" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Pasien TB paru batuk, bersin,</text>
+<text x="32" y="133" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">meludah → kuman melayang</text>
+<text x="32" y="151" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">di udara dan terhirup</text>
+<line x1="272" y1="114" x2="312" y2="114" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="316" y="72" width="260" height="84" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="328" y="95" font-size="14.5" font-weight="700" fill="#111827" text-anchor="start">Alveolus</text>
+<text x="328" y="115" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Makrofag alveolar menelan</text>
+<text x="328" y="133" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">kuman, tetapi kuman bisa</text>
+<text x="328" y="151" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">bertahan hidup di dalamnya</text>
+<line x1="578" y1="114" x2="618" y2="114" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="622" y="72" width="258" height="84" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<text x="634" y="95" font-size="14.5" font-weight="700" fill="#111827" text-anchor="start">Imunitas seluler</text>
+<text x="634" y="115" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Sel T mengaktifkan makrofag</text>
+<text x="634" y="133" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">→ granuloma (dinding sel</text>
+<text x="634" y="151" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">radang mengurung kuman)</text>
+<line x1="750" y1="158" x2="750" y2="190" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="560" y="194" width="320" height="92" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+<text x="572" y="217" font-size="14.5" font-weight="700" fill="#111827" text-anchor="start">Infeksi laten (sebagian besar)</text>
+<text x="572" y="237" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Kuman terkurung, tidak bergejala,</text>
+<text x="572" y="255" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">tidak menular. Sekitar 1/4 penduduk</text>
+<text x="572" y="273" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">dunia diperkirakan terinfeksi (WHO)</text>
+<line x1="560" y1="240" x2="488" y2="240" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="160" y="194" width="326" height="92" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="172" y="217" font-size="14.5" font-weight="700" fill="#111827" text-anchor="start">TB aktif (5-10% yang terinfeksi)</text>
+<text x="172" y="237" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Imunitas turun (HIV, DM, malnutrisi)</text>
+<text x="172" y="255" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">→ kuman lepas → nekrosis kaseosa</text>
+<text x="172" y="273" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">→ kavitas, batuk, BB turun, demam</text>
+<text x="20" y="230" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">Kavitas di</text>
+<text x="20" y="248" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="start">apeks paru:</text>
+<text x="20" y="266" font-size="12.5" font-weight="400" fill="#991b1b" text-anchor="start">kaya O₂</text>
+<text x="20" y="330" font-size="16" font-weight="700" fill="#111827" text-anchor="start">Linimasa paduan 2RHZE/4HR (6 bulan, PNPK TB 2019)</text>
+<rect x="40" y="380" width="273" height="46" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+<rect x="313" y="380" width="547" height="46" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+<text x="176.66666666666666" y="402" font-size="14.5" font-weight="700" fill="#7f1d1d" text-anchor="middle">Fase intensif: R H Z E</text>
+<text x="176.66666666666666" y="420" font-size="12.5" font-weight="400" fill="#7f1d1d" text-anchor="middle">setiap hari, 2 bulan</text>
+<text x="586.6666666666666" y="402" font-size="14.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">Fase lanjutan: H R</text>
+<text x="586.6666666666666" y="420" font-size="12.5" font-weight="400" fill="#1e3a8a" text-anchor="middle">setiap hari, 4 bulan (atau 3x seminggu: 4R3H3)</text>
+<line x1="40" y1="426" x2="40" y2="436" stroke="#374151" stroke-width="1.5"/>
+<text x="40.0" y="452" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">Bln 0</text>
+<line x1="177" y1="426" x2="177" y2="436" stroke="#374151" stroke-width="1.5"/>
+<text x="176.66666666666666" y="452" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">Bln 1</text>
+<line x1="313" y1="426" x2="313" y2="436" stroke="#374151" stroke-width="1.5"/>
+<text x="313.3333333333333" y="452" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">Bln 2</text>
+<line x1="450" y1="426" x2="450" y2="436" stroke="#374151" stroke-width="1.5"/>
+<text x="450.0" y="452" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">Bln 3</text>
+<line x1="587" y1="426" x2="587" y2="436" stroke="#374151" stroke-width="1.5"/>
+<text x="586.6666666666666" y="452" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">Bln 4</text>
+<line x1="723" y1="426" x2="723" y2="436" stroke="#374151" stroke-width="1.5"/>
+<text x="723.3333333333333" y="452" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">Bln 5</text>
+<line x1="860" y1="426" x2="860" y2="436" stroke="#374151" stroke-width="1.5"/>
+<text x="860.0" y="452" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">Bln 6</text>
+<line x1="313" y1="460" x2="313" y2="488" stroke="#d97706" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="313.3333333333333" y="502" font-size="12.5" font-weight="700" fill="#92400e" text-anchor="middle">Akhir bln 2: BTA dahak</text>
+<text x="313.3333333333333" y="520" font-size="12.5" font-weight="400" fill="#92400e" text-anchor="middle">(bila +, ulang bln 3)</text>
+<line x1="723" y1="460" x2="723" y2="488" stroke="#d97706" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="729.3333333333333" y="502" font-size="12.5" font-weight="700" fill="#92400e" text-anchor="end">Bln 5: BTA + = gagal</text>
+<line x1="860" y1="460" x2="860" y2="512" stroke="#d97706" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="860.0" y="526" font-size="12.5" font-weight="700" fill="#92400e" text-anchor="end">Akhir pengobatan: BTA + = gagal</text>
+<rect x="20" y="548" width="860" height="76" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="2"/>
+<text x="32" y="571" font-size="14.5" font-weight="700" fill="#111827" text-anchor="start">Dosis harian (mg/kgBB, PNPK TB 2019)</text>
+<text x="32" y="591" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">H 5 (maks. 300 mg) · R 10 (maks. 600 mg) · Z 25 · E 15  ·  Pantau BB tiap bulan, dosis disesuaikan</text>
+<text x="32" y="609" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Piridoksin 25 mg/hari pada kelompok risiko neuropati (hamil, HIV, alkohol, malnutrisi, DM, penyakit hati/ginjal)</text>
+<text x="20" y="650" font-size="12" font-weight="400" fill="#6b7280" text-anchor="start">Sumber: Kemenkes RI, PNPK Tata Laksana Tuberkulosis (KMK HK.01.07/MENKES/755/2019); WHO Tuberculosis fact sheet (2026).</text>
+</svg>
