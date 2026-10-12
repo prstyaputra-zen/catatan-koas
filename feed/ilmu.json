@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-12T10:07:00Z",
+ "updated": "2026-10-12T14:27:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -624,6 +624,54 @@
      "publisher": "WHO, 24 Maret 2026",
      "year": 2026,
      "url": "https://www.who.int/news-room/fact-sheets/detail/tuberculosis"
+    }
+   ]
+  },
+  {
+   "id": "20261012-2105-radiasi-kehamilan",
+   "created": "2026-10-12T14:27:00Z",
+   "title": "Pemeriksaan radiologi pada ibu hamil: dosis janin, ambang efek, dan konseling",
+   "type": "topik",
+   "stase": "Radiologi",
+   "tags": [
+    "radiasi",
+    "kehamilan",
+    "dosis janin",
+    "CT",
+    "proteksi radiasi"
+   ],
+   "body": "Definisi:\nTopik ini membahas keamanan pemeriksaan radiologi dengan radiasi pengion (foto Rontgen/sinar-X dan computed tomography/CT) pada pasien hamil, yaitu berapa dosis yang diterima janin dan pada dosis berapa efek berbahaya mulai muncul.\n- Radiasi pengion adalah radiasi berenergi cukup tinggi untuk melepaskan elektron dari atom (ionisasi), contohnya sinar-X. Ultrasonografi (USG) dan magnetic resonance imaging (MRI) tidak memakai radiasi pengion.\n- Dosis serap diukur dalam gray (Gy): 1 Gy = 1.000 miligray (mGy) = 100 rad (Centers for Disease Control and Prevention/CDC). Dosis janin pada pemeriksaan diagnostik biasanya dinyatakan dalam mGy.\n- Efek deterministik: efek yang baru muncul di atas dosis ambang dan makin berat bila dosis makin besar (mis. keguguran, malformasi, hambatan pertumbuhan, disabilitas intelektual).\n- Efek stokastik: efek yang peluangnya naik seiring dosis tanpa ambang yang jelas, terutama kanker.\n\nAnatomi dan fisiologi terkait:\n- Perkembangan janin melewati beberapa tahap dengan kerentanan berbeda. Pada 0-2 minggu pascakonsepsi (praimplantasi), embrio terdiri dari sedikit sel yang belum berdiferensiasi: kerusakan berat menyebabkan embrio gagal berimplantasi, sedangkan bila selamat, sel lain dapat menggantikan sel yang rusak sehingga biasanya tidak ada cacat (prinsip \"semua atau tidak sama sekali\").\n- Pada minggu-minggu awal sesudahnya terjadi organogenesis, saat organ utama dibentuk; sel yang rusak pada fase ini dapat menyebabkan malformasi atau hambatan pertumbuhan.\n- Otak janin berkembang pesat dengan proliferasi dan migrasi neuron; menurut CDC, periode paling rentan untuk disabilitas intelektual akibat radiasi adalah minggu 8-15 pascakonsepsi, dengan kerentanan berlanjut sampai sekitar minggu 25.\n- Sel yang membelah cepat dan belum berdiferensiasi lebih sensitif terhadap radiasi. Itulah sebabnya jaringan janin lebih rentan dibanding jaringan dewasa.\n- Dosis janin bergantung pada jarak janin dari berkas sinar-X. Pemeriksaan yang berkasnya jauh dari rahim (kepala, toraks, ekstremitas) memberi dosis janin sangat kecil karena janin hanya menerima radiasi hambur.\n\nPatofisiologi:\n- Sinar-X melewati jaringan → energinya terserap → ionisasi molekul, secara langsung pada DNA atau tidak langsung melalui radikal bebas dari air.\n- Kerusakan DNA ringan → diperbaiki sel. Kerusakan berat pada banyak sel → sel mati → bila jumlah sel mati melewati batas tertentu (dosis ambang) → efek deterministik pada janin, jenisnya bergantung pada usia kehamilan saat terpapar.\n- Kerusakan DNA yang salah diperbaiki → mutasi → peluang kanker di kemudian hari (efek stokastik). CDC menyebut paparan prenatal dapat meningkatkan risiko kanker masa kanak-kanak, terutama pada dosis > 0,1 Gy (100 mGy), dan dosis ini jauh di atas dosis tipikal radiologi diagnostik.\n- Dosis yang diberikan sekaligus dalam beberapa menit (akut) berbeda efeknya dengan dosis yang terbagi atau kronik.\n\nEfek nonkanker menurut dosis janin dan usia kehamilan (CDC, Januari 2025):\n| Dosis janin | Ringkasan efek |\n|---|---|\n| < 0,10 Gy (< 100 mGy) | Efek nonkanker tidak terdeteksi pada semua tahap kehamilan |\n| 0,10-0,50 Gy (100-500 mGy) | 0-2 minggu: kegagalan implantasi mungkin sedikit meningkat; 3-13 minggu: hambatan pertumbuhan mungkin; 14-23 minggu: efek nonkanker tidak mungkin |\n| > 0,50 Gy (> 500 mGy) | Risiko kegagalan implantasi, keguguran, malformasi berat, dan hambatan pertumbuhan meningkat sesuai tahap; 24 minggu-aterm: keguguran dan kematian neonatus dapat terjadi |\n- Disabilitas intelektual berat mungkin terjadi di atas 0,5 Gy pada minggu 8-25, terutama minggu 8-15.\n\nEtiologi dan faktor risiko:\n- Faktor yang menentukan besar dosis janin: jenis pemeriksaan (CT lebih besar daripada foto polos), lokasi (abdomen dan pelvis jauh lebih besar daripada kepala atau toraks), jumlah pengulangan, dan teknik.\n- Kehamilan yang belum diketahui adalah situasi tersering paparan yang tidak disengaja.\n\nManifestasi klinis dan diagnosis:\nDosis janin rata-rata beberapa pemeriksaan (International Atomic Energy Agency/IAEA, data survei Inggris):\n| Pemeriksaan | Rata-rata (mGy) | Maksimum (mGy) |\n|---|---|---|\n| Foto toraks | < 0,01 | < 0,01 |\n| CT kepala | < 0,005 | < 0,005 |\n| CT toraks | 0,06 | 0,96 |\n| Foto polos abdomen | 1,4 | 4,2 |\n| CT abdomen | 8,0 | 49 |\n| CT pelvis | 25 | 79 |\n- Data ini berasal dari survei lama di Inggris (Sharp dkk., 1998); dosis alat modern dapat berbeda. Perkiraan dosis yang akurat untuk pasien tertentu memerlukan fisikawan medis.\n\n{{gambar:1}}\n\nTatalaksana:\nSebelum pemeriksaan:\n- Tanyakan kemungkinan hamil pada setiap pasien perempuan usia subur. Pasien yang terlambat haid dianggap hamil sampai terbukti tidak.\n- \"Aturan 10 hari\" (pemeriksaan abdomen bawah dan pelvis hanya dalam 10 hari pertama setelah haid mulai) dinilai terlalu membatasi. IAEA menyebut alternatif \"aturan 28 hari\": pemeriksaan dapat dilakukan sepanjang siklus sampai ada haid yang terlambat. Sebagian fasilitas memakai aturan 10 hari hanya untuk pemeriksaan dosis tinggi (mis. CT abdomen atau pelvis).\n- Bila modalitas tanpa radiasi pengion (USG, MRI) dapat menjawab pertanyaan klinis, pertimbangkan modalitas itu lebih dulu.\n- Pemeriksaan yang memang diperlukan untuk kondisi ibu sebaiknya tidak ditunda hanya karena kehamilan: dosis radiologi diagnostik tipikal jauh di bawah ambang efek (CDC), sedangkan kondisi ibu yang tidak terdiagnosis juga membahayakan janin.\n\nSaat pemeriksaan (IAEA):\n- Batasi luas berkas sinar-X sekecil yang diperlukan untuk tujuan klinis.\n- Arahkan berkas primer sejauh mungkin dari janin.\n- Apron timbal di meja pemeriksaan hampir tidak berpengaruh pada dosis janin (radiasi hambur terutama berasal dari dalam tubuh ibu), tetapi boleh dipakai untuk menenangkan pasien selama tidak mengganggu pemeriksaan.\n\nSetelah paparan (konseling):\n- Sebagian besar paparan rutin, seperti pemeriksaan diagnostik atau paparan kerja dalam batas aturan, kecil kemungkinannya membahayakan janin (CDC).\n- Terminasi kehamilan pada dosis janin < 100 mGy tidak dibenarkan atas dasar risiko radiasi; pada 100-500 mGy keputusan berdasarkan kondisi individu; di atas 500 mGy dapat terjadi kerusakan janin bermakna (ICRP 84, dikutip IAEA).\n- Jelaskan bahwa penilaian risiko adalah langkah rutin, bukan tanda bahwa risikonya besar, dan bandingkan dengan risiko lain dalam kehamilan.\n\nKomplikasi dan kapan merujuk:\n- Kecemasan berlebihan dan keputusan terminasi yang tidak perlu adalah \"komplikasi\" yang paling sering dapat dicegah dengan konseling yang benar.\n- Konsultasikan ke dokter spesialis radiologi dan fisikawan medis bila janin terpapar pemeriksaan dosis tinggi (mis. beberapa CT abdomen-pelvis) atau dosisnya perlu dihitung khusus.\n- Petugas radiasi yang hamil tetap dapat bekerja bila dosis janin dapat dijaga < 1 mGy selama kehamilan (IAEA).\n\nAnalogi:\n- Dosis radiasi seperti hujan: foto toraks seperti beberapa tetes gerimis yang jatuh jauh dari rumah (janin), sedangkan CT pelvis seperti hujan yang turun tepat di atas atap. Bahkan \"hujan\" CT pelvis rata-rata masih di bawah batas banjir (100 mGy).\n- Ambang efek deterministik seperti gelas yang harus penuh dulu sebelum tumpah: di bawah batas tertentu tidak ada yang tumpah. Efek stokastik lebih mirip undian: tiap paparan menambah sedikit kupon, tetapi tidak ada jaminan menang atau kalah.\n- Tahap praimplantasi seperti menara balok kecil: bila tersenggol keras, menara runtuh seluruhnya (gagal implantasi); bila hanya satu balok jatuh, balok lain menggantikan tanpa bekas.\n\nMnemonik:\n- \"100-500\" (mnemonik buatan): < 100 mGy aman dari efek nonkanker dan bukan alasan terminasi; 100-500 mGy pertimbangkan individual; > 500 mGy risiko bermakna.\n- \"Jauh dari perut, jauh dari risiko\" (mnemonik buatan): kepala, toraks, dan ekstremitas memberi dosis janin sangat kecil; abdomen dan pelvis paling besar.\n- \"8-15 otak paling rentan\" (mnemonik buatan): disabilitas intelektual akibat radiasi paling rentan pada minggu 8-15 pascakonsepsi.\n\nPoin untuk koas:\n- Tanyakan HPHT dan kemungkinan hamil sebelum mengirim perempuan usia subur ke radiologi, terutama untuk abdomen atau pelvis.\n- Foto toraks dan CT kepala pada ibu hamil memberi dosis janin sangat kecil; jangan menolak pemeriksaan yang diperlukan.\n- Pertimbangkan USG atau MRI lebih dulu bila dapat menjawab pertanyaan klinis.\n- Saat konseling, sampaikan angka dosis dan ambang 100 mGy dengan tenang, dan rujuk ke radiologi bila perlu perhitungan dosis.\n\nSingkatan:\n- CDC: Centers for Disease Control and Prevention\n- CT: computed tomography\n- DNA: deoxyribonucleic acid (asam deoksiribonukleat)\n- Gy: gray\n- HPHT: hari pertama haid terakhir\n- IAEA: International Atomic Energy Agency\n- ICRP: International Commission on Radiological Protection\n- mGy: miligray\n- MRI: magnetic resonance imaging\n- USG: ultrasonografi",
+   "images": [
+    {
+     "file": "img/20261012-2105-radiasi-kehamilan-1.svg",
+     "caption": "Dosis janin rata-rata beberapa pemeriksaan radiologi dibandingkan ambang 100 dan 500 mGy (skala logaritmik)",
+     "credit": "Digambar Claude berdasarkan IAEA (Radiation protection of pregnant women in radiology) dan CDC (2025)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "CDC",
+     "title": "Radiation and Pregnancy: Information for Clinicians",
+     "year": 2025,
+     "url": "https://www.cdc.gov/radiation-emergencies/hcp/clinical-guidance/pregnancy.html"
+    },
+    {
+     "org": "IAEA",
+     "title": "Radiation protection of pregnant women in radiology (FAQ untuk tenaga kesehatan)",
+     "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/pregnant-women"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Centers for Disease Control and Prevention. Radiation and Pregnancy: Information for Clinicians",
+     "publisher": "CDC, diperbarui 31 Januari 2025",
+     "year": 2025,
+     "url": "https://www.cdc.gov/radiation-emergencies/hcp/clinical-guidance/pregnancy.html"
+    },
+    {
+     "title": "International Atomic Energy Agency. Radiation protection of pregnant women in radiology",
+     "publisher": "IAEA Radiation Protection of Patients (mengutip ICRP 84 dan Sharp dkk. 1998)",
+     "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/pregnant-women"
     }
    ]
   }
