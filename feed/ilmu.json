@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-12T14:27:00Z",
+ "updated": "2026-10-12T22:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -672,6 +672,56 @@
      "title": "International Atomic Energy Agency. Radiation protection of pregnant women in radiology",
      "publisher": "IAEA Radiation Protection of Patients (mengutip ICRP 84 dan Sharp dkk. 1998)",
      "url": "https://www.iaea.org/resources/rpop/health-professionals/radiology/pregnant-women"
+    }
+   ]
+  },
+  {
+   "id": "20261013-0505-tanda-kematian",
+   "created": "2026-10-12T22:06:00Z",
+   "title": "Tanda kematian dan perubahan pascamati: lebam, kaku, suhu, dan pembusukan",
+   "type": "topik",
+   "stase": "Forensik",
+   "tags": [
+    "forensik",
+    "lebam mayat",
+    "kaku mayat",
+    "interval pascamati",
+    "medikolegal"
+   ],
+   "body": "Definisi:\nPerubahan pascamati (postmortem) adalah rangkaian perubahan fisik dan kimia pada tubuh setelah kematian. Perubahan ini dipakai untuk memastikan kematian dan memperkirakan interval pascamati (postmortem interval/PMI), yaitu lama waktu sejak kematian.\nPembagian yang umum dipakai (StatPearls, Zubair dan Menezes):\n- Perubahan segera: berhentinya sirkulasi dan pernapasan, serta hilangnya refleks.\n- Perubahan awal: kulit pucat dan kehilangan elastisitas, penurunan suhu tubuh (algor mortis), lebam mayat (livor mortis), dan kaku mayat (rigor mortis).\n- Perubahan lanjut: dekomposisi, yaitu autolisis dan pembusukan (putrefaksi).\nLebam mayat, kaku mayat, dan pembusukan dikenal sebagai tanda pasti kematian karena tidak terjadi pada orang hidup.\n\nAnatomi dan fisiologi terkait:\n- Kontraksi otot rangka: kepala miosin berikatan dengan aktin (jembatan silang) lalu menarik filamen. Agar miosin LEPAS dari aktin dan otot relaksasi, diperlukan adenosin trifosfat (ATP). Jadi ATP justru dibutuhkan untuk relaksasi.\n- Suhu tubuh dijaga oleh pusat termoregulasi di hipotalamus yang menyeimbangkan produksi panas (metabolisme) dan pelepasan panas (konduksi, konveksi, radiasi, penguapan).\n- Selama jantung berdenyut, darah terus beredar di dalam pembuluh dan tidak mengendap karena gravitasi.\n- Sel mengandung enzim hidrolitik di lisosom yang pada keadaan hidup terkurung dalam membran. Usus berisi banyak bakteri flora normal; sekum terletak di fosa iliaka kanan dan dekat dengan dinding perut.\n\nPatofisiologi:\n- Jantung dan napas berhenti → sirkulasi dan oksigenasi berhenti → sel beralih ke metabolisme anaerob sampai cadangan energi habis.\n- Kaku mayat: produksi ATP berhenti → miosin tidak bisa lepas dari aktin → jembatan silang menetap → otot kaku (asam laktat dari metabolisme anaerob ikut berperan). Setelah protein otot terurai oleh autolisis dan pembusukan, otot kembali lemas (flaksiditas sekunder). Urutannya: lemas primer → kaku → lemas sekunder.\n- Lebam mayat: sirkulasi berhenti → darah mengendap karena gravitasi di bagian tubuh terendah → kulit di area itu berwarna merah keunguan, kecuali di area yang tertekan alas (pembuluh terjepit sehingga tetap pucat). Lama-kelamaan sel darah merah pecah dan pigmennya merembes ke jaringan sekitar → lebam tidak berpindah lagi walau posisi tubuh diubah (lebam menetap/fixed).\n- Penurunan suhu: hipotalamus berhenti mengatur dan produksi panas metabolik berhenti → tubuh melepas panas ke lingkungan melalui konduksi, konveksi, dan radiasi → suhu turun sampai sama dengan suhu lingkungan.\n- Pembusukan: membran sel rusak → enzim keluar dan mencerna sel sendiri (autolisis) → bakteri flora normal usus berkembang biak dan menyebar → perubahan warna hijau pertama kali di kulit perut kanan bawah (fosa iliaka kanan, dekat sekum) → gas hasil pembusukan membuat tubuh membengkak (bloating) dan pembuluh darah tampak sebagai garis hijau kehitaman (marbling).\n\nEtiologi dan faktor risiko (faktor yang memengaruhi kecepatan perubahan):\n- Suhu lingkungan adalah faktor paling penting: panas mempercepat pembusukan dan mempercepat hilangnya kaku mayat, dingin memperlambat pembusukan dan memperpanjang kaku mayat.\n- Penurunan suhu lebih cepat pada tubuh yang terendam air, tanpa pakaian, dan kurus; lebih lambat pada tubuh berpakaian tebal dan gemuk.\n- Faktor lain: lemak tubuh lebih banyak mempercepat dekomposisi, sepsis, luka terbuka, tempat kejadian, dan cara penyimpanan jenazah.\n\nManifestasi klinis dan diagnosis:\nPerkiraan waktu (nilai bervariasi antarsumber; StatPearls menyebut nilai ini untuk kondisi tropis dan bukan angka mutlak):\n| Perubahan | Zubair dan Menezes (StatPearls, 2026) | Shrestha dkk. (StatPearls, 2023) |\n|---|---|---|\n| Lebam mayat muncul | ± 1 jam | ½-2 jam (bercak), meluas merata 6-12 jam |\n| Lebam mayat menetap | 6-8 jam | Secara tradisional dianggap PMI > 12 jam |\n| Kaku mayat mulai (otot wajah) | 1-4 jam | ± 2 jam |\n| Kaku mayat lengkap | Seluruh otot ± 6 jam, lengkap ± 12 jam | 6-8 jam |\n| Kaku mayat bertahan | ± 12 jam lagi | Sampai ± 24 jam setelah kematian |\n| Kaku mayat menghilang | Lebih cepat bila panas | Umumnya ± 36 jam |\n| Penurunan suhu | Biasanya selama 18-24 jam sampai sama dengan lingkungan | Patokan kasar turun 1,5 °F (± 0,8 °C) per jam |\n| Warna hijau fosa iliaka kanan | 12-24 jam (iklim panas); 24-72 jam (iklim sedang) | - |\n| Pembengkakan | 24-48 jam | - |\n- Spasme kadaverik (cadaveric spasm): kontraksi segera sekelompok kecil otot tepat saat kematian, biasanya pada kematian dengan kekerasan (mis. tenggelam). Berbeda dari kaku mayat karena tidak didahului fase lemas.\n- Penurunan suhu saja tidak boleh dipakai untuk memperkirakan saat kematian.\n\n{{gambar:1}}\n\nTatalaksana (cara memeriksa dan mencatat):\n- Pastikan kematian: tidak ada denyut nadi, bunyi jantung, dan napas; refleks hilang. Tanda pasti (lebam, kaku, pembusukan) menguatkan.\n- Lebam mayat: catat lokasi, warna, dan apakah hilang saat ditekan atau berpindah saat posisi diubah. Lokasi lebam yang tidak sesuai posisi jenazah saat ditemukan mengarah ke kemungkinan jenazah telah dipindahkan setelah lebam menetap.\n- Kaku mayat: periksa sendi rahang, leher, dan anggota gerak; catat derajatnya (belum ada, sebagian, lengkap, mulai menghilang).\n- Suhu: catat suhu tubuh dan suhu lingkungan beserta jam pemeriksaan.\n- Pembusukan: catat warna kulit, pembengkakan, dan marbling.\n- Tulis jam pemeriksaan dengan tepat, karena semua perkiraan dihitung mundur dari jam tersebut.\n- Gabungkan beberapa tanda dan pertimbangkan suhu lingkungan, pakaian, serta posisi tubuh; laporkan PMI sebagai rentang, bukan satu angka.\n\nKomplikasi dan kapan merujuk:\n- Kesalahan tersering adalah memakai satu tanda saja atau melupakan suhu lingkungan, sehingga perkiraan PMI meleset.\n- Kematian yang tidak wajar atau mencurigakan (kekerasan, keracunan, kematian mendadak tanpa sebab jelas) memerlukan pemeriksaan oleh dokter spesialis forensik sesuai prosedur hukum yang berlaku.\n\nAnalogi:\n- Kaku mayat seperti tangan yang menggenggam dan butuh \"koin\" (ATP) untuk membuka genggaman. Setelah kematian, koinnya habis sehingga genggaman tidak bisa dibuka. Genggaman baru lepas ketika \"tangannya\" sendiri mulai rusak (pembusukan).\n- Lebam mayat seperti endapan kopi di dasar gelas yang dibiarkan diam: mula-mula endapan bisa diaduk lagi (lebam masih berpindah), tetapi lama-lama warnanya meresap ke dasar gelas dan tidak bisa dipindahkan (lebam menetap).\n- Penurunan suhu seperti secangkir teh panas yang dibiarkan: lebih cepat dingin bila cangkirnya tipis, tanpa tutup, atau ditaruh di air dingin; lebih lama bila dibungkus.\n\nMnemonik:\n- Tanda pasti kematian \"LeKa Bu\" (mnemonik buatan): Lebam mayat, Kaku mayat, pemBUsukan.\n- Urutan kaku mayat \"Lemas-Kaku-Lemas\" (mnemonik buatan): flaksiditas primer, rigor, flaksiditas sekunder.\n- Asal kata Latin (dikenal luas): algor = dingin, livor = warna kebiruan, rigor = kaku, mortis = kematian.\n\nPoin untuk koas:\n- Saat diminta memastikan kematian di bangsal atau IGD, periksa dan catat tanda segera serta tanda pasti, dan tulis jamnya.\n- Sebut perkiraan saat kematian sebagai rentang dan jelaskan faktor yang memengaruhinya.\n- Bedakan lebam mayat dari memar: lebam mayat berada di bagian terendah tubuh dan tidak di area yang tertekan alas.\n- Ingat warna hijau pertama di perut kanan bawah sebagai tanda awal pembusukan.\n- Kematian tidak wajar dilaporkan dan ditangani sesuai prosedur medikolegal, bukan disimpulkan sendiri.\n\nSingkatan:\n- ATP: adenosin trifosfat\n- IGD: instalasi gawat darurat\n- PMI: postmortem interval (interval pascamati)",
+   "images": [
+    {
+     "file": "img/20261013-0505-tanda-kematian-1.svg",
+     "caption": "Linimasa perkiraan lebam mayat, kaku mayat, penurunan suhu, dan pembusukan",
+     "credit": "Digambar Claude berdasarkan StatPearls: Zubair & Menezes (2026) dan Shrestha dkk. (2023)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "StatPearls (NCBI Bookshelf)",
+     "title": "Evaluation of Postmortem Changes",
+     "year": 2026,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK554464/"
+    },
+    {
+     "org": "StatPearls (NCBI Bookshelf)",
+     "title": "Methods of Estimation of Time Since Death",
+     "year": 2023,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK549867/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Zubair M, Menezes RG. Evaluation of Postmortem Changes",
+     "publisher": "StatPearls, NCBI Bookshelf, diperbarui 13 Juli 2026",
+     "year": 2026,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK554464/"
+    },
+    {
+     "title": "Shrestha R, Kanchan T, Krishan K. Methods of Estimation of Time Since Death",
+     "publisher": "StatPearls, NCBI Bookshelf, diperbarui 30 Mei 2023",
+     "year": 2023,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK549867/"
     }
    ]
   }
