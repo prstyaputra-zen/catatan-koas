@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-12T02:06:00Z",
+ "updated": "2026-10-12T06:24:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -519,6 +519,61 @@
      "title": "Rajan N. Management of severe local anesthetic toxicity",
      "publisher": "Update in Anaesthesia (WFSA), hlm. 76-79",
      "url": "https://resources.wfsahq.org/wp-content/uploads/uai25-2-Management-of-severe-local-anesthetic-toxicity.pdf"
+    }
+   ]
+  },
+  {
+   "id": "20261012-1305-stemi-pnpk-2026",
+   "created": "2026-10-12T06:24:00Z",
+   "title": "IMA-EST (STEMI): kriteria EKG, pilihan reperfusi, dan dosis obat (PNPK SKA 2026)",
+   "type": "topik",
+   "stase": "Kardiologi",
+   "tags": [
+    "STEMI",
+    "sindrom koroner akut",
+    "fibrinolitik",
+    "EKG",
+    "kegawatdaruratan"
+   ],
+   "body": "Definisi:\nInfark miokard akut dengan elevasi segmen ST (IMA-EST, dalam bahasa Inggris ST-elevation myocardial infarction/STEMI) adalah bagian dari sindrom koroner akut (SKA) yang menjadi indikator oklusi total arteri koroner. Kementerian Kesehatan (Kemenkes) menerbitkan Pedoman Nasional Pelayanan Klinis (PNPK) Tata Laksana Sindrom Koroner Akut terbaru (Keputusan Menteri Kesehatan/KMK HK.01.07/MENKES/876/2026, ditandatangani 10 Agustus 2026).\n- Diagnosis IMA-EST: keluhan angina pektoris akut disertai elevasi segmen ST yang persisten di dua sandapan yang bersebelahan.\n- Batas elevasi ST di titik J (titik akhir kompleks QRS dan awal segmen ST):\n| Sandapan | Kelompok | Batas elevasi ST |\n|---|---|---|\n| V2-V3 | Pria ≥ 40 tahun | ≥ 2 mm |\n| V2-V3 | Pria < 40 tahun | ≥ 2,5 mm |\n| V2-V3 | Wanita, semua usia | ≥ 1,5 mm |\n| Sandapan lain | Semua | ≥ 1 mm |\n- Blok cabang berkas kiri (left bundle branch block/LBBB) yang baru dengan gejala ≤ 12 jam juga merupakan indikasi reperfusi.\n\nAnatomi dan fisiologi terkait:\n- Jantung diperdarahi dua arteri koroner yang keluar dari pangkal aorta. Arteri koroner kiri bercabang menjadi left anterior descending (LAD) yang memperdarahi dinding anterior dan septum, serta left circumflex (LCx) yang memperdarahi dinding lateral. Arteri koroner kanan (right coronary artery/RCA) umumnya memperdarahi dinding inferior dan ventrikel kanan, serta pada banyak orang nodus sinoatrial (SA) dan atrioventrikular (AV).\n- Karena itu lokasi elevasi ST menunjuk arteri yang tersumbat: V1-V4 (anterior, LAD), I, aVL, V5-V6 (lateral, LCx), II, III, aVF (inferior, umumnya RCA). Infark inferior dapat disertai bradikardia atau blok AV karena RCA sering memperdarahi nodus SA dan AV.\n- Otot jantung bekerja terus-menerus dan bergantung pada pasokan oksigen dari aliran koroner. Aliran koroner ventrikel kiri terutama terjadi saat diastole, ketika otot jantung relaksasi dan tidak menekan pembuluhnya. Takikardia memperpendek diastole sehingga pasokan berkurang.\n- Lapisan subendokardium (bagian dalam dinding) paling rentan iskemia karena paling jauh dari arteri epikardial dan paling tertekan saat sistole.\n\nPatofisiologi:\n- Plak aterosklerosis di arteri koroner pecah atau tererosi → inti plak yang trombogenik terpapar darah → trombosit melekat dan teraktivasi → kaskade koagulasi → trombus.\n- Trombus menutup total arteri → seluruh ketebalan dinding (transmural) di wilayah arteri itu iskemik → sel otot yang iskemik mengubah potensial membran → arus cedera (injury current) → tampak sebagai elevasi segmen ST di sandapan yang menghadap wilayah tersebut.\n- Pada oklusi parsial atau sementara, iskemia terbatas di subendokardium → depresi ST atau perubahan gelombang T (ini lebih khas untuk SKA tanpa elevasi ST).\n- Bila oklusi menetap → nekrosis menjalar dari subendokardium ke epikardium seiring waktu (\"waktu adalah otot\") → makin lama tanpa reperfusi, makin luas infark → fungsi pompa turun → gagal jantung atau syok kardiogenik; jaringan iskemik juga mudah memicu aritmia ventrikel.\n- Gelombang T tinggi (hiperakut) dapat menjadi tanda paling awal sebelum elevasi ST jelas; gelombang Q patologis muncul belakangan sebagai tanda nekrosis.\n- Logika terapi: aspirin dan penghambat reseptor P2Y12 menghentikan aktivasi trombosit (komponen utama trombus arteri), antikoagulan menghentikan pembentukan fibrin, dan reperfusi (intervensi koroner perkutan/IKP atau fibrinolitik) membuka kembali arteri.\n\nEtiologi dan faktor risiko:\n- Penyebab utama adalah aterosklerosis koroner dengan trombosis akibat ruptur atau erosi plak.\n- Faktor risiko aterosklerosis yang sering ditemui: hipertensi, diabetes melitus, dislipidemia, merokok, obesitas, dan riwayat keluarga.\n\nManifestasi klinis dan diagnosis:\n- Nyeri dada khas angina (rasa tertekan atau berat di dada, dapat menjalar ke lengan kiri, leher, atau rahang), sering disertai keringat dingin, mual, atau sesak.\n- Elektrokardiogram (EKG) 12 sandapan direkam dan dibaca sesegera mungkin saat kontak medis pertama (KMP), dalam < 10 menit (Kelas I, level B).\n- Jangan menunda reperfusi untuk menunggu hasil penanda jantung bila EKG sudah menunjukkan IMA-EST.\n\n{{gambar:1}}\n\nTatalaksana:\nTerapi awal:\n- Oksigen hanya bila hipoksemia (saturasi oksigen < 90%) (Kelas I). Oksigen rutin pada saturasi > 90% tidak direkomendasikan (Kelas III); oksigen diberikan untuk memperbaiki hipoksemia, bukan sebagai terapi rutin.\n- Nitrat sublingual atau intravena (IV) untuk gejala iskemik yang masih berlangsung. Hindari pada hipotensi, bradikardia atau takikardia ekstrem, infark ventrikel kanan, stenosis aorta berat, atau pemakaian penghambat fosfodiesterase-5 (PDE-5, mis. sildenafil) dalam 24-48 jam. Alasannya: nitrat melebarkan vena sehingga aliran balik (preload) turun; pada infark ventrikel kanan, jantung sangat bergantung pada preload sehingga tekanan darah bisa anjlok.\n- Morfin 5-10 mg IV dapat dipertimbangkan untuk nyeri dada (Kelas IIa).\n- Aspirin dosis muat 160-320 mg oral, lalu 80-100 mg oral sekali sehari (Kelas I, level A).\n\nReperfusi:\n- Direkomendasikan untuk semua IMA-EST dengan gejala ≤ 12 jam (Kelas I, level A).\n- Pilih IKP primer bila waktu dari KMP sampai IKP < 120 menit (Kelas I, level A). Bila tidak mungkin, berikan fibrinolitik, sebaiknya dimulai dalam 30 menit dari KMP (Kelas I, level C).\n\n{{gambar:2}}\n\nPenghambat P2Y12:\n- Untuk IKP: ticagrelor dosis muat 180 mg lalu 90 mg 2 kali sehari, atau prasugrel dosis muat 20 mg lalu 3,75 mg sekali sehari (pada pasien yang belum mendapat penghambat P2Y12). Klopidogrel dosis muat 300-600 mg lalu 75 mg sekali sehari bila prasugrel atau ticagrelor tidak tersedia, tidak ditoleransi, atau kontraindikasi.\n- Bersama fibrinolitik: klopidogrel dosis muat 300 mg lalu 75 mg sekali sehari; usia ≥ 75 tahun dosis muat 75 mg lalu 75 mg sekali sehari.\n\nFibrinolitik (agen spesifik fibrin lebih dipilih daripada streptokinase, Kelas I):\n| Obat | Dosis |\n|---|---|\n| Streptokinase | 1,5 juta unit IV dalam 30-60 menit; jangan diberikan bila pernah mendapat streptokinase atau anistreplase |\n| Alteplase | 15 mg bolus IV, lalu 0,75 mg/kgBB dalam 30 menit (maks. 50 mg), lalu 0,5 mg/kgBB dalam 60 menit (maks. 35 mg) |\n| Tenekteplase | Bolus IV tunggal sesuai BB: < 60 kg 30 mg; 60-< 70 kg 35 mg; 70-< 80 kg 40 mg; 80-< 90 kg 45 mg; ≥ 90 kg 50 mg. Setengah dosis bila usia ≥ 75 tahun |\n- Mengapa spesifik fibrin lebih dipilih: obat ini bekerja terutama pada fibrin di bekuan, sedangkan streptokinase mengaktifkan plasminogen secara lebih luas dan dapat memicu antibodi (sehingga tidak boleh diulang).\n- Kontraindikasi absolut antara lain riwayat perdarahan intrakranial atau stroke yang tidak diketahui penyebabnya, stroke dalam 6 bulan, neoplasma atau malformasi arteri-vena intrakranial, trauma atau operasi besar baru-baru ini, perdarahan saluran cerna dalam 1 bulan, gangguan perdarahan, dan diseksi aorta.\n- Kontraindikasi relatif antara lain hipertensi refrakter (sistolik > 180 dan/atau diastolik > 110 mmHg), antikoagulan oral, hamil atau 1 minggu pascapersalinan, penyakit hati lanjut, endokarditis infektif, ulkus peptikum aktif, dan resusitasi lama atau traumatik.\n\nAntikoagulan:\n- Enoksaparin (usia < 75 tahun): bolus 30 mg IV, lalu 1 mg/kgBB subkutan (SK) tiap 12 jam, maksimal 8 hari. Usia ≥ 75 tahun: tanpa bolus IV, mulai 0,75 mg/kgBB SK, maks. 75 mg per dosis untuk dua dosis pertama. Separuh dosis bila laju filtrasi glomerulus terestimasi (eGFR) < 30 mL/menit.\n- Unfractionated heparin (UFH): bolus 60 U/kgBB IV maks. 4.000 U, lalu infus 12 U/kgBB/jam maks. 1.000 U/jam, target activated partial thromboplastin time (aPTT) 50-70 detik atau 1,5-2 kali kontrol.\n- Fondaparinuks: 2,5 mg bolus IV, lalu 2,5 mg SK sekali sehari; hanya bersama streptokinase dan tidak direkomendasikan untuk IKP.\n\nSetelah fibrinolitik:\n- IKP penyelamatan (rescue) bila resolusi segmen ST < 50% dalam 60-90 menit, hemodinamik atau listrik tidak stabil, iskemia memburuk, atau nyeri dada menetap (Kelas I, level A).\n- Bila fibrinolisis berhasil: angiografi dan IKP pada arteri penyebab infark (infarct-related artery/IRA) bila ada indikasi, dalam 2-24 jam (Kelas I, level A).\n- Fibrinolisis ulang tidak direkomendasikan.\n\nKomplikasi dan kapan merujuk:\n- Komplikasi: aritmia (termasuk fibrilasi ventrikel), gagal jantung, syok kardiogenik, dan perdarahan akibat terapi antitrombotik atau fibrinolitik.\n- Rujukan ke RS yang mampu IKP harus cepat: di RS perujuk, waktu sejak pasien tiba sampai keluar menuju RS tujuan (door-in to door-out) sebaiknya ≤ 30 menit (European Society of Cardiology/ESC 2023).\n\nAnalogi:\n- Arteri koroner seperti selang air ke kebun. Ruptur plak seperti retakan di dinding selang yang membuat kotoran menggumpal dan menyumbat total. Tanaman di ujung selang (otot jantung) mulai layu dari bagian yang paling jauh (subendokardium) dan makin lama makin banyak yang mati. Membuka sumbatan cepat (IKP atau fibrinolitik) menyelamatkan tanaman yang masih layu.\n- Aspirin dan penghambat P2Y12 seperti menghentikan pekerja yang terus menambal gumpalan (trombosit), antikoagulan menghentikan semen perekatnya (fibrin), dan fibrinolitik melarutkan gumpalan yang sudah terbentuk.\n\nMnemonik:\n- Lokasi infark \"LAD-depan, LCx-samping, RCA-bawah\" (mnemonik buatan): V1-V4 anterior, I/aVL/V5-V6 lateral, II/III/aVF inferior.\n- Waktu \"10-30-120\" (mnemonik buatan): EKG < 10 menit dari KMP, fibrinolitik dalam 30 menit dari KMP, IKP primer bila KMP sampai IKP < 120 menit.\n- Batas ST V2-V3 \"2-2,5-1,5\" (mnemonik buatan): pria ≥ 40 tahun 2 mm, pria < 40 tahun 2,5 mm, wanita 1,5 mm.\n\nPoin untuk koas:\n- Rekam EKG 12 sandapan dalam 10 menit pada setiap nyeri dada dan ukur elevasi ST di titik J dengan batas sesuai usia dan jenis kelamin.\n- Catat jam mulai nyeri; indikasi reperfusi dihitung dari gejala ≤ 12 jam.\n- Jangan beri oksigen rutin bila saturasi > 90%; hindari nitrat pada infark inferior dengan dugaan infark ventrikel kanan atau hipotensi.\n- Hafalkan dosis muat aspirin 160-320 mg dan pilihan penghambat P2Y12 sesuai strategi (IKP vs fibrinolitik).\n- Untuk tenekteplase, timbang atau taksir BB dan ingat setengah dosis pada usia ≥ 75 tahun.\n\nSingkatan:\n- aPTT: activated partial thromboplastin time\n- AV: atrioventrikular\n- BB: berat badan\n- EKG: elektrokardiogram\n- eGFR: estimated glomerular filtration rate (laju filtrasi glomerulus terestimasi)\n- ESC: European Society of Cardiology\n- IKP: intervensi koroner perkutan\n- IMA-EST: infark miokard akut dengan elevasi segmen ST\n- IRA: infarct-related artery (arteri penyebab infark)\n- IV: intravena\n- KMK: Keputusan Menteri Kesehatan\n- KMP: kontak medis pertama\n- LAD: left anterior descending artery\n- LBBB: left bundle branch block (blok cabang berkas kiri)\n- LCx: left circumflex artery\n- P2Y12: reseptor adenosin difosfat pada trombosit (target ticagrelor, prasugrel, klopidogrel)\n- PDE-5: fosfodiesterase-5\n- PNPK: Pedoman Nasional Pelayanan Klinis\n- RCA: right coronary artery\n- RS: rumah sakit\n- SA: sinoatrial\n- SK: subkutan\n- SKA: sindrom koroner akut\n- STEMI: ST-elevation myocardial infarction\n- UFH: unfractionated heparin",
+   "images": [
+    {
+     "file": "img/20261012-1305-stemi-pnpk-2026-1.svg",
+     "caption": "EKG skematik sandapan V2: normal vs IMA-EST anterior dengan elevasi ST di titik J",
+     "credit": "Digambar Claude dengan feed/tools/ekg_svg.py berdasarkan kriteria PNPK Tata Laksana SKA 2026"
+    },
+    {
+     "file": "img/20261012-1305-stemi-pnpk-2026-2.svg",
+     "caption": "Alur memilih IKP primer atau fibrinolitik, serta langkah setelah fibrinolitik",
+     "credit": "Digambar Claude berdasarkan PNPK Tata Laksana SKA (KMK HK.01.07/MENKES/876/2026)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kemenkes RI",
+     "title": "Pedoman Nasional Pelayanan Klinis Tata Laksana Sindrom Koroner Akut (KMK No. HK.01.07/MENKES/876/2026)",
+     "year": 2026,
+     "url": "https://kemkes.go.id/id/pnpk-tata-laksana-sindrom-koroner-akut-2026"
+    },
+    {
+     "org": "European Society of Cardiology",
+     "title": "2023 ESC Guidelines for the management of acute coronary syndromes",
+     "year": 2023,
+     "url": "https://academic.oup.com/eurheartj/article/44/38/3720/7243210"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. Pedoman Nasional Pelayanan Klinis Tata Laksana Sindrom Koroner Akut",
+     "publisher": "KMK HK.01.07/MENKES/876/2026, ditandatangani 10 Agustus 2026",
+     "year": 2026,
+     "url": "https://kemkes.go.id/app_asset/file_content_download/17871313946a857602a07b55.82527160.pdf"
+    },
+    {
+     "title": "Byrne RA, et al. 2023 ESC Guidelines for the management of acute coronary syndromes",
+     "publisher": "European Heart Journal 44(38):3720-3826",
+     "year": 2023,
+     "url": "https://academic.oup.com/eurheartj/article/44/38/3720/7243210"
     }
    ]
   }

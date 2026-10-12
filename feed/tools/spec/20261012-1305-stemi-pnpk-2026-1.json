@@ -1,0 +1,107 @@
+{
+ "title": "EKG normal vs IMA-EST anterior (sandapan V2)",
+ "note": "V2-V3: pria ≥ 40 th ≥ 2 mm, pria < 40 th ≥ 2,5 mm, wanita ≥ 1,5 mm; lain ≥ 1 mm (PNPK SKA 2026)",
+ "seconds": 2.4,
+ "hr": 75,
+ "strips": [
+  {
+   "label": "Normal",
+   "waves": {
+    "P": [
+     0.12,
+     0.1,
+     0.022
+    ],
+    "Q": [
+     -0.05,
+     0.205,
+     0.008
+    ],
+    "R": [
+     0.6,
+     0.225,
+     0.01
+    ],
+    "S": [
+     -0.7,
+     0.248,
+     0.011
+    ],
+    "T": [
+     0.3,
+     0.46,
+     0.045
+    ]
+   },
+   "notes": [
+    {
+     "text": "ST isoelektrik",
+     "wave": "T",
+     "beat": 0,
+     "at": -0.12,
+     "dx": 40,
+     "dy": -70
+    },
+    {
+     "text": "T tegak",
+     "wave": "T",
+     "beat": 1,
+     "dx": 20,
+     "dy": -50
+    }
+   ]
+  },
+  {
+   "label": "IMA-EST anterior (oklusi arteri LAD)",
+   "waves": {
+    "P": [
+     0.12,
+     0.1,
+     0.022
+    ],
+    "Q": [
+     -0.05,
+     0.205,
+     0.008
+    ],
+    "R": [
+     0.5,
+     0.225,
+     0.01
+    ],
+    "S": [
+     -0.25,
+     0.246,
+     0.009
+    ],
+    "ST": [
+     0.42,
+     0.33,
+     0.05
+    ],
+    "T": [
+     0.62,
+     0.42,
+     0.05
+    ]
+   },
+   "notes": [
+    {
+     "text": "Elevasi ST di titik J (≥ 2 mm)",
+     "wave": "ST",
+     "beat": 0,
+     "at": -0.06,
+     "dx": 70,
+     "dy": -86
+    },
+    {
+     "text": "T tinggi (hiperakut)",
+     "wave": "T",
+     "beat": 1,
+     "dx": 40,
+     "dy": -40
+    }
+   ]
+  }
+ ]
+}
