@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-11T22:06:00Z",
+ "updated": "2026-10-12T02:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -476,6 +476,49 @@
      "publisher": "KMK HK.01.07/MENKES/350/2018",
      "year": 2018,
      "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan_1610417137_99276.pdf"
+    }
+   ]
+  },
+  {
+   "id": "20261012-0905-toksisitas-anestesi-lokal",
+   "created": "2026-10-12T02:06:00Z",
+   "title": "Toksisitas sistemik anestesi lokal: dosis maksimal lidokain dan emulsi lipid 20%",
+   "type": "topik",
+   "stase": "Anestesi",
+   "tags": [
+    "anestesi lokal",
+    "lidokain",
+    "LAST",
+    "emulsi lipid",
+    "kegawatdaruratan"
+   ],
+   "body": "Definisi:\nToksisitas sistemik anestesi lokal (local anaesthetic systemic toxicity/LAST) adalah keracunan yang terjadi ketika kadar obat anestesi lokal (mis. lidokain, bupivakain) di dalam darah terlalu tinggi, misalnya karena dosis berlebih atau obat tidak sengaja masuk ke pembuluh darah. Organ yang paling terdampak adalah sistem saraf pusat (SSP) dan jantung. Koas sering memakai lidokain untuk menjahit luka (hecting) dan tindakan kecil, sehingga topik ini penting dikuasai.\n- Toksisitas berat menurut Association of Anaesthetists (Quick Reference Handbook/QRH 3-10, 2023): perubahan status mental mendadak, agitasi berat, atau penurunan kesadaran, dengan atau tanpa kejang tonik-klonik; dan/atau kolaps kardiovaskular berupa bradikardia sinus, blok konduksi, asistol, atau takiaritmia ventrikel.\n- Toksisitas dapat muncul beberapa saat setelah injeksi awal, bukan hanya seketika.\n\nAnatomi dan fisiologi terkait:\n- Impuls saraf merambat karena kanal natrium berpintu voltase (voltage-gated) membuka, natrium masuk ke sel, dan membran mengalami depolarisasi yang berpindah sepanjang akson.\n- Anestesi lokal bekerja dengan menghambat kanal natrium ini dari sisi dalam sel. Bila kanal terhambat, impuls tidak bisa merambat sehingga sensasi nyeri dari area itu tidak sampai ke otak.\n- Serabut saraf kecil (nyeri dan suhu) lebih mudah dihambat daripada serabut besar (raba, tekan, motorik). Itu sebabnya saat menjahit pasien masih merasa disentuh atau ditekan, tetapi tidak nyeri.\n- Kanal natrium yang sama juga ada di otak dan otot jantung. Selama obat tetap di jaringan lokal, organ-organ ini aman; masalah muncul bila obat masuk ke sirkulasi sistemik dalam jumlah besar.\n- Kebanyakan anestesi lokal yang dipakai sehari-hari (lidokain, bupivakain) adalah golongan amida yang dimetabolisme di hati. Epinefrin yang dicampurkan menyebabkan vasokonstriksi lokal sehingga obat lebih lambat diserap ke darah; efeknya lebih lama dan dosis maksimal lebih tinggi.\n\nPatofisiologi:\n- Dosis berlebih, injeksi ke pembuluh darah, atau penyerapan cepat dari area kaya pembuluh → kadar anestesi lokal di plasma naik.\n- Di otak, jalur penghambat (inhibitorik) lebih dulu terhambat → keseimbangan bergeser ke arah eksitasi → gejala awal (kepala ringan, gangguan penglihatan dan pendengaran, baal sekitar mulut) lalu gelisah, kedutan otot, dan kejang.\n- Kadar terus naik → semua jalur saraf tertekan → penurunan kesadaran sampai koma.\n- Di jantung, blokade kanal natrium memperlambat konduksi → bradikardia, blok konduksi, aritmia ventrikel, sampai asistol; kontraktilitas juga menurun → hipotensi dan kolaps.\n- Bupivakain lebih kardiotoksik: rasio antara dosis yang menimbulkan kolaps kardiovaskular dan dosis yang menimbulkan kejang lebih kecil, dan henti jantung karena bupivakain lebih sulit diresusitasi.\n- Asidosis dan hipoksemia meningkatkan toksisitas secara bermakna. Kejang menyebabkan hipoksia dan asidosis, sehingga terbentuk lingkaran setan: makin lama kejang, makin toksik obatnya. Itulah sebabnya oksigenasi dan ventilasi adalah langkah pertama, dan hiperkarbia harus dihindari.\n- Emulsi lipid 20% diduga bekerja sebagai \"spons lipid\" (lipid sink): anestesi lokal yang larut lemak tertarik ke dalam partikel lipid sehingga kadarnya di jantung dan otak menurun. Mekanisme lain juga diajukan; yang penting secara klinis adalah dosis dan waktunya.\n\nEtiologi dan faktor risiko:\n- Injeksi intravaskular yang tidak disengaja dan dosis total yang melebihi batas.\n- Penyakit hati atau ginjal (metabolisme dan ekskresi menurun), gagal jantung kongestif (kadar plasma lebih tinggi), asidosis, dan hipoksemia.\n- Neonatus: waktu paruh eliminasi anestesi lokal golongan amida 2-3 kali lebih panjang.\n\nManifestasi klinis dan diagnosis:\n- Gejala awal SSP: kepala terasa ringan, gangguan penglihatan dan pendengaran, baal di sekitar mulut, lalu disorientasi.\n- Gejala berat: agitasi berat, penurunan kesadaran, kejang tonik-klonik, dan/atau kolaps kardiovaskular.\n- Diagnosis bersifat klinis: curigai LAST pada setiap perubahan neurologis atau kardiovaskular mendadak selama atau setelah pemberian anestesi lokal.\n\n{{gambar:1}}\n\nTatalaksana:\nLangkah segera (Association of Anaesthetists 2023):\n- Hentikan injeksi anestesi lokal (ingat pompa infus bila ada).\n- Panggil bantuan; minta troli henti jantung dan paket lipid.\n- Berikan oksigen 100% dan pastikan ventilasi paru adekuat; hindari hiperkarbia, pertimbangkan hiperventilasi ringan.\n- Pastikan atau pasang akses intravena (IV).\n\nKejang:\n- Benzodiazepin dosis kecil bertahap adalah obat pilihan.\n- Tiopental atau propofol dapat dipakai, tetapi waspadai efek inotropik negatifnya (menekan jantung yang sudah tertekan).\n- Pertimbangkan pelumpuh otot bila kejang tidak terkontrol.\n\nEmulsi lipid 20% (propofol bukan pengganti):\n| Langkah | Dosis |\n|---|---|\n| Bolus awal | 1,5 mL/kgBB IV dalam 2-3 menit (± 100 mL untuk dewasa 70 kg) |\n| Infus | 15 mL/kgBB/jam |\n| Menit ke-5 dan ke-10 | Ulang bolus dengan dosis sama bila sirkulasi belum pulih atau memburuk |\n| Kapan pun setelah 5 menit | Gandakan infus menjadi 30 mL/kgBB/jam bila sirkulasi belum pulih atau memburuk |\n| Batas | Dosis kumulatif maks. 12 mL/kgBB (70 kg: 840 mL) |\n- Tanpa henti jantung: atasi hipotensi dan aritmia dengan terapi konvensional, dan pertimbangkan emulsi lipid.\n\nHenti jantung:\n- Mulai resusitasi jantung paru (RJP) sesuai protokol standar dan berikan emulsi lipid.\n- Gunakan epinefrin (adrenalin) dosis lebih kecil, ≤ 1 µg/kgBB, bukan 1 mg. Hindari vasopresin.\n- Pemulihan bisa memerlukan > 1 jam, jadi jangan cepat menghentikan RJP. Pertimbangkan pintas jantung-paru (cardiopulmonary bypass) bila tersedia.\n\nSetelah kejadian:\n- Pindahkan pasien dengan aman ke ruang pemantauan yang sesuai.\n- Singkirkan pankreatitis (efek samping lipid): evaluasi klinis rutin dan amilase atau lipase harian.\n- Laporkan sebagai insiden keselamatan pasien.\n\nPencegahan dan dosis maksimal:\n| Obat (dewasa 70 kg, infiltrasi/blok saraf tepi) | Dosis maksimal |\n|---|---|\n| Lidokain tanpa epinefrin | 300 mg |\n| Lidokain dengan epinefrin | 500 mg |\n| Bupivakain | 225 mg |\n- Dosis ini hanya panduan dan harus disesuaikan dengan pasien (mis. penyakit hati, ginjal, jantung).\n- Hitungan konsentrasi: larutan 1% berarti 1 g dalam 100 mL = 10 mg/mL; larutan 2% = 20 mg/mL. Jadi 300 mg lidokain setara 30 mL lidokain 1% atau 15 mL lidokain 2%.\n- Aspirasi sebelum setiap injeksi dan buang larutan yang bercampur darah; suntikkan bertahap (mis. tiap 5 mL) sambil memantau pasien.\n- Epinefrin 1:200.000 dalam larutan dapat menjadi penanda injeksi intravaskular: muncul takikardia, hipertensi, dan perubahan gelombang T.\n\nKomplikasi dan kapan merujuk:\n- Komplikasi: kejang berkepanjangan dengan hipoksia, aritmia, henti jantung, dan pankreatitis akibat lipid.\n- Setiap LAST berat memerlukan tim resusitasi dan pemantauan ketat; di fasilitas tanpa emulsi lipid, stabilkan (oksigen, atasi kejang, RJP) dan rujuk segera.\n\nAnalogi:\n- Anestesi lokal seperti memasang palang di satu ruas jalan (saraf lokal) agar kendaraan \"nyeri\" tidak lewat. Kalau palangnya terlalu banyak dan tersebar ke seluruh kota (sirkulasi), jalan raya utama di otak dan jantung ikut terblokir.\n- Di otak, yang pertama kali tertutup adalah \"rem\" (jalur inhibitorik), sehingga mobil melaju liar (kejang). Setelah itu semua jalan tertutup (koma).\n- Emulsi lipid seperti spons yang menyerap tumpahan minyak: obat yang larut lemak \"diserap\" keluar dari jantung dan otak.\n\nMnemonik:\n- Langkah awal \"STOP-HELP-O₂-IV\" (mnemonik buatan): Stop injeksi, panggil bantuan, oksigen 100%, akses IV.\n- Lipid \"1,5-15-12\" (mnemonik buatan): bolus 1,5 mL/kgBB, infus 15 mL/kgBB/jam, maksimal 12 mL/kgBB.\n- Lidokain \"3-5\" (mnemonik buatan): maksimal 300 mg tanpa epinefrin dan 500 mg dengan epinefrin (dewasa 70 kg).\n\nPoin untuk koas:\n- Sebelum menyuntik, hitung dosis total dalam mg (bukan hanya mL) dan cek konsentrasinya: 1% = 10 mg/mL.\n- Selalu aspirasi sebelum injeksi dan suntikkan perlahan, apalagi pada luka luas yang butuh banyak volume.\n- Ajak pasien bicara saat menyuntik; keluhan baal di sekitar mulut, gangguan pendengaran atau penglihatan, atau kepala terasa ringan adalah alarm untuk berhenti.\n- Ketahui letak emulsi lipid 20% di IGD dan kamar operasi rumah sakitmu.\n- Pada henti jantung karena LAST, epinefrin dosisnya kecil (≤ 1 µg/kgBB) dan RJP bisa lama.\n\nSingkatan:\n- IGD: instalasi gawat darurat\n- IV: intravena\n- kgBB: kilogram berat badan\n- LAST: local anaesthetic systemic toxicity (toksisitas sistemik anestesi lokal)\n- O₂: oksigen\n- QRH: Quick Reference Handbook\n- RJP: resusitasi jantung paru\n- SSP: sistem saraf pusat",
+   "images": [
+    {
+     "file": "img/20261012-0905-toksisitas-anestesi-lokal-1.svg",
+     "caption": "Urutan gejala LAST saat kadar obat naik, dosis maksimal, dan regimen emulsi lipid 20%",
+     "credit": "Digambar Claude berdasarkan Association of Anaesthetists QRH 3-10 (2023) dan Rajan N, Update in Anaesthesia"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Association of Anaesthetists",
+     "title": "Quick Reference Handbook 3-10: Local anaesthetic toxicity (v2)",
+     "year": 2023,
+     "url": "https://anaesthetists.org/Portals/0/PDFs/QRH/QRH_3-10_Local_anaesthetic_toxicity_v2_June%202023.pdf"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Association of Anaesthetists. QRH 3-10 Local anaesthetic toxicity v2",
+     "publisher": "Association of Anaesthetists, Juni 2023",
+     "year": 2023,
+     "url": "https://anaesthetists.org/Portals/0/PDFs/QRH/QRH_3-10_Local_anaesthetic_toxicity_v2_June%202023.pdf"
+    },
+    {
+     "title": "Rajan N. Management of severe local anesthetic toxicity",
+     "publisher": "Update in Anaesthesia (WFSA), hlm. 76-79",
+     "url": "https://resources.wfsahq.org/wp-content/uploads/uai25-2-Management-of-severe-local-anesthetic-toxicity.pdf"
     }
    ]
   }
