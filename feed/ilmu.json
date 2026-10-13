@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-13T02:06:00Z",
+ "updated": "2026-10-13T06:15:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -766,6 +766,50 @@
      "publisher": "Rilis berita Kemenkes, 8 Februari 2024",
      "year": 2024,
      "url": "https://www.kemkes.go.id/id/95-persen-anak-harus-dapat-imunisasi-cek-yuk-3-jenis-antigen-baru"
+    }
+   ]
+  },
+  {
+   "id": "20261013-1305-dengue-dewasa",
+   "created": "2026-10-13T06:15:00Z",
+   "title": "Infeksi dengue dewasa: fase kritis, kebocoran plasma, dan terapi cairan (PNPK 2020)",
+   "type": "topik",
+   "stase": "IPD",
+   "tags": [
+    "dengue",
+    "DBD",
+    "terapi cairan",
+    "kebocoran plasma",
+    "SKDI 4A"
+   ],
+   "body": "Definisi:\nInfeksi dengue adalah infeksi virus dengue yang ditularkan terutama oleh gigitan nyamuk Aedes aegypti betina. Sebagian besar orang yang terinfeksi tidak bergejala, tetapi sebagian dapat mengalami kebocoran plasma, perdarahan, dan syok (World Health Organization/WHO, lembar fakta 21 Agustus 2025). Pada 2024 dilaporkan 14,6 juta kasus dan lebih dari 12.000 kematian terkait dengue ke WHO.\nPedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Infeksi Dengue pada Dewasa (Keputusan Menteri Kesehatan/KMK HK.01.07/MENKES/9845/2020) memakai klasifikasi WHO 2011:\n- Demam yang tidak terdiferensiasi.\n- Demam dengue (DD).\n- Demam berdarah dengue (DBD) derajat I-IV; derajat III-IV disebut sindrom syok dengue (SSD).\n- Ciri pembeda DBD dari DD adalah kebocoran plasma, disertai trombosit ≤ 100.000/mm³.\n\nAnatomi dan fisiologi terkait:\n- Dinding kapiler dilapisi sel endotel dan lapisan glikokaliks yang menahan protein plasma (terutama albumin) tetap di dalam pembuluh. Albumin menjaga tekanan onkotik sehingga cairan tidak bocor ke jaringan.\n- Pertukaran cairan di kapiler ditentukan keseimbangan tekanan hidrostatik (mendorong cairan keluar) dan tekanan onkotik (menarik cairan masuk), dikenal sebagai gaya Starling.\n- Hematokrit (Ht) adalah persentase volume darah yang ditempati sel darah merah. Bila plasma keluar dari pembuluh sementara sel darah merah tetap di dalam, darah menjadi lebih \"kental\" sehingga Ht naik (hemokonsentrasi).\n- Trombosit dibentuk di sumsum tulang dari megakariosit dan berperan dalam hemostasis primer.\n\nPatofisiologi:\n- Gigitan nyamuk terinfeksi → virus masuk ke kulit → menginfeksi sel dendritik dan monosit → menyebar ke kelenjar getah bening dan darah (viremia) → demam dan gejala sistemik dalam 4-10 hari setelah infeksi (WHO).\n- Respons imun melepaskan sitokin dan mengaktifkan komplemen → endotel dan glikokaliks terganggu → permeabilitas kapiler meningkat → plasma (cairan dan albumin) bocor ke rongga ketiga.\n- Kebocoran plasma → volume intravaskular turun → Ht naik, efusi pleura, asites, albumin turun → bila berat, perfusi organ turun → syok hipovolemik (SSD).\n- Kebocoran plasma paling hebat terjadi justru saat demam turun (fase kritis, sekitar hari 3-7) dan berlangsung 24-48 jam. Inilah jebakan klinis: pasien tampak \"membaik\" karena bebas demam, padahal sedang memasuki fase berbahaya.\n- Trombositopenia terjadi karena supresi sumsum tulang oleh virus dan penghancuran trombosit di perifer → bersama gangguan pembuluh dan koagulasi → perdarahan.\n- Setelah fase kritis, permeabilitas pulih → cairan di rongga ketiga diserap kembali ke pembuluh (fase pemulihan). Bila infus terus diberikan dengan laju tinggi, cairan yang kembali ditambah cairan infus → kelebihan cairan, edema paru.\n- Infeksi dengue sebelumnya meningkatkan risiko dengue berat pada infeksi berikutnya (WHO).\n\nEtiologi dan faktor risiko:\n- Virus dengue, ditularkan terutama oleh Aedes aegypti; spesies Aedes lain berperan lebih kecil.\n- Faktor risiko dengue berat: riwayat infeksi dengue sebelumnya. Pasien dengan komorbid, tinggal sendiri, atau jauh dari fasilitas kesehatan perlu dirawat inap (PNPK).\n\nManifestasi klinis dan diagnosis:\n- Gejala: demam tinggi, nyeri kepala hebat, nyeri di belakang mata, nyeri otot dan sendi, mual, muntah, pembesaran kelenjar, dan ruam (WHO).\n- Fase: demam (± 3 hari, rentang 2-7), kritis (sekitar hari 3-7 saat demam turun, kebocoran 24-48 jam), dan pemulihan (ruam konvalesens ± 2-3 hari setelah bebas demam).\n- Tanda bahaya (PNPK): muntah terus-menerus, tidak dapat minum, nyeri perut hebat, letargi atau gelisah, perdarahan, pusing atau lemas, akral pucat dingin dan lembap, serta oliguria.\n- Bukti kebocoran plasma: Ht naik ≥ 20% dari data dasar, Ht turun > 20% setelah terapi cairan, efusi pleura, asites, atau hipoproteinemia/hipoalbuminemia (albumin turun > 0,5 g/dL dari data dasar atau < 3,5 g/dL).\n- Laboratorium: antigen nonstructural protein 1 (NS1) paling berguna pada fase akut sampai sekitar hari ke-3 (sensitivitas gabungan sekitar 66%, lebih rendah pada infeksi sekunder). Imunoglobulin M (IgM) dan G (IgG) untuk fase konvalesens: terdeteksi pada sekitar 50% pasien hari 3-5 dan sekitar 99% pada hari ke-10. Bila negatif di akhir fase akut, ulang setelah satu minggu.\n\n{{gambar:1}}\n\nTatalaksana:\nRawat jalan bila (PNPK): demam < 3 hari tanpa tanda bahaya atau tanda kegawatan, dapat minum cukup, dan berkemih minimal tiap 6 jam. Periksa hemoglobin, Ht, leukosit, dan trombosit setiap hari; rawat inap bila trombosit ≤ 100.000/mm³ atau muncul tanda kegawatan.\n\nSimtomatik:\n- Parasetamol bila suhu > 39 °C: 10 mg/kgBB per dosis, jarak minimal 6 jam, maksimal 4 g/hari pada dewasa.\n- Hindari aspirin dan obat antiinflamasi nonsteroid (OAINS), karena mengganggu fungsi trombosit dan meningkatkan risiko perdarahan.\n\nTerapi cairan rawat inap (PNPK 2020):\n| Kondisi | Cairan |\n|---|---|\n| Rumatan | 1.500 + 20 × (BB - 20) mL/24 jam (mis. BB 55 kg: 2.200 mL/24 jam) |\n| Tanda bahaya dengan Ht naik ≥ 20% | Kristaloid 5-7 mL/kgBB/jam, evaluasi 1-2 jam, lalu turunkan bertahap 3-5 dan 2-3 mL/kgBB/jam; hentikan setelah 24-48 jam bila stabil |\n| Tidak membaik | Naikkan 5-10 mL/kgBB/jam, sampai 15 mL/kgBB/jam bila tetap memburuk |\n| Syok terkompensasi | Kristaloid 5-10 mL/kgBB/jam selama 1 jam, lalu turunkan sesuai respons |\n| Syok hipotensif | Bolus kristaloid 10-20 mL/kgBB, evaluasi 15-30 menit; koloid bila Ht naik, transfusi darah bila Ht turun (curiga perdarahan dalam). Koloid maks. 30 mL/kgBB (1-1,5 L/hari) |\n- Mengapa kristaloid dan dititrasi dengan Ht: tujuan cairan adalah mengganti plasma yang bocor selama fase kritis, cukup untuk menjaga perfusi tetapi tidak berlebih karena kebocoran akan berhenti sendiri dalam 24-48 jam.\n- Mengapa Ht turun disertai kondisi memburuk dicurigai perdarahan: bila plasma yang bocor sudah diganti tetapi sel darah merah ikut hilang, Ht turun dan pasien tetap syok.\n- Hentikan cairan bila hemodinamik stabil, produksi urin cukup, dan nafsu makan kembali; waspadai kelebihan cairan di fase pemulihan.\n\nTransfusi:\n- Trombosit hanya pada DBD dengan perdarahan spontan dan masif disertai trombosit < 100.000/µL, dengan atau tanpa koagulasi intravaskular diseminata (KID).\n- Packed red cells (PRC) bila hemoglobin < 10 g/dL; fresh frozen plasma (FFP) 10-15 mL/kgBB per 8 jam bila rasio activated partial thromboplastin time (aPTT) > 1,5; kriopresipitat 10 U/kgBB per 8 jam bila fibrinogen < 100 mg/dL.\n\nKomplikasi dan kapan merujuk:\n- Komplikasi: syok, perdarahan masif, KID, gangguan organ, dan kelebihan cairan (edema paru) pada fase pemulihan.\n- Rawat inap atau rujuk bila ada tanda bahaya, trombosit ≤ 100.000/mm³, tidak dapat minum, komorbid, atau syok.\n\nAnalogi:\n- Pembuluh darah pada fase kritis seperti pipa air yang tiba-tiba berpori selama 1-2 hari. Air (plasma) merembes ke tanah (rongga ketiga), sementara pasir (sel darah merah) tertinggal sehingga air di pipa makin keruh (Ht naik). Tugas kita mengisi ulang pipa secukupnya sampai porinya menutup sendiri, bukan membanjirinya.\n- Fase pemulihan seperti air yang meresap kembali dari tanah ke pipa. Bila keran (infus) tetap dibuka penuh, pipa meluap (edema paru).\n- Penurunan demam pada dengue seperti \"tenang sebelum badai\": suhu turun justru saat kebocoran paling hebat.\n\nMnemonik:\n- Tiga fase \"DeKaP\" (mnemonik buatan): Demam, Kritis, Pemulihan.\n- Tanda bahaya \"MuNyeLe-PeDiOl\" (mnemonik buatan): Muntah terus, Nyeri perut hebat, Letargi/gelisah, Perdarahan, akral Dingin, Oliguria.\n- Kebocoran plasma \"Ht naik 20\" (mnemonik buatan): Ht naik ≥ 20% dari data dasar menandakan kebocoran plasma.\n- Cairan tanda bahaya \"5-7, lalu 3-5, lalu 2-3\" (mnemonik buatan): laju kristaloid mL/kgBB/jam yang diturunkan bertahap.\n\nPoin untuk koas:\n- Jangan lengah saat demam turun; justru periksa ulang tanda vital, Ht, dan tanda bahaya pada hari 3-7.\n- Catat Ht dasar sedini mungkin agar kenaikan 20% bisa dinilai.\n- Hitung cairan rumatan dengan rumus 1.500 + 20 × (BB - 20) mL/24 jam, dan titrasi cairan tanda bahaya berdasarkan Ht dan klinis.\n- Beri parasetamol, bukan ibuprofen atau aspirin.\n- Pada fase pemulihan, turunkan dan hentikan infus untuk mencegah kelebihan cairan.\n\nSingkatan:\n- aPTT: activated partial thromboplastin time\n- BB: berat badan\n- DBD: demam berdarah dengue\n- DD: demam dengue\n- FFP: fresh frozen plasma\n- Ht: hematokrit\n- IgG: imunoglobulin G\n- IgM: imunoglobulin M\n- KID: koagulasi intravaskular diseminata\n- KMK: Keputusan Menteri Kesehatan\n- NS1: nonstructural protein 1\n- OAINS: obat antiinflamasi nonsteroid\n- PNPK: Pedoman Nasional Pelayanan Kedokteran\n- PRC: packed red cells\n- SSD: sindrom syok dengue\n- WHO: World Health Organization",
+   "images": [
+    {
+     "file": "img/20261013-1305-dengue-dewasa-1.svg",
+     "caption": "Skema perjalanan infeksi dengue: suhu, hematokrit, dan trombosit pada fase demam, kritis, dan pemulihan (kurva kualitatif, bukan nilai sebenarnya).",
+     "credit": "Diagram skematis Catatan Koas berdasarkan PNPK Tata Laksana Infeksi Dengue pada Dewasa 2020 dan WHO 2025"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kementerian Kesehatan RI",
+     "title": "PNPK Tata Laksana Infeksi Dengue pada Dewasa (KMK HK.01.07/MENKES/9845/2020)",
+     "year": 2020,
+     "url": "https://kemkes.go.id/app_asset/file_content_download/17001183546555bf5250af30.46055725.pdf"
+    }
+   ],
+   "sources": [
+    {
+     "title": "PNPK 2020 - Tata Laksana Infeksi Dengue pada Dewasa",
+     "publisher": "Kementerian Kesehatan RI",
+     "year": 2020,
+     "url": "https://kemkes.go.id/id/pnpk-2020---tata-laksana-infeksi-dengue-pada-dewasa"
+    },
+    {
+     "title": "Dengue and severe dengue (fact sheet)",
+     "publisher": "World Health Organization",
+     "year": 2025,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
     }
    ]
   }
