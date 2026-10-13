@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-12T22:06:00Z",
+ "updated": "2026-10-13T02:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -722,6 +722,50 @@
      "publisher": "StatPearls, NCBI Bookshelf, diperbarui 30 Mei 2023",
      "year": 2023,
      "url": "https://www.ncbi.nlm.nih.gov/books/NBK549867/"
+    }
+   ]
+  },
+  {
+   "id": "20261013-0905-jadwal-imunisasi",
+   "created": "2026-10-13T02:06:00Z",
+   "title": "Jadwal imunisasi program terbaru (KMK 1098/2024): cara kerja vaksin dan imunisasi kejar",
+   "type": "topik",
+   "stase": "IKM",
+   "tags": [
+    "imunisasi",
+    "vaksin",
+    "jadwal imunisasi",
+    "imunisasi kejar",
+    "anak"
+   ],
+   "body": "Definisi:\nImunisasi adalah upaya menimbulkan atau meningkatkan kekebalan seseorang secara aktif terhadap suatu penyakit dengan memberikan vaksin, sehingga bila kelak terpajan penyakit tersebut ia tidak sakit atau hanya sakit ringan. Jadwal imunisasi program terbaru ditetapkan dalam Keputusan Menteri Kesehatan (KMK) Nomor HK.01.07/MENKES/1098/2024 tentang Jenis dan Jadwal Imunisasi Program (ditetapkan 1 Juli 2024).\n- Imunisasi program mencakup imunisasi rutin (bayi, anak di bawah dua tahun/baduta, dan anak usia sekolah) serta imunisasi kejar untuk melengkapi status imunisasi yang tertinggal.\n- Kementerian Kesehatan (Kemenkes) menyebut imunisasi rutin kini mencakup 14 antigen dan menargetkan 95% anak mendapat imunisasi lengkap (rilis Februari 2024). Tiga antigen baru yang diperluas secara nasional adalah pneumococcal conjugate vaccine (PCV), rotavirus (RV), dan human papillomavirus (HPV).\n\nAnatomi dan fisiologi terkait:\n- Sistem imun bawaan (innate) bereaksi cepat tetapi tidak spesifik dan tidak \"mengingat\". Sistem imun adaptif (limfosit B dan T) spesifik terhadap antigen tertentu dan membentuk sel memori.\n- Respons primer: saat pertama kali bertemu antigen, limfosit B butuh waktu untuk aktif dan membentuk antibodi; awalnya terutama imunoglobulin M (IgM), lalu imunoglobulin G (IgG).\n- Respons sekunder: saat bertemu antigen yang sama lagi, sel memori bereaksi lebih cepat, lebih kuat, dan menghasilkan IgG dengan afinitas lebih tinggi. Inilah dasar pemberian beberapa dosis dan dosis penguat (booster).\n- Bayi baru lahir masih membawa IgG dari ibu yang menembus plasenta. Antibodi ini melindungi beberapa bulan pertama, tetapi juga dapat \"menetralkan\" vaksin hidup sebelum sempat merangsang kekebalan; salah satu alasan vaksin campak-rubela (MR) diberikan pada usia 9 bulan, bukan saat lahir.\n- Sistem imun bayi kurang baik merespons antigen polisakarida murni. Pada vaksin konjugasi (mis. PCV, Haemophilus influenzae tipe b/Hib), polisakarida digabungkan dengan protein pembawa sehingga sel T ikut terlibat dan bayi dapat membentuk memori.\n\nPatofisiologi (cara kerja vaksin):\n- Vaksin berisi antigen yang sudah dilemahkan (hidup), dimatikan, bagian kuman (subunit/konjugasi), atau toksin yang dinonaktifkan (toksoid).\n- Antigen ditangkap sel penyaji antigen → dipresentasikan ke sel T helper → sel T membantu sel B → sel B berproliferasi menjadi sel plasma (menghasilkan antibodi) dan sel B memori; sel T sitotoksik dan sel T memori juga terbentuk.\n- Saat pajanan kuman asli → sel memori segera aktif → antibodi menetralkan kuman atau toksinnya sebelum penyakit berkembang.\n- Vaksin hidup yang dilemahkan (mis. BCG, polio tetes, MR, rotavirus) meniru infeksi alami sehingga kekebalannya kuat, tetapi perlu kewaspadaan pada imunokompromais. Vaksin mati, subunit, dan toksoid (mis. DPT-HB-Hib, IPV, PCV, HPV) lebih aman tetapi umumnya memerlukan beberapa dosis.\n- Kekebalan kelompok (herd immunity): bila sebagian besar populasi kebal, rantai penularan terputus sehingga orang yang belum atau tidak bisa divaksin ikut terlindungi. Itulah alasan target cakupan tinggi seperti 95%.\n\nEtiologi dan faktor risiko (penyakit yang dicegah):\n- Penyakit yang dicegah imunisasi rutin antara lain tuberkulosis, difteri, tetanus, pertusis, hepatitis B, infeksi Hib, campak-rubela, polio, Japanese encephalitis (JE), kanker serviks, pneumonia, dan diare (rilis Kemenkes 2024).\n- Faktor risiko kejadian luar biasa (KLB): cakupan imunisasi rendah atau tidak merata, sehingga terbentuk kantong-kantong anak yang tidak kebal.\n\nDiagnosis (menilai status imunisasi):\nJadwal imunisasi bayi dan baduta (KMK 1098/2024):\n| Usia | Imunisasi |\n|---|---|\n| 0 (< 24 jam setelah lahir) | Hepatitis B dosis 0 (HB0) 0,5 mL IM; polio tetes (bOPV) 0 |\n| 1 bulan | BCG 0,05 mL intradermal; bOPV 1 |\n| 2 bulan | DPT-HB-Hib 1; PCV 1; RV 1; bOPV 2 |\n| 3 bulan | DPT-HB-Hib 2; PCV 2; RV 2; bOPV 3 |\n| 4 bulan | DPT-HB-Hib 3; RV 3; bOPV 4; IPV 1 |\n| 9 bulan | MR 1 (0,5 mL subkutan); IPV 2 |\n| 10 bulan | JE (hanya daerah tertentu) |\n| 12 bulan | PCV 3 |\n| 18 bulan | DPT-HB-Hib 4; MR 2 |\n- Rute: DPT-HB-Hib, PCV, IPV, HB0, dan JE 0,5 mL intramuskular (IM); bOPV 2 tetes oral; RV 5 tetes oral; MR 0,5 mL subkutan; BCG 0,05 mL intradermal.\n- Usia sekolah (bulan imunisasi anak sekolah/BIAS): kelas 1 MR (Agustus) dan DT (November); kelas 2 dan 5 Td (November); kelas 5 dan 6 HPV untuk anak perempuan (Agustus).\n- Cara menilai: cocokkan buku Kesehatan Ibu dan Anak (KIA) atau catatan imunisasi dengan jadwal, lalu tentukan dosis yang tertinggal.\n\n{{gambar:1}}\n\nTatalaksana (imunisasi kejar):\n- Anak yang belum lengkap sesuai jadwal harus mendapat imunisasi kejar untuk melengkapi status imunisasinya. Dosis yang sudah diberikan tidak perlu diulang dari awal; lanjutkan dengan memperhatikan interval minimal.\n| Imunisasi | Aturan kejar (KMK 1098/2024) |\n|---|---|\n| BCG | Paling lambat usia 11 bulan |\n| bOPV | Interval minimal 4 minggu antardosis |\n| IPV | Interval minimal 4 bulan antardosis |\n| DPT-HB-Hib | Bayi: interval minimal 4 minggu; baduta: dosis 1-2 minimal 1 bulan, 2-3 minimal 6 bulan, 3-4 minimal 12 bulan |\n| MR | Interval minimal 6 bulan antara dosis 1 dan 2 |\n| PCV | Bayi: dosis 1-2 minimal 4 minggu, 2-3 minimal 8 minggu; usia 12-24 bulan cukup 2 dosis, usia 24-59 bulan 1 dosis |\n| Rotavirus | Interval minimal 4 minggu, selesai sebelum usia 7 bulan |\n| JE | Satu dosis kejar, hanya daerah endemis |\n| Td | 2 dosis, jarak minimal 1 tahun, sampai kelas 6 |\n| HPV | 2 dosis, jarak minimal 6 bulan, sampai kelas 6 |\n- Mengapa ada interval minimal: jarak yang terlalu dekat membuat respons imun dosis sebelumnya belum matang sehingga dosis berikutnya kurang efektif.\n- Mengapa rotavirus dibatasi usia: vaksin rotavirus ditujukan untuk bayi muda dan tidak dimulai pada usia lebih tua (batas program: selesai sebelum 7 bulan).\n\nKomplikasi dan kapan merujuk:\n- Kejadian ikutan pascaimunisasi (KIPI) dapat berupa reaksi lokal (nyeri, kemerahan di tempat suntikan) atau sistemik (demam). KIPI yang serius harus dilaporkan dan ditangani sesuai prosedur.\n- Anak dengan kondisi khusus (mis. imunokompromais) atau riwayat reaksi berat sebelumnya perlu dikonsultasikan sebelum imunisasi, terutama untuk vaksin hidup.\n\nAnalogi:\n- Vaksin seperti latihan pemadam kebakaran dengan api simulasi: petugas (sel imun) belajar mengenali api tertentu tanpa kebakaran sungguhan. Saat kebakaran nyata datang, mereka langsung tahu cara memadamkannya (respons sekunder).\n- Dosis penguat seperti latihan ulang berkala agar ingatan petugas tetap tajam.\n- Kekebalan kelompok seperti barisan pagar: bila hampir semua tiang berdiri, api tidak bisa menjalar, sehingga rumah yang tidak berpagar (bayi yang belum cukup umur divaksin) ikut aman.\n\nMnemonik:\n- Bulan 2-3-4 \"DPR + Polio\" (mnemonik buatan): DPT-HB-Hib, PCV, Rotavirus diberikan bersama di usia 2, 3, dan 4 bulan (PCV hanya 2 dan 3 bulan, lalu 12 bulan), ditambah polio tetes.\n- \"9 bulan: MR dan IPV 2; 18 bulan: DPT-HB-Hib 4 dan MR 2\" (mnemonik buatan): pasangan 9 dan 18 bulan.\n- Vaksin hidup \"BOR-M\" (mnemonik buatan): BCG, OPV, Rotavirus, MR.\n\nPoin untuk koas:\n- Periksa buku KIA setiap kali memeriksa anak dan catat imunisasi yang tertinggal.\n- HB0 diberikan dalam 24 jam setelah lahir; BCG di usia 1 bulan (kejar paling lambat 11 bulan).\n- Rotavirus harus selesai sebelum usia 7 bulan; jangan memulai imunisasi kejar rotavirus pada anak yang lebih tua.\n- Ingat jadwal baduta: PCV 3 di usia 12 bulan, DPT-HB-Hib 4 dan MR 2 di usia 18 bulan.\n- Edukasi orang tua bahwa imunisasi kejar melanjutkan, bukan mengulang dari awal.\n\nSingkatan:\n- BCG: Bacillus Calmette-Guérin\n- BIAS: bulan imunisasi anak sekolah\n- bOPV: bivalent oral polio vaccine (polio tetes)\n- DPT-HB-Hib: difteri, pertusis, tetanus, hepatitis B, Haemophilus influenzae tipe b\n- DT: difteri tetanus\n- HB0: hepatitis B dosis 0\n- HPV: human papillomavirus\n- IgG: imunoglobulin G\n- IgM: imunoglobulin M\n- IM: intramuskular\n- IPV: inactivated polio vaccine (polio suntik)\n- JE: Japanese encephalitis\n- KIA: Kesehatan Ibu dan Anak\n- KIPI: kejadian ikutan pascaimunisasi\n- KLB: kejadian luar biasa\n- KMK: Keputusan Menteri Kesehatan\n- MR: measles-rubella (campak-rubela)\n- PCV: pneumococcal conjugate vaccine\n- RV: rotavirus\n- Td: tetanus difteri (dosis difteri dewasa)",
+   "images": [
+    {
+     "file": "img/20261013-0905-jadwal-imunisasi-1.svg",
+     "caption": "Jadwal imunisasi program bayi dan baduta beserta BIAS dan contoh aturan imunisasi kejar",
+     "credit": "Digambar Claude berdasarkan KMK No. HK.01.07/MENKES/1098/2024"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kemenkes RI",
+     "title": "KMK No. HK.01.07/MENKES/1098/2024 tentang Jenis dan Jadwal Imunisasi Program",
+     "year": 2024,
+     "url": "https://jdih.kemkes.go.id/storage/documents/pdfs/2024kepmenkes1098.pdf"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. Keputusan Menteri Kesehatan tentang Jenis dan Jadwal Imunisasi Program",
+     "publisher": "KMK HK.01.07/MENKES/1098/2024, ditetapkan 1 Juli 2024",
+     "year": 2024,
+     "url": "https://jdih.kemkes.go.id/storage/documents/pdfs/2024kepmenkes1098.pdf"
+    },
+    {
+     "title": "Kementerian Kesehatan RI. 95 Persen Anak Harus dapat Imunisasi, Cek Yuk 3 Jenis Antigen Baru",
+     "publisher": "Rilis berita Kemenkes, 8 Februari 2024",
+     "year": 2024,
+     "url": "https://www.kemkes.go.id/id/95-persen-anak-harus-dapat-imunisasi-cek-yuk-3-jenis-antigen-baru"
     }
    ]
   }
