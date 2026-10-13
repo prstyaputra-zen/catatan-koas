@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-13T14:16:00Z",
+ "updated": "2026-10-13T22:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -908,6 +908,56 @@
      "publisher": "American Family Physician 99(7):445-450",
      "year": 2019,
      "url": "https://www.aafp.org/pubs/afp/issues/2019/0401/p445.html"
+    }
+   ]
+  },
+  {
+   "id": "20261014-0505-perdarahan-pascasalin",
+   "created": "2026-10-13T22:06:00Z",
+   "title": "Perdarahan pascasalin: ligatur hidup, 4T, dan bundel MOTIVE (WHO 2025)",
+   "type": "topik",
+   "stase": "Obgyn",
+   "tags": [
+    "perdarahan pascasalin",
+    "atonia uteri",
+    "oksitosin",
+    "asam traneksamat",
+    "MOTIVE"
+   ],
+   "body": "Definisi:\nPerdarahan pascasalin (PPS), dalam istilah internasional postpartum haemorrhage (PPH), adalah perdarahan berlebihan setelah bayi lahir. Definisinya terus diperbarui:\n- Definisi lama: kehilangan darah > 500 mL pada persalinan pervaginam atau > 1.000 mL pada seksio sesarea.\n- American College of Obstetricians and Gynecologists (ACOG) 2017: kehilangan darah kumulatif > 1.000 mL disertai tanda dan gejala hipovolemia dalam 24 jam, apa pun cara persalinannya (StatPearls, Postpartum Hemorrhage, pembaruan 19 Juli 2024).\n- Pedoman konsolidasi World Health Organization (WHO), International Federation of Gynecology and Obstetrics (FIGO), dan International Confederation of Midwives (ICM) Oktober 2025: tenaga kesehatan diminta bertindak saat kehilangan darah mencapai 300 mL disertai tanda vital abnormal, tanpa menunggu ambang 500 mL. Darah diukur secara objektif dengan drape berskala, yaitu lembar plastik berbentuk corong dengan kantong ukur.\n\nMenurut waktunya, PPS primer terjadi sejak kala III sampai 24 jam setelah persalinan, sedangkan PPS sekunder terjadi setelah 24 jam sampai 12 minggu pascasalin. WHO memperkirakan hampir 45.000 ibu meninggal setiap tahun karena perdarahan berlebihan setelah melahirkan.\n\nAnatomi dan fisiologi terkait:\n{{gambar:1}}\n- Aliran darah rahim meningkat dari sekitar 100 mL/menit saat tidak hamil menjadi sekitar 700 mL/menit saat hamil (StatPearls). Artinya, bila pembuluh di bekas tempat plasenta tetap terbuka, ibu bisa kehilangan darah dalam jumlah besar dalam hitungan menit.\n- Saat plasenta lepas, arteri spiral yang tadinya mengalirkan darah ke plasenta terbuka di permukaan dalam rahim. Arteri-arteri ini berjalan menembus miometrium, yang serabut ototnya saling bersilang.\n- Rem utama perdarahan adalah kontraksi miometrium. Saat serabut otot yang bersilang memendek, pembuluh di antaranya terjepit. Mekanisme ini sering disebut \"ligatur hidup\" (living ligature).\n- Rem kedua adalah pembekuan. Kehamilan adalah keadaan hiperkoagulasi, dan faktor hemostasis lokal di desidua membantu menutup pembuluh setelah kontraksi menjepitnya.\n- Kehilangan darah lebih dari sekitar 1.500 mL biasanya sudah menimbulkan hipovolemia yang tampak secara klinis. Ibu hamil sehat sering tampak stabil cukup lama, sehingga tanda syok bisa terlambat muncul.\n\nPatofisiologi:\n1. Plasenta lepas sehingga pembuluh di tempat implantasi terbuka.\n2. Bila miometrium gagal berkontraksi (atonia uteri), pembuluh tidak terjepit dan darah terus mengalir. Ini penyebab tersering, sekitar 70%.\n3. Penyebab lain menghambat salah satu rem: robekan jalan lahir atau ruptur uteri membuka sumber perdarahan baru (Trauma); sisa plasenta atau bekuan menghalangi rahim berkontraksi penuh (Tissue); gangguan pembekuan membuat bekuan tidak terbentuk (Thrombin).\n4. Volume intravaskular berkurang sehingga curah jantung dan perfusi organ menurun. Tubuh mengompensasi dengan takikardia dan vasokonstriksi.\n5. Bila perdarahan berlanjut, kompensasi gagal: tekanan darah turun dan terjadi syok hemoragik.\n6. Perdarahan masif menghabiskan faktor pembekuan, sehingga koagulopati memperberat perdarahan. Lingkaran setan ini menjelaskan mengapa tindakan harus cepat dan serentak.\n\nEtiologi dan faktor risiko:\nPenyebab dirangkum sebagai 4T: Tone (atonia uteri), Trauma (laserasi, ruptur uteri), Tissue (retensio plasenta atau bekuan), dan Thrombin (gangguan koagulasi).\n\n| Kelompok | Faktor risiko (StatPearls) |\n|---|---|\n| Umum | usia ibu lanjut, nulipara, grande multipara |\n| Tone | korioamnionitis, magnesium sulfat, persalinan lama atau presipitatus, induksi atau augmentasi, mioma, inversio uteri, rahim terlalu teregang (gemeli, makrosomia, polihidramnion) |\n| Trauma | seksio sesarea, persalinan dengan alat, episiotomi medial, persalinan presipitatus, posisi oksiput posterior persisten |\n| Tissue | riwayat seksio, plasenta akreta, solusio dengan hipertensi, kelainan bentuk rahim |\n| Thrombin | preeklampsia berat atau eklampsia, sindrom HELLP, janin mati dalam kandungan, solusio, emboli air ketuban, koagulopati bawaan |\n\nMengapa rahim yang terlalu teregang mudah atonia? Serabut otot yang teregang berlebihan berkontraksi kurang efektif, sama seperti karet yang terlalu lama ditarik.\n\nManifestasi klinis/Diagnosis:\n- Perdarahan pervaginam setelah bayi lahir, bisa deras atau merembes terus.\n- Rahim teraba lembek dan tinggi pada atonia; rahim keras tetapi tetap berdarah mengarah ke robekan jalan lahir atau gangguan pembekuan.\n- Tanda hipovolemia: takikardia, hipotensi, pucat, akral dingin, gelisah, produksi urine turun.\n- Ukur darah secara objektif dengan drape berskala, bukan sekadar perkiraan mata; WHO 2025 menganjurkan pengukuran objektif ini.\n- Telusuri penyebab dengan 4T: periksa tonus rahim, inspeksi jalan lahir, periksa kelengkapan plasenta, dan nilai pembekuan.\n\nTatalaksana:\n1. Mulai bundel MOTIVE begitu ambang tercapai (WHO, FIGO, ICM 2025). Komponennya diberikan bersamaan, bukan satu per satu:\n   - M: Massage (pijat) uterus. Pada atonia, keluarkan bekuan dan lakukan pijat bimanual.\n   - O: Oksitosik (uterotonika) untuk merangsang kontraksi.\n   - T: Tranexamic acid (asam traneksamat) untuk mengurangi perdarahan.\n   - I: cairan Intravena.\n   - V: pemeriksaan Vagina dan jalan lahir.\n   - E: Eskalasi tindakan bila perdarahan menetap.\n2. Pasang dua jalur infus besar (14G atau 16G).\n3. Dosis obat menurut StatPearls:\n\n| Obat | Dosis | Catatan |\n|---|---|---|\n| Oksitosin | 10 IU IV atau IM | lini pertama bila belum diberikan sebagai profilaksis |\n| Metilergonovin | 200 µg IM atau IV | kontraindikasi relatif pada hipertensi |\n| Karboprost | 250 µg IM atau intramiometrial tiap 15–90 menit, maksimal 8 dosis | hindari pada asma (bronkospasme), penyakit hati, ginjal, atau jantung berat |\n| Asam traneksamat | 1 g IV dalam 10 menit, dalam 3 jam setelah persalinan | kontraindikasi pada riwayat hiperkoagulasi |\n| Misoprostol | ikuti protokol setempat | hindari pada pemakaian antikoagulan atau penyakit kardiovaskular |\n\nAlasan farmakologis:\n- Oksitosin bekerja pada reseptor oksitosin miometrium yang jumlahnya meningkat menjelang aterm, sehingga rahim berkontraksi dan \"ligatur hidup\" kembali bekerja.\n- Metilergonovin (golongan ergot) menyebabkan kontraksi uterus yang menetap, tetapi juga menyempitkan pembuluh darah sistemik sehingga dihindari pada hipertensi.\n- Karboprost adalah analog prostaglandin F2-alfa yang juga mengerutkan otot polos bronkus, karena itu berbahaya pada asma.\n- Asam traneksamat menghambat fibrinolisis, yaitu proses penghancuran bekuan, sehingga bekuan yang sudah terbentuk bertahan lebih lama.\n\n4. Eskalasi bila perdarahan menetap:\n   - Tamponade balon intrauterin yang diisi 250–500 mL NaCl 0,9%; alternatifnya tampon kasa atau beberapa kateter Foley.\n   - Jahitan kompresi uterus.\n   - Ligasi arteri uterina bilateral (O'Leary), arteri utero-ovarika, atau arteri hipogastrika; embolisasi arteri uterina bila pasien stabil.\n   - Histerektomi sebagai terapi definitif.\n5. Transfusi masif didefinisikan sebagai > 10 unit packed red cells (PRC) dalam 24 jam, atau 4 unit dalam 1 jam dengan kebutuhan lebih lanjut. Rasio yang paling sering dipakai adalah 1:1:1 antara PRC, plasma, dan trombosit.\n\nKomplikasi dan kapan merujuk:\n- Syok hemoragik, koagulopati, kebutuhan transfusi masif, histerektomi (kehilangan kesuburan), dan kematian ibu.\n- Di layanan primer, mulai bundel MOTIVE sambil menyiapkan rujukan. Rujuk segera bila perdarahan tidak terkontrol dengan uterotonika dan pijat, ada tanda syok, robekan yang tidak bisa dijahit, retensio plasenta, atau kecurigaan gangguan pembekuan.\n\nAnalogi:\nBayangkan dinding rahim sebagai anyaman tali yang dilalui banyak selang air. Selama hamil, selang-selang itu mengalirkan air dengan deras ke plasenta. Setelah plasenta lepas, ujung selang terbuka. Satu-satunya keran yang cepat menutup adalah anyaman tali itu sendiri: saat tali ditarik kencang (kontraksi), semua selang terjepit. Pada atonia, tali kendur sehingga selang tetap mengucur. Pijat dan oksitosin menarik tali kembali, asam traneksamat menjaga sumbat di ujung selang agar tidak mudah lepas, dan cairan infus mengisi tangki yang mulai kosong.\n\nMnemonik:\n- Penyebab \"4T\" (mnemonik yang lazim dipakai): Tone, Trauma, Tissue, Thrombin.\n- Bundel \"MOTIVE\" (singkatan dari WHO): Massage, Oxytocics, Tranexamic acid, IV fluids, Vaginal examination, Escalation.\n- Ambang tindakan \"3-5\" (mnemonik buatan): 300 mL bila tanda vital abnormal, 500 mL dalam keadaan apa pun.\n- Kontraindikasi \"Ergot-Hipertensi, Karboprost-Asma\" (mnemonik buatan): ergot menyempitkan pembuluh, karboprost menyempitkan bronkus.\n\nPoin untuk koas:\n- Saat jaga kamar bersalin, raba fundus setelah plasenta lahir. Rahim lembek berarti atonia sampai terbukti lain.\n- Hitung darah dengan drape berskala atau menimbang kain, jangan hanya memperkirakan.\n- Tanda vital normal tidak menjamin aman. Takikardia sering menjadi tanda awal; hipotensi muncul belakangan.\n- Cek riwayat asma dan hipertensi sebelum memberi karboprost atau metilergonovin.\n- Jangan menunda asam traneksamat: StatPearls membatasi pemberiannya dalam 3 jam setelah persalinan.\n\nSingkatan:\n- ACOG: American College of Obstetricians and Gynecologists\n- FIGO: International Federation of Gynecology and Obstetrics\n- HELLP: hemolysis, elevated liver enzymes, low platelets\n- ICM: International Confederation of Midwives\n- IM: intramuskular\n- IU: international unit\n- IV: intravena\n- MOTIVE: Massage, Oxytocics, Tranexamic acid, IV fluids, Vaginal examination, Escalation\n- NaCl: natrium klorida\n- PPH: postpartum haemorrhage\n- PPS: perdarahan pascasalin\n- PRC: packed red cells\n- WHO: World Health Organization",
+   "images": [
+    {
+     "file": "img/20261014-0505-perdarahan-pascasalin-1.svg",
+     "caption": "Ligatur hidup miometrium (rahim berkontraksi vs atonia), ambang tindakan WHO 2025, penyebab 4T, dan komponen bundel MOTIVE.",
+     "credit": "Diagram skematis Catatan Koas berdasarkan StatPearls Postpartum Hemorrhage (2024) dan pedoman WHO/FIGO/ICM 2025"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "WHO, FIGO, ICM",
+     "title": "Consolidated guidelines for the prevention, diagnosis and treatment of postpartum haemorrhage (diumumkan Oktober 2025)",
+     "year": 2025,
+     "url": "https://www.who.int/news-room/feature-stories/detail/a-turning-point-in-eliminating-postpartum-haemorrhage--the-story-from-a-pph-survivor-in-cape-town"
+    },
+    {
+     "org": "World Health Organization",
+     "title": "WHO recommendations on the assessment of postpartum blood loss and use of a treatment bundle for postpartum haemorrhage",
+     "year": 2023,
+     "url": "https://www.who.int/publications/i/item/9789240085398"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Postpartum Hemorrhage (StatPearls)",
+     "publisher": "NCBI Bookshelf",
+     "year": 2024,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK499988/"
+    },
+    {
+     "title": "A turning point in eliminating postpartum haemorrhage",
+     "publisher": "World Health Organization",
+     "year": 2025,
+     "url": "https://www.who.int/news-room/feature-stories/detail/a-turning-point-in-eliminating-postpartum-haemorrhage--the-story-from-a-pph-survivor-in-cape-town"
     }
    ]
   }

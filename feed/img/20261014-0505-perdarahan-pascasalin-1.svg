@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 760" width="920" height="760" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="920" height="760" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Perdarahan pascasalin: mengapa rahim harus berkontraksi</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik, tidak sesuai skala</text>
+<text x="20" y="92" font-size="15" font-weight="700" fill="#111827" text-anchor="start">A. Ligatur hidup di dinding rahim</text>
+<rect x="20" y="112" width="400" height="190" rx="10" fill="#fce7f3" stroke="#be185d" stroke-width="1.5"/>
+<clipPath id="c20112"><rect x="20" y="112" width="400" height="190" rx="10"/></clipPath><g clip-path="url(#c20112)">
+<line x1="-240" y1="112" x2="-50" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-240" y1="302" x2="-50" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-214" y1="112" x2="-24" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-214" y1="302" x2="-24" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-188" y1="112" x2="2" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-188" y1="302" x2="2" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-162" y1="112" x2="28" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-162" y1="302" x2="28" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-136" y1="112" x2="54" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-136" y1="302" x2="54" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-110" y1="112" x2="80" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-110" y1="302" x2="80" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-84" y1="112" x2="106" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-84" y1="302" x2="106" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-58" y1="112" x2="132" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-58" y1="302" x2="132" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-32" y1="112" x2="158" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-32" y1="302" x2="158" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-6" y1="112" x2="184" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="-6" y1="302" x2="184" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="20" y1="112" x2="210" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="20" y1="302" x2="210" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="46" y1="112" x2="236" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="46" y1="302" x2="236" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="72" y1="112" x2="262" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="72" y1="302" x2="262" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="98" y1="112" x2="288" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="98" y1="302" x2="288" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="124" y1="112" x2="314" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="124" y1="302" x2="314" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="150" y1="112" x2="340" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="150" y1="302" x2="340" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="176" y1="112" x2="366" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="176" y1="302" x2="366" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="202" y1="112" x2="392" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="202" y1="302" x2="392" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="228" y1="112" x2="418" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="228" y1="302" x2="418" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="254" y1="112" x2="444" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="254" y1="302" x2="444" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="280" y1="112" x2="470" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="280" y1="302" x2="470" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="306" y1="112" x2="496" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="306" y1="302" x2="496" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="332" y1="112" x2="522" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="332" y1="302" x2="522" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="358" y1="112" x2="548" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="358" y1="302" x2="548" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="384" y1="112" x2="574" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="384" y1="302" x2="574" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="410" y1="112" x2="600" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="410" y1="302" x2="600" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="436" y1="112" x2="626" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="436" y1="302" x2="626" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="462" y1="112" x2="652" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="462" y1="302" x2="652" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="488" y1="112" x2="678" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="488" y1="302" x2="678" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="514" y1="112" x2="704" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="514" y1="302" x2="704" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="540" y1="112" x2="730" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="540" y1="302" x2="730" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="566" y1="112" x2="756" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="566" y1="302" x2="756" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="592" y1="112" x2="782" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="592" y1="302" x2="782" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="618" y1="112" x2="808" y2="302" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+<line x1="618" y1="302" x2="808" y2="112" stroke="#db2777" stroke-width="5" opacity="0.45"/>
+</g>
+<path d="M110,112 q -18,48 0,95 q 18,48 0,95" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+<path d="M220,112 q -18,48 0,95 q 18,48 0,95" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+<path d="M330,112 q -18,48 0,95 q 18,48 0,95" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+<text x="220" y="328" font-size="12" font-weight="400" fill="#6b7280" text-anchor="middle">tempat plasenta lepas (endometrium)</text>
+<text x="30" y="352" font-size="12.5" font-weight="700" fill="#15803d" text-anchor="start">Rahim berkontraksi: serabut otot yang saling</text>
+<text x="30" y="370" font-size="12.5" font-weight="700" fill="#15803d" text-anchor="start">bersilang menjepit pembuluh, perdarahan berhenti</text>
+<rect x="20" y="410" width="400" height="190" rx="10" fill="#fce7f3" stroke="#be185d" stroke-width="1.5"/>
+<clipPath id="c20410"><rect x="20" y="410" width="400" height="190" rx="10"/></clipPath><g clip-path="url(#c20410)">
+<line x1="-380" y1="410" x2="-190" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-380" y1="600" x2="-190" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-340" y1="410" x2="-150" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-340" y1="600" x2="-150" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-300" y1="410" x2="-110" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-300" y1="600" x2="-110" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-260" y1="410" x2="-70" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-260" y1="600" x2="-70" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-220" y1="410" x2="-30" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-220" y1="600" x2="-30" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-180" y1="410" x2="10" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-180" y1="600" x2="10" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-140" y1="410" x2="50" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-140" y1="600" x2="50" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-100" y1="410" x2="90" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-100" y1="600" x2="90" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-60" y1="410" x2="130" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-60" y1="600" x2="130" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-20" y1="410" x2="170" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="-20" y1="600" x2="170" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="20" y1="410" x2="210" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="20" y1="600" x2="210" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="60" y1="410" x2="250" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="60" y1="600" x2="250" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="100" y1="410" x2="290" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="100" y1="600" x2="290" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="140" y1="410" x2="330" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="140" y1="600" x2="330" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="180" y1="410" x2="370" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="180" y1="600" x2="370" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="220" y1="410" x2="410" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="220" y1="600" x2="410" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="260" y1="410" x2="450" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="260" y1="600" x2="450" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="300" y1="410" x2="490" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="300" y1="600" x2="490" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="340" y1="410" x2="530" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="340" y1="600" x2="530" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="380" y1="410" x2="570" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="380" y1="600" x2="570" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="420" y1="410" x2="610" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="420" y1="600" x2="610" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="460" y1="410" x2="650" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="460" y1="600" x2="650" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="500" y1="410" x2="690" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="500" y1="600" x2="690" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="540" y1="410" x2="730" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="540" y1="600" x2="730" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="580" y1="410" x2="770" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="580" y1="600" x2="770" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="620" y1="410" x2="810" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="620" y1="600" x2="810" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="660" y1="410" x2="850" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="660" y1="600" x2="850" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="700" y1="410" x2="890" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="700" y1="600" x2="890" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="740" y1="410" x2="930" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="740" y1="600" x2="930" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="780" y1="410" x2="970" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="780" y1="600" x2="970" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="820" y1="410" x2="1010" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="820" y1="600" x2="1010" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="860" y1="410" x2="1050" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="860" y1="600" x2="1050" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="900" y1="410" x2="1090" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="900" y1="600" x2="1090" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="940" y1="410" x2="1130" y2="600" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+<line x1="940" y1="600" x2="1130" y2="410" stroke="#db2777" stroke-width="2" opacity="0.45"/>
+</g>
+<path d="M110,410 q -18,48 0,95 q 18,48 0,95" fill="none" stroke="#dc2626" stroke-width="12" stroke-linecap="round"/>
+<circle cx="102" cy="614" r="5" fill="#dc2626"/>
+<circle cx="110" cy="624" r="5" fill="#dc2626"/>
+<circle cx="118" cy="634" r="5" fill="#dc2626"/>
+<path d="M220,410 q -18,48 0,95 q 18,48 0,95" fill="none" stroke="#dc2626" stroke-width="12" stroke-linecap="round"/>
+<circle cx="212" cy="614" r="5" fill="#dc2626"/>
+<circle cx="220" cy="624" r="5" fill="#dc2626"/>
+<circle cx="228" cy="634" r="5" fill="#dc2626"/>
+<path d="M330,410 q -18,48 0,95 q 18,48 0,95" fill="none" stroke="#dc2626" stroke-width="12" stroke-linecap="round"/>
+<circle cx="322" cy="614" r="5" fill="#dc2626"/>
+<circle cx="330" cy="624" r="5" fill="#dc2626"/>
+<circle cx="338" cy="634" r="5" fill="#dc2626"/>
+<text x="220" y="660" font-size="12" font-weight="400" fill="#6b7280" text-anchor="middle">tempat plasenta lepas (endometrium)</text>
+<text x="30" y="682" font-size="12.5" font-weight="700" fill="#b91c1c" text-anchor="start">Atonia uteri (Tone): otot lembek, pembuluh</text>
+<text x="30" y="700" font-size="12.5" font-weight="700" fill="#b91c1c" text-anchor="start">tetap terbuka, darah terus mengalir</text>
+<text x="30" y="722" font-size="12" font-weight="400" fill="#374151" text-anchor="start">Aliran darah rahim hamil sekitar 700 mL/menit</text>
+<text x="30" y="740" font-size="12" font-weight="400" fill="#374151" text-anchor="start">(tidak hamil sekitar 100 mL/menit).</text>
+<text x="450" y="92" font-size="15" font-weight="700" fill="#111827" text-anchor="start">B. Kapan bertindak (WHO, FIGO, ICM 2025)</text>
+<rect x="450" y="104" width="454" height="96" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="462" y="128" font-size="13" font-weight="700" fill="#111827" text-anchor="start">Ukur darah secara objektif (kantong drape</text>
+<text x="462" y="147" font-size="13" font-weight="400" fill="#374151" text-anchor="start">berskala). Mulai bundel saat darah ≥ 300 mL</text>
+<text x="462" y="166" font-size="13" font-weight="400" fill="#374151" text-anchor="start">disertai tanda vital abnormal, atau ≥ 500 mL.</text>
+<text x="462" y="186" font-size="12" font-weight="700" fill="#92400e" text-anchor="start">Jangan menunggu 500 mL bila ibu sudah tidak stabil.</text>
+<text x="450" y="230" font-size="15" font-weight="700" fill="#111827" text-anchor="start">C. Cari penyebab: 4T</text>
+<rect x="450" y="242" width="222" height="56" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="460" y="264" font-size="14" font-weight="700" fill="#111827" text-anchor="start">Tone</text>
+<text x="460" y="285" font-size="12" font-weight="400" fill="#374151" text-anchor="start">atonia uteri, sekitar 70%</text>
+<rect x="680" y="242" width="222" height="56" rx="9" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+<text x="690" y="264" font-size="14" font-weight="700" fill="#111827" text-anchor="start">Trauma</text>
+<text x="690" y="285" font-size="12" font-weight="400" fill="#374151" text-anchor="start">robekan jalan lahir, ruptur</text>
+<rect x="450" y="306" width="222" height="56" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<text x="460" y="328" font-size="14" font-weight="700" fill="#111827" text-anchor="start">Tissue</text>
+<text x="460" y="349" font-size="12" font-weight="400" fill="#374151" text-anchor="start">sisa plasenta/bekuan</text>
+<rect x="680" y="306" width="222" height="56" rx="9" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="690" y="328" font-size="14" font-weight="700" fill="#111827" text-anchor="start">Thrombin</text>
+<text x="690" y="349" font-size="12" font-weight="400" fill="#374151" text-anchor="start">gangguan pembekuan</text>
+<text x="450" y="400" font-size="15" font-weight="700" fill="#111827" text-anchor="start">D. Bundel MOTIVE (diberikan bersamaan)</text>
+<rect x="450" y="414" width="454" height="36" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<circle cx="472" cy="432" r="13" fill="#16a34a"/>
+<text x="472" y="437" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">M</text>
+<text x="496" y="437" font-size="13" font-weight="400" fill="#14532d" text-anchor="start">Massage (pijat) uterus</text>
+<rect x="450" y="456" width="454" height="36" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<circle cx="472" cy="474" r="13" fill="#16a34a"/>
+<text x="472" y="479" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">O</text>
+<text x="496" y="479" font-size="13" font-weight="400" fill="#14532d" text-anchor="start">Oksitosik (uterotonika)</text>
+<rect x="450" y="498" width="454" height="36" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<circle cx="472" cy="516" r="13" fill="#16a34a"/>
+<text x="472" y="521" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">T</text>
+<text x="496" y="521" font-size="13" font-weight="400" fill="#14532d" text-anchor="start">Tranexamic acid (asam traneksamat)</text>
+<rect x="450" y="540" width="454" height="36" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<circle cx="472" cy="558" r="13" fill="#16a34a"/>
+<text x="472" y="563" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">I</text>
+<text x="496" y="563" font-size="13" font-weight="400" fill="#14532d" text-anchor="start">IV: cairan intravena</text>
+<rect x="450" y="582" width="454" height="36" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<circle cx="472" cy="600" r="13" fill="#16a34a"/>
+<text x="472" y="605" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">V</text>
+<text x="496" y="605" font-size="13" font-weight="400" fill="#14532d" text-anchor="start">Vagina/jalan lahir diperiksa</text>
+<rect x="450" y="624" width="454" height="36" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<circle cx="472" cy="642" r="13" fill="#16a34a"/>
+<text x="472" y="647" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">E</text>
+<text x="496" y="647" font-size="13" font-weight="400" fill="#14532d" text-anchor="start">Eskalasi bila tetap berdarah</text>
+<text x="450" y="690" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">Eskalasi: tamponade balon, jahitan kompresi,</text>
+<text x="450" y="708" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">ligasi arteri, embolisasi, transfusi, histerektomi.</text>
+</svg>
