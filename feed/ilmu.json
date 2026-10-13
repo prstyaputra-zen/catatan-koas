@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-13T10:06:00Z",
+ "updated": "2026-10-13T14:16:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -859,6 +859,55 @@
      "publisher": "World Journal of Emergency Surgery 15:27",
      "year": 2020,
      "url": "https://wjes.biomedcentral.com/articles/10.1186/s13017-020-00306-3"
+    }
+   ]
+  },
+  {
+   "id": "20261013-2105-kejang-demam",
+   "created": "2026-10-13T14:16:00Z",
+   "title": "Kejang demam: patofisiologi, sederhana vs kompleks, dan penanganan kejang > 5 menit",
+   "type": "topik",
+   "stase": "Anak",
+   "tags": [
+    "kejang demam",
+    "benzodiazepin",
+    "midazolam",
+    "status epileptikus"
+   ],
+   "body": "Definisi:\nKejang demam adalah kejang umum yang terjadi saat anak demam ≥ 38 °C, biasanya pada usia 6 bulan sampai 5 tahun, tanpa infeksi susunan saraf pusat (SSP), tanpa penyebab pencetus lain seperti gangguan elektrolit, hipoglikemia, atau paparan zat, dan tanpa riwayat kejang tanpa demam sebelumnya (StatPearls, Febrile Seizure, pembaruan 13 September 2026). Tidak ada ambang suhu yang pasti karena suhu yang memicu kejang berbeda pada tiap anak.\n\nKejang demam dialami 2–5% anak di Amerika Serikat dan Eropa, dengan puncak usia 12–18 bulan. Anak laki-laki lebih sering (rasio 1,6:1).\n\nAnatomi dan fisiologi terkait:\n- Kejang adalah lepasnya muatan listrik berlebihan dan serentak dari sekelompok neuron korteks. Dalam keadaan normal, otak menjaga keseimbangan antara sinyal perangsang (eksitasi) dan penghambat (inhibisi).\n- Otak anak kecil masih berkembang. Menurut StatPearls, otak yang belum matang mengalami peningkatan eksitabilitas neuron yang dipicu demam. Inilah alasan sebagian besar kejang demam terjadi sebelum usia 3 tahun, dan kejang demam jarang setelah usia 5 tahun.\n- Suhu tubuh diatur oleh hipotalamus. Saat infeksi, \"termostat\" hipotalamus dinaikkan sehingga suhu inti naik. Bagi otak yang ambang kejangnya rendah, kenaikan suhu ini cukup untuk mencetuskan kejang.\n- Benzodiazepin, obat pemutus kejang lini pertama, bekerja memperkuat reseptor GABA-A (gamma-aminobutyric acid tipe A), yaitu \"rem\" utama otak. Klorida masuk ke neuron, neuron makin sulit terangsang, dan lepas muatan berhenti.\n\nPatofisiologi:\n1. Anak terkena infeksi, tersering infeksi virus. Di Amerika Serikat dan Eropa, human herpesvirus 6 (HHV-6, penyebab roseola) adalah pemicu tersering, hingga sepertiga kejang demam pertama; di negara Asia, influenza A sering terlibat.\n2. Infeksi memicu demam.\n3. Pada anak dengan otak yang belum matang dan bakat genetik (10–33% punya kerabat derajat pertama dengan riwayat kejang), demam menaikkan eksitabilitas neuron sehingga ambang kejang turun.\n4. Neuron melepas muatan secara serentak dan meluas, tampak sebagai kejang umum, umumnya tonik-klonik.\n5. Pada sebagian besar anak, kejang berhenti sendiri dalam beberapa menit. Bila berlangsung lebih dari 5 menit, kejang jarang berhenti sendiri, sehingga perlu obat (American Family Physician/AFP 2019).\n6. Bila kejang lebih dari 30 menit disebut status epileptikus demam, yang jarang terjadi (kurang dari 10% kejang demam pertama).\n\nEtiologi dan faktor risiko:\n- Infeksi virus yang menyertai (HHV-6, influenza A).\n- Riwayat keluarga kejang demam.\n- Gangguan neurologis atau keterlambatan perkembangan.\n- Kadar zinc dan besi serum rendah, serta defisiensi mikronutrien lain.\n- Ibu merokok atau stres selama kehamilan.\n\nFaktor risiko kambuh menurut AFP 2019: usia < 18 bulan, demam berlangsung < 1 jam sebelum kejang, kerabat derajat pertama dengan riwayat kejang demam, dan suhu saat kejang < 40 °C. Risiko kambuh keseluruhan setelah kejang pertama sekitar 33%; risiko 2 tahun naik dari 14% bila tanpa faktor risiko sampai 75% bila keempatnya ada. Kejang demam kompleks sendiri tidak menaikkan risiko kambuh secara independen (StatPearls).\n\nManifestasi klinis/Diagnosis:\n{{gambar:1}}\n\n| Ciri | Sederhana (semua syarat) | Kompleks (salah satu) |\n|---|---|---|\n| Jenis | umum, tonik-klonik | fokal |\n| Durasi | < 15 menit | ≥ 15 menit |\n| Pemulihan | pulih penuh < 1 jam | gangguan kesadaran > 1 jam |\n| Kekambuhan | tidak berulang dalam penyakit yang sama | berulang dalam 24 jam atau penyakit yang sama |\n\nKriteria pada tabel mengikuti RCH (Royal Children's Hospital) Melbourne, pembaruan Februari 2026. StatPearls memakai batas yang sama (15 menit, berulang dalam 24 jam, fokal).\n\nLangkah diagnosis:\n- Anamnesis: lama kejang, bentuk (umum atau satu sisi), kesadaran setelah kejang, jumlah kejang dalam 24 jam, sumber demam, status imunisasi, riwayat antibiotik, riwayat keluarga.\n- Pemeriksaan fisik: cari sumber infeksi dan tanda infeksi SSP (kaku kuduk, ubun-ubun menonjol, penurunan kesadaran menetap).\n- Kejang demam sederhana: tidak perlu pemeriksaan tambahan selain yang diperlukan untuk mencari penyebab demam. Risiko infeksi bakteri serius pada anak ini sama dengan anak demam tanpa kejang (RCH).\n- Pemeriksaan darah (darah lengkap, elektrolit, urinalisis) bila ada dehidrasi, asupan buruk, muntah, atau diare. Gula darah dan elektrolit untuk menyingkirkan kejang yang dipicu penyebab lain, terutama pada presentasi tidak khas atau kompleks.\n- Pungsi lumbal: tidak rutin pada anak yang tampak baik dengan kejang demam sederhana. Lakukan bila ada tanda infeksi SSP. Pertimbangkan pada bayi 6–12 bulan dengan imunisasi Haemophilus influenzae tipe b (Hib) atau pneumokokus yang tidak lengkap atau tidak diketahui, atau yang sudah mendapat antibiotik yang dapat menutupi gejala meningitis (American Academy of Pediatrics/AAP, dikutip AFP 2019).\n- Elektroensefalografi (EEG): tidak rutin pada anak sehat secara neurologis dengan kejang demam sederhana; biasanya dikerjakan pada kejang demam kompleks.\n- Pencitraan kepala (CT atau MRI): tidak diperlukan pada kejang demam sederhana. Pertimbangkan bila ada tanda peningkatan tekanan intrakranial, defisit neurologis fokal, kecurigaan kelainan struktur, kepala membesar, atau cedera kepala berat.\n\nTatalaksana:\n1. Saat kejang: lindungi anak dari cedera, jangan menahan gerakannya, jangan memasukkan apa pun ke mulut. Setelah kejang berhenti, letakkan dalam posisi pemulihan (miring) dan jaga jalan napas. Catat jam mulai kejang.\n2. Kejang > 5 menit: beri benzodiazepin. Dosis menurut RCH Melbourne (Seizures – acute management, pembaruan Juni 2025):\n\n| Obat | Rute | Dosis |\n|---|---|---|\n| Midazolam | bukal atau intranasal (IN) | 0,3 mg/kg (maks 10 mg) |\n| Midazolam | intravena (IV), intramuskular (IM), intraoseus (IO) | 0,15 mg/kg (maks 10 mg) |\n| Diazepam | IV atau IO | 0,3 mg/kg (maks 10 mg) |\n\nBerikan paling banyak dua dosis benzodiazepin, termasuk dosis yang sudah diberikan sebelum tiba di rumah sakit. Bila akses IV belum ada, midazolam bukal atau diazepam rektal dapat dipakai (AFP 2019); untuk diazepam rektal gunakan dosis sesuai protokol setempat.\n\nAlasan farmakologis: benzodiazepin memperkuat kerja GABA-A sehingga inhibisi meningkat dengan cepat. Midazolam larut air dan cepat diserap mukosa mulut atau hidung, cocok bila infus belum terpasang. Dosis dibatasi karena setiap dosis tambahan menambah risiko efek samping seperti depresi napas.\n\n3. Kejang menetap setelah dua dosis benzodiazepin: obat lini kedua IV/IO.\n   - Levetirasetam 40–60 mg/kg (maks 4,5 g), diencerkan sampai 50 mg/mL dan diberikan dalam 5 menit.\n   - Fenitoin 20 mg/kg (maks 2 g), kecepatan 1 mg/kg/menit (maks 50 mg/menit), dengan pemantauan jantung. Kontraindikasi pada sindrom Dravet.\n   - Fenobarbital 20 mg/kg (maks 1 g) dalam ≥ 30 menit, dengan pemantauan jantung. Ini alternatif bagi anak yang sudah memakai fenitoin.\n4. Tangani sumber demam.\n5. Antipiretik membuat anak lebih nyaman, tetapi tidak menurunkan risiko kambuh. Mendinginkan dengan cara fisik (membuka baju, mengipasi, kompres air hangat) juga tidak mencegah kambuh.\n6. Profilaksis: benzodiazepin intermiten saat demam tidak dianjurkan karena efek samping dapat melebihi manfaat, dan profilaksis antikejang jangka panjang rutin tidak diperlukan (StatPearls). Bila kejang pernah > 5 menit, RCH menyarankan rencana obat darurat dan pelatihan midazolam untuk orang tua.\n\nKomplikasi dan kapan merujuk:\n- Kambuh pada sekitar 30% anak. Bila kejang pertama terjadi sebelum usia 12 bulan, peluang kejang kedua sekitar 50% dalam tahun pertama.\n- Risiko epilepsi setelah kejang demam sederhana sekitar 1–2% (populasi umum 0,5–0,9%), dan sekitar 2–10% bila ada faktor seperti kejang kompleks, awitan dini, kejang lama, perkembangan saraf abnormal, EEG abnormal, atau riwayat epilepsi dalam keluarga.\n- Satu episode kejang demam tidak berhubungan dengan gangguan belajar atau kecerdasan lebih rendah.\n- Rujuk segera bila kejang > 5 menit atau tidak berhenti dengan benzodiazepin, ada tanda infeksi SSP, kejang fokal atau berulang, kesadaran tidak pulih, atau ada defisit neurologis.\n\nAnalogi:\nBayangkan otak anak kecil seperti rumah dengan instalasi listrik yang belum selesai dan sekringnya sensitif. Demam adalah lonjakan tegangan. Di rumah dengan instalasi matang (otak anak besar atau dewasa), lonjakan ini tidak berarti apa-apa. Di rumah yang instalasinya belum rampung, lonjakan yang sama membuat semua lampu berkedip serentak (kejang umum). Biasanya listrik kembali stabil sendiri dalam beberapa menit. Bila kedipan tidak berhenti lebih dari 5 menit, petugas perlu menurunkan tegangan secara aktif (benzodiazepin, memperkuat \"rem\" GABA). Kipas angin dan obat penurun panas membuat penghuni nyaman, tetapi tidak memperbaiki instalasi, sehingga tidak mencegah kedipan berikutnya.\n\nMnemonik:\n- Kompleks \"F-15-24\" (mnemonik buatan): Fokal, ≥ 15 menit, berulang dalam 24 jam. Satu saja sudah kompleks.\n- Faktor risiko kambuh \"MUDA-SINGKAT-KELUARGA-RENDAH\" (mnemonik buatan): Muda (< 18 bulan), Singkat (demam < 1 jam sebelum kejang), Keluarga (kerabat derajat pertama), suhu Rendah (< 40 °C).\n- Tatalaksana \"5-2-2\" (mnemonik buatan): tunggu sampai 5 menit, maksimal 2 dosis benzodiazepin, lalu lini ke-2.\n\nPoin untuk koas:\n- Tanyakan dan catat durasi kejang dengan jam, bukan perkiraan \"lama\". Durasi menentukan klasifikasi dan kebutuhan obat.\n- Kejang demam sederhana pada anak yang tampak baik tidak butuh pungsi lumbal, EEG, atau CT rutin. Fokus pada sumber demam.\n- Pada bayi 6–12 bulan, cek status imunisasi Hib dan pneumokokus serta riwayat antibiotik sebelum memutuskan pungsi lumbal.\n- Edukasi orang tua: jangan memasukkan sendok atau jari ke mulut anak, miringkan, catat waktu, dan bawa ke fasilitas kesehatan bila > 5 menit.\n- Jelaskan bahwa obat penurun panas dan kompres untuk kenyamanan, bukan pencegah kejang, agar orang tua tidak merasa bersalah bila kejang kambuh.\n\nSingkatan:\n- AAP: American Academy of Pediatrics\n- AFP: American Family Physician (jurnal)\n- CT: computed tomography\n- EEG: elektroensefalografi\n- GABA-A: gamma-aminobutyric acid tipe A\n- HHV-6: human herpesvirus 6\n- Hib: Haemophilus influenzae tipe b\n- IM: intramuskular\n- IN: intranasal\n- IO: intraoseus\n- IV: intravena\n- MRI: magnetic resonance imaging\n- RCH: Royal Children's Hospital (Melbourne)\n- SSP: susunan saraf pusat",
+   "images": [
+    {
+     "file": "img/20261013-2105-kejang-demam-1.svg",
+     "caption": "Mekanisme kejang demam, kriteria sederhana vs kompleks, dan alur penanganan kejang dengan dosis benzodiazepin dan obat lini kedua.",
+     "credit": "Diagram skematis Catatan Koas berdasarkan StatPearls Febrile Seizure (2026) dan RCH Melbourne Clinical Practice Guidelines (2025–2026)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Royal Children's Hospital Melbourne",
+     "title": "Clinical Practice Guidelines: Febrile seizure",
+     "year": 2026,
+     "url": "https://www.rch.org.au/clinicalguide/guideline_index/Febrile_seizure/"
+    },
+    {
+     "org": "Royal Children's Hospital Melbourne",
+     "title": "Clinical Practice Guidelines: Seizures – acute management",
+     "year": 2025,
+     "url": "https://www.rch.org.au/clinicalguide/guideline_index/Seizures_-_acute_management/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Febrile Seizure (StatPearls)",
+     "publisher": "NCBI Bookshelf",
+     "year": 2026,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK448123/"
+    },
+    {
+     "title": "Febrile Seizures: Risks, Evaluation, and Prognosis",
+     "publisher": "American Family Physician 99(7):445-450",
+     "year": 2019,
+     "url": "https://www.aafp.org/pubs/afp/issues/2019/0401/p445.html"
     }
    ]
   }
