@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-13T22:06:00Z",
+ "updated": "2026-10-14T02:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -958,6 +958,55 @@
      "publisher": "World Health Organization",
      "year": 2025,
      "url": "https://www.who.int/news-room/feature-stories/detail/a-turning-point-in-eliminating-postpartum-haemorrhage--the-story-from-a-pph-survivor-in-cape-town"
+    }
+   ]
+  },
+  {
+   "id": "20261014-0905-bell-palsy",
+   "created": "2026-10-14T02:06:00Z",
+   "title": "Bell's palsy: jalur nervus fasialis, beda dengan stroke, dan terapi steroid",
+   "type": "topik",
+   "stase": "Saraf",
+   "tags": [
+    "Bell's palsy",
+    "nervus fasialis",
+    "kortikosteroid",
+    "House-Brackmann"
+   ],
+   "body": "Definisi:\nBell's palsy adalah kelumpuhan nervus fasialis (saraf kranial VII) tipe lower motor neuron (LMN) yang terjadi mendadak pada satu sisi wajah tanpa penyebab lain yang jelas. Ini adalah kelumpuhan saraf kranial VII yang paling sering dan merupakan diagnosis eksklusi, artinya ditegakkan setelah penyebab lain disingkirkan (StatPearls, Bell Palsy, pembaruan 6 Oktober 2024).\n\nInsidensnya 15–40 per 100.000 orang per tahun, dengan risiko seumur hidup sekitar 1 dari 60. Ada dua puncak usia: usia 20–30-an dan 60–70-an. Kekambuhan terjadi pada sekitar 8–12% kasus menurut StatPearls, atau 6,5% menurut American Family Physician (AFP) 2023.\n\nAnatomi dan fisiologi terkait:\n{{gambar:1}}\n- Inti motorik nervus fasialis berada di tegmentum pons. Bagian dorsal inti mengurus otot wajah atas (dahi), bagian ventral mengurus wajah bawah (StatPearls, Neuroanatomy Cranial Nerve 7, 2023).\n- Kunci membedakan stroke dengan Bell's palsy: bagian inti untuk wajah atas mendapat persarafan dari kedua hemisfer otak, sedangkan wajah bawah terutama dari hemisfer seberang. Pada lesi upper motor neuron (UMN), misalnya stroke, wajah tengah dan bawah sisi seberang lumpuh tetapi dahi tetap bisa dikerutkan. Pada Bell's palsy, saraf tepinya sendiri yang rusak, sehingga semua cabang satu sisi lumpuh, termasuk dahi.\n- Perjalanan saraf: keluar dari batang otak di sudut serebelopontin, masuk ke meatus akustikus internus (MAI), lalu berjalan di kanal fasialis dalam tulang temporal. Di tikungan (genu) terdapat ganglion genikulatum. Saraf keluar dari tengkorak melalui foramen stilomastoid lalu bercabang di dalam kelenjar parotis.\n- Cabang di dalam tulang temporal, berurutan:\n  1. Nervus petrosus mayor: serabut parasimpatis ke kelenjar lakrimal (air mata) serta kelenjar hidung dan palatum.\n  2. Nervus ke stapedius: menggerakkan otot stapedius yang meredam getaran tulang pendengaran saat ada suara keras. Bila lumpuh, suara terdengar terlalu keras (hiperakusis).\n  3. Korda timpani: pengecapan 2/3 depan lidah dan serabut parasimpatis ke kelenjar submandibula dan sublingual.\n- Di parotis, saraf terbagi menjadi lima cabang: temporal (frontal), zigomatik, bukal, marginal mandibula, dan servikal.\n- Segmen labirintin adalah bagian kanal tulang yang paling sempit. Saraf yang bengkak di ruang sempit ini mudah terjepit, seperti jari bengkak yang memakai cincin.\n\nPatofisiologi:\n1. Virus diduga menjadi pemicu utama. StatPearls menyebut human herpesvirus 1 (herpes simpleks tipe 1) sebagai penyebab sebagian besar kasus, berdasarkan bukti yang ada walau belum terbukti pasti.\n2. Reaktivasi virus menimbulkan peradangan saraf, paling sering di segmen labirintin.\n3. Saraf membengkak (edema) di dalam kanal tulang yang tidak bisa melebar.\n4. Edema menekan pembuluh darah yang memberi makan saraf, sehingga aliran darah terganggu dan konduksi saraf terhambat.\n5. Berat ringannya kerusakan bergantung pada seberapa jauh struktur dalam saraf terganggu: hambatan konduksi saja pulih cepat, sedangkan kerusakan akson pulih lebih lama dan bisa tidak sempurna.\n6. Saat akson tumbuh kembali, serabut bisa \"salah alamat\" (reinervasi menyimpang). Inilah dasar sinkinesis dan air mata buaya.\n\nEtiologi dan faktor risiko:\n- Diduga reaktivasi herpes simpleks tipe 1.\n- Diabetes melitus dan kehamilan meningkatkan risiko, dan pasien dengan kondisi ini berisiko hasil lebih buruk (StatPearls).\n\nManifestasi klinis/Diagnosis:\n- Kelemahan satu sisi wajah yang muncul cepat, sering didahului nyeri di dalam atau belakang telinga.\n- Dahi tidak bisa dikerutkan, mata tidak menutup rapat, sudut mulut turun, air liur menetes, makanan tertahan di pipi.\n- Gejala tambahan sesuai cabang yang terkena: mata kering, gangguan pengecapan, hiperakusis.\n- Fenomena Bell: saat berusaha menutup mata, bola mata berputar ke atas. Gerakan ini melindungi kornea dan ada pada sekitar 70–80% orang.\n- Derajat keparahan dinilai dengan skala House-Brackmann (derajat I normal sampai VI lumpuh total). Skala ini untuk menilai keparahan, bukan untuk menegakkan diagnosis.\n- Laboratorium dan pencitraan tidak diperlukan untuk diagnosis. Laboratorium bisa membantu mencari penyebab sistemik seperti diabetes; Magnetic Resonance Imaging (MRI) dianjurkan untuk kasus berulang (AFP 2023).\n\nTanda bahaya yang mengarah ke diagnosis lain (AFP 2023 dan StatPearls):\n\n| Temuan | Pikirkan |\n|---|---|\n| Dahi tidak ikut lumpuh | lesi UMN, misalnya stroke |\n| Kedua sisi wajah lumpuh | penyebab sistemik atau sentral |\n| Vesikel di telinga, kulit kepala, wajah, atau mulut | sindrom Ramsay Hunt (herpes zoster) |\n| Gangguan gerak bola mata, kelemahan anggota gerak atau bulbar | lesi batang otak atau sentral |\n| Gangguan pendengaran, tinitus, vertigo | lesi di sudut serebelopontin atau telinga |\n| Awitan perlahan, berulang di sisi yang sama, tidak membaik > 3 bulan | tumor atau lesi struktural |\n\nTatalaksana:\n1. Kortikosteroid oral adalah terapi utama (AFP 2023, rekomendasi kekuatan A).\n   - StatPearls: mulai dalam 72 jam sejak awitan; regimen yang lazim prednison hingga 60 mg per hari (atau prednisolon setara) selama 5–7 hari.\n   - AFP 2023: regimen pada uji klinis adalah prednison 50–60 mg per hari selama 5 hari, lalu diturunkan bertahap (tapering) selama 5 hari.\n   Alasan farmakologis: kortikosteroid menekan peradangan dan mengurangi edema saraf, sehingga tekanan di dalam kanal tulang yang sempit berkurang dan aliran darah ke saraf membaik. Karena itu efeknya paling besar bila diberikan dini, sebelum kerusakan akson terjadi.\n2. Antivirus hanya sebagai tambahan steroid, bukan tunggal. Antivirus saja tidak bermanfaat (kekuatan A). Kombinasi dengan steroid dapat dipertimbangkan untuk mengurangi sinkinesis (kekuatan B). Pilihan: valasiklovir 1 g tiga kali sehari selama 7 hari, atau asiklovir 400 mg lima kali sehari selama 10 hari. Antivirus menghambat replikasi virus herpes, tetapi tidak memperbaiki saraf yang sudah meradang, sehingga perannya terbatas.\n3. Perawatan mata sangat penting: air mata buatan, salep atau gel pelumas, dan plester kelopak mata saat tidur. Rujuk ke dokter mata bila ada tanda keratitis, nyeri mata, atau rasa mengganjal.\n4. Fisioterapi ditawarkan untuk kelumpuhan berat (House-Brackmann V–VI) atau yang menetap > 3 bulan.\n\nKomplikasi dan kapan merujuk:\n- Keratopati paparan (kornea kering dan luka karena mata tidak menutup) pada sekitar 40% pasien.\n- Sinkinesis, yaitu gerakan wajah yang tidak diinginkan dan tidak serasi (misalnya mata ikut menutup saat tersenyum), pada sekitar 15% pasien. Terapinya fisioterapi, injeksi toksin botulinum, atau operasi.\n- Air mata buaya (sindrom Bogorad): mata berair saat makan karena serabut yang seharusnya ke kelenjar ludah tumbuh salah ke kelenjar lakrimal.\n- Prognosis: sekitar 80% sembuh sempurna tanpa terapi; dengan steroid (dengan atau tanpa antivirus) angka pemulihan sekitar 90–97% (StatPearls). AFP 2023 mencatat 66–85% pulih sempurna dalam 3 minggu.\n- Rujuk ke dokter spesialis neurologi bila lumpuh kedua sisi, berulang, berkepanjangan, ada tanda bahaya di atas, atau tidak membaik setelah 3 bulan.\n\nAnalogi:\nBayangkan nervus fasialis sebagai kabel listrik yang melewati pipa besi sempit di dalam dinding (kanal fasialis). Infeksi virus membuat kabel membengkak, tetapi pipa besi tidak bisa melebar, sehingga kabel tergencet dan listrik ke lampu-lampu wajah padam. Steroid ibarat mengempiskan pembengkakan agar kabel tidak tergencet, dan itu harus cepat sebelum kabel putus. Bila kabel sempat putus dan disambung ulang dengan terburu-buru, sebagian sambungan tertukar: saklar senyum ikut menyalakan lampu kedip mata (sinkinesis), atau saklar air liur menyalakan keran air mata (air mata buaya).\n\nMnemonik:\n- Urutan cabang di tulang temporal \"Pak Stefan Korda\" (mnemonik buatan): Petrosus mayor (air mata), Stapedius (hiperakusis), Korda timpani (pengecapan).\n- Lima cabang di parotis \"Ten Zebras Bit My Cookie\" (mnemonik yang lazim dipakai): Temporal, Zygomatic, Buccal, Marginal mandibular, Cervical.\n- Membedakan lesi \"Dahi Diam = Tepi, Dahi Dapat = Pusat\" (mnemonik buatan): dahi ikut lumpuh berarti lesi saraf tepi (LMN), dahi masih bisa dikerutkan berarti lesi sentral (UMN).\n- Terapi \"S-72\" (mnemonik buatan): Steroid dalam 72 jam.\n\nPoin untuk koas:\n- Selalu minta pasien mengerutkan dahi. Dahi yang masih bisa dikerutkan pada pasien dengan mulut mencong adalah stroke sampai terbukti lain.\n- Periksa telinga dan mulut untuk mencari vesikel (Ramsay Hunt), dan periksa anggota gerak serta gerak bola mata.\n- Catat derajat House-Brackmann saat datang untuk memantau pemulihan.\n- Jangan pulangkan pasien tanpa edukasi perawatan mata: tetes pelumas siang hari dan plester atau salep saat tidur.\n- Pada pasien diabetes atau hamil, jelaskan bahwa risiko hasil buruk lebih tinggi dan rencanakan kontrol lebih ketat.\n\nSingkatan:\n- AFP: American Family Physician (jurnal)\n- LMN: lower motor neuron\n- MAI: meatus akustikus internus\n- MRI: magnetic resonance imaging\n- N.: nervus\n- UMN: upper motor neuron",
+   "images": [
+    {
+     "file": "img/20261014-0905-bell-palsy-1.svg",
+     "caption": "Perjalanan nervus fasialis, cabang di tulang temporal dan gejalanya, lima cabang di parotis, serta perbedaan wajah pada lesi UMN (stroke) dan LMN (Bell's palsy).",
+     "credit": "Diagram skematis Catatan Koas berdasarkan StatPearls Bell Palsy (2024) dan Neuroanatomy, Cranial Nerve 7 (2023)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "American Family Physician",
+     "title": "Bell Palsy: Rapid Evidence Review (AFP 2023;107(4):415-420)",
+     "year": 2023,
+     "url": "https://www.aafp.org/pubs/afp/issues/2023/0400/bell-palsy.html"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Bell Palsy (StatPearls)",
+     "publisher": "NCBI Bookshelf",
+     "year": 2024,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK482290/"
+    },
+    {
+     "title": "Neuroanatomy, Cranial Nerve 7 (Facial) (StatPearls)",
+     "publisher": "NCBI Bookshelf",
+     "year": 2023,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK526119/"
+    },
+    {
+     "title": "Bell Palsy: Rapid Evidence Review",
+     "publisher": "American Family Physician",
+     "year": 2023,
+     "url": "https://www.aafp.org/pubs/afp/issues/2023/0400/bell-palsy.html"
     }
    ]
   }
