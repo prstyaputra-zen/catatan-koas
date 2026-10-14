@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-14T06:14:00Z",
+ "updated": "2026-10-14T10:08:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -1062,6 +1062,62 @@
      "publisher": "World Health Organization",
      "year": 2026,
      "url": "https://www.who.int/news-room/fact-sheets/detail/depression"
+    }
+   ]
+  },
+  {
+   "id": "20261014-1705-kusta",
+   "created": "2026-10-14T10:08:00Z",
+   "title": "Kusta: spektrum imun, tanda kardinal, MDT, dan reaksi kusta (PNPK 2019, WHO 2026)",
+   "type": "topik",
+   "stase": "Kulit",
+   "tags": [
+    "kusta",
+    "lepra",
+    "MDT",
+    "reaksi kusta",
+    "ENL"
+   ],
+   "body": "Definisi:\nKusta (lepra, penyakit Hansen) adalah penyakit infeksi kronis yang disebabkan oleh Mycobacterium leprae, terutama menyerang saraf tepi, lalu kulit (Pedoman Nasional Pelayanan Kedokteran/PNPK Tata Laksana Kusta, Keputusan Menteri Kesehatan/KMK HK.01.07/MENKES/308/2019). Centers for Disease Control and Prevention (CDC) juga menyebut Mycobacterium lepromatosis sebagai penyebab.\n\nBesarnya masalah: World Health Organization (WHO) mencatat sekitar 200.000 kasus baru dilaporkan setiap tahun. Indonesia termasuk negara dengan jumlah kasus tertinggi bersama Brasil dan India, masing-masing melaporkan lebih dari 10.000 kasus baru pada 2024 (lembar fakta Leprosy, 23 Januari 2026). PNPK 2019 mencatat kasus baru di Indonesia stabil sekitar 17.000–20.000 per tahun.\n\nAnatomi dan fisiologi terkait:\n{{gambar:1}}\n- Saraf tepi membawa tiga jenis serabut: sensorik (raba, nyeri, suhu), motorik (menggerakkan otot), dan otonom (mengatur kelenjar keringat dan pembuluh kulit). Kusta dapat merusak ketiganya, sehingga muncul mati rasa, kelemahan otot, dan kulit kering.\n- Saraf tepi yang sering terkena menurut PNPK: nervus ulnaris, radialis, medianus, poplitea lateralis (peroneus komunis), tibialis posterior, fasialis, trigeminus, dan aurikularis magnus. Pada kusta neural murni, nervus ulnaris paling sering terkena.\n- Imunitas seluler adalah pertahanan utama terhadap kuman intraseluler seperti M. leprae. Makrofag kulit (histiosit) memakan kuman. Bila imunitas seluler baik, kuman dikendalikan; bila rendah, histiosit justru menjadi tempat kuman berkembang biak dan berubah menjadi sel Virchow (sel lepra).\n- CDC menjelaskan bahwa pada kusta lepromatosa kuman menyukai bagian tubuh yang lebih dingin, biasanya ekstremitas atau alis.\n\nPatofisiologi:\n1. Kuman masuk melalui kontak langsung dengan kulit atau mukosa hidung, termasuk melalui droplet. WHO menekankan penularan terjadi dari droplet hidung dan mulut penderita yang belum diobati, bukan dari kontak sepintas, dan penderita tidak lagi menularkan setelah mulai berobat.\n2. M. leprae adalah basil tahan asam, berbentuk batang, tumbuh sangat lambat, bersifat intraseluler obligat, dan sampai kini belum dapat dibiakkan di media buatan.\n3. Gejala muncul 3 bulan sampai 10 tahun setelah infeksi (PNPK). Masa inkubasi yang panjang ini sejalan dengan pertumbuhan kuman yang sangat lambat.\n4. Arah penyakit ditentukan oleh imunitas seluler:\n   - Imunitas seluler baik: kuman dibatasi, lesi sedikit dan berbatas tegas, tetapi reaksi imun yang kuat merusak saraf di sekitarnya, sehingga mati rasa jelas (kutub tuberkuloid).\n   - Imunitas seluler rendah: kuman berkembang biak bebas, lesi banyak dan batas samar, infiltrasi kulit menyeluruh (kutub lepromatosa).\n5. Kerusakan saraf terjadi melalui dua jalan: infiltrasi langsung oleh kuman dan reaksi imun tubuh terhadap kuman. Sebarannya bergantung pada jumlah kuman di saraf dan respons imun pasien.\n6. Saraf yang rusak menyebabkan mati rasa, kelemahan otot, dan kulit kering. Bagian tubuh yang mati rasa mudah terluka tanpa disadari, luka terinfeksi, lalu terjadi kecacatan.\n\nKlasifikasi Ridley-Jopling membagi spektrum menjadi lima kelompok: tuberkuloid polar (TT), borderline tuberculoid (BT), mid-borderline (BB), borderline lepromatous (BL), dan lepromatosa polar (LL). Untuk pengobatan, WHO memakai dua kelompok: pausibasiler (PB) dan multibasiler (MB).\n\nEtiologi dan faktor risiko:\n- Kontak erat dan lama dengan penderita yang belum diobati.\n- Imunitas seluler yang rendah memudahkan perjalanan ke arah lepromatosa.\n- Tinggal di daerah endemis. PNPK mencatat 11 provinsi dengan prevalensi di atas 1 per 10.000 penduduk.\n\nManifestasi klinis/Diagnosis:\nDiagnosis ditegakkan bila ditemukan minimal satu dari tiga tanda kardinal (WHO dan PNPK):\n1. Bercak kulit hipopigmentasi (putih) atau kemerahan dengan mati rasa yang jelas.\n2. Penebalan saraf tepi disertai gangguan fungsi (mati rasa atau kelemahan otot di daerah yang dipersarafi).\n3. Basil tahan asam (BTA) positif pada kerokan jaringan kulit (slit-skin smear).\n\nPemeriksaan sensibilitas menurut PNPK:\n- Rasa raba: usapkan ujung kapas pada lesi.\n- Rasa suhu: dua tabung berisi air hangat dan air dingin; pasien yang tidak bisa membedakan berarti terganggu.\n- Rasa nyeri: ujung jarum; terasa tumpul berarti hipestesi, tidak terasa berarti anestesi.\n- Fungsi otonom: cari kulit kering atau bersisik. Bila ragu, gunakan uji pensil tinta (tanda Gunawan): garis lebih tebal pada kulit normal menandakan keringat di lesi berkurang.\n\n| Ciri | PB | MB |\n|---|---|---|\n| Jumlah lesi kulit (WHO) | 1–5 | > 5 |\n| Saraf terlibat | satu cabang saraf (PNPK, WHO 1995) | banyak cabang saraf, atau keterlibatan saraf menurut WHO 2026 |\n| BTA kerokan kulit | negatif | positif berapa pun jumlah lesinya |\n\nKonfirmasi dapat dilakukan dengan biopsi kulit atau saraf dan pewarnaan tahan asam (CDC).\n\nTatalaksana:\n1. Multidrug therapy (MDT). WHO merekomendasikan tiga obat, yaitu dapson, rifampisin, dan klofazimin, dengan lama 6 bulan untuk PB dan 12 bulan untuk MB (WHO 2026). Dosis per kemasan blister menurut PNPK 2019:\n\n| Kelompok | Dosis bulanan (diawasi) | Dosis harian (di rumah) | Lama |\n|---|---|---|---|\n| Dewasa MB | rifampisin 600 mg, klofazimin 300 mg, dapson (DDS) 100 mg | klofazimin 50 mg, DDS 100 mg | 12 blister dalam 12–18 bulan |\n| Dewasa PB (PNPK 2019) | rifampisin 600 mg, DDS 100 mg | DDS 100 mg | 6 blister dalam 6–9 bulan |\n| Anak 10–14 tahun MB | rifampisin 450 mg, klofazimin 150 mg, DDS 50 mg | klofazimin 50 mg selang sehari, DDS 50 mg | 12 blister dalam 12–18 bulan |\n| Anak 10–14 tahun PB (PNPK 2019) | rifampisin 450 mg, DDS 50 mg | DDS 50 mg | 6 blister dalam 6–9 bulan |\n\nAnak < 10 tahun memakai dosis per berat badan: rifampisin 10–15 mg/kg, DDS 1–2 mg/kg, klofazimin 1 mg/kg. Perhatikan bahwa PNPK 2019 masih memakai dua obat untuk PB, sedangkan WHO kini menganjurkan paduan tiga obat yang sama untuk PB dan MB. Ikuti paduan program kusta nasional yang berlaku di fasilitas tempat bertugas.\n\nAlasan farmakologis:\n- Rifampisin menghambat RNA polimerase kuman dan bersifat sangat bakterisidal, sehingga cukup diberikan sebulan sekali di bawah pengawasan.\n- Dapson menghambat sintesis folat kuman (bakteriostatik).\n- Klofazimin bekerja antimikroba sekaligus antiradang; CDC mencatat pemakai klofazimin mengalami episode reaksi sedikit lebih jarang.\n- Kombinasi beberapa obat mencegah munculnya kuman yang resisten.\n\n2. Profilaksis kontak: WHO merekomendasikan rifampisin dosis tunggal sebagai profilaksis pascapajanan (single-dose rifampicin post-exposure prophylaxis/SDR-PEP) untuk kontak penderita.\n\n3. Reaksi kusta. Reaksi adalah peradangan akut akibat respons imun terhadap kuman, bukan efek samping obat, dan dapat terjadi sebelum, selama, atau sesudah MDT.\n   - Reaksi tipe 1 (reversal): hanya pada spektrum borderline (BT, BB, BL), biasanya dalam 6 bulan pertama MDT. Lesi lama menjadi lebih merah dan bengkak, dapat muncul lesi baru, dan saraf bisa meradang (neuritis).\n   - Reaksi tipe 2 (eritema nodosum leprosum/ENL): pada tipe MB (BL, LL), sering setelah beberapa bulan pengobatan. Muncul nodul merah yang nyeri, terutama di lengan dan tungkai, dapat disertai demam dan keterlibatan saraf, testis, kelenjar getah bening, mata, ginjal, periosteum, dan sendi.\n   - Reaksi berat diobati dengan prednison pagi hari setelah makan (PNPK): 40 mg/hari minggu 1, 30 mg minggu 2, 20 mg minggu 3, 15 mg minggu 4, 10 mg minggu 5, dan 5 mg minggu 6. Penurunan disesuaikan tiap 2 minggu menurut respons klinis dan tidak boleh dihentikan mendadak. Steroid menekan peradangan yang merusak saraf, sehingga mencegah cacat permanen. MDT tetap dilanjutkan.\n   - ENL berat berulang: klofazimin 300 mg/hari, lalu 200 mg/hari, lalu 100 mg/hari, masing-masing selama 2 bulan (PNPK).\n\n4. Perawatan diri untuk mata, tangan, dan kaki yang mati rasa sangat penting untuk mencegah kecacatan (CDC).\n\nKomplikasi dan kapan merujuk:\nTingkat cacat WHO (PNPK):\n- Tingkat 0: tidak ada cacat.\n- Tingkat 1: mati rasa atau kelemahan otot di tangan atau kaki tanpa kerusakan yang tampak.\n- Tingkat 2: kerusakan yang tampak, misalnya lagoftalmos (mata tidak dapat menutup), kekeruhan kornea, ulkus, tangan cakar (claw hand), atau kaki semper (foot drop).\n\nRujuk bila terjadi reaksi berat (neuritis, ENL berat, gangguan mata), kecacatan yang memburuk, efek samping obat berat, atau diagnosis meragukan dan perlu biopsi.\n\nAnalogi:\nBayangkan saraf tepi sebagai kabel telepon yang menghubungkan kulit ke pusat. M. leprae adalah penyusup lambat yang bersembunyi di dalam kabel. Bila pasukan keamanan (imunitas seluler) kuat, penyusup cepat dikepung, tetapi pertempuran di sekitar kabel ikut merusak kabel itu (tuberkuloid: lesi sedikit, mati rasa jelas). Bila pasukan lemah, penyusup berkembang biak di mana-mana tanpa perlawanan (lepromatosa: lesi banyak, kuman banyak). Reaksi kusta ibarat pasukan yang tiba-tiba bangun dan menyerang besar-besaran; penyusupnya terdesak, tetapi kabel ikut terbakar, sehingga perlu \"pemadam\" berupa steroid.\n\nMnemonik:\n- Tanda kardinal \"BeSaK\" (mnemonik buatan): Bercak mati rasa, Saraf menebal dengan gangguan fungsi, Kerokan kulit BTA positif.\n- MDT \"Rifa sebulan, Dapson sehari, Klofa dua-duanya\" (mnemonik buatan): rifampisin diberikan bulanan, dapson setiap hari (plus dosis bulanan), klofazimin dosis bulanan besar dan dosis harian kecil.\n- Reaksi \"1 di Tengah, 2 di Ujung Lepromatosa\" (mnemonik buatan): reaksi tipe 1 pada borderline (tengah spektrum), reaksi tipe 2 pada BL dan LL.\n\nPoin untuk koas:\n- Periksa sensibilitas setiap bercak putih yang tidak gatal. Bercak yang mati rasa adalah kusta sampai terbukti lain.\n- Raba saraf yang sering menebal dan bandingkan kanan dan kiri.\n- Catat tingkat cacat saat diagnosis dan pada setiap kunjungan.\n- Edukasi bahwa penderita tidak lagi menularkan setelah mulai berobat, untuk melawan stigma.\n- Jelaskan kepada pasien bahwa reaksi bukan alergi obat; MDT tidak dihentikan saat reaksi.\n\nSingkatan:\n- BB: mid-borderline\n- BL: borderline lepromatous\n- BT: borderline tuberculoid\n- BTA: basil tahan asam\n- CDC: Centers for Disease Control and Prevention\n- DDS: diaminodifenilsulfon (dapson)\n- ENL: eritema nodosum leprosum\n- KMK: Keputusan Menteri Kesehatan\n- LL: lepromatosa polar (lepromatous leprosy)\n- MB: multibasiler\n- MDT: multidrug therapy\n- PB: pausibasiler\n- PNPK: Pedoman Nasional Pelayanan Kedokteran\n- RNA: ribonucleic acid\n- SDR-PEP: single-dose rifampicin post-exposure prophylaxis\n- TT: tuberkuloid polar\n- WHO: World Health Organization",
+   "images": [
+    {
+     "file": "img/20261014-1705-kusta-1.svg",
+     "caption": "Spektrum Ridley-Jopling terhadap imunitas seluler dan jumlah kuman, letak reaksi tipe 1 dan 2, klasifikasi WHO PB/MB, tanda kardinal, dan saraf tepi yang sering menebal.",
+     "credit": "Diagram skematis Catatan Koas berdasarkan PNPK Tata Laksana Kusta 2019, CDC (2025), dan WHO (2026)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kementerian Kesehatan RI",
+     "title": "PNPK Tata Laksana Kusta (KMK HK.01.07/MENKES/308/2019)",
+     "year": 2019,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan_1610415708_653954.pdf"
+    },
+    {
+     "org": "World Health Organization",
+     "title": "Leprosy (fact sheet)",
+     "year": 2026,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/leprosy"
+    }
+   ],
+   "sources": [
+    {
+     "title": "PNPK Tata Laksana Kusta",
+     "publisher": "Kementerian Kesehatan RI",
+     "year": 2019,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan_1610415708_653954.pdf"
+    },
+    {
+     "title": "Clinical Overview of Hansen's Disease (Leprosy)",
+     "publisher": "CDC",
+     "year": 2025,
+     "url": "https://www.cdc.gov/leprosy/hcp/clinical-overview/index.html"
+    },
+    {
+     "title": "Leprosy (fact sheet)",
+     "publisher": "World Health Organization",
+     "year": 2026,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/leprosy"
     }
    ]
   }
