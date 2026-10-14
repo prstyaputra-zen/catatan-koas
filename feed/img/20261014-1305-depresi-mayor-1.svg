@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 720" width="920" height="720" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="920" height="720" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Gangguan depresi mayor: sinaps, cara kerja SSRI, dan 9 gejala</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik; hipotesis monoamin hanyalah salah satu bagian dari penyebab yang multifaktorial</text>
+<text x="20" y="90" font-size="15" font-weight="700" fill="#111827" text-anchor="start">A. Hipotesis monoamin dan SSRI</text>
+<rect x="20" y="100" width="210" height="330" rx="12" fill="#f9fafb" stroke="#d1d5db"/>
+<text x="125" y="124" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Tanpa obat</text>
+<path d="M80,140 L170,140 L170,220 Q125,260 80,220 Z" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="125" y="170" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="middle">Prasinaps</text>
+<circle cx="100" cy="195" r="8" fill="#fef3c7" stroke="#d97706"/>
+<circle cx="125" cy="205" r="8" fill="#fef3c7" stroke="#d97706"/>
+<circle cx="150" cy="195" r="8" fill="#fef3c7" stroke="#d97706"/>
+<rect x="158" y="218" width="22" height="14" rx="3" fill="#a78bfa" stroke="#6d28d9"/>
+<text x="188" y="230" font-size="11" font-weight="700" fill="#6d28d9" text-anchor="start">SERT</text>
+<circle cx="134" cy="298" r="4" fill="#f59e0b"/>
+<circle cx="146" cy="306" r="4" fill="#f59e0b"/>
+<circle cx="142" cy="305" r="4" fill="#f59e0b"/>
+<circle cx="92" cy="287" r="4" fill="#f59e0b"/>
+<line x1="148" y1="280" x2="166" y2="238" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah)"/>
+<path d="M70,325 Q125,315 180,325 L180,390 L70,390 Z" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<rect x="84" y="316" width="12" height="10" rx="2" fill="#16a34a"/>
+<rect x="109" y="316" width="12" height="10" rx="2" fill="#16a34a"/>
+<rect x="134" y="316" width="12" height="10" rx="2" fill="#16a34a"/>
+<rect x="159" y="316" width="12" height="10" rx="2" fill="#16a34a"/>
+<text x="125" y="360" font-size="12" font-weight="700" fill="#15803d" text-anchor="middle">Pascasinaps</text>
+<text x="125" y="414" font-size="11.5" font-weight="400" fill="#374151" text-anchor="middle">serotonin cepat diambil kembali</text>
+<rect x="250" y="100" width="210" height="330" rx="12" fill="#f9fafb" stroke="#d1d5db"/>
+<text x="355" y="124" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Dengan SSRI</text>
+<path d="M310,140 L400,140 L400,220 Q355,260 310,220 Z" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="355" y="170" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="middle">Prasinaps</text>
+<circle cx="330" cy="195" r="8" fill="#fef3c7" stroke="#d97706"/>
+<circle cx="355" cy="205" r="8" fill="#fef3c7" stroke="#d97706"/>
+<circle cx="380" cy="195" r="8" fill="#fef3c7" stroke="#d97706"/>
+<rect x="388" y="218" width="22" height="14" rx="3" fill="#a78bfa" stroke="#6d28d9"/>
+<text x="418" y="230" font-size="11" font-weight="700" fill="#6d28d9" text-anchor="start">SERT</text>
+<line x1="384" y1="214" x2="414" y2="236" stroke="#dc2626" stroke-width="3"/>
+<line x1="414" y1="214" x2="384" y2="236" stroke="#dc2626" stroke-width="3"/>
+<text x="400" y="252" font-size="11.5" font-weight="700" fill="#dc2626" text-anchor="middle">SSRI</text>
+<circle cx="337" cy="290" r="4" fill="#f59e0b"/>
+<circle cx="346" cy="292" r="4" fill="#f59e0b"/>
+<circle cx="364" cy="271" r="4" fill="#f59e0b"/>
+<circle cx="321" cy="301" r="4" fill="#f59e0b"/>
+<circle cx="338" cy="277" r="4" fill="#f59e0b"/>
+<circle cx="390" cy="287" r="4" fill="#f59e0b"/>
+<circle cx="379" cy="287" r="4" fill="#f59e0b"/>
+<circle cx="365" cy="274" r="4" fill="#f59e0b"/>
+<circle cx="364" cy="303" r="4" fill="#f59e0b"/>
+<circle cx="357" cy="298" r="4" fill="#f59e0b"/>
+<circle cx="367" cy="271" r="4" fill="#f59e0b"/>
+<path d="M300,325 Q355,315 410,325 L410,390 L300,390 Z" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<rect x="314" y="316" width="12" height="10" rx="2" fill="#16a34a"/>
+<rect x="339" y="316" width="12" height="10" rx="2" fill="#16a34a"/>
+<rect x="364" y="316" width="12" height="10" rx="2" fill="#16a34a"/>
+<rect x="389" y="316" width="12" height="10" rx="2" fill="#16a34a"/>
+<text x="355" y="360" font-size="12" font-weight="700" fill="#15803d" text-anchor="middle">Pascasinaps</text>
+<text x="355" y="414" font-size="11.5" font-weight="400" fill="#374151" text-anchor="middle">serotonin di celah lebih lama</text>
+<text x="20" y="462" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">SSRI menghambat SERT (pompa pengambilan kembali serotonin),</text>
+<text x="20" y="480" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">sehingga serotonin bertahan lebih lama di celah sinaps.</text>
+<text x="20" y="504" font-size="12.5" font-weight="700" fill="#b45309" text-anchor="start">Efek kimia terjadi cepat, tetapi perbaikan mood butuh waktu:</text>
+<text x="20" y="522" font-size="12.5" font-weight="700" fill="#b45309" text-anchor="start">NICE: manfaat diharapkan terasa dalam 4 minggu.</text>
+<text x="20" y="552" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">Faktor lain (StatPearls): genetik (konkordansi kembar</text>
+<text x="20" y="570" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">monozigot tinggi), trauma masa kecil, peristiwa hidup,</text>
+<text x="20" y="588" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">GABA dan glutamat, kelainan tiroid, perubahan sirkuit otak.</text>
+<text x="486" y="90" font-size="15" font-weight="700" fill="#111827" text-anchor="start">B. Kriteria DSM-5: ≥ 5 dari 9 gejala</text>
+<text x="486" y="110" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">hampir setiap hari, ≥ 2 minggu, mengganggu fungsi</text>
+<rect x="486" y="124" width="418" height="54" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="498" y="146" font-size="14" font-weight="700" fill="#111827" text-anchor="start">Mood depresi</text>
+<text x="498" y="166" font-size="12" font-weight="400" fill="#374151" text-anchor="start">sedih, kosong, putus asa</text>
+<rect x="486" y="186" width="418" height="54" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="498" y="208" font-size="14" font-weight="700" fill="#111827" text-anchor="start">Anhedonia</text>
+<text x="498" y="228" font-size="12" font-weight="400" fill="#374151" text-anchor="start">hilang minat atau rasa senang</text>
+<text x="892" y="154" font-size="11.5" font-weight="700" fill="#b91c1c" text-anchor="end">wajib salah satu</text>
+<rect x="486" y="258" width="418" height="42" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<circle cx="508" cy="279" r="13" fill="#2563eb"/>
+<text x="508" y="284" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
+<text x="530" y="284" font-size="13" font-weight="700" fill="#1e3a8a" text-anchor="start">Sleep</text>
+<text x="646" y="284" font-size="12" font-weight="400" fill="#374151" text-anchor="start">tidur terganggu (insomnia/hipersomnia)</text>
+<rect x="486" y="308" width="418" height="42" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<circle cx="508" cy="329" r="13" fill="#2563eb"/>
+<text x="508" y="334" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">G</text>
+<text x="530" y="334" font-size="13" font-weight="700" fill="#1e3a8a" text-anchor="start">Guilt</text>
+<text x="646" y="334" font-size="12" font-weight="400" fill="#374151" text-anchor="start">rasa bersalah, tidak berharga</text>
+<rect x="486" y="358" width="418" height="42" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<circle cx="508" cy="379" r="13" fill="#2563eb"/>
+<text x="508" y="384" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">E</text>
+<text x="530" y="384" font-size="13" font-weight="700" fill="#1e3a8a" text-anchor="start">Energy</text>
+<text x="646" y="384" font-size="12" font-weight="400" fill="#374151" text-anchor="start">lelah, energi turun</text>
+<rect x="486" y="408" width="418" height="42" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<circle cx="508" cy="429" r="13" fill="#2563eb"/>
+<text x="508" y="434" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">C</text>
+<text x="530" y="434" font-size="13" font-weight="700" fill="#1e3a8a" text-anchor="start">Concentration</text>
+<text x="646" y="434" font-size="12" font-weight="400" fill="#374151" text-anchor="start">sulit konsentrasi/memutuskan</text>
+<rect x="486" y="458" width="418" height="42" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<circle cx="508" cy="479" r="13" fill="#2563eb"/>
+<text x="508" y="484" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">A</text>
+<text x="530" y="484" font-size="13" font-weight="700" fill="#1e3a8a" text-anchor="start">Appetite</text>
+<text x="646" y="484" font-size="12" font-weight="400" fill="#374151" text-anchor="start">nafsu makan/berat badan berubah</text>
+<rect x="486" y="508" width="418" height="42" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<circle cx="508" cy="529" r="13" fill="#2563eb"/>
+<text x="508" y="534" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">P</text>
+<text x="530" y="534" font-size="13" font-weight="700" fill="#1e3a8a" text-anchor="start">Psychomotor</text>
+<text x="646" y="534" font-size="12" font-weight="400" fill="#374151" text-anchor="start">agitasi atau retardasi</text>
+<rect x="486" y="558" width="418" height="42" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<circle cx="508" cy="579" r="13" fill="#2563eb"/>
+<text x="508" y="584" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
+<text x="530" y="584" font-size="13" font-weight="700" fill="#1e3a8a" text-anchor="start">Suicide</text>
+<text x="646" y="584" font-size="12" font-weight="400" fill="#374151" text-anchor="start">pikiran tentang kematian/bunuh diri</text>
+<text x="486" y="620" font-size="12.5" font-weight="700" fill="#1e3a8a" text-anchor="start">Mnemonik lazim SIG E CAPS: S-I(nterest)-G-E-C-A-P-S,</text>
+<text x="486" y="638" font-size="12.5" font-weight="700" fill="#1e3a8a" text-anchor="start">ditambah mood depresi.</text>
+<text x="20" y="680" font-size="13.5" font-weight="700" fill="#b91c1c" text-anchor="start">Selalu tanyakan pikiran bunuh diri pada setiap kunjungan.</text>
+</svg>

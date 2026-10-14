@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-14T02:06:00Z",
+ "updated": "2026-10-14T06:14:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -1007,6 +1007,61 @@
      "publisher": "American Family Physician",
      "year": 2023,
      "url": "https://www.aafp.org/pubs/afp/issues/2023/0400/bell-palsy.html"
+    }
+   ]
+  },
+  {
+   "id": "20261014-1305-depresi-mayor",
+   "created": "2026-10-14T06:14:00Z",
+   "title": "Gangguan depresi mayor: kriteria DSM-5, cara kerja SSRI, dan pemantauan terapi (NICE NG222)",
+   "type": "topik",
+   "stase": "Jiwa",
+   "tags": [
+    "depresi",
+    "SSRI",
+    "PHQ-9",
+    "bunuh diri"
+   ],
+   "body": "Definisi:\nGangguan depresi mayor (major depressive disorder/MDD) adalah gangguan mood yang ditandai suasana hati depresi atau hilangnya minat dan rasa senang (anhedonia), disertai gejala lain yang mengganggu fungsi sosial atau pekerjaan. World Health Organization (WHO) menjelaskan bahwa episode depresi berlangsung hampir sepanjang hari, hampir setiap hari, selama sedikitnya dua minggu (lembar fakta Depression, 11 September 2026).\n\nBesarnya masalah menurut WHO: sekitar 5,2% orang dewasa, atau kira-kira 322 juta orang di dunia, mengalami depresi pada 2023. Depresi sekitar 1,5 kali lebih sering pada perempuan (6,2%) dibanding laki-laki (4,1%). Pada 2021, diperkirakan 727.000 orang meninggal karena bunuh diri. StatPearls (Major Depressive Disorder, pembaruan 10 April 2023) menyebut prevalensi seumur hidup 5–17%, rata-rata 12%.\n\nAnatomi dan fisiologi terkait:\n{{gambar:1}}\n- Sinaps adalah celah antara dua neuron. Neuron prasinaps melepaskan neurotransmiter (misalnya serotonin, norepinefrin, dopamin) ke celah sinaps, neurotransmiter menempel pada reseptor neuron pascasinaps, lalu sinyal diteruskan.\n- Sinyal dihentikan terutama dengan menarik kembali neurotransmiter ke neuron prasinaps melalui protein transporter. Untuk serotonin, transporter ini disebut serotonin transporter (SERT). Bayangkan SERT sebagai penyedot debu yang membersihkan celah sinaps.\n- Serotonin, norepinefrin, dan dopamin termasuk monoamin. Ketiganya terlibat dalam pengaturan mood, minat, energi, tidur, dan nafsu makan, sehingga gangguan pada sistem ini bisa menjelaskan banyak gejala depresi.\n- Selain monoamin, otak memakai gamma-aminobutyric acid (GABA) sebagai penghambat utama dan glutamat sebagai perangsang utama. StatPearls menyebut kelainan GABA, glutamat, glisin, hormon tiroid, hormon pertumbuhan, serta perubahan struktur dan fungsi otak pada pencitraan juga berperan.\n\nPatofisiologi:\nPenyebab depresi bersifat multifaktorial: biologis, genetik, lingkungan, dan psikososial. Rantai yang mudah diingat:\n1. Kerentanan bawaan: angka kesesuaian (konkordansi) depresi pada kembar sangat tinggi, terutama kembar monozigot, yang menunjukkan peran genetik.\n2. Pencetus: pengalaman buruk masa kecil, trauma, dan peristiwa hidup yang berat. Teori learned helplessness (ketidakberdayaan yang dipelajari) menjelaskan bahwa stres berulang yang tidak bisa dikendalikan membuat seseorang berhenti berusaha.\n3. Perubahan neurokimia: dulu depresi dianggap terutama akibat kekurangan serotonin, norepinefrin, dan dopamin (hipotesis monoamin). Kini teori yang lebih baru menekankan gangguan sistem pengaturan dan sirkuit saraf yang kompleks, bukan sekadar \"kurang zat kimia\".\n4. Gangguan sirkuit otak yang mengatur mood, motivasi, rasa senang, tidur, dan nafsu makan.\n5. Muncul gejala: mood depresi, anhedonia, gangguan tidur dan makan, lelah, sulit konsentrasi, rasa bersalah, perubahan psikomotor, dan pikiran bunuh diri.\n6. Gejala memperburuk fungsi sosial dan pekerjaan, yang menjadi stres baru dan memperpanjang episode.\n\nEtiologi dan faktor risiko:\n- Riwayat keluarga depresi.\n- Pengalaman buruk masa kecil dan trauma.\n- Peristiwa hidup yang berat.\n- Jenis kelamin perempuan.\n- Penyakit medis yang dapat menyerupai atau memicu depresi, misalnya gangguan tiroid.\n\nManifestasi klinis/Diagnosis:\nKriteria Diagnostic and Statistical Manual of Mental Disorders edisi kelima (DSM-5), menurut StatPearls: minimal 5 dari 9 gejala, salah satunya wajib mood depresi atau anhedonia, dan menimbulkan gangguan fungsi. Durasi minimal dua minggu sesuai uraian WHO.\n\n| Gejala | Contoh pertanyaan |\n|---|---|\n| Mood depresi | \"Apakah hampir setiap hari Anda merasa sedih atau kosong?\" |\n| Anhedonia | \"Apakah hal yang dulu menyenangkan sekarang terasa hambar?\" |\n| Rasa bersalah atau tidak berharga | \"Apakah Anda sering menyalahkan diri sendiri?\" |\n| Energi menurun | \"Apakah Anda cepat lelah walau tidak banyak beraktivitas?\" |\n| Sulit konsentrasi | \"Apakah sulit fokus atau mengambil keputusan?\" |\n| Perubahan nafsu makan atau berat badan | \"Apakah makan jauh berkurang atau bertambah?\" |\n| Perubahan psikomotor | gelisah (agitasi) atau gerak dan bicara melambat (retardasi) |\n| Gangguan tidur | sulit tidur, terbangun dini, atau tidur berlebihan |\n| Pikiran tentang kematian atau bunuh diri | \"Apakah pernah terpikir lebih baik mati atau menyakiti diri?\" |\n\nLangkah diagnosis:\n- Diagnosis ditegakkan secara klinis melalui anamnesis dan pemeriksaan status mental; tidak ada pemeriksaan objektif untuk mendiagnosis depresi.\n- Skrining: Patient Health Questionnaire-9 (PHQ-9), skor 0–27; skor ≥ 10 menunjukkan kemungkinan depresi mayor.\n- Pemeriksaan penunjang untuk menyingkirkan penyebab medis: darah lengkap dengan hitung jenis, panel metabolik, thyroid-stimulating hormone (TSH), T4 bebas, vitamin D, urinalisis, dan skrining zat.\n- Selalu nilai risiko bunuh diri. Sekitar dua pertiga penderita depresi mayor memikirkan bunuh diri, dan 10–15% meninggal karena bunuh diri (StatPearls).\n- Tanyakan riwayat episode mania atau hipomania, karena 5–10% pasien depresi akhirnya berkembang menjadi gangguan bipolar.\n\nTatalaksana:\n1. Psikoterapi. WHO menyatakan terapi psikologis adalah terapi pertama untuk depresi; antidepresan tidak diperlukan untuk depresi ringan, tetapi dapat dikombinasikan pada depresi sedang dan berat. Contoh psikoterapi: cognitive behavioral therapy (CBT) dan terapi interpersonal. Kombinasi obat dan psikoterapi lebih efektif daripada salah satunya saja (StatPearls).\n2. Antidepresan. Selective serotonin reuptake inhibitor (SSRI), misalnya fluoksetin, adalah lini pertama dan paling banyak diresepkan.\n   Alasan farmakologis: SSRI menghambat SERT sehingga serotonin bertahan lebih lama di celah sinaps. Efek pada sinaps terjadi cepat, tetapi perbaikan mood memerlukan waktu karena otak perlu beradaptasi; menurut National Institute for Health and Care Excellence (NICE), manfaat diharapkan terasa dalam 4 minggu.\n3. Pemantauan menurut NICE NG222 (2022):\n   - Kontrol biasanya dalam 2 minggu setelah mulai antidepresan untuk menilai perbaikan dan efek samping.\n   - Usia 18–25 tahun atau berisiko bunuh diri: kontrol 1 minggu setelah mulai obat atau setelah dosis dinaikkan.\n   - Obat mungkin perlu dilanjutkan sedikitnya 6 bulan setelah gejala remisi, dengan evaluasi berkala.\n   - Menghentikan obat dilakukan bertahap (tapering), menurunkan dosis sedikit demi sedikit; penurunan yang lebih kecil, misalnya 25%, dapat dipakai saat dosis sudah rendah.\n4. Anak dan remaja: WHO menyatakan antidepresan tidak dipakai untuk mengobati depresi pada anak, dan pada remaja bukan pilihan pertama serta perlu kewaspadaan ekstra.\n5. Terapi elektrokonvulsif (electroconvulsive therapy/ECT) adalah terapi paling efektif untuk depresi mayor berat (StatPearls). Indikasinya antara lain risiko bunuh diri akut, depresi berat pada kehamilan, menolak makan atau minum, katatonia, dan psikosis berat.\n\nKomplikasi dan kapan merujuk:\n- Bunuh diri adalah komplikasi paling berbahaya.\n- Kekambuhan: sekitar 50% setelah episode pertama, 70% setelah episode kedua, dan 90% setelah episode ketiga. Episode yang tidak diobati dapat berlangsung 6–12 bulan.\n- Prognosis lebih baik bila episode ringan, tanpa psikosis, patuh berobat, dukungan sosial kuat, dan fungsi sebelum sakit baik.\n- Rujuk segera ke psikiater bila ada ide atau rencana bunuh diri, gejala psikotik, menolak makan atau minum, katatonia, curiga gangguan bipolar, atau tidak membaik dengan terapi awal.\n\nAnalogi:\nBayangkan sinaps sebagai ruang rapat tempat dua orang bertukar pesan lewat kertas (serotonin). Setelah pesan dibaca, petugas kebersihan (SERT) segera mengambil kertas itu kembali. SSRI ibarat meminta petugas bekerja lebih lambat, sehingga kertas pesan lebih lama berada di meja dan lebih sering terbaca. Namun kantor yang sudah lama kacau (sirkuit otak yang terganggu) tidak langsung rapi hanya karena pesan lebih lancar; karyawan perlu beberapa minggu untuk menyesuaikan cara kerja. Itulah sebabnya obat butuh waktu, dan psikoterapi berperan seperti pelatihan ulang karyawan.\n\nMnemonik:\n- Gejala \"SIG E CAPS\" (mnemonik yang lazim dipakai): Sleep, Interest (anhedonia), Guilt, Energy, Concentration, Appetite, Psychomotor, Suicide, ditambah mood depresi.\n- Aturan diagnosis \"5-2-1\" (mnemonik buatan): 5 dari 9 gejala, 2 minggu, 1 wajib (mood depresi atau anhedonia).\n- Pemantauan \"2-1-6\" (mnemonik buatan): kontrol 2 minggu, 1 minggu bila usia 18–25 tahun atau berisiko bunuh diri, lanjutkan sedikitnya 6 bulan setelah remisi.\n\nPoin untuk koas:\n- StatPearls menganjurkan skrining bunuh diri pada setiap kunjungan psikiatri. Tanyakan secara langsung dan dokumentasikan jawabannya.\n- Jangan lupa menyingkirkan penyebab medis, terutama gangguan tiroid.\n- Tanyakan riwayat mania sebelum memulai antidepresan.\n- Jelaskan kepada pasien bahwa obat butuh beberapa minggu untuk terasa manfaatnya dan tidak boleh dihentikan mendadak.\n- Gunakan PHQ-9 untuk skrining dan memantau perbaikan dari waktu ke waktu.\n\nSingkatan:\n- CBT: cognitive behavioral therapy\n- DSM-5: Diagnostic and Statistical Manual of Mental Disorders, edisi kelima\n- ECT: electroconvulsive therapy (terapi elektrokonvulsif)\n- GABA: gamma-aminobutyric acid\n- MDD: major depressive disorder\n- NICE: National Institute for Health and Care Excellence\n- PHQ-9: Patient Health Questionnaire-9\n- SERT: serotonin transporter\n- SSRI: selective serotonin reuptake inhibitor\n- T4: tiroksin\n- TSH: thyroid-stimulating hormone\n- WHO: World Health Organization",
+   "images": [
+    {
+     "file": "img/20261014-1305-depresi-mayor-1.svg",
+     "caption": "Sinaps serotonin tanpa dan dengan SSRI, serta sembilan gejala kriteria DSM-5 dengan mnemonik SIG E CAPS.",
+     "credit": "Diagram skematis Catatan Koas berdasarkan StatPearls Major Depressive Disorder (2023), WHO (2026), dan NICE NG222 (2022)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "National Institute for Health and Care Excellence (NICE)",
+     "title": "Depression in adults: treatment and management (NG222)",
+     "year": 2022,
+     "url": "https://www.nice.org.uk/guidance/ng222"
+    },
+    {
+     "org": "World Health Organization",
+     "title": "Depression (fact sheet)",
+     "year": 2026,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/depression"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Major Depressive Disorder (StatPearls)",
+     "publisher": "NCBI Bookshelf",
+     "year": 2023,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK559078/"
+    },
+    {
+     "title": "Depression in adults: treatment and management (NG222), PDF",
+     "publisher": "NICE",
+     "year": 2022,
+     "url": "https://www.nice.org.uk/guidance/ng222/resources/depression-in-adults-treatment-and-management-pdf-66143832307909"
+    },
+    {
+     "title": "Depression (fact sheet)",
+     "publisher": "World Health Organization",
+     "year": 2026,
+     "url": "https://www.who.int/news-room/fact-sheets/detail/depression"
     }
    ]
   }
