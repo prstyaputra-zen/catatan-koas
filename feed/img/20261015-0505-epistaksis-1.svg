@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 780" width="920" height="780" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="920" height="780" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Epistaksis: dari mana darah keluar dan cara menghentikannya</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Septum nasi kiri dilihat dari samping (depan = kiri gambar), ilustrasi skematik</text>
+<path d="M70,330 L150,110 Q250,80 420,110 L560,170 L560,380 L90,380 Z" fill="#fde2e4" stroke="#be123c" stroke-width="2"/>
+<text x="520" y="404" font-size="12" font-weight="700" fill="#9f1239" text-anchor="middle">Koana (ke nasofaring)</text>
+<circle cx="150" cy="320" r="38" fill="#fecaca" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,3"/>
+<path d="M300,100 Q235.0,190.0 162,302" fill="none" stroke="#7c3aed" stroke-width="4"/>
+<text x="300" y="92" font-size="12" font-weight="700" fill="#7c3aed" text-anchor="middle">a. etmoidalis anterior</text>
+<path d="M480,120 Q325.0,200.0 176,304" fill="none" stroke="#7c3aed" stroke-width="4"/>
+<text x="490" y="112" font-size="12" font-weight="700" fill="#7c3aed" text-anchor="middle">a. etmoidalis posterior</text>
+<path d="M560,300 Q365.0,290.0 183,318" fill="none" stroke="#2563eb" stroke-width="4"/>
+<text x="488" y="290" font-size="12" font-weight="700" fill="#2563eb" text-anchor="end">a. sfenopalatina</text>
+<path d="M340,380 Q255.0,330.0 165,325" fill="none" stroke="#2563eb" stroke-width="4"/>
+<text x="340" y="430" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle">a. palatina mayor</text>
+<path d="M60,380 Q115.0,330.0 143,325" fill="none" stroke="#2563eb" stroke-width="4"/>
+<text x="20" y="456" font-size="12" font-weight="700" fill="#2563eb" text-anchor="start">a. labialis superior</text>
+<text x="175" y="404" font-size="13" font-weight="700" fill="#b91c1c" text-anchor="middle">Pleksus Kiesselbach</text>
+<text x="175" y="420" font-size="12" font-weight="400" fill="#b91c1c" text-anchor="middle">(area Little)</text>
+<circle cx="520" cy="300" r="22" fill="none" stroke="#1d4ed8" stroke-width="2.5" stroke-dasharray="5,3"/>
+<text x="500" y="340" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="end">sumber posterior</text>
+<rect x="600" y="80" width="300" height="140" rx="10" fill="#f9fafb" stroke="#d1d5db"/>
+<line x1="614" y1="104" x2="640" y2="104" stroke="#7c3aed" stroke-width="4"/>
+<text x="648" y="108" font-size="12.5" font-weight="700" fill="#5b21b6" text-anchor="start">cabang karotis INTERNA</text>
+<line x1="614" y1="128" x2="640" y2="128" stroke="#2563eb" stroke-width="4"/>
+<text x="648" y="132" font-size="12.5" font-weight="700" fill="#1e40af" text-anchor="start">cabang karotis EKSTERNA</text>
+<text x="614" y="160" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">Sekitar 90% epistaksis berasal</text>
+<text x="614" y="178" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">dari septum anterior (pleksus</text>
+<text x="614" y="196" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">Kiesselbach). AFP 2018</text>
+<rect x="600" y="236" width="300" height="130" rx="10" fill="#eff6ff" stroke="#93c5fd"/>
+<text x="614" y="260" font-size="12.5" font-weight="700" fill="#1e3a8a" text-anchor="start">Posterior: a. maksilaris interna,</text>
+<text x="614" y="278" font-size="12.5" font-weight="400" fill="#1e3a8a" text-anchor="start">sfenopalatina, palatina desendens.</text>
+<text x="614" y="302" font-size="12.5" font-weight="400" fill="#1e3a8a" text-anchor="start">Sulit dijangkau, sering perlu</text>
+<text x="614" y="320" font-size="12.5" font-weight="400" fill="#1e3a8a" text-anchor="start">tampon posterior, endoskopi,</text>
+<text x="614" y="338" font-size="12.5" font-weight="400" fill="#1e3a8a" text-anchor="start">ligasi, atau embolisasi.</text>
+<text x="20" y="490" font-size="15" font-weight="700" fill="#111827" text-anchor="start">Tangga tatalaksana (AAO-HNS 2020; AFP 2018)</text>
+<rect x="20" y="504" width="880" height="36" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<circle cx="40" cy="522" r="12" fill="#6b7280"/>
+<text x="40" y="527" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="62" y="527" font-size="13" font-weight="400" fill="#111827" text-anchor="start">Nilai jalan napas, tanda vital, kesadaran</text>
+<rect x="34" y="548" width="866" height="36" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<circle cx="54" cy="566" r="12" fill="#16a34a"/>
+<text x="54" y="571" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+<text x="76" y="571" font-size="13" font-weight="400" fill="#111827" text-anchor="start">Duduk condong ke depan; tekan sepertiga bawah hidung ≥ 5 menit (AFP: 10–15 menit)</text>
+<rect x="48" y="592" width="852" height="36" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<circle cx="68" cy="610" r="12" fill="#2563eb"/>
+<text x="68" y="615" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<text x="90" y="615" font-size="13" font-weight="400" fill="#111827" text-anchor="start">Bersihkan bekuan, rinoskopi anterior, vasokonstriktor topikal (oksimetazolin)</text>
+<rect x="62" y="636" width="838" height="36" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<circle cx="82" cy="654" r="12" fill="#d97706"/>
+<text x="82" y="659" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+<text x="104" y="659" font-size="13" font-weight="400" fill="#111827" text-anchor="start">Kauter (perak nitrat) setelah anestesi lokal, hanya pada titik perdarahan</text>
+<rect x="76" y="680" width="824" height="36" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+<circle cx="96" cy="698" r="12" fill="#ea580c"/>
+<text x="96" y="703" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+<text x="118" y="703" font-size="13" font-weight="400" fill="#111827" text-anchor="start">Tampon anterior (resorbable bila ada gangguan pembekuan/antikoagulan)</text>
+<rect x="90" y="724" width="810" height="36" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<circle cx="110" cy="742" r="12" fill="#dc2626"/>
+<text x="110" y="747" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+<text x="132" y="747" font-size="13" font-weight="400" fill="#111827" text-anchor="start">Tetap berdarah/posterior: rujuk THT, tampon posterior, ligasi atau embolisasi</text>
+</svg>

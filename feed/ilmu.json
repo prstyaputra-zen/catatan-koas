@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-14T14:13:00Z",
+ "updated": "2026-10-14T22:06:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -1162,6 +1162,49 @@
      "publisher": "Royal Victoria Eye and Ear Hospital",
      "year": 2022,
      "url": "https://rveeh.ie/app/uploads/2022/06/Clinical-Guideline-Acute-Angle-Closure-Glaucoma-Final-2022.pdf"
+    }
+   ]
+  },
+  {
+   "id": "20261015-0505-epistaksis",
+   "created": "2026-10-14T22:06:00Z",
+   "title": "Epistaksis: pleksus Kiesselbach, sumber posterior, dan tangga tatalaksana (AAO-HNS 2020)",
+   "type": "topik",
+   "stase": "THT",
+   "tags": [
+    "epistaksis",
+    "mimisan",
+    "pleksus Kiesselbach",
+    "tampon hidung"
+   ],
+   "body": "Definisi:\nEpistaksis adalah perdarahan dari rongga hidung. Kondisi ini sangat umum: dialami hingga 60% populasi, dan sekitar 1 dari 10 orang yang mengalaminya mencari pertolongan medis. Epistaksis menyumbang sekitar 1 dari 200 kunjungan instalasi gawat darurat (IGD). Kejadiannya bimodal, memuncak pada anak < 10 tahun dan dewasa 70–79 tahun, sedikit lebih sering pada laki-laki (American Family Physician/AFP 2018, Epistaxis: Outpatient Management).\n\nBerdasarkan sumbernya, epistaksis dibagi menjadi anterior (sekitar 90%, dari septum bagian depan) dan posterior (dari bagian belakang septum atau dinding lateral rongga hidung).\n\nAnatomi dan fisiologi terkait:\n{{gambar:1}}\n- Mukosa hidung kaya pembuluh darah karena fungsinya menghangatkan dan melembapkan udara yang dihirup. Pembuluh-pembuluh ini terletak dangkal di bawah mukosa yang tipis, sehingga mudah pecah.\n- Pleksus Kiesselbach (area Little) di septum anterior adalah tempat bertemunya cabang dua sistem arteri:\n  - Dari arteri karotis interna: arteri etmoidalis anterior dan posterior.\n  - Dari arteri karotis eksterna: arteri sfenopalatina, labialis superior, dan palatina mayor.\n- Karena beberapa arteri bertemu di satu titik yang dangkal dan mudah dijangkau jari, area ini menjadi sumber sebagian besar epistaksis.\n- Perdarahan posterior berasal dari arteri maksilaris interna, sfenopalatina, dan palatina desendens di sepanjang septum atau dinding lateral, dengan sedikit kontribusi arteri etmoidalis posterior. Letaknya jauh di belakang sehingga sulit dilihat dan ditekan.\n- Menekan sepertiga bawah hidung (bagian lunak) menjepit pleksus Kiesselbach ke septum, sehingga aliran berhenti dan bekuan sempat terbentuk.\n\nPatofisiologi:\n1. Mukosa septum anterior terpapar udara yang kering dan trauma (misalnya mengorek hidung).\n2. Mukosa menjadi kering, rapuh, dan mudah luka.\n3. Pembuluh dangkal di pleksus Kiesselbach robek.\n4. Darah mengalir keluar dari lubang hidung (anterior) atau ke nasofaring dan tertelan (posterior).\n5. Pada pasien dengan gangguan pembekuan atau pemakai antikoagulan, sumbat trombosit dan bekuan fibrin lambat terbentuk, sehingga perdarahan lebih lama dan mudah berulang.\n6. Perdarahan posterior biasanya lebih deras, sulit dijangkau, dan bisa mengancam jalan napas atau menimbulkan hipovolemia.\n\nEtiologi dan faktor risiko (AFP 2018):\n\n| Kelompok | Contoh |\n|---|---|\n| Lokal: inflamasi | sinusitis kronis, infeksi virus |\n| Lokal: struktural | deviasi atau perforasi septum |\n| Lokal: trauma | mengorek hidung (penyebab tersering pada anak), fraktur hidung, intubasi, oksigen nasal, kokain, steroid intranasal |\n| Lokal: massa | tumor, malformasi vaskular |\n| Sistemik | antikoagulan, koagulopati, hemofilia, leukemia, penyakit hati, trombositopenia, defisiensi vitamin A, C, D, E, K |\n\nPeran langsung hipertensi dan perubahan musim masih belum jelas (AFP 2018). Pada mimisan berulang di kedua sisi atau dengan riwayat keluarga, cari telangiektasia hidung yang mengarah ke hereditary hemorrhagic telangiectasia (HHT) (American Academy of Otolaryngology–Head and Neck Surgery/AAO-HNS 2020).\n\nManifestasi klinis/Diagnosis:\n- Darah keluar dari satu atau kedua lubang hidung, atau mengalir ke tenggorok sehingga pasien meludah atau memuntahkan darah.\n- Tanda perdarahan berat: takikardia, hipotensi, pucat, gelisah, atau gangguan jalan napas.\n- Anamnesis: sisi perdarahan, lama dan frekuensi, riwayat trauma, obat antikoagulan atau antiplatelet, penyakit hati, gangguan pembekuan, riwayat keluarga.\n- Pemeriksaan: setelah bekuan dikeluarkan, lakukan rinoskopi anterior untuk mencari titik perdarahan (AAO-HNS 2020). Untuk perdarahan berulang atau satu sisi yang sumbernya tidak tampak, lakukan atau rujuk untuk endoskopi nasal.\n- Dokumentasikan faktor yang memperberat perdarahan dan hasil tindakan dalam 30 hari (AAO-HNS 2020).\n\nTatalaksana:\n1. Nilai jalan napas, tanda vital, dan kesadaran lebih dulu. Rujuk segera bila jalan napas terancam.\n2. Kompresi: pasien duduk dan condong ke depan agar darah tidak tertelan atau teraspirasi. Tekan kuat dan terus-menerus pada sepertiga bawah hidung selama ≥ 5 menit (AAO-HNS 2020); AFP 2018 menyarankan 10–15 menit tanpa dilepas. Menekan pangkal hidung yang bertulang tidak efektif karena tidak menjepit pleksus Kiesselbach.\n3. Vasokonstriktor topikal: semprot oksimetazolin, atau kapas yang dibasahi oksimetazolin atau epinefrin 1:1.000. Obat ini menyempitkan arteriol mukosa sehingga aliran darah berkurang. Epinefrin yang terserap sistemik dapat menaikkan tekanan darah dan denyut jantung.\n4. Kauterisasi: perak nitrat efektif di layanan rawat jalan. Anestesi lokasi lebih dulu dan batasi kauter hanya pada titik yang berdarah (AAO-HNS 2020). Aplikasikan melingkar di sekitar titik perdarahan saat perdarahan relatif berhenti. Jangan melakukan kauter buta atau berlebihan karena dapat menimbulkan ulkus atau perforasi septum. Perak nitrat bekerja dengan mengoagulasi protein jaringan sehingga pembuluh tertutup.\n5. Tampon anterior bila perdarahan tetap berlanjut atau sumber tertutup darah: kasa berlapis petrolatum, tampon hidung, atau balon. Tampon biasanya dibiarkan 48 jam; angka perdarahan ulang dengan tampon tradisional sekitar 15% (AFP 2018). Pada pasien dengan gangguan pembekuan atau pemakai antikoagulan/antiplatelet, gunakan tampon yang dapat diserap (resorbable). Jelaskan kepada pasien jenis tampon yang dipasang.\n6. Antikoagulan: bila perdarahan tidak mengancam nyawa, mulai terapi lini pertama di atas sebelum transfusi, reversal, atau penghentian antikoagulan (AAO-HNS 2020).\n7. Antibiotik profilaksis saat tampon sering diberikan untuk mencegah sindrom syok toksik dan sinusitis, tetapi bukti pendukungnya terbatas (AFP 2018).\n8. Perdarahan posterior: stabilkan pasien lalu rujuk ke dokter spesialis telinga hidung tenggorok (THT) atau IGD. Tampon posterior (balon, kateter Foley, atau kateter dengan kapas) efektif hingga 70% bila dipasang dokter terlatih. Ligasi arteri secara endoskopik menjadi pilihan awal bila tersedia; embolisasi endovaskular adalah alternatif.\n\nKomplikasi dan kapan merujuk:\n- Tampon: nyeri, aspirasi bila tampon posterior terlepas, nekrosis ala nasi bila klem tidak diberi bantalan.\n- Kauter: ulkus dan perforasi septum.\n- Perdarahan posterior: perdarahan ulang hingga 50%; refleks vasovagal dapat menimbulkan gangguan irama jantung dan henti napas, sehingga pemantauan jantung dapat dipertimbangkan.\n- Rujuk bila jalan napas terancam, hemodinamik tidak stabil, curiga sumber posterior, perdarahan tidak berhenti dengan kompresi dan tampon anterior, perdarahan berulang satu sisi (perlu endoskopi untuk menyingkirkan tumor), atau curiga HHT.\n\nAnalogi:\nPleksus Kiesselbach seperti persimpangan jalan raya di mana lima jalan bertemu tepat di depan pintu rumah. Karena letaknya di depan dan ramai, paling sering terjadi \"kecelakaan\" di sana, tetapi juga paling mudah ditangani: cukup tutup persimpangan dengan menekan cuping hidung. Perdarahan posterior seperti kecelakaan di jalan tol jauh di belakang rumah: jarang, tetapi sulit dijangkau dan butuh tim khusus (dokter THT, endoskopi, ligasi).\n\nMnemonik:\n- Arteri pleksus Kiesselbach \"LEGS\" (mnemonik yang lazim dipakai): Labialis superior, Etmoidalis anterior, Greater palatine (palatina mayor), Sfenopalatina.\n- Pertolongan pertama \"Duduk-Condong-Cubit\" (mnemonik buatan): duduk, condong ke depan, cubit bagian lunak hidung tanpa dilepas.\n- Tangga terapi \"TeVaKa-TaRu\" (mnemonik buatan): Tekan, Vasokonstriktor, Kauter, Tampon, Rujuk.\n\nPoin untuk koas:\n- Ajarkan pasien dan keluarga: cubit bagian lunak hidung, bukan pangkal hidung, dan jangan menengadahkan kepala.\n- Jangan lepas tekanan untuk \"mengecek\" sebelum waktunya; bekuan yang baru terbentuk akan lepas lagi.\n- Selalu tanyakan obat antikoagulan dan antiplatelet.\n- Kauter hanya pada titik perdarahan setelah dianestesi, bukan kauter buta.\n- Perdarahan berulang satu sisi pada orang dewasa perlu endoskopi untuk mencari massa.\n\nSingkatan:\n- AAO-HNS: American Academy of Otolaryngology–Head and Neck Surgery\n- AFP: American Family Physician (jurnal)\n- HHT: hereditary hemorrhagic telangiectasia\n- IGD: instalasi gawat darurat\n- THT: telinga hidung tenggorok",
+   "images": [
+    {
+     "file": "img/20261015-0505-epistaksis-1.svg",
+     "caption": "Arteri yang membentuk pleksus Kiesselbach (cabang karotis interna dan eksterna), lokasi sumber posterior, dan tangga tatalaksana epistaksis.",
+     "credit": "Diagram skematis Catatan Koas berdasarkan AFP 2018 (Epistaxis: Outpatient Management) dan AAO-HNS Clinical Practice Guideline: Nosebleed 2020"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "American Academy of Otolaryngology–Head and Neck Surgery (AAO-HNS)",
+     "title": "Clinical Practice Guideline: Nosebleed (Epistaxis)",
+     "year": 2020,
+     "url": "https://journals.sagepub.com/doi/10.1177/0194599819890327"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Epistaxis: Outpatient Management",
+     "publisher": "American Family Physician 98(4):240-245",
+     "year": 2018,
+     "url": "https://www.aafp.org/pubs/afp/issues/2018/0815/p240.html"
+    },
+    {
+     "title": "Clinical Practice Guideline: Nosebleed (Epistaxis)",
+     "publisher": "Otolaryngology–Head and Neck Surgery",
+     "year": 2020,
+     "url": "https://journals.sagepub.com/doi/10.1177/0194599819890327"
     }
    ]
   }
