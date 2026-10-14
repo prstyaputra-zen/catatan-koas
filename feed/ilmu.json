@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-14T10:08:00Z",
+ "updated": "2026-10-14T14:13:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -1118,6 +1118,50 @@
      "publisher": "World Health Organization",
      "year": 2026,
      "url": "https://www.who.int/news-room/fact-sheets/detail/leprosy"
+    }
+   ]
+  },
+  {
+   "id": "20261014-2105-glaukoma-akut",
+   "created": "2026-10-14T14:13:00Z",
+   "title": "Glaukoma akut sudut tertutup: blok pupil, gejala, dan terapi penurun TIO",
+   "type": "topik",
+   "stase": "Mata",
+   "tags": [
+    "glaukoma akut",
+    "sudut tertutup",
+    "TIO",
+    "iridotomi laser",
+    "mata merah"
+   ],
+   "body": "Definisi:\nGlaukoma akut sudut tertutup adalah kegawatdaruratan mata akibat kenaikan tekanan intraokular (TIO) yang cepat karena aliran keluar humor akuos tersumbat (StatPearls, Acute Angle-Closure Glaucoma, pembaruan 10 Januari 2026). TIO normal yang diukur dengan tonometri adalah 10–21 mmHg, sedangkan saat serangan biasanya 50–80 mmHg.\n\nAnatomi dan fisiologi terkait:\n{{gambar:1}}\n- Humor akuos adalah cairan bening yang mengisi bilik mata depan, memberi nutrisi pada kornea dan lensa yang tidak berpembuluh darah, serta menjaga bentuk bola mata.\n- Akuos dibuat oleh badan siliar di belakang iris, mengalir ke depan melalui pupil (celah antara tepi iris dan lensa), lalu keluar melalui jaringan trabekular dan kanal Schlemm.\n- Jaringan trabekular terletak di sudut bilik mata depan, yaitu sudut antara kornea dan pangkal iris. Bila sudut ini tertutup iris, akuos tetap diproduksi tetapi tidak bisa keluar, sehingga tekanan naik.\n- TIO ditentukan oleh keseimbangan antara produksi dan pembuangan akuos, seperti wastafel yang keran dan saluran pembuangannya harus seimbang.\n- Mata hipermetropia (rabun dekat) biasanya lebih pendek dengan bilik mata depan lebih dangkal. Lensa juga menebal seiring usia sehingga bilik mata depan makin dangkal. Kedua hal ini membuat sudut lebih sempit.\n\nPatofisiologi:\n1. Pada mata dengan sudut sempit, tepi iris menempel erat ke permukaan depan lensa. Akuos sulit melewati pupil (blok pupil).\n2. Akuos yang terus diproduksi menumpuk di bilik mata belakang, sehingga tekanan di belakang iris lebih tinggi daripada di depannya.\n3. Iris perifer yang tipis terdorong ke depan dan melengkung (iris bombe).\n4. Iris yang melengkung menutup sudut bilik mata depan dan jaringan trabekular.\n5. Aliran keluar terhenti total, TIO melonjak. Lingkaran ini saling memperkuat: makin tertutup sudut, makin tinggi tekanan, makin kuat iris terdorong.\n6. TIO tinggi menyebabkan edema kornea (kornea keruh, penglihatan kabur, halo pelangi), iskemia saraf optik, dan bila tidak segera ditangani, kehilangan penglihatan.\n\nPencetus: cahaya redup membuat pupil melebar sehingga lipatan iris menebal di sudut. Obat midriatik antikolinergik (atropin, siklopentolat) dan obat sistemik seperti topiramat dan sulfonamid juga dapat mencetuskan serangan (StatPearls). Pedoman Royal Victoria Eye and Ear Hospital (RVEEH) 2022 menambahkan selective serotonin reuptake inhibitor (SSRI), serotonin-norepinephrine reuptake inhibitor (SNRI), dekongestan, dan fenotiazin.\n\nEtiologi dan faktor risiko:\n- Hipermetropia.\n- Perempuan (insidens 2–4 kali lebih tinggi).\n- Keturunan Asia, termasuk Asia Tenggara dan Tiongkok, serta suku Inuit.\n- Usia, biasanya 55–65 tahun; risiko meningkat seiring usia.\n- Perubahan lensa (makin tebal, bilik mata depan makin dangkal).\n- Riwayat keluarga.\n- Obat-obatan pencetus seperti disebut di atas.\n\nManifestasi klinis/Diagnosis:\nGejala:\n- Nyeri mata atau sakit kepala (sering di dahi).\n- Penglihatan kabur.\n- Halo berwarna pelangi di sekitar lampu.\n- Mual dan muntah, sehingga kadang disangka penyakit perut atau migren.\n- Riwayat nyeri singkat di tempat redup atau saat membaca dapat menandakan serangan intermiten sebelumnya (RVEEH).\n\nTanda:\n- Pupil lebar sedang (mid-dilatasi) dan tidak bereaksi terhadap cahaya.\n- Injeksi konjungtiva yang nyata.\n- Kornea keruh (edema).\n- Bilik mata depan dangkal.\n- Sel dan flare ringan di bilik mata depan.\n- Diskus optik membengkak saat serangan.\n\nPemeriksaan:\n- Tonometri untuk mengukur TIO; RVEEH lebih memilih tonometri aplanasi Goldmann.\n- Lampu celah (slit lamp): bilik mata depan dangkal, edema kornea.\n- Gonioskopi memastikan sudut tertutup; gonioskopi indentasi dapat sekaligus membantu membuka sudut. Periksa juga mata sebelahnya. Bila gonioskopi tidak memungkinkan, perkirakan kedalaman sudut dengan metode Van Herick.\n- Pencitraan biasanya tidak diperlukan pada fase akut.\n\nTatalaksana:\nTujuan: turunkan TIO secepatnya, buka sudut, redakan radang, lalu cegah kekambuhan dengan iridotomi.\n\n1. Gejala: analgetik dan antiemetik (RVEEH).\n2. Kurangi produksi akuos:\n   - Asetazolamid 500 mg oral atau intravena (IV); IV lebih cepat. Asetazolamid adalah penghambat karbonik anhidrase, enzim yang diperlukan badan siliar untuk membentuk akuos. Hati-hati pada gangguan ginjal.\n   - Timolol 0,5% satu tetes. Penyekat beta ini menurunkan produksi akuos oleh badan siliar. Hati-hati pada asma dan penyakit paru obstruktif kronik (PPOK) karena dapat terserap sistemik.\n   - Apraklonidin 1% satu tetes (RVEEH: tiap 15 menit pada jam pertama). Agonis alfa-2 ini juga menurunkan produksi akuos. Hati-hati pada angina atau penyakit jantung koroner.\n3. Tarik cairan dari mata: manitol IV 1–2 g/kg. Manitol adalah diuretik osmotik yang menaikkan osmolaritas darah sehingga cairan tertarik keluar dari bola mata. RVEEH menyarankan manitol hanya bila asetazolamid IV gagal, dan hati-hati pada diabetes, gagal jantung atau ginjal, dehidrasi, atau hipotensi.\n4. Buka sudut: pilokarpin 1–2% satu tetes tiap 15 menit sebanyak 2 kali, setelah TIO < 40 mmHg. Pilokarpin mengerutkan otot sfingter pupil sehingga iris tertarik menjauhi sudut. Pada TIO sangat tinggi pilokarpin kurang efektif, sehingga diberikan setelah TIO mulai turun.\n5. Redakan radang: steroid topikal (RVEEH).\n6. Pantau TIO minimal tiap jam sampai stabil.\n7. Terapi definitif: iridotomi perifer laser (laser peripheral iridotomy/LPI) membuat lubang kecil di iris perifer, sehingga akuos punya jalan pintas dari bilik belakang ke bilik depan tanpa melewati pupil. Bila laser tidak memungkinkan, dilakukan iridektomi bedah. Ekstraksi lensa dapat menjadi pilihan pertama bila faktor risiko anatomis bermakna.\n8. Mata sebelahnya: lakukan LPI juga, karena anatominya sama dan berisiko 40–80% mengalami serangan dalam 5–10 tahun (StatPearls).\n\n| Obat | Cara kerja | Perhatian |\n|---|---|---|\n| Asetazolamid 500 mg PO/IV | hambat karbonik anhidrase, produksi akuos turun | gangguan ginjal |\n| Timolol 0,5% | penyekat beta, produksi akuos turun | asma, PPOK |\n| Apraklonidin 1% | agonis alfa-2, produksi akuos turun | penyakit jantung koroner |\n| Manitol IV 1–2 g/kg | osmotik, tarik cairan dari mata | gagal jantung atau ginjal, dehidrasi |\n| Pilokarpin 1–2% | miosis, iris tertarik dari sudut | beri setelah TIO < 40 mmHg |\n\nKomplikasi dan kapan merujuk:\n- Kehilangan penglihatan sementara atau permanen; kerusakan biasanya dimulai dari lapang pandang perifer lalu ke sentral.\n- Glaukoma maligna dapat terjadi walaupun iridotomi sudah paten.\n- Tanda bekas serangan: sinekia posterior, atrofi iris, dan glaukomflecken (bercak kekeruhan lensa).\n- Ini kegawatdaruratan: setiap kecurigaan harus dirujuk segera ke dokter spesialis mata setelah terapi awal penurun TIO diberikan bila tersedia.\n\nAnalogi:\nBayangkan mata sebagai wastafel dengan keran yang terus mengalir (badan siliar) dan lubang pembuangan di pinggir (sudut dan jaringan trabekular). Air harus melewati sebuah pintu sempit (pupil) sebelum mencapai pembuangan. Pada blok pupil, pintu itu tertutup, air menumpuk di ruang belakang dan mendorong tirai (iris) ke depan sampai tirai menutup lubang pembuangan. Obat-obat pertama mengecilkan keran (asetazolamid, timolol, apraklonidin), manitol menyedot air dari wastafel, pilokarpin menarik tirai menjauh dari pembuangan, dan iridotomi laser membuat pintu darurat di tirai agar air tidak lagi terjebak.\n\nMnemonik:\n- Faktor risiko \"HiPeR-ASIA\" (mnemonik buatan): Hipermetropia, Perempuan, Riwayat keluarga, Asia, uSIA lanjut (lensa menebal).\n- Urutan terapi \"KeTAP-L\" (mnemonik buatan): Kecilkan produksi (asetazolamid, timolol, apraklonidin), Tarik cairan (manitol), Pilokarpin setelah TIO < 40, Laser iridotomi kedua mata.\n- Ambang pilokarpin \"40 baru pilo\" (mnemonik buatan): pilokarpin diberikan setelah TIO di bawah 40 mmHg.\n\nPoin untuk koas:\n- Pasien tua dengan sakit kepala, muntah, dan mata merah dengan pupil lebar sedang yang tidak bereaksi adalah glaukoma akut sampai terbukti lain. Jangan terkecoh hanya mengobati muntahnya.\n- Bedakan dengan konjungtivitis: konjungtivitis tidak menurunkan tajam penglihatan secara bermakna, tidak membuat pupil lebar tak bereaksi, dan kornea tetap jernih.\n- Jangan memberi tetes midriatik untuk funduskopi pada mata dengan bilik mata depan dangkal tanpa menilai sudut lebih dulu.\n- Selalu periksa dan rencanakan iridotomi untuk mata sebelahnya.\n- Tanyakan riwayat asma sebelum memberi timolol.\n\nSingkatan:\n- IV: intravena\n- LPI: laser peripheral iridotomy (iridotomi perifer laser)\n- PO: per oral\n- PPOK: penyakit paru obstruktif kronik\n- RVEEH: Royal Victoria Eye and Ear Hospital (Dublin)\n- SNRI: serotonin-norepinephrine reuptake inhibitor\n- SSRI: selective serotonin reuptake inhibitor\n- TIO: tekanan intraokular",
+   "images": [
+    {
+     "file": "img/20261014-2105-glaukoma-akut-1.svg",
+     "caption": "Aliran humor akuos normal dibandingkan blok pupil dengan iris bombe yang menutup sudut, serta target kerja obat pada serangan akut.",
+     "credit": "Diagram skematis Catatan Koas berdasarkan StatPearls Acute Angle-Closure Glaucoma (2026) dan pedoman RVEEH (2022)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Royal Victoria Eye and Ear Hospital (RVEEH), Dublin",
+     "title": "Clinical Guideline for the treatment of Acute Angle-Closure Glaucoma (AACG)",
+     "year": 2022,
+     "url": "https://rveeh.ie/app/uploads/2022/06/Clinical-Guideline-Acute-Angle-Closure-Glaucoma-Final-2022.pdf"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Acute Angle-Closure Glaucoma (StatPearls)",
+     "publisher": "NCBI Bookshelf",
+     "year": 2026,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK430857/"
+    },
+    {
+     "title": "Clinical Guideline for the treatment of Acute Angle-Closure Glaucoma",
+     "publisher": "Royal Victoria Eye and Ear Hospital",
+     "year": 2022,
+     "url": "https://rveeh.ie/app/uploads/2022/06/Clinical-Guideline-Acute-Angle-Closure-Glaucoma-Final-2022.pdf"
     }
    ]
   }
