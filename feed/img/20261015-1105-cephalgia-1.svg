@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 960" width="920" height="960" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="920" height="960" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Cephalgia (nyeri kepala): mekanisme migren dan tiga jenis primer</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik sederhana, tidak sesuai skala anatomi</text>
+<text x="20" y="88" font-size="15" font-weight="700" fill="#111827" text-anchor="start">A. Rantai kejadian migren dan target obat</text>
+<rect x="20" y="108" width="165" height="78" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="102.5" y="136.0" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">Pemicu</text>
+<text x="102.5" y="152.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">stres, hormon, tidur,</text>
+<text x="102.5" y="168.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">makan terlewat</text>
+<rect x="195" y="108" width="165" height="78" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<text x="277.5" y="136.0" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">Cortical</text>
+<text x="277.5" y="152.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">spreading depression</text>
+<text x="277.5" y="168.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">(penyebab aura)</text>
+<rect x="370" y="108" width="165" height="78" rx="9" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="452.5" y="136.0" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">Sistem trigeminal</text>
+<text x="452.5" y="152.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">teraktivasi: CGRP</text>
+<text x="452.5" y="168.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">dilepas</text>
+<rect x="545" y="108" width="165" height="78" rx="9" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="627.5" y="136.0" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">Pembuluh dura melebar,</text>
+<text x="627.5" y="152.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">peradangan</text>
+<text x="627.5" y="168.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">neurogenik</text>
+<rect x="720" y="108" width="165" height="78" rx="9" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+<text x="802.5" y="136.0" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">Nukleus trigeminal</text>
+<text x="802.5" y="152.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">kaudalis, talamus,</text>
+<text x="802.5" y="168.0" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">korteks: nyeri</text>
+<line x1="185" y1="147" x2="193" y2="147" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<line x1="360" y1="147" x2="368" y2="147" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<line x1="535" y1="147" x2="543" y2="147" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<line x1="710" y1="147" x2="718" y2="147" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<text x="20" y="222" font-size="13.5" font-weight="700" fill="#111827" text-anchor="start">Target obat (StatPearls 2024, NICE CG150):</text>
+<rect x="20" y="234" width="215" height="56" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.8"/>
+<text x="127.5" y="257" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">OAINS, parasetamol</text>
+<text x="127.5" y="275" font-size="11.5" font-weight="400" fill="#374151" text-anchor="middle">menekan nyeri dan prostaglandin</text>
+<rect x="255" y="234" width="215" height="56" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.8"/>
+<text x="362.5" y="257" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">Triptan</text>
+<text x="362.5" y="275" font-size="11.5" font-weight="400" fill="#374151" text-anchor="middle">agonis 5-HT1B/1D pada pembuluh</text>
+<rect x="490" y="234" width="215" height="56" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.8"/>
+<text x="597.5" y="257" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">Gepant dan antibodi CGRP</text>
+<text x="597.5" y="275" font-size="11.5" font-weight="400" fill="#374151" text-anchor="middle">memblok CGRP atau reseptornya</text>
+<rect x="725" y="234" width="175" height="56" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.8"/>
+<text x="812.5" y="257" font-size="12.5" font-weight="700" fill="#111827" text-anchor="middle">Penyekat beta, topiramat,</text>
+<text x="812.5" y="275" font-size="11.5" font-weight="400" fill="#374151" text-anchor="middle">amitriptilin: pencegahan</text>
+<text x="20" y="330" font-size="15" font-weight="700" fill="#111827" text-anchor="start">B. Fase serangan migren</text>
+<rect x="20" y="346" width="195" height="104" rx="9" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="117.5" y="372" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Prodrom</text>
+<text x="117.5" y="396" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">sekitar 77% pasien</text>
+<text x="117.5" y="414" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">hingga 24-48 jam</text>
+<text x="117.5" y="432" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">sebelum nyeri</text>
+<rect x="230" y="346" width="195" height="104" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<text x="327.5" y="372" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Aura</text>
+<text x="327.5" y="396" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">sekitar 25% kasus</text>
+<text x="327.5" y="414" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">biasanya &lt;60 menit</text>
+<text x="327.5" y="432" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">paling sering visual</text>
+<rect x="440" y="346" width="235" height="104" rx="9" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="557.5" y="372" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Nyeri kepala</text>
+<text x="557.5" y="396" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">biasanya 4-72 jam</text>
+<text x="557.5" y="414" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">berdenyut, mual,</text>
+<text x="557.5" y="432" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">fotofobia, fonofobia</text>
+<rect x="690" y="346" width="210" height="104" rx="9" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="795.0" y="372" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Postdrom</text>
+<text x="795.0" y="396" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">lemas, pusing,</text>
+<text x="795.0" y="414" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">sulit konsentrasi</text>
+<line x1="216" y1="398" x2="228" y2="398" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<line x1="426" y1="398" x2="438" y2="398" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<line x1="676" y1="398" x2="688" y2="398" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<text x="20" y="492" font-size="15" font-weight="700" fill="#111827" text-anchor="start">C. Tiga nyeri kepala primer (ICHD-2 menurut AFP 2013; NICE CG150)</text>
+<rect x="20" y="508" width="280" height="212" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="160" y="534" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Migren</text>
+<text x="34" y="562" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Unilateral atau bilateral</text>
+<text x="34" y="584" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Berdenyut, sedang-berat</text>
+<text x="34" y="606" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Diperberat aktivitas rutin</text>
+<text x="34" y="628" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">4-72 jam (dewasa)</text>
+<text x="34" y="650" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Mual/muntah, atau</text>
+<text x="34" y="672" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">fotofobia + fonofobia</text>
+<text x="34" y="694" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">≥5 serangan</text>
+<rect x="320" y="508" width="280" height="212" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="460" y="534" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Tension-type (TTH)</text>
+<text x="334" y="562" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Bilateral</text>
+<text x="334" y="584" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Menekan/mengikat, ringan-sedang</text>
+<text x="334" y="606" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Tidak diperberat aktivitas</text>
+<text x="334" y="628" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">30 menit sampai 7 hari</text>
+<text x="334" y="650" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Tanpa mual/muntah</text>
+<text x="334" y="672" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Maks. satu: foto- atau fonofobia</text>
+<text x="334" y="694" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">≥10 serangan</text>
+<rect x="620" y="508" width="280" height="212" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="760" y="534" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Klaster</text>
+<text x="634" y="562" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Unilateral: orbita,</text>
+<text x="634" y="584" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">supraorbita, temporal</text>
+<text x="634" y="606" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Sangat berat</text>
+<text x="634" y="628" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">15-180 menit</text>
+<text x="634" y="650" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Gejala otonom ipsilateral:</text>
+<text x="634" y="672" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">mata merah/berair, hidung</text>
+<text x="634" y="694" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">tersumbat, ptosis, gelisah</text>
+<text x="20" y="758" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="start">D. Cari tanda bahaya dulu (AFP 2013; NICE CG150) sebelum menyebut nyeri kepala primer</text>
+<rect x="20" y="774" width="880" height="140" rx="10" fill="#fff1f2" stroke="#b91c1c" stroke-width="2"/>
+<text x="40" y="802" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Nyeri kepala pertama atau terburuk seumur hidup</text>
+<text x="480" y="802" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Thunderclap: puncak dalam menit</text>
+<text x="40" y="826" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Demam dengan kaku kuduk</text>
+<text x="480" y="826" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Defisit neurologis, perubahan kesadaran</text>
+<text x="40" y="850" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Dipicu batuk, olahraga, bersin, atau seks</text>
+<text x="480" y="850" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Usia &gt;50 tahun, baru, nyeri tekan arteri temporalis</text>
+<text x="40" y="874" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Hamil atau pascapersalinan</text>
+<text x="480" y="874" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Imunokompromais, kanker, HIV</text>
+<text x="40" y="898" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Papiledema</text>
+<text x="480" y="898" font-size="13" font-weight="400" fill="#1f2937" text-anchor="start">• Pola memburuk atau overuse obat</text>
+<text x="20" y="940" font-size="12" font-weight="400" fill="#4b5563" text-anchor="start">Dasar: AFP 2013 (Hainer dan Matheson), NICE CG150, StatPearls Migraine Headache (2024). Model mekanisme dari buku ajar neuroanatomi.</text>
+</svg>
