@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 980" width="920" height="980" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="920" height="980" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Vertigo: BPPV, manuver Epley, dan pendekatan penyebab</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik sederhana, tidak sesuai skala anatomi</text>
+<text x="20" y="88" font-size="15" font-weight="700" fill="#111827" text-anchor="start">A. Telinga dalam dan BPPV kanal posterior (kanalitiasis)</text>
+<rect x="20" y="104" width="880" height="270" rx="12" fill="#f8fafc" stroke="#d1d5db" stroke-width="1.5"/>
+<ellipse cx="170" cy="250" rx="62" ry="38" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+<text x="170" y="246" font-size="13" font-weight="700" fill="#92400e" text-anchor="middle">Utrikulus</text>
+<text x="170" y="264" font-size="12" font-weight="400" fill="#92400e" text-anchor="middle">(makula: otokonia)</text>
+<circle cx="330" cy="160" r="46" fill="none" stroke="#2563eb" stroke-width="12"/>
+<circle cx="330" cy="160" r="46" fill="none" stroke="#ffffff" stroke-width="4"/>
+<text x="330" y="165" font-size="12.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">Anterior</text>
+<circle cx="330" cy="312" r="46" fill="none" stroke="#2563eb" stroke-width="12"/>
+<circle cx="330" cy="312" r="46" fill="none" stroke="#ffffff" stroke-width="4"/>
+<text x="330" y="317" font-size="12.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">Lateral</text>
+<circle cx="500" cy="250" r="62" fill="none" stroke="#b91c1c" stroke-width="14"/>
+<circle cx="500" cy="250" r="62" fill="none" stroke="#fef2f2" stroke-width="5"/>
+<text x="500" y="255" font-size="13" font-weight="700" fill="#7f1d1d" text-anchor="middle">Posterior</text>
+<circle cx="441.7" cy="228.8" r="5.5" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="449.2" cy="214.4" r="5.5" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="460.1" cy="202.5" r="5.5" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<rect x="552" y="238" width="24" height="24" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<line x1="564" y1="262" x2="566" y2="342" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="490" y="356" font-size="13" font-weight="700" fill="#5b21b6" text-anchor="start">Ampula + kupula (sel rambut)</text>
+<line x1="232" y1="252" x2="436" y2="252" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<text x="334" y="243" font-size="12" font-weight="700" fill="#92400e" text-anchor="middle">otokonia lepas</text>
+<text x="650" y="138" font-size="14" font-weight="700" fill="#111827" text-anchor="start">Mengapa vertigo?</text>
+<text x="650" y="162" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Partikel (titik oranye) bergerak di kanal</text>
+<text x="650" y="182" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">saat posisi kepala berubah.</text>
+<text x="650" y="202" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Kupula terdorong: sinyal gerak palsu,</text>
+<text x="650" y="222" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">muncul vertigo dan nistagmus.</text>
+<text x="650" y="242" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Singkat (&lt;1 menit setelah nistagmus</text>
+<text x="650" y="262" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">muncul), lalu mereda.</text>
+<text x="650" y="306" font-size="12.5" font-weight="700" fill="#b91c1c" text-anchor="start">Kanal posterior: 85-95% kasus;</text>
+<text x="650" y="326" font-size="12.5" font-weight="700" fill="#b91c1c" text-anchor="start">kanal lateral: 5-15% (AAO-HNS 2017)</text>
+<text x="20" y="410" font-size="15" font-weight="700" fill="#111827" text-anchor="start">B. Manuver Epley (telinga kanan yang sakit; StatPearls BPPV 2025)</text>
+<rect x="20" y="426" width="168" height="200" rx="10" fill="#e0e7ff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="104" y="450" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">1. Duduk</text>
+<g transform="translate(104,520) rotate(-45)"><circle r="30" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/><polygon points="-7,-28 7,-28 0,-44" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/></g>
+<text x="104" y="582" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">kepala menoleh 45°</text>
+<text x="104" y="600" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">ke telinga sakit</text>
+<line x1="188" y1="526" x2="198" y2="526" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="198" y="426" width="168" height="200" rx="10" fill="#fee2e2" stroke="#6b7280" stroke-width="1.8"/>
+<text x="282" y="450" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">2. Berbaring cepat</text>
+<rect x="216" y="550" width="132" height="14" rx="4" fill="#9ca3af"/>
+<g transform="translate(282,506) rotate(-45)"><circle r="30" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/><polygon points="-7,-28 7,-28 0,-44" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/></g>
+<text x="282" y="582" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">kepala menggantung</text>
+<text x="282" y="600" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">20-30°, tahan 20-30 dtk</text>
+<line x1="366" y1="526" x2="376" y2="526" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="376" y="426" width="168" height="200" rx="10" fill="#fef3c7" stroke="#6b7280" stroke-width="1.8"/>
+<text x="460" y="450" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">3. Menoleh 90°</text>
+<rect x="394" y="550" width="132" height="14" rx="4" fill="#9ca3af"/>
+<g transform="translate(460,506) rotate(45)"><circle r="30" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/><polygon points="-7,-28 7,-28 0,-44" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/></g>
+<text x="460" y="582" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">ke sisi sehat,</text>
+<text x="460" y="600" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">tahan ±20 dtk</text>
+<line x1="544" y1="526" x2="554" y2="526" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="554" y="426" width="168" height="200" rx="10" fill="#fef3c7" stroke="#6b7280" stroke-width="1.8"/>
+<text x="638" y="450" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">4. Miring ke sisi sehat</text>
+<g transform="translate(638,520) rotate(135)"><circle r="30" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/><polygon points="-7,-28 7,-28 0,-44" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/></g>
+<text x="638" y="582" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">wajah hampir ke bawah,</text>
+<text x="638" y="600" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">tahan 20-30 dtk</text>
+<line x1="722" y1="526" x2="732" y2="526" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="732" y="426" width="168" height="200" rx="10" fill="#dcfce7" stroke="#6b7280" stroke-width="1.8"/>
+<text x="816" y="450" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">5. Duduk</text>
+<g transform="translate(816,520) rotate(0)"><circle r="30" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/><polygon points="-7,-28 7,-28 0,-44" fill="#fde68a" stroke="#92400e" stroke-width="2.5"/></g>
+<text x="816" y="582" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle">kembali tegak</text>
+<text x="816" y="600" font-size="12.5" font-weight="400" fill="#111827" text-anchor="middle"></text>
+<text x="20" y="650" font-size="12" font-weight="400" fill="#4b5563" text-anchor="start">Segitiga di atas lingkaran menunjukkan arah hidung. Sisi kiri dilakukan sebagai bayangan cermin. Tidak perlu pembatasan postur sesudahnya (AAO-HNS 2017).</text>
+<text x="20" y="690" font-size="15" font-weight="700" fill="#111827" text-anchor="start">C. Waktu dan pemicu menentukan penyebab (AFP 2017)</text>
+<rect x="20" y="706" width="280" height="96" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+<text x="160" y="732" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Episodik dipicu</text>
+<text x="160" y="754" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">detik-jam, dipicu gerak kepala</text>
+<text x="160" y="782" font-size="13" font-weight="700" fill="#15803d" text-anchor="middle">BPPV</text>
+<rect x="320" y="706" width="280" height="96" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="460" y="732" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Episodik spontan</text>
+<text x="460" y="754" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">detik-hari, tanpa pemicu</text>
+<text x="460" y="782" font-size="13" font-weight="700" fill="#d97706" text-anchor="middle">Meniere, migren vestibular</text>
+<rect x="620" y="706" width="280" height="96" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="760" y="732" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Kontinu akut</text>
+<text x="760" y="754" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">hari-minggu</text>
+<text x="760" y="782" font-size="13" font-weight="700" fill="#b91c1c" text-anchor="middle">Vestibular neuritis atau stroke</text>
+<text x="20" y="840" font-size="15" font-weight="700" fill="#111827" text-anchor="start">HINTS pada vertigo kontinu akut (oleh pemeriksa berpengalaman)</text>
+<rect x="20" y="856" width="430" height="90" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+<text x="235" y="880" font-size="14" font-weight="700" fill="#15803d" text-anchor="middle">Perifer</text>
+<text x="36" y="902" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Head impulse: ada sakade korektif</text>
+<text x="36" y="920" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Nistagmus searah horizontal</text>
+<text x="36" y="938" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Test of skew: tidak ada deviasi vertikal</text>
+<rect x="470" y="856" width="430" height="90" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="685" y="880" font-size="14" font-weight="700" fill="#b91c1c" text-anchor="middle">Sentral (curiga stroke)</text>
+<text x="486" y="902" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Head impulse normal (tanpa sakade)</text>
+<text x="486" y="920" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Nistagmus vertikal/torsional atau berubah arah</text>
+<text x="486" y="938" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Ada deviasi vertikal (skew)</text>
+<text x="20" y="970" font-size="12" font-weight="400" fill="#4b5563" text-anchor="start">Dasar: AAO-HNS BPPV 2017, AFP 2017, StatPearls BPPV 2025 dan vestibular neuronitis 2023. Model kanal dari buku ajar anatomi telinga.</text>
+</svg>
