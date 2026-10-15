@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 900" width="920" height="900" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15803d"/></marker><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker><marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="920" height="900" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Penyakit Parkinson: mengapa gerakan menjadi lambat</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik sederhana, tidak sesuai skala anatomi</text>
+<text x="20" y="88" font-size="15" font-weight="700" fill="#111827" text-anchor="start">A. Sirkuit ganglia basalis</text>
+<text x="20" y="108" font-size="12.5" font-weight="400" fill="#4b5563" text-anchor="start">Hijau = merangsang, merah = menghambat. Garis tebal = sinyal kuat, garis putus = sinyal lemah.</text>
+<text x="230" y="136" font-size="14.5" font-weight="700" fill="#15803d" text-anchor="middle">Normal</text>
+<rect x="25" y="146" width="410" height="420" rx="12" fill="#f7fdf9" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="145" y="160" width="170" height="44" rx="9" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+<text x="230.0" y="179.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Korteks motorik</text>
+<text x="230.0" y="195.0" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">merencanakan gerak</text>
+<rect x="145" y="250" width="170" height="44" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="230.0" y="269.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Striatum</text>
+<text x="230.0" y="285.0" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">(putamen)</text>
+<rect x="37" y="236" width="92" height="72" rx="9" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+<text x="83.0" y="261.0" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">SNpc</text>
+<text x="83.0" y="277.0" font-size="12" font-weight="400" fill="#111827" text-anchor="middle">penghasil</text>
+<text x="83.0" y="293.0" font-size="12" font-weight="400" fill="#111827" text-anchor="middle">dopamin</text>
+<line x1="129" y1="272" x2="143" y2="272" stroke="#374151" stroke-width="4" marker-end="url(#ak)"/>
+<text x="83" y="326" font-size="12" font-weight="700" fill="#15803d" text-anchor="middle">dopamin normal</text>
+<line x1="230" y1="204" x2="230" y2="248" stroke="#15803d" stroke-width="2.5" marker-end="url(#ag)"/>
+<rect x="55" y="350" width="120" height="44" rx="9" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="115.0" y="377.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">GPe</text>
+<rect x="55" y="425" width="120" height="44" rx="9" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="115.0" y="452.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">STN</text>
+<rect x="245" y="425" width="170" height="44" rx="9" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="330.0" y="444.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">GPi / SNr</text>
+<text x="330.0" y="460.0" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">pintu rem gerak</text>
+<rect x="245" y="505" width="170" height="44" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+<text x="330.0" y="524.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Talamus</text>
+<text x="330.0" y="540.0" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">kembali ke korteks</text>
+<line x1="295" y1="294" x2="325" y2="423" stroke="#b91c1c" stroke-width="3.5" marker-end="url(#ar)"/>
+<text x="329" y="345" font-size="12" font-weight="700" fill="#374151" text-anchor="start">langsung (D1)</text>
+<text x="329" y="361" font-size="12" font-weight="700" fill="#15803d" text-anchor="start">aktif</text>
+<line x1="165" y1="294" x2="125" y2="348" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar)"/>
+<text x="195" y="330" font-size="12" font-weight="700" fill="#374151" text-anchor="start">tidak langsung</text>
+<text x="195" y="346" font-size="12" font-weight="700" fill="#15803d" text-anchor="start">(D2): seimbang</text>
+<line x1="115" y1="394" x2="115" y2="423" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ar)"/>
+<line x1="175" y1="447" x2="243" y2="447" stroke="#15803d" stroke-width="2" marker-end="url(#ag)"/>
+<line x1="330" y1="469" x2="330" y2="503" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar)"/>
+<path d="M415,527 C430,527 430,182 317,182" fill="none" stroke="#15803d" stroke-width="3.5" marker-end="url(#ag)"/>
+<text x="230" y="585" font-size="13" font-weight="700" fill="#15803d" text-anchor="middle">Rem gerak seimbang: talamus bebas</text>
+<text x="230" y="603" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">mengaktifkan korteks, gerakan lancar</text>
+<text x="690" y="136" font-size="14.5" font-weight="700" fill="#b91c1c" text-anchor="middle">Parkinson (dopamin turun)</text>
+<rect x="485" y="146" width="410" height="420" rx="12" fill="#fff7f7" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="605" y="160" width="170" height="44" rx="9" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+<text x="690.0" y="179.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Korteks motorik</text>
+<text x="690.0" y="195.0" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">merencanakan gerak</text>
+<rect x="605" y="250" width="170" height="44" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="690.0" y="269.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Striatum</text>
+<text x="690.0" y="285.0" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">(putamen)</text>
+<rect x="497" y="236" width="92" height="72" rx="9" fill="#fde2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="543.0" y="261.0" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">SNpc</text>
+<text x="543.0" y="277.0" font-size="12" font-weight="400" fill="#111827" text-anchor="middle">penghasil</text>
+<text x="543.0" y="293.0" font-size="12" font-weight="400" fill="#111827" text-anchor="middle">dopamin</text>
+<line x1="589" y1="272" x2="603" y2="272" stroke="#374151" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ak)"/>
+<text x="543" y="326" font-size="12" font-weight="700" fill="#b91c1c" text-anchor="middle">neuron hilang</text>
+<line x1="690" y1="204" x2="690" y2="248" stroke="#15803d" stroke-width="2.5" marker-end="url(#ag)"/>
+<rect x="515" y="350" width="120" height="44" rx="9" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="575.0" y="377.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">GPe</text>
+<rect x="515" y="425" width="120" height="44" rx="9" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="575.0" y="452.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">STN</text>
+<rect x="705" y="425" width="170" height="44" rx="9" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="790.0" y="444.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">GPi / SNr</text>
+<text x="790.0" y="460.0" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">pintu rem gerak</text>
+<rect x="705" y="505" width="170" height="44" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+<text x="790.0" y="524.0" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Talamus</text>
+<text x="790.0" y="540.0" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">kembali ke korteks</text>
+<line x1="755" y1="294" x2="785" y2="423" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+<text x="789" y="345" font-size="12" font-weight="700" fill="#374151" text-anchor="start">langsung (D1)</text>
+<text x="789" y="361" font-size="12" font-weight="700" fill="#b91c1c" text-anchor="start">lemah</text>
+<line x1="625" y1="294" x2="585" y2="348" stroke="#b91c1c" stroke-width="4" marker-end="url(#ar)"/>
+<text x="655" y="330" font-size="12" font-weight="700" fill="#374151" text-anchor="start">tidak langsung</text>
+<text x="655" y="346" font-size="12" font-weight="700" fill="#b91c1c" text-anchor="start">(D2): berlebih</text>
+<line x1="575" y1="394" x2="575" y2="423" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+<line x1="635" y1="447" x2="703" y2="447" stroke="#15803d" stroke-width="4" marker-end="url(#ag)"/>
+<line x1="790" y1="469" x2="790" y2="503" stroke="#b91c1c" stroke-width="5" marker-end="url(#ar)"/>
+<path d="M875,527 C890,527 890,182 777,182" fill="none" stroke="#15803d" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ag)"/>
+<text x="690" y="585" font-size="13" font-weight="700" fill="#b91c1c" text-anchor="middle">Rem gerak terlalu kuat: talamus tertekan,</text>
+<text x="690" y="603" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">gerakan lambat, kecil, sulit dimulai</text>
+<text x="20" y="650" font-size="15" font-weight="700" fill="#111827" text-anchor="start">B. Perjalanan penyakit</text>
+<line x1="40" y1="710" x2="880" y2="710" stroke="#374151" stroke-width="3" marker-end="url(#ak)"/>
+<rect x="40" y="672" width="290" height="76" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<text x="185.0" y="698" font-size="13.5" font-weight="700" fill="#111827" text-anchor="middle">Prodromal (hingga 10-15 tahun)</text>
+<rect x="40" y="756" width="290" height="66" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="50" y="776" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Hiposmia/anosmia, konstipasi,</text>
+<text x="50" y="793" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">gangguan perilaku tidur REM,</text>
+<text x="50" y="810" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">depresi</text>
+<rect x="350" y="672" width="240" height="76" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="470.0" y="698" font-size="13.5" font-weight="700" fill="#111827" text-anchor="middle">Diagnosis motorik</text>
+<rect x="350" y="756" width="240" height="66" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+<text x="360" y="776" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Bradikinesia + tremor istirahat</text>
+<text x="360" y="793" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">dan/atau rigiditas; awalnya</text>
+<text x="360" y="810" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">satu sisi (asimetris)</text>
+<rect x="610" y="672" width="260" height="76" rx="9" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="740.0" y="698" font-size="13.5" font-weight="700" fill="#111827" text-anchor="middle">Lanjut</text>
+<rect x="610" y="756" width="260" height="66" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="620" y="776" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Fluktuasi motorik, diskinesia,</text>
+<text x="620" y="793" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">instabilitas postural, jatuh,</text>
+<text x="620" y="810" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">demensia, psikosis</text>
+<text x="475" y="722" font-size="12" font-weight="700" fill="#b91c1c" text-anchor="middle">saat ini &gt;50-80% neuron</text>
+<text x="475" y="738" font-size="12" font-weight="700" fill="#b91c1c" text-anchor="middle">dopamin sudah hilang</text>
+<text x="20" y="878" font-size="12" font-weight="400" fill="#4b5563" text-anchor="start">Dasar: StatPearls Parkinson Disease (2025), AFP 2020, kriteria klinis MDS 2015. Model sirkuit dari buku ajar neuroanatomi.</text>
+</svg>
