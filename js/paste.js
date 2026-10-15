@@ -2,7 +2,7 @@
 import { convertTabRuns } from './table.js';
 
 // Prompt yang disalin ke Claude agar rangkumannya langsung cocok dengan format aplikasi.
-export const CLAUDE_PROMPT = `Buatkan rangkuman dari obrolan kita untuk aplikasi catatan koas-ku, dalam bahasa Indonesia, dengan format persis seperti ini:
+export const CLAUDE_PROMPT = `Salin materi dari obrolan kita untuk aplikasi catatan koas-ku, dalam bahasa Indonesia, dengan format persis seperti ini:
 
 Judul: <judul singkat>
 Jenis: <Topik / Obat / Prosedur / Kasus>
@@ -10,9 +10,13 @@ Stase: <mis. IPD, Bedah, Anak, Obgyn, Saraf>
 Tag: <3-6 kata kunci, pisahkan dengan koma>
 
 ## <Bagian, mis. Definisi>
-<isi ringkas, boleh pakai poin "- ">
+<isi bagian>
 
-(ulangi untuk setiap bagian yang relevan)
+(ulangi untuk setiap bagian)
+
+Aturan isi:
+- Bila jawabanmu di obrolan ini sudah berupa materi lengkap (misalnya disusun dengan skill materi-koas-komprehensif: Definisi, Anatomi dan fisiologi terkait, Patofisiologi, Etiologi dan faktor risiko, Manifestasi klinis/Diagnosis, Tatalaksana, Komplikasi dan kapan merujuk, Analogi, Mnemonik, Poin untuk koas, Singkatan), salin SELURUH materi itu apa adanya, kata demi kata. Jangan meringkas, memendekkan, menulis ulang, menggabungkan, mengubah urutan, atau menghapus bagian mana pun. Pertahankan penomoran langkah, tabel, dosis, label "(mnemonik buatan)", dan bagian Singkatan. Yang kamu tambahkan hanya 4 baris di atas (Judul, Jenis, Stase, Tag), dan setiap judul bagian ditulis dengan "## " di depannya.
+- Bila obrolan kita berupa tanya-jawab biasa, rangkum isinya per bagian yang relevan, boleh pakai poin "- ".
 
 Aturan tabel: setiap tabel yang ada di obrolan kita WAJIB ditulis ulang sebagai tabel Markdown lengkap (semua baris dan kolom, isi sel tidak diringkas), jangan diubah menjadi poin atau paragraf. Contoh:
 | Obat | Dosis |
@@ -21,6 +25,7 @@ Aturan tabel: setiap tabel yang ada di obrolan kita WAJIB ditulis ulang sebagai 
 
 ## Sumber
 - <judul sumber> (<link>)
+(salin semua sumber dan guideline yang disebut di materi)
 
 Jangan sertakan nama pasien, No. RM, atau NIK.`;
 
@@ -117,7 +122,8 @@ export function parseClaude(raw, { knownStase = [] } = {}) {
     }
     // "**Label:** isi" menjadi "Label: isi" agar tampil sebagai label seperti template.
     line = line.replace(/^\s*\*\*([^*:]{1,60}):\*\*\s*/, '$1: ').replace(/^\s*\*\*([^*:]{1,60})\*\*:\s*/, '$1: ');
-    line = line.replace(/^(\s*)\d+[.)]\s+/, (_, sp) => sp + '- ').replace(/^(\s*)[*+•]\s+/, '$1- ');
+    // Daftar bernomor tetap bernomor (urutan langkah patofisiologi/tatalaksana penting); hanya poin yang diseragamkan.
+    line = line.replace(/^(\s*)\d+\)\s+/, (m, sp) => m.replace(')', '.')).replace(/^(\s*)[*+•]\s+/, '$1- ');
 
     // Kumpulkan tautan sebagai sumber.
     for (const lm of line.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g)) addSource({ title: lm[1].trim(), url: lm[2] });

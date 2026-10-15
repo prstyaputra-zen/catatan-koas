@@ -7,7 +7,7 @@ import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText }
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.10.0';
+const APP_VERSION = '0.10.1';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -1376,7 +1376,7 @@ function renderPaste() {
     <div class="topbar"><a href="#/baru" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Tempel dari Claude</span></div>
     <div class="paste">
       <ol class="steps">
-        <li>Di akhir obrolan dengan Claude, kirim prompt rangkuman ini supaya hasilnya rapi. <button type="button" class="btn small ghost" id="copyprompt">📋 Salin prompt</button></li>
+        <li>Di akhir obrolan dengan Claude, kirim prompt ini supaya materinya tersalin utuh dan rapi. <button type="button" class="btn small ghost" id="copyprompt">📋 Salin prompt</button></li>
         <li>Di aplikasi Claude, ketuk <b>Salin</b> (Copy) di bawah jawabannya.</li>
         <li>Kembali ke sini dan tempel. Jawaban biasa tanpa format juga bisa.</li>
       </ol>
