@@ -7,7 +7,7 @@ import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText }
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.10.1';
+const APP_VERSION = '0.11.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -1398,7 +1398,7 @@ function renderPaste() {
     const t = TYPES[parsed.type] || TYPES.bebas;
     pv.innerHTML = `<div class="pv-title">${t.icon} ${esc(parsed.title || '(tanpa judul)')}</div>
       <div class="pv-meta">${esc(t.label)}${parsed.stase ? ' · ' + esc(parsed.stase) : ''} · ${parsed.tags.map((x) => '#' + esc(x)).join(' ')}</div>
-      <div class="pv-meta">${parsed.body.split('\n').filter((l) => /:$/.test(l.trim())).length} bagian · ${parsed.sources.length} sumber</div>`;
+      <div class="pv-meta">${parsed.body.split('\n').filter((l) => /:$/.test(l.trim())).length} bagian · ${parsed.sources.length} sumber${parsed.images.length ? ` · ${parsed.images.length} gambar` : ''}</div>`;
   };
   box.addEventListener('input', update);
   $('#pastebtn').onclick = async () => {
@@ -1416,11 +1416,52 @@ function renderPaste() {
     try { await navigator.clipboard.writeText(CLAUDE_PROMPT); toast('Prompt disalin. Tempel di obrolan Claude.'); }
     catch { box.value = CLAUDE_PROMPT; box.select(); toast('Salin teks prompt dari kotak, lalu hapus'); }
   };
-  $('#p-next').onclick = () => {
+  $('#p-next').onclick = async () => {
     if (!parsed) return;
-    state.draft = parsed;
-    location.hash = '#/baru/' + parsed.type;
+    const draft = parsed;
+    if (draft.images.length) {
+      $('#p-next').disabled = true;
+      toast('Membuat gambar…', 10000);
+      draft.inlineMedia = await svgDraftMedia(draft);
+      const failed = draft.images.length - draft.inlineMedia.filter(Boolean).length;
+      if (failed) toast(`${failed} gambar tidak bisa dibuat (kode SVG rusak atau terpotong). Keterangannya tetap ada di teks.`, 5000);
+    }
+    state.draft = draft;
+    location.hash = '#/baru/' + draft.type;
   };
+}
+
+// Kode SVG dari Claude diubah jadi PNG berlatar putih agar tampil, tersinkron, dan terbackup seperti foto biasa.
+async function svgToPng(svg) {
+  const img = await loadImage(new Blob([svg], { type: 'image/svg+xml' }));
+  const w = img.naturalWidth || 900;
+  const h = img.naturalHeight || 600;
+  const scale = Math.min(3, Math.max(1, 1800 / w), 4000 / h);
+  const c = document.createElement('canvas');
+  c.width = Math.round(w * scale);
+  c.height = Math.round(h * scale);
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, c.width, c.height);
+  ctx.drawImage(img, 0, 0, c.width, c.height);
+  const blob = await new Promise((resolve) => c.toBlob(resolve, 'image/png'));
+  if (!blob) throw new Error('Gambar tidak bisa dibuat');
+  return blob;
+}
+
+async function svgDraftMedia(draft) {
+  const out = [];
+  for (const [n, im] of draft.images.entries()) {
+    try {
+      const png = await svgToPng(im.svg);
+      const file = new File([png], `gambar-${n + 1}.png`, { type: 'image/png' });
+      const { blob, thumb } = await processImage(file);
+      out.push({ blob, thumb, caption: im.caption, name: file.name });
+    } catch {
+      out.push(null);
+    }
+  }
+  return out;
 }
 
 async function renderEditor(id, type) {
@@ -1437,6 +1478,16 @@ async function renderEditor(id, type) {
   const all = existing ? currentAndArchived(existing) : { current: [], archived: [] };
   const media = all.current.map((m) => ({ ...m, isNew: false, dirty: false }));
   state.editor = { note, media, archived: all.archived.map((m) => m.id), removed: [], dirty: !!draft, isNew: !existing };
+  if (draft && draft.images && draft.images.length) {
+    // Penanda "![..](svg:N)" dari hasil tempel diganti gambar sungguhan; yang gagal dibuat menjadi teks keterangan.
+    note.body = note.body.replace(/^!\[([^\]]*)\]\(svg:(\d+)\)$/gm, (m, cap, n) => {
+      const im = (draft.inlineMedia || [])[+n];
+      if (!im) return cap ? `[Gambar tidak terbaca: ${cap}]` : '[Gambar tidak terbaca]';
+      const mid = uid();
+      media.push({ id: mid, noteId: note.id, kind: 'image', name: im.name, mime: im.blob.type || 'image/png', size: im.blob.size, caption: '', blob: im.blob, thumb: im.thumb, created: Date.now(), isNew: true });
+      return `![${cap}](img:${mid})`;
+    });
+  }
 
   view().innerHTML = `
     <div class="topbar">
