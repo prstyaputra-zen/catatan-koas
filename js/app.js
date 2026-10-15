@@ -7,7 +7,7 @@ import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText }
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.11.0';
+const APP_VERSION = '0.11.1';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -377,7 +377,6 @@ async function renderNote(id) {
     <div class="topbar">
       <a href="#/" class="iconbtn" aria-label="Kembali">‹</a>
       <span class="grow"></span>
-      <button class="iconbtn" id="findbtn" aria-label="Cari di catatan ini">🔍</button>
       <button class="iconbtn" id="pin" aria-label="Sematkan">${n.pinned ? '📌' : '📍'}</button>
       <a class="btn small" href="#/ubah/${n.id}">Ubah</a>
     </div>
@@ -398,6 +397,10 @@ async function renderNote(id) {
       <div id="gallery" class="gallery"></div>
       ${relatedHtml(n)}
       <button class="btn danger ghost" id="del">Hapus catatan</button>
+      <div class="note-fabs">
+        <button class="mini-fab hidden" id="totop" aria-label="Kembali ke atas">⬆</button>
+        <button class="mini-fab" id="findbtn" aria-label="Cari di catatan ini">🔍</button>
+      </div>
     </article>`;
   $('#pin').onclick = async () => {
     n.pinned = !n.pinned;
@@ -482,6 +485,14 @@ function bindNoteFind(n, initialTerms) {
     else if (act === 'close') { bar.classList.add('hidden'); input.value = ''; apply(new Set(), false); }
   });
   $('#findbtn').onclick = () => (bar.classList.contains('hidden') ? open() : input.focus());
+  // Tombol ke atas muncul setelah layar digulir cukup jauh.
+  const topBtn = $('#totop');
+  topBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const onScroll = () => {
+    if (!document.body.contains(topBtn)) { window.removeEventListener('scroll', onScroll); return; }
+    topBtn.classList.toggle('hidden', window.scrollY < 400);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
   // Dibuka dari hasil pencarian: kata yang dicari sudah disorot, langsung tampilkan bilah cari.
   if (initialTerms && initialTerms.size && state.query.trim()) {
     bar.classList.remove('hidden');
