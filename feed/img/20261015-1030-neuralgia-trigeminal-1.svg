@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 900" width="920" height="900" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="920" height="900" fill="#ffffff"/>
+<text x="20" y="32" font-size="20" font-weight="700" fill="#111827">Neuralgia trigeminal: lokasi, mekanisme, dan tangga terapi</text>
+<text x="20" y="54" font-size="13" fill="#4b5563">Ilustrasi skematik sederhana, tidak sesuai skala anatomi</text>
+<text x="20" y="88" font-size="15" font-weight="700" fill="#111827" text-anchor="start">A. Saraf trigeminus (N. V) dan area wajah yang dipersarafi</text>
+<rect x="20" y="104" width="880" height="300" rx="12" fill="#f8fafc" stroke="#d1d5db" stroke-width="2"/>
+<rect x="60" y="140" width="130" height="190" rx="20" fill="#e5e7eb" stroke="#6b7280" stroke-width="2"/>
+<text x="125" y="168" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">Batang otak</text>
+<text x="125" y="186" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">(pons)</text>
+<path d="M190 250 C230 250 250 250 290 250" stroke="#0f766e" stroke-width="7" fill="none"/>
+<ellipse cx="240" cy="226" rx="34" ry="14" fill="#fecaca" stroke="#b91c1c" stroke-width="2.5"/>
+<text x="240" y="231" font-size="12.5" font-weight="700" fill="#7f1d1d" text-anchor="middle">Arteri</text>
+<line x1="240" y1="198" x2="240" y2="210" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<text x="262" y="186" font-size="12.5" font-weight="700" fill="#b91c1c" text-anchor="middle">menekan akar saraf</text>
+<text x="255" y="280" font-size="12.5" font-weight="700" fill="#0f766e" text-anchor="middle">zona masuk akar</text>
+<ellipse cx="340" cy="250" rx="42" ry="30" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5"/>
+<text x="340" y="247" font-size="12.5" font-weight="700" fill="#134e4a" text-anchor="middle">Ganglion</text>
+<text x="340" y="263" font-size="12.5" font-weight="700" fill="#134e4a" text-anchor="middle">Gasseri</text>
+<path d="M382 250 C420 250 430 160 470 160" stroke="#2563eb" stroke-width="5" fill="none"/>
+<rect x="470" y="136" width="190" height="48" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<text x="565" y="157" font-size="13.5" font-weight="700" fill="#111827" text-anchor="middle">V1 oftalmik</text>
+<path d="M382 250 C420 250 430 250 470 250" stroke="#d97706" stroke-width="5" fill="none"/>
+<rect x="470" y="226" width="190" height="48" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="565" y="247" font-size="13.5" font-weight="700" fill="#111827" text-anchor="middle">V2 maksilar</text>
+<path d="M382 250 C420 250 430 340 470 340" stroke="#16a34a" stroke-width="5" fill="none"/>
+<rect x="470" y="316" width="190" height="48" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<text x="565" y="337" font-size="13.5" font-weight="700" fill="#111827" text-anchor="middle">V3 mandibular</text>
+<text x="565" y="174" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">dahi, mata</text>
+<text x="565" y="264" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">pipi, hidung, bibir atas</text>
+<text x="565" y="354" font-size="12" font-weight="400" fill="#374151" text-anchor="middle">rahang bawah, bibir bawah</text>
+<text x="690" y="140" font-size="14" font-weight="700" fill="#111827" text-anchor="start">Fakta kunci</text>
+<text x="690" y="164" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Paling sering V2 dan V3;</text>
+<text x="690" y="184" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">V1 jarang.</text>
+<text x="690" y="204" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Nyeri satu sisi wajah,</text>
+<text x="690" y="224" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">biasanya tidak melewati</text>
+<text x="690" y="244" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">garis tengah.</text>
+<text x="690" y="264" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Pemicu: sentuhan ringan</text>
+<text x="690" y="284" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">(mencuci muka, makan,</text>
+<text x="690" y="304" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">bicara, angin).</text>
+<text x="20" y="440" font-size="15" font-weight="700" fill="#111827" text-anchor="start">B. Rantai mekanisme (teori kompresi vaskular)</text>
+<rect x="20" y="460" width="160" height="70" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="100" y="490" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Arteri menekan</text>
+<text x="100" y="510" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">akar saraf V</text>
+<line x1="182" y1="495" x2="196" y2="495" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="198" y="460" width="160" height="70" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="278" y="490" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Selubung mielin</text>
+<text x="278" y="510" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">rusak (demielinisasi)</text>
+<line x1="360" y1="495" x2="374" y2="495" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="376" y="460" width="160" height="70" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="456" y="490" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Hubungan pendek</text>
+<text x="456" y="510" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">antarserabut (ephaptic)</text>
+<line x1="538" y1="495" x2="552" y2="495" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="554" y="460" width="160" height="70" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+<text x="634" y="490" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Sentuhan ringan</text>
+<text x="634" y="510" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">dibaca sebagai nyeri</text>
+<line x1="716" y1="495" x2="730" y2="495" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="732" y="460" width="160" height="70" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="812" y="490" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Nyeri seperti</text>
+<text x="812" y="510" font-size="12.5" font-weight="400" fill="#374151" text-anchor="middle">sengatan listrik</text>
+<text x="20" y="556" font-size="12.5" font-weight="400" fill="#374151" text-anchor="start">Nyeri tajam, unilateral, berlangsung sepersekian detik hingga 2 menit, berulang. Bila nyeri menetap atau ada defisit saraf, curigai penyebab lain.</text>
+<text x="20" y="596" font-size="15" font-weight="700" fill="#111827" text-anchor="start">C. Tangga terapi (AAN-EFNS 2008)</text>
+<rect x="20" y="612" width="880" height="70" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<text x="36" y="638" font-size="14.5" font-weight="700" fill="#14532d" text-anchor="start">Lini pertama: karbamazepin</text>
+<text x="36" y="660" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Sebagian besar pasien merespons 200-800 mg/hari; mulai rendah, naikkan bertahap; pantau natrium dan efek samping.</text>
+<line x1="460" y1="684" x2="460" y2="702" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="20" y="704" width="880" height="70" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="36" y="730" font-size="14.5" font-weight="700" fill="#78350f" text-anchor="start">Bila gagal atau tidak tahan: oksakarbazepin, baklofen, atau lamotrigin</text>
+<text x="36" y="752" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Oksakarbazepin 600-1.800 mg/hari; baklofen 10-80 (AFP) atau 40-80 mg/hari (EFNS); lamotrigin 400 mg/hari sebagai tambahan.</text>
+<line x1="460" y1="776" x2="460" y2="794" stroke="#374151" stroke-width="2.5" marker-end="url(#ak)"/>
+<rect x="20" y="796" width="880" height="60" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+<text x="36" y="822" font-size="14.5" font-weight="700" fill="#7f1d1d" text-anchor="start">Refrakter atau efek samping tak tertahankan: bedah</text>
+<text x="36" y="842" font-size="12.5" font-weight="400" fill="#1f2937" text-anchor="start">Dekompresi mikrovaskular (MVD), tindakan perkutan, atau gamma knife; rujuk ke bedah saraf.</text>
+<text x="20" y="884" font-size="12" font-weight="400" fill="#4b5563" text-anchor="start">Dasar: AFP 2008 dan 2009, panduan EFNS 2008, SPS NHS (karbamazepin). Model anatomi dari buku ajar neuroanatomi.</text>
+</svg>

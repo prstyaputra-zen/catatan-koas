@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-15T02:38:00Z",
+ "updated": "2026-10-15T03:30:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -1443,6 +1443,72 @@
      "publisher": "NCBI Bookshelf",
      "year": 2023,
      "url": "https://www.ncbi.nlm.nih.gov/books/NBK549866/"
+    }
+   ]
+  },
+  {
+   "id": "20261015-1030-neuralgia-trigeminal",
+   "created": "2026-10-15T03:30:00Z",
+   "title": "Neuralgia trigeminal: nyeri wajah seperti sengatan listrik",
+   "type": "topik",
+   "stase": "Saraf",
+   "tags": [
+    "neuralgia trigeminal",
+    "nyeri wajah",
+    "karbamazepin",
+    "kompresi vaskular"
+   ],
+   "body": "Definisi:\nNeuralgia trigeminal (trigeminal neuralgia, TN) adalah gangguan yang ditandai serangan berulang nyeri menusuk seperti sengatan listrik pada daerah persarafan nervus trigeminus (N. V) (AFP 2008). International Association for the Study of Pain (IASP) mendefinisikannya sebagai nyeri tiba-tiba, biasanya satu sisi, berat, singkat, menusuk, dan berulang di daerah persarafan N. V (EFNS 2008).\n- TN klasik (classical TN): idiopatik atau disebabkan kompresi pembuluh darah pada saraf kelima. TN simtomatik: disebabkan penyakit lain seperti tumor, multiple sclerosis (MS), atau kelainan dasar tengkorak (EFNS 2008; AFP 2008).\n- Insidensi tahunan 4,3 per 100.000 (AFP 2008) atau 4-5 per 100.000 (EFNS 2008). Puncaknya usia 60-70 tahun; sedikit lebih sering pada perempuan (rasio 1,74 : 1); TN klasik jarang muncul sebelum usia 40 tahun (AFP 2008).\n- Sekitar 1-2% pasien MS mengalami TN. Risiko relatif TN pada MS 20,0 dan pada hipertensi perempuan 2,1 (AFP 2008; AFP 2016).\n\n{{gambar:1}}\n\nAnatomi dan fisiologi terkait:\n- Nervus trigeminus (N. V) adalah saraf sensorik utama wajah dan juga mempersarafi otot pengunyahan. Sel sarafnya terletak di ganglion trigeminal; akar sarafnya masuk ke batang otak di pons (konsep buku ajar).\n- Tiga divisi: oftalmik (V1, dahi dan mata), maksilar (V2, pipi, hidung samping, bibir atas), dan mandibular (V3, rahang bawah, dagu, bibir bawah). Pada TN, divisi kedua atau ketiga, atau keduanya, paling sering terkena; divisi oftalmik paling jarang (AFP 2008).\n- Sisi kanan lebih sering terkena daripada kiri (1,5 : 1), dugaannya karena foramen rotundum dan foramen ovale kanan lebih sempit (AFP 2008).\n- Serabut sentuhan ringan (A-beta) bermielin tebal, sedangkan serabut nyeri kecil. Dalam keadaan normal, sentuhan tidak menimbulkan nyeri; konsep ini penting untuk memahami pemicu TN (konsep buku ajar).\n- Arteri serebelar superior melintas dekat akar saraf di dasar otak; itu sebabnya pembuluh ini sering menjadi pelaku kompresi (AFP 2008).\n\nPatofisiologi:\n1. Pembuluh darah yang berkelok atau menyimpang, paling sering arteri serebelar superior, menekan akar N. V dekat pons. Ini teori utama TN klasik (AFP 2008).\n2. Denyut arteri dan tekanan kronik merusak selubung mielin pada titik tekan (demielinisasi).\n3. Akson yang kehilangan mielin dapat menularkan impuls ke serabut di sebelahnya (transmisi efaptik). Impuls dari serabut sentuhan ringan \"bocor\" ke serabut nyeri (AFP 2008).\n4. Akson yang rusak juga cenderung melepaskan impuls spontan berlebihan dan mudah terpicu (konsep buku ajar).\n5. Akibatnya, rangsangan ringan seperti bicara, senyum, mengunyah, menyikat gigi, bercukur, sentuhan ringan, atau embusan angin memicu ledakan impuls yang dirasakan sebagai nyeri menyetrum (AFP 2008).\n6. Setelah ledakan selesai, pasien pulih, sehingga di antara serangan umumnya tanpa gejala.\n7. Penyebab lain: amiloid, malformasi arteriovena, tekanan tulang, dan infark kecil di pons atau medula; demielinisasi akibat MS menjelaskan TN simtomatik (AFP 2008).\n\nEtiologi dan faktor risiko:\n| Jenis | Penyebab | Catatan |\n|---|---|---|\n| Klasik | Kompresi pembuluh darah (paling sering arteri serebelar superior) atau idiopatik | Pemeriksaan neurologis biasanya normal |\n| Simtomatik | Tumor, MS, kelainan dasar tengkorak (EFNS 2008); malformasi arteriovena, amiloid (AFP 2008) | Usia lebih muda, bisa ada defisit sensorik atau keterlibatan dua sisi |\n| Faktor risiko | Usia lanjut, perempuan, hipertensi, MS (AFP 2008; AFP 2016) | Tidak ada predileksi ras (AFP 2008) |\n\nManifestasi klinis/Diagnosis:\nDiagnosis terutama dari anamnesis (AFP 2008).\n- Nyeri berlangsung \"sepersekian detik sampai dua menit\" menurut kriteria International Headache Society (IHS); frekuensi jarang sampai ratusan kali sehari; jarang saat tidur.\n- Sifatnya berat, menusuk, tajam, seperti sengatan listrik atau superfisial.\n- Hampir selalu satu sisi. Di antara serangan umumnya bebas gejala, walau sebagian pasien merasa nyeri tumpul menetap.\n- Zona pemicu (trigger zone) kecil di sekitar hidung atau mulut hampir patognomonik bila ada (AFP 2008).\n- Pemeriksaan fisik dan neurologis biasanya normal pada TN klasik. Laboratorium umumnya tidak membantu (AFP 2008).\n\nPencitraan dan pemeriksaan tambahan:\n- AFP 2008: lakukan magnetic resonance imaging (MRI) pada semua pasien yang dicurigai TN (rekomendasi SORT C).\n- AAN/EFNS (dirangkum AFP 2009): pencitraan rutin dapat menemukan penyebab struktural nonvaskular pada hingga 15% pasien (Level C). MRI resolusi tinggi dipertimbangkan bila direncanakan operasi dekompresi (EFNS 2008).\n- Refleks trigeminal yang abnormal membantu membedakan TN simtomatik dari klasik (spesifisitas 94% dan sensitivitas 87%; AAN/EFNS) atau sensitivitas 96% dan spesifisitas 93% (AFP 2008). Pemeriksaannya belum mudah didapat.\n\nTanda bahaya (red flags) yang mengarah ke TN simtomatik atau diagnosis lain (AFP 2008): pemeriksaan neurologis abnormal, pemeriksaan mulut, gigi, atau telinga abnormal, usia di bawah 40 tahun, gejala kedua sisi, pusing atau vertigo, gangguan dengar, kebas, nyeri lebih dari 2 menit, nyeri di luar daerah N. V, dan gangguan penglihatan.\n\nDiagnosis banding (AFP 2008):\n| Diagnosis | Pembeda |\n|---|---|\n| Nyeri gigi | Terlokalisasi, terkait menggigit atau suhu |\n| Migren | Nyeri lebih lama, fotofobia, fonofobia |\n| Nyeri kepala klaster | Nyeri lebih lama, di sekitar orbita, gejala otonom |\n| Neuralgia pascaherpetik | Nyeri menetap, kesemutan, riwayat herpes zoster |\n| Neuralgia glosofaringeal | Lidah dan faring, dipicu menelan |\n| Arteritis sel raksasa | Nyeri menetap di pelipis, klaudikasio rahang |\n| Gangguan sendi temporomandibular | Nyeri menetap, nyeri tekan lokal |\n| MS atau tumor intrakranial | Ada gejala neurologis lain |\n| Neuropati trigeminal | Nyeri menetap dengan kehilangan sensorik |\n\nTatalaksana:\nObat antiepilepsi golongan penghambat kanal natrium adalah terapi lini pertama, karena menekan letupan listrik berlebihan pada akson yang rusak (konsep buku ajar).\n1. Karbamazepin: terapi lini pertama (bukti Level A). Rentang dosis yang diteliti 200-1.200 mg/hari (AAN/EFNS) atau 100-2.400 mg/hari (AFP 2008); sebagian besar pasien merespons 200-800 mg/hari dalam 2-3 dosis. Jadwal dosis awal dan peningkatan tidak tercantum dalam sumber yang kubuka, jadi mulai dengan dosis rendah dan naikkan bertahap sesuai petunjuk spesialis dan label obat. Number needed to treat (NNT) 2,5 (AFP 2008) atau 1,7-1,8 (EFNS 2008).\n2. Oksakarbazepin: 600-1.800 mg/hari, kemungkinan efektif (Level B), dianggap lebih mudah ditoleransi (EFNS 2008). AFP 2016 menyatakan keunggulan toleransi belum terbukti pada uji acak.\n3. Baclofen (10-80 mg/hari menurut AFP 2008; 40-80 mg/hari menurut dosis uji dalam EFNS 2008) dan lamotrigin (400 mg/hari sebagai tambahan menurut EFNS 2008) kemungkinan efektif (Level C). Baclofen didukung terutama pada pasien MS dengan TN (AFP 2016).\n4. Bukti belum cukup untuk klonazepam, gabapentin, fenitoin, tizanidin, kapsaisin topikal, dan asam valproat (AAN/EFNS).\n5. Bila nyeri tidak terkendali atau obat tidak tertoleransi, pertimbangkan bedah (lihat tabel).\n\nPemantauan karbamazepin (NHS Specialist Pharmacy Service/SPS, 2026):\n- Sebelum mulai: berat badan, darah lengkap, fungsi hati, ureum dan elektrolit, natrium serum. HLA-B*1502 wajib diperiksa pada pasien keturunan Han Tionghoa atau Thailand (risiko sindrom Stevens-Johnson); pertimbangkan pada kelompok berisiko lain (Filipina, Malaysia, Vietnam).\n- Setelah mulai: natrium serum pada minggu ke-2, lalu tiap bulan selama 3 bulan.\n- Hentikan bila leukopenia berat, progresif, atau disertai demam dan sakit tenggorok; hentikan segera bila fungsi hati memburuk atau ada penyakit hati akut. Hiponatremia ringan tanpa gejala (di atas 120 mmol/L) boleh dilanjutkan; bila bergejala atau di bawah 120 mmol/L, tinjau terapi.\n- Edukasi pasien: segera cari pertolongan bila demam, sakit tenggorok, ruam, sariawan, mudah memar atau berdarah, atau pikiran ingin bunuh diri. Efek samping umum: mengantuk, pusing, ruam, ataksia, dan kerusakan hati (AFP 2016).\n\nPilihan bedah (EFNS 2008; AFP 2008; AFP 2016):\n| Tindakan | Hasil | Catatan |\n|---|---|---|\n| Dekompresi mikrovaskular (microvascular decompression, MVD) | Sekitar 90% nyeri berkurang; bebas nyeri >80% pada 1 tahun, 75% pada 3 tahun, 73% pada 5 tahun; bertahan pada >70% setelah 10 tahun (AFP 2008) | Eksplorasi fossa posterior; mortalitas sekitar 0,2%; meningitis aseptik sekitar 11%, hilang sensasi sekitar 7%, komplikasi berat (kebocoran cairan serebrospinal, infark, hematoma) hingga 4%, gangguan dengar sisi yang sama hingga 10% (EFNS) atau <5% (AFP 2016). Pilihan baik untuk pasien muda dan sehat |\n| Prosedur perkutan pada ganglion Gasser (rizotomi, kompresi balon, gliserol) | Bebas nyeri 68-85% pada 1 tahun, turun menjadi 54-64% pada 3 tahun | Hilang sensasi hampir separuh pasien; mati rasa kornea sekitar 4% |\n| Radiosurgeri gamma knife | Bebas nyeri hingga 69% pada 1 tahun dan 52% pada 3 tahun | Tanpa sedasi, tetapi efek tidak segera; mati rasa wajah 9-37% |\n\nKomplikasi dan kapan merujuk:\n- Komplikasi penyakit: nyeri hebat yang mengganggu makan, bicara, dan menyikat gigi; AFP 2016 menyebut sedikitnya 50% pasien punya remisi 6 bulan atau lebih. Kegagalan kontrol obat jangka 5-10 tahun diperkirakan lebih dari 50% pada karbamazepin (pendapat ahli, AFP 2016).\n- Rujuk ke dokter spesialis saraf atau bedah saraf bila: ada red flag (usia <40 tahun, defisit neurologis, kedua sisi, nyeri >2 menit), MRI abnormal, obat gagal atau tidak tertoleransi, atau efek samping serius seperti ruam, leukopenia, atau hiponatremia bergejala.\n\nAnalogi:\n- Mielin seperti isolasi kabel listrik. Bila isolasi terkelupas akibat tekanan arteri, kabel sentuhan ringan dan kabel nyeri bersentuhan dan terjadi korsleting: sentuhan sepele memicu \"setrum\" nyeri.\n- Karbamazepin seperti sekering yang menahan lonjakan arus berlebihan di kabel yang rusak.\n\nMnemonik:\n- KILAT (mnemonik buatan): Kilatan nyeri menyetrum (detik), Intervensi pemicu (zona pemicu: bicara, makan, sikat gigi), Lateral (satu sisi), Antiepilepsi (karbamazepin lini pertama), Tanpa defisit neurologis (bila ada defisit, curigai TN simtomatik).\n\nPoin untuk koas:\n- Nyeri wajah menyetrum singkat (sepersekian detik sampai 2 menit), satu sisi, dipicu bicara, makan, atau menyikat gigi: pikirkan TN. Nyeri menetap lebih dari 2 menit atau disertai defisit sensorik harus mengarahkan ke diagnosis lain.\n- Pemeriksaan fisik normal pada TN klasik; MRI dilakukan untuk mencari penyebab (AFP 2008).\n- Karbamazepin lini pertama. Cek HLA-B*1502 pada pasien keturunan Asia berisiko, dan pantau natrium, darah lengkap, serta hati.\n- Dulu tanyakan ke dokter gigi: nyeri gigi, sinusitis, dan sendi temporomandibular sering disangka TN.\n- Pasien muda atau dengan red flag bukan TN klasik sampai terbukti; pikirkan MS dan tumor.\n- Edukasi: obat tidak boleh dihentikan mendadak, dan segera lapor bila ruam atau demam.\n\nSingkatan:\n- AAN: American Academy of Neurology\n- AFP: American Family Physician\n- EFNS: European Federation of Neurological Societies\n- HLA: human leukocyte antigen\n- IASP: International Association for the Study of Pain\n- IHS: International Headache Society\n- MRI: magnetic resonance imaging\n- MS: multiple sclerosis\n- MVD: microvascular decompression (dekompresi mikrovaskular)\n- N. V: nervus trigeminus\n- NNT: number needed to treat\n- SPS: Specialist Pharmacy Service (NHS)\n- TN: trigeminal neuralgia (neuralgia trigeminal)\n- V1, V2, V3: divisi oftalmik, maksilar, dan mandibular nervus trigeminus",
+   "images": [
+    {
+     "file": "img/20261015-1030-neuralgia-trigeminal-1.svg",
+     "caption": "Gambar 1: Saraf trigeminus dan zona kompresi, rantai mekanisme, serta tangga terapi (skematik)",
+     "credit": "Diagram skematis Catatan Koas berdasarkan AFP 2008 dan 2009, panduan EFNS 2008, dan SPS NHS (karbamazepin); model anatomi dari buku ajar neuroanatomi"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "European Federation of Neurological Societies (EFNS)",
+     "title": "EFNS guideline on trigeminal neuralgia management",
+     "year": 2008,
+     "url": "https://cumming.ucalgary.ca/sites/default/files/teams/122/education/neurosurgery/guidelines-for-management-of-tgn-eurjneuro-2008.pdf"
+    },
+    {
+     "org": "American Academy of Neurology / EFNS (ringkasan AFP)",
+     "title": "Trigeminal neuralgia: AAN-EFNS guidelines summary",
+     "year": 2009,
+     "url": "https://www.aafp.org/afp/2009/0601/p1001"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Diagnosis and Treatment of Trigeminal Neuralgia",
+     "publisher": "American Family Physician",
+     "year": 2008,
+     "url": "https://www.aafp.org/pubs/afp/issues/2008/0501/p1291.html"
+    },
+    {
+     "title": "Trigeminal neuralgia (AAN-EFNS guidelines summary)",
+     "publisher": "American Family Physician",
+     "year": 2009,
+     "url": "https://www.aafp.org/afp/2009/0601/p1001"
+    },
+    {
+     "title": "EFNS guideline on trigeminal neuralgia management",
+     "publisher": "European Journal of Neurology",
+     "year": 2008,
+     "url": "https://cumming.ucalgary.ca/sites/default/files/teams/122/education/neurosurgery/guidelines-for-management-of-tgn-eurjneuro-2008.pdf"
+    },
+    {
+     "title": "Trigeminal neuralgia",
+     "publisher": "American Family Physician",
+     "year": 2016,
+     "url": "https://www.aafp.org/afp/2016/0715/p133.html"
+    },
+    {
+     "title": "Carbamazepine",
+     "publisher": "Specialist Pharmacy Service (NHS)",
+     "url": "https://www.sps.nhs.uk/medicines/carbamazepine/"
     }
    ]
   }
