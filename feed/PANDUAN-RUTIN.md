@@ -53,8 +53,18 @@ Format aplikasi:
 ## 3a. Gambar dan guideline (wajib bila relevan)
 - Setiap item WAJIB punya minimal satu gambar bila topiknya punya unsur visual: EKG, algoritma/alur tatalaksana,
   kriteria/skor, anatomi sederhana, kurva, atau tabel ringkas bergambar.
-- Server rutin TIDAK bisa mengunduh gambar dari situs luar (Wikimedia, NCBI, LITFL diblokir) dan gambar berhak cipta
-  tidak boleh disalin. Karena itu gambar DIGAMBAR SENDIRI dengan kode sebagai SVG yang akurat secara klinis:
+- UTAMAKAN gambar sumber asli berlisensi terbuka dari Wikimedia Commons (permintaan Prasetya 15 Okt 2026):
+  - Cari berkas lewat API `https://commons.wikimedia.org/w/api.php` dan SELALU kirim header `User-Agent`, mis.
+    `CatatanKoas/1.0 (https://github.com/prstyaputra-zen/catatan-koas)`; tanpa itu server menjawab 400/429.
+  - Ambil lisensi, penulis, dan URL dari `prop=imageinfo&iiprop=url|extmetadata`. Pakai hanya CC0, domain publik, CC BY,
+    atau CC BY-SA. Unduh berkasnya (atau thumbnail lebar ≤ 1200 px lewat `iiurlwidth`) dari `upload.wikimedia.org`
+    ke `feed/img/<id>-N.<svg|png|jpg>`.
+  - `credit` wajib berisi penulis, lisensi, dan tautan halaman berkas, mis.
+    `"Mikael Häggström, CC0, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:..."`.
+  - Lihat gambarnya sebelum dipakai dan pastikan isinya cocok dengan sumber yang sudah diverifikasi (label berbahasa Inggris boleh).
+  - Masih diblokir dari server rutin: gambar CDN OpenStax, CDC/PHIL, en.wikipedia.org, NCBI, LITFL. Gambar berhak cipta tidak boleh disalin.
+- Bila tidak ada gambar Commons yang cocok, gambar DIGAMBAR SENDIRI dengan kode sebagai SVG yang akurat secara klinis
+  (`credit` diawali "Digambar Claude berdasarkan ..."):
   - EKG: tulis spesifikasi JSON di `feed/tools/spec/<id>-N.json` lalu jalankan
     `python3 feed/tools/ekg_svg.py feed/tools/spec/<id>-N.json feed/img/<id>-N.svg`
     (contoh: `feed/tools/spec/20261010-hipokalemia-1.json`; bandingkan normal vs kelainan, beri anotasi panah).
