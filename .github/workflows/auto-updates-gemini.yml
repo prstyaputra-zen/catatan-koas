@@ -19,6 +19,9 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    env:
+      # Mode headless: tanpa ini Gemini CLI menolak berjalan di folder yang belum "dipercaya" (disetujui Prasetya 16 Okt 2026).
+      GEMINI_CLI_TRUST_WORKSPACE: 'true'
     steps:
       - uses: actions/checkout@v4
 
