@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="640" viewBox="0 0 880 640" font-family="Helvetica, Arial, sans-serif">
+  <rect width="880" height="640" fill="#ffffff"/>
+  <text x="440" y="34" font-size="20" font-weight="bold" text-anchor="middle" fill="#1f2937">Demam tifoid minggu demi minggu</text>
+  <text x="440" y="56" font-size="13" text-anchor="middle" fill="#4b5563">Plak Peyer di ileum distal, pola demam, kapan pemeriksaan paling berguna, dan kapan komplikasi muncul</text>
+
+  <!-- kolom minggu -->
+  <g font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">
+    <rect x="130" y="72" width="182" height="30" rx="6" fill="#2563eb"/><text x="221" y="92">Minggu 1</text>
+    <rect x="318" y="72" width="182" height="30" rx="6" fill="#7c3aed"/><text x="409" y="92">Minggu 2</text>
+    <rect x="506" y="72" width="182" height="30" rx="6" fill="#dc2626"/><text x="597" y="92">Minggu 3</text>
+    <rect x="694" y="72" width="170" height="30" rx="6" fill="#6b7280"/><text x="779" y="92">Minggu 4</text>
+  </g>
+
+  <!-- label baris -->
+  <g font-size="14" font-weight="bold" fill="#111827">
+    <text x="16" y="150">Plak Peyer</text>
+    <text x="16" y="278">Pola demam</text>
+    <text x="16" y="400">Pemeriksaan</text>
+    <text x="16" y="548">Komplikasi</text>
+  </g>
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="16" y1="210" x2="864" y2="210"/>
+    <line x1="16" y1="330" x2="864" y2="330"/>
+    <line x1="16" y1="490" x2="864" y2="490"/>
+  </g>
+
+  <!-- baris 1: plak Peyer (mukosa + folikel) -->
+  <g>
+    <!-- M1 hiperplasia -->
+    <rect x="150" y="150" width="142" height="22" fill="#fde2d4" stroke="#b45309"/>
+    <path d="M176 150 q20 -34 40 0 M226 150 q20 -34 40 0" fill="#fca5a5" stroke="#b91c1c" stroke-width="1.5"/>
+    <text x="221" y="194" font-size="13" text-anchor="middle" fill="#111827">Hiperplasia</text>
+    <!-- M2 nekrosis -->
+    <rect x="338" y="150" width="142" height="22" fill="#fde2d4" stroke="#b45309"/>
+    <path d="M364 150 q20 -30 40 0 M414 150 q20 -30 40 0" fill="#a8a29e" stroke="#57534e" stroke-width="1.5"/>
+    <circle cx="384" cy="140" r="4" fill="#44403c"/><circle cx="434" cy="140" r="4" fill="#44403c"/>
+    <text x="409" y="194" font-size="13" text-anchor="middle" fill="#111827">Nekrosis</text>
+    <!-- M3 ulkus -->
+    <path d="M526 150 h40 q16 18 32 0 h44 v22 h-116 z" fill="#fde2d4" stroke="#b45309"/>
+    <path d="M566 150 q16 18 32 0" fill="#ef4444" stroke="#991b1b" stroke-width="1.5"/>
+    <path d="M582 159 v13" stroke="#991b1b" stroke-width="3"/>
+    <text x="597" y="194" font-size="13" text-anchor="middle" fill="#111827">Ulserasi (ulkus)</text>
+    <!-- M4 -->
+    <text x="779" y="160" font-size="13" text-anchor="middle" fill="#374151">Bila membaik:</text>
+    <text x="779" y="178" font-size="13" text-anchor="middle" fill="#374151">ulkus menyembuh</text>
+  </g>
+
+  <!-- baris 2: kurva demam -->
+  <g>
+    <line x1="130" y1="312" x2="864" y2="312" stroke="#9ca3af"/>
+    <text x="126" y="246" font-size="12" text-anchor="end" fill="#6b7280">40°C</text>
+    <text x="126" y="312" font-size="12" text-anchor="end" fill="#6b7280">37°C</text>
+    <polyline fill="none" stroke="#dc2626" stroke-width="2.5" points="140,306 156,296 166,302 182,288 192,294 208,278 218,284 234,268 244,274 260,258 270,264 288,250 312,246 340,244 370,246 400,243 430,245 470,244 500,246 530,252 560,264 590,280 620,294 650,304 688,308 864,308"/>
+    <text x="221" y="326" font-size="12" text-anchor="middle" fill="#111827">naik bertahap (step ladder)</text>
+    <text x="409" y="326" font-size="12" text-anchor="middle" fill="#111827">tinggi menetap (kontinu)</text>
+    <text x="597" y="326" font-size="12" text-anchor="middle" fill="#111827">turun berangsur bila membaik</text>
+  </g>
+
+  <!-- baris 3: pemeriksaan (bar) -->
+  <g font-size="12" fill="#111827">
+    <rect x="140" y="346" width="356" height="24" rx="4" fill="#bfdbfe"/>
+    <text x="150" y="363">Kultur darah: bakteremia 60-80% (minggu 1 s.d. akhir minggu 2)</text>
+    <rect x="186" y="376" width="110" height="24" rx="4" fill="#c7d2fe"/>
+    <text x="193" y="393">IgM: hari ke 4-5</text>
+    <rect x="318" y="406" width="370" height="24" rx="4" fill="#ddd6fe"/>
+    <text x="328" y="423">Kultur feses dan urin: minggu 2-3</text>
+    <rect x="270" y="436" width="594" height="24" rx="4" fill="#e5e7eb"/>
+    <text x="280" y="453">Widal: aglutinin muncul akhir minggu 1, puncak minggu 4 (perlu serial)</text>
+    <rect x="140" y="466" width="340" height="20" rx="4" fill="#fef3c7"/>
+    <text x="150" y="481">Darah perifer: leukopenia, trombositopenia (akhir minggu 1)</text>
+  </g>
+
+  <!-- baris 4: komplikasi -->
+  <g>
+    <rect x="460" y="506" width="404" height="100" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="662" y="528" font-size="13" font-weight="bold" text-anchor="middle" fill="#991b1b">Akhir minggu 2 - awal minggu 3</text>
+    <text x="476" y="550" font-size="13" fill="#111827">• Perforasi usus 0,5-3%</text>
+    <text x="476" y="570" font-size="13" fill="#111827">• Perdarahan usus 1-10%</text>
+    <text x="476" y="590" font-size="13" fill="#111827">• Hb turun mendadak minggu 3-4: curigai perdarahan</text>
+    <text x="140" y="540" font-size="13" fill="#374151">Ulkus di atas plak Peyer bisa menembus</text>
+    <text x="140" y="560" font-size="13" fill="#374151">dinding usus (perforasi) atau pembuluh</text>
+    <text x="140" y="580" font-size="13" fill="#374151">darah (perdarahan).</text>
+    <path d="M400 555 L452 555" stroke="#dc2626" stroke-width="2" marker-end="url(#ah)"/>
+  </g>
+  <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker></defs>
+
+  <text x="440" y="630" font-size="11" text-anchor="middle" fill="#6b7280">Skematik, bukan skala waktu yang persis. Angka dari PNPK Tata Laksana Demam Tifoid pada Dewasa (KMK HK.01.07/MENKES/875/2026).</text>
+</svg>
