@@ -1,0 +1,91 @@
+# Auto updates Catatan Koas oleh Gemini (2 kali sehari: 09.05 dan 21.05 WIB).
+# Butuh secret repo GEMINI_API_KEY (Settings > Secrets and variables > Actions).
+# Gemini hanya menulis file; langkah terakhir memeriksa hasilnya lalu meng-commit.
+name: Auto updates (Gemini)
+
+on:
+  schedule:
+    - cron: '5 2,14 * * *' # UTC = 09.05 dan 21.05 WIB
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-updates
+  cancel-in-progress: false
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Catat jumlah item sebelum
+        id: before
+        run: echo "count=$(python3 -c "import json;print(len(json.load(open('feed/ilmu.json'))['items']))")" >> "$GITHUB_OUTPUT"
+
+      - name: Gemini menulis satu item baru
+        uses: google-github-actions/run-gemini-cli@v0.1.22
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          prompt: |-
+            Kamu menjalankan rutin "Auto updates" untuk aplikasi Catatan Koas milik Prasetya (koas/dokter muda di Indonesia).
+            Tulis dalam bahasa Indonesia. Baca dan ikuti persis file feed/PANDUAN-RUTIN.md di repo ini, dengan penyesuaian berikut:
+
+            1. Pilih SATU topik baru sesuai giliran stase di panduan (jangan mengulang judul/tag yang sudah ada di feed/ilmu.json).
+            2. Riset dengan google_web_search, lalu BUKA setiap sumber dengan web_fetch (atau curl). Setiap angka (dosis, batas, kriteria)
+               harus berasal dari teks sumber yang benar-benar kamu buka, bukan dari ingatan. Utamakan PNPK/PPK Kemenkes, lalu WHO, NICE,
+               AAFP, perhimpunan profesi, dan jurnal bereputasi. Dilarang: Wikipedia, blog, situs kesehatan populer.
+            3. Tulis body sekitar 900-1.800 kata dengan urutan bagian wajib: Definisi, Anatomi dan fisiologi terkait (bila relevan),
+               Patofisiologi (rantai sebab-akibat langkah demi langkah), Etiologi dan faktor risiko, Manifestasi klinis / Diagnosis,
+               Tatalaksana (dosis dengan satuan dan rute, plus alasan farmakologis), Komplikasi / Kapan merujuk, Analogi,
+               Mnemonik (tandai "(mnemonik buatan)" bila buatan sendiri), Poin untuk koas, Singkatan. Setiap singkatan ditulis
+               kepanjangannya saat pertama muncul dan semuanya didaftar di bagian Singkatan.
+            4. Gambar (bagian 3a panduan): utamakan gambar asli berlisensi terbuka (CC0, domain publik, CC BY, CC BY-SA) dari
+               Wikimedia Commons. Cari lewat https://commons.wikimedia.org/w/api.php dengan header User-Agent
+               "CatatanKoas/1.0 (https://github.com/prstyaputra-zen/catatan-koas)"; ambil lisensi dan penulis dari
+               prop=imageinfo&iiprop=url|extmetadata; unduh thumbnail 1280px dari upload.wikimedia.org ke feed/img/<id>-N.jpg
+               (bila dapat HTTP 429, tunggu sesuai retry-after lalu ulangi). Isi credit dengan penulis, lisensi, dan tautan halaman
+               berkas. Bila tidak ada yang cocok, buat SVG sederhana sendiri di feed/img dengan credit "Digambar Gemini berdasarkan <sumber>".
+            5. Tambahkan tepat SATU item di akhir array items di feed/ilmu.json (field id, created, title, type, stase, tags, body,
+               images, guidelines, sources) dan perbarui field updated. Pertahankan format JSON (indentasi 1 spasi, UTF-8 asli).
+            6. Hanya boleh mengubah feed/ilmu.json, feed/img/* dan feed/tools/spec/*. JANGAN menjalankan git commit atau git push;
+               langkah berikutnya di workflow yang melakukannya.
+            7. Bila tidak ada sumber layak yang berhasil dibuka dan diverifikasi, jangan ubah file apa pun.
+
+      - name: Periksa hasil dan commit
+        env:
+          BEFORE: ${{ steps.before.outputs.count }}
+        run: |
+          set -euo pipefail
+          # Buang perubahan di luar folder yang diizinkan
+          git status --porcelain | while read -r st path; do
+            case "$path" in
+              feed/ilmu.json|feed/img/*|feed/tools/spec/*) ;;
+              *) echo "Membuang perubahan di luar izin: $path"; git checkout -- "$path" 2>/dev/null || rm -rf -- "$path" ;;
+            esac
+          done
+          rm -rf .gemini gemini-artifacts
+          if [ -z "$(git status --porcelain)" ]; then echo "Tidak ada item baru."; exit 0; fi
+          python3 - <<'EOF'
+          import json, os, sys
+          d = json.load(open('feed/ilmu.json'))
+          items = d['items']; before = int(os.environ['BEFORE'])
+          if len(items) != before + 1 and not (before >= 300 and len(items) == 300):
+              sys.exit(f'Jumlah item tidak wajar: {before} -> {len(items)}')
+          it = items[-1]
+          for k in ('id', 'created', 'title', 'stase', 'tags', 'body', 'sources'):
+              if not it.get(k): sys.exit(f'Field {k} kosong')
+          for im in it.get('images', []):
+              if not os.path.exists(os.path.join('feed', im['file'])): sys.exit(f"Gambar hilang: {im['file']}")
+          print('OK:', it['title'])
+          EOF
+          TITLE=$(python3 -c "import json;print(json.load(open('feed/ilmu.json'))['items'][-1]['title'])")
+          git config user.name "Prasetya"
+          git config user.email "337586035+prstyaputra-zen@users.noreply.github.com"
+          git add feed/ilmu.json feed/img feed/tools/spec
+          git commit -m "Auto updates: $TITLE" -m "Ditulis oleh Gemini lewat GitHub Actions."
+          git pull --rebase origin main
+          git push origin HEAD:main
