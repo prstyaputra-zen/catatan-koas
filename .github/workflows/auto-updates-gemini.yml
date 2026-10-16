@@ -1,6 +1,12 @@
 # Auto updates Catatan Koas oleh Gemini (2 kali sehari: 09.05 dan 21.05 WIB).
 # Butuh secret repo GEMINI_API_KEY (Settings > Secrets and variables > Actions).
-# Gemini hanya menulis file; langkah terakhir memeriksa hasilnya lalu meng-commit.
+#
+# Pengaman (disetujui Prasetya 16 Okt 2026):
+# - Job "tulis": Gemini berjalan dengan izin repo hanya-baca dan tanpa kredensial git tersimpan.
+#   Hasilnya (hanya feed/) diunggah sebagai artifact.
+# - Job "terbitkan": mesin baru yang tidak pernah menjalankan Gemini. Ia mengambil checkout bersih,
+#   memeriksa item dengan .github/scripts/terapkan-auto-update.py (item lama tidak berubah, sumber https,
+#   tanpa skrip, gambar sesuai format), lalu baru meng-commit dengan identitas noreply.
 name: Auto updates (Gemini)
 
 on:
@@ -9,25 +15,25 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: auto-updates
   cancel-in-progress: false
 
 jobs:
-  auto-update:
+  tulis:
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    permissions:
+      contents: read
     env:
-      # Mode headless: tanpa ini Gemini CLI menolak berjalan di folder yang belum "dipercaya" (disetujui Prasetya 16 Okt 2026).
+      # Mode headless: tanpa ini Gemini CLI menolak berjalan di folder yang belum "dipercaya".
       GEMINI_CLI_TRUST_WORKSPACE: 'true'
     steps:
       - uses: actions/checkout@v4
-
-      - name: Catat jumlah item sebelum
-        id: before
-        run: echo "count=$(python3 -c "import json;print(len(json.load(open('feed/ilmu.json'))['items']))")" >> "$GITHUB_OUTPUT"
+        with:
+          persist-credentials: false
 
       - name: Gemini menulis satu item baru
         uses: google-github-actions/run-gemini-cli@v0.1.22
@@ -55,40 +61,44 @@ jobs:
             5. Tambahkan tepat SATU item di akhir array items di feed/ilmu.json (field id, created, title, type, stase, tags, body,
                images, guidelines, sources) dan perbarui field updated. Pertahankan format JSON (indentasi 1 spasi, UTF-8 asli).
             6. Hanya boleh mengubah feed/ilmu.json, feed/img/* dan feed/tools/spec/*. JANGAN menjalankan git commit atau git push;
-               langkah berikutnya di workflow yang melakukannya.
+               langkah berikutnya di workflow yang melakukannya (kamu juga tidak punya izin push).
             7. Bila tidak ada sumber layak yang berhasil dibuka dan diverifikasi, jangan ubah file apa pun.
 
-      - name: Periksa hasil dan commit
-        env:
-          BEFORE: ${{ steps.before.outputs.count }}
+      - name: Unggah hasil (hanya folder feed)
+        uses: actions/upload-artifact@v4
+        with:
+          name: hasil-gemini
+          path: feed/
+          retention-days: 3
+          if-no-files-found: error
+
+  terbitkan:
+    needs: tulis
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Ambil hasil Gemini
+        uses: actions/download-artifact@v4
+        with:
+          name: hasil-gemini
+          path: ${{ runner.temp }}/hasil/feed
+
+      - name: Periksa dan terapkan item baru
+        run: python3 .github/scripts/terapkan-auto-update.py "$RUNNER_TEMP/hasil" .
+
+      - name: Commit dan push
         run: |
           set -euo pipefail
-          # Buang perubahan di luar folder yang diizinkan
-          git status --porcelain | while read -r st path; do
-            case "$path" in
-              feed/ilmu.json|feed/img/*|feed/tools/spec/*) ;;
-              *) echo "Membuang perubahan di luar izin: $path"; git checkout -- "$path" 2>/dev/null || rm -rf -- "$path" ;;
-            esac
-          done
-          rm -rf .gemini gemini-artifacts
           if [ -z "$(git status --porcelain)" ]; then echo "Tidak ada item baru."; exit 0; fi
-          python3 - <<'EOF'
-          import json, os, sys
-          d = json.load(open('feed/ilmu.json'))
-          items = d['items']; before = int(os.environ['BEFORE'])
-          if len(items) != before + 1 and not (before >= 300 and len(items) == 300):
-              sys.exit(f'Jumlah item tidak wajar: {before} -> {len(items)}')
-          it = items[-1]
-          for k in ('id', 'created', 'title', 'stase', 'tags', 'body', 'sources'):
-              if not it.get(k): sys.exit(f'Field {k} kosong')
-          for im in it.get('images', []):
-              if not os.path.exists(os.path.join('feed', im['file'])): sys.exit(f"Gambar hilang: {im['file']}")
-          print('OK:', it['title'])
-          EOF
           TITLE=$(python3 -c "import json;print(json.load(open('feed/ilmu.json'))['items'][-1]['title'])")
           git config user.name "Prasetya"
           git config user.email "337586035+prstyaputra-zen@users.noreply.github.com"
           git add feed/ilmu.json feed/img feed/tools/spec
           git commit -m "Auto updates: $TITLE" -m "Ditulis oleh Gemini lewat GitHub Actions."
-          git pull --rebase origin main
           git push origin HEAD:main
