@@ -10,8 +10,8 @@
 name: Auto updates (Gemini)
 
 on:
-  schedule:
-    - cron: '5 2,14 * * *' # UTC = 09.05 dan 21.05 WIB
+  # Jadwal otomatis dipindah ke laptop Lenovo (Gemini CLI login akun Google), 16 Okt 2026.
+  # Workflow ini tetap bisa dijalankan manual dari tab Actions (butuh secret GEMINI_API_KEY).
   workflow_dispatch: {}
 
 permissions:
