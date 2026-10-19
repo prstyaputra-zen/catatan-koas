@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 650" width="880" height="650" font-family="Arial, Helvetica, sans-serif">
+  <rect width="880" height="650" fill="#ffffff"/>
+
+  <!-- Title -->
+  <rect x="20" y="16" width="840" height="50" rx="8" fill="#1e3a8a"/>
+  <text x="440" y="38" text-anchor="middle" fill="#ffffff" font-size="17" font-weight="bold">Lokasi Nyeri berdasarkan Segmen Batu &amp; Alur Tatalaksana BSK</text>
+  <text x="440" y="57" text-anchor="middle" fill="#dbeafe" font-size="13">Berdasarkan PNPK Tata Laksana Batu Saluran Kemih (KMK 1560/2022) &amp; NICE NG118</text>
+
+  <!-- LEFT PANEL: Lokasi & Penjalaran Nyeri -->
+  <rect x="20" y="80" width="380" height="552" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="20" y="80" width="380" height="36" rx="8" fill="#e2e8f0"/>
+  <text x="210" y="103" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">1. Segmen Batu &amp; Penjalaran Nyeri</text>
+
+  <!-- Urinary tract schematic on left side of panel 1 -->
+  <!-- Kidney -->
+  <path d="M 78 140 C 43 135, 35 175, 51 205 C 38 235, 48 265, 78 260 C 95 257, 101 235, 89 215 C 81 202, 81 192, 89 180 C 101 162, 95 143, 78 140 Z" fill="#fca5a5" stroke="#b91c1c" stroke-width="2"/>
+  <!-- Renal pelvis & ureter -->
+  <path d="M 85 190 Q 105 200, 103 225 L 103 465" fill="none" stroke="#d97706" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 85 190 Q 105 200, 103 225 L 103 465" fill="none" stroke="#fef3c7" stroke-width="3" stroke-linecap="round"/>
+  <!-- Bladder -->
+  <ellipse cx="103" cy="500" rx="36" ry="28" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
+  <path d="M 98 528 L 98 558 M 108 528 L 108 558" stroke="#c2410c" stroke-width="2"/>
+
+  <!-- Stone markers (numbered circles) -->
+  <!-- A: Ginjal -->
+  <circle cx="69" cy="185" r="12" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+  <text x="69" y="190" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">A</text>
+  <line x1="83" y1="185" x2="136" y2="164" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- B: Ureter proksimal -->
+  <circle cx="103" cy="255" r="12" fill="#ea580c" stroke="#ffffff" stroke-width="2"/>
+  <text x="103" y="260" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">B</text>
+  <line x1="115" y1="255" x2="136" y2="250" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- C: Ureter medial -->
+  <circle cx="103" cy="340" r="12" fill="#d97706" stroke="#ffffff" stroke-width="2"/>
+  <text x="103" y="345" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">C</text>
+  <line x1="115" y1="340" x2="136" y2="340" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- D: Ureter distal -->
+  <circle cx="103" cy="425" r="12" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>
+  <text x="103" y="430" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">D</text>
+  <line x1="115" y1="425" x2="136" y2="435" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- E: Buli-buli -->
+  <circle cx="103" cy="500" r="12" fill="#4f46e5" stroke="#ffffff" stroke-width="2"/>
+  <text x="103" y="505" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">E</text>
+  <line x1="115" y1="505" x2="136" y2="545" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Callout boxes in Panel 1 (x=136 to 388, width=252) -->
+  <rect x="136" y="128" width="252" height="72" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="146" y="147" fill="#991b1b" font-size="13" font-weight="bold">A. Batu Ginjal</text>
+  <text x="146" y="165" fill="#334155" font-size="13">Sudut kostovertebra</text>
+  <text x="146" y="183" fill="#334155" font-size="13">(bawah kosta 12 ipsilateral)</text>
+
+  <rect x="136" y="212" width="252" height="72" rx="6" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="146" y="231" fill="#9a3412" font-size="13" font-weight="bold">B. Ureter Proksimal</text>
+  <text x="146" y="249" fill="#334155" font-size="13">Kolik sesuai peristaltik,</text>
+  <text x="146" y="267" fill="#334155" font-size="13">menjalar ke umbilikus</text>
+
+  <rect x="136" y="296" width="252" height="84" rx="6" fill="#fffbeb" stroke="#fcd34d"/>
+  <text x="146" y="315" fill="#92400e" font-size="13" font-weight="bold">C. Ureter Medial</text>
+  <text x="146" y="333" fill="#334155" font-size="13">Menjalar ke kuadran bawah:</text>
+  <text x="146" y="351" fill="#334155" font-size="13">kanan (titik McBurney) atau</text>
+  <text x="146" y="369" fill="#334155" font-size="13">kiri (kontra-McBurney)</text>
+
+  <rect x="136" y="392" width="252" height="102" rx="6" fill="#f0f9ff" stroke="#7dd3fc"/>
+  <text x="146" y="411" fill="#075985" font-size="13" font-weight="bold">D. Ureter Distal</text>
+  <text x="146" y="429" fill="#334155" font-size="13">Menjalar ke paha medial,</text>
+  <text x="146" y="447" fill="#334155" font-size="13">skrotum/labium + gejala buli</text>
+  <text x="146" y="465" fill="#334155" font-size="13">(frekuensi, urgensi, nyeri</text>
+  <text x="146" y="483" fill="#334155" font-size="13">hingga ujung penis)</text>
+
+  <rect x="136" y="506" width="252" height="108" rx="6" fill="#eef2ff" stroke="#a5b4fc"/>
+  <text x="146" y="525" fill="#3730a3" font-size="13" font-weight="bold">E. Batu Buli-Buli</text>
+  <text x="146" y="543" fill="#334155" font-size="13">Nyeri suprapubik, frekuensi,</text>
+  <text x="146" y="561" fill="#334155" font-size="13">disuria &amp; hematuria terminal</text>
+  <text x="146" y="579" fill="#334155" font-size="13">(akhir miksi); anak: menarik</text>
+  <text x="146" y="597" fill="#334155" font-size="13">penis, retensi urin</text>
+
+  <!-- RIGHT PANEL: Alur Tatalaksana -->
+  <rect x="415" y="80" width="445" height="552" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="415" y="80" width="445" height="36" rx="8" fill="#e2e8f0"/>
+  <text x="637" y="103" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="bold">2. Prioritas Akut &amp; Pilihan Terapi</text>
+
+  <!-- Step 1: Analgesia & Tanda Bahaya (x=428..630 and x=644..846, width=202) -->
+  <rect x="428" y="126" width="202" height="96" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="529" y="145" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="bold">Kolik Renal Akut</text>
+  <text x="438" y="164" fill="#1e293b" font-size="13">• Lini 1: OAINS (diklofenak/</text>
+  <text x="446" y="181" fill="#1e293b" font-size="13">metamizol) / parasetamol</text>
+  <text x="438" y="198" fill="#1e293b" font-size="13">• Hindari OAINS bila fungsi</text>
+  <text x="446" y="215" fill="#1e293b" font-size="13">ginjal turun / belum jelas</text>
+
+  <rect x="644" y="126" width="202" height="96" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="745" y="145" text-anchor="middle" fill="#991b1b" font-size="13" font-weight="bold">Darurat Urologi!</text>
+  <text x="654" y="164" fill="#7f1d1d" font-size="13">Obstruksi + sepsis/demam,</text>
+  <text x="654" y="181" fill="#7f1d1d" font-size="13">anuria, atau ginjal soliter:</text>
+  <text x="654" y="198" fill="#991b1b" font-size="13" font-weight="bold">→ Dekompresi segera</text>
+  <text x="654" y="215" fill="#7f1d1d" font-size="13">(stent / nefrostomi) + AB</text>
+
+  <!-- Arrow down -->
+  <line x1="637" y1="222" x2="637" y2="240" stroke="#475569" stroke-width="2"/>
+  <polygon points="637,246 631,236 643,236" fill="#475569"/>
+
+  <!-- Step 2: Pencitraan (x=428..846, width=418) -->
+  <rect x="428" y="248" width="418" height="82" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="637" y="267" text-anchor="middle" fill="#166534" font-size="13" font-weight="bold">Konfirmasi Pencitraan &amp; Karakteristik Batu</text>
+  <text x="440" y="286" fill="#1e293b" font-size="13">• USG (lini 1, aman untuk ibu hamil &amp; anak) + FPA/KUB</text>
+  <text x="440" y="304" fill="#1e293b" font-size="13">• NCCT abdomen (standar baku kolik akut: ukuran,</text>
+  <text x="448" y="321" fill="#1e293b" font-size="13">lokasi, densitas HU, dan batu radiolusen)</text>
+
+  <!-- Arrow down -->
+  <line x1="637" y1="330" x2="637" y2="348" stroke="#475569" stroke-width="2"/>
+  <polygon points="637,354 631,344 643,344" fill="#475569"/>
+
+  <!-- Step 3: Batu Ureter vs Batu Ginjal (x=428..630 and x=644..846, width=202) -->
+  <rect x="428" y="356" width="202" height="162" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="428" y="356" width="202" height="28" rx="6" fill="#0284c7"/>
+  <text x="529" y="375" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">Batu Ureter (Stabil)</text>
+  <text x="438" y="398" fill="#1e293b" font-size="13">• &lt; 5 mm: observasi berkala</text>
+  <text x="446" y="415" fill="#475569" font-size="13">(≤ 4 mm: 95% keluar)</text>
+  <text x="438" y="434" fill="#1e293b" font-size="13">• Distal &gt; 5 s/d ≤ 10 mm:</text>
+  <text x="446" y="451" fill="#0369a1" font-size="13" font-weight="bold">MET 4–6 minggu</text>
+  <text x="446" y="468" fill="#1e293b" font-size="13">(tamsulosin 1×0,4 mg /</text>
+  <text x="446" y="485" fill="#1e293b" font-size="13">silodosin 1×8 mg PO)</text>
+  <text x="438" y="505" fill="#1e293b" font-size="13">• Gagal / &gt; 10 mm: URS/SWL</text>
+
+  <rect x="644" y="356" width="202" height="162" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="644" y="356" width="202" height="28" rx="6" fill="#dc2626"/>
+  <text x="745" y="375" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">Batu Ginjal Dewasa</text>
+  <text x="654" y="398" fill="#1e293b" font-size="13">• Asam urat: kemolisis oral</text>
+  <text x="662" y="415" fill="#475569" font-size="13">(alkali sitrat, pH 7,0–7,2)</text>
+  <text x="654" y="434" fill="#1e293b" font-size="13">• &lt; 10 mm: SWL (atau RIRS)</text>
+  <text x="654" y="453" fill="#1e293b" font-size="13">• 10–20 mm: SWL / RIRS</text>
+  <text x="662" y="470" fill="#475569" font-size="13">(kaliks inferior dengan</text>
+  <text x="662" y="487" fill="#475569" font-size="13">penyulit → RIRS / PNL)</text>
+  <text x="654" y="505" fill="#991b1b" font-size="13" font-weight="bold">• &gt; 20 mm / staghorn: PNL</text>
+
+  <!-- Step 4: Pencegahan Kekambuhan (x=428..846, width=418) -->
+  <rect x="428" y="528" width="418" height="90" rx="6" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/>
+  <text x="637" y="547" text-anchor="middle" fill="#854d0e" font-size="13" font-weight="bold">Pencegahan Rekurensi (31% dalam 10 th, 39% dalam 15 th)</text>
+  <text x="440" y="566" fill="#1e293b" font-size="13">• Cairan hingga urin &gt; 2,5 L/hari (sistin: urin &gt; 3 L/hari)</text>
+  <text x="440" y="584" fill="#1e293b" font-size="13">• Batasi natrium &lt; 2.300 mg/hari; protein 0,8–1 g/kgBB/hari</text>
+  <text x="440" y="602" fill="#1e293b" font-size="13">• Kalsium normal 1–1,2 g/hari (jangan dipantang!) + sitrat</text>
+</svg>

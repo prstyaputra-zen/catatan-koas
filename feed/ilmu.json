@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-16T01:35:00Z",
+ "updated": "2026-10-19T02:00:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -1655,6 +1655,97 @@
      "publisher": "OpenStax",
      "year": 2016,
      "url": "https://openstax.org/books/microbiology/pages/24-3-bacterial-infections-of-the-gastrointestinal-tract"
+    }
+   ]
+  },
+  {
+   "id": "20261019-0900-batu-saluran-kemih",
+   "created": "2026-10-19T02:00:00Z",
+   "title": "Batu saluran kemih (urolitiasis): penjalaran kolik, MET, dan intervensi urologi (PNPK 2022)",
+   "type": "topik",
+   "stase": "Bedah",
+   "tags": [
+    "batu saluran kemih",
+    "urolitiasis",
+    "kolik renal",
+    "tamsulosin",
+    "hidronefrosis",
+    "PNPK 2022"
+   ],
+   "body": "Definisi:\nBatu saluran kemih (BSK, urolitiasis) adalah terbentuknya satu atau lebih batu di traktus urinarius: kaliks renalis, pelvis renalis, ureter, buli-buli, dan uretra (Pedoman Nasional Pelayanan Kedokteran/PNPK Tata Laksana Batu Saluran Kemih, Keputusan Menteri Kesehatan Republik Indonesia/KMK HK.01.07/MENKES/1560/2022).\n- Prevalensi global 1-20%, rasio laki-laki dibanding perempuan 3:1 (puncak 40-50 tahun); anak 5-10% dewasa (PNPK 2022). American Family Physician (AFP 2019) mencatat insidensi ~8 kasus/1.000 dewasa/tahun.\n- Kekambuhan: 11% (2 tahun), 20% (5 tahun), 31% (10 tahun), dan 39% (15 tahun) (PNPK 2022); batu kalsium oksalat tanpa pencegahan kambuh 50% dalam 10 tahun (AFP 2006).\n- Klasifikasi (PNPK 2022): primer (tanpa kelainan urologi), sekunder (akibat bladder outlet obstruction/BOO, neurogenic bladder, bakteriuria kronis, kateter/benda asing, divertikel buli-buli), dan batu migratori dari saluran atas ke buli-buli.\n\nAnatomi dan fisiologi terkait:\n- Urin dari nefron mengalir ke kaliks ginjal, menyatu di pelvis renalis, lalu masuk ke ureter retroperitoneal sepanjang ~30 cm berlapis epitel transisional dan otot polos (OpenStax Anatomy and Physiology 2e, 2022).\n- Peristaltik ureter mendorong urin ke buli-buli dan menembus dindingnya secara miring sebagai katup satu arah pencegah refluks vesikoureter (OpenStax 2022).\n- Kristalisasi dipengaruhi volume urin, kejenuhan ion (kalsium, oksalat, fosfat, asam urat, natrium), derajat keasaman (pH) urin, serta inhibitor alami seperti sitrat, magnesium, dan mukoprotein Tamm-Horsfall (AFP 2006).\n\nPatofisiologi:\n- Volume urin rendah, kadar ion tinggi, pH ekstrem, dan kurangnya sitrat → supersaturasi urin → kristal mengendap di lengkung Henle, tubulus distal, atau duktus koligentes (AFP 2006) sebagai plak keputihan di papila ginjal (plak Randall, AFP 2011) → membesar menjadi batu.\n- pH urin asam (< 5,5) memicu batu asam urat, sistin, dan kalsium oksalat; pH basa (> 6,8) memicu batu kalsium fosfat dan struvit akibat bakteri penghasil urease (PNPK 2022; AFP 2006; AFP 2011).\n- Mengapa kalsium makanan tidak boleh dipantang: di usus, kalsium mengikat oksalat makanan agar terbuang lewat tinja. Diet rendah kalsium menyisakan oksalat bebas yang diserap di kolon → ekskresi oksalat urin naik (hiperoksaluria) → batu kalsium oksalat (AFP 2006).\n- Kolik renal akut: sumbatan batu → peningkatan tekanan intrarenal, regangan kapsul ginjal, dan spasme peristaltik ureter → pelepasan prostaglandin lokal yang mendilatasi arteriol aferen serta menaikkan diuresis dan tekanan pelviokaliks → nyeri kolik bergelombang yang tidak mereda dengan perubahan posisi (PNPK 2022; AFP 2001). Aktivasi pleksus seliakus memicu mual-muntah (AFP 2001), dan gesekan batu merusak uroepitel sehingga timbul hematuria (AFP 2006).\n\nEtiologi dan faktor risiko:\n- Komposisi dewasa (AFP 2019; AFP 2006): kalsium 64-92% (kalsium oksalat ~70%, kalsium fosfat 5-10%), asam urat 3-16% (~10%), struvit 2-15% (15-20% di AFP 2006), sistin 1%. Pada ibu hamil, 75% adalah kalsium fosfat karena laju filtrasi glomerulus dan pH urin meningkat (AFP 2019). Pada batu buli-buli dewasa, BOO mendasari 45-79% kasus dan 50% berupa asam urat (PNPK 2022).\n- Faktor risiko (PNPK 2022; AFP 2019): kurang minum, iklim panas, diet tinggi natrium dan protein hewani/purin, hiperparatiroidisme primer, sindrom metabolik, obesitas, diabetes melitus, gout, asidosis tubulus ginjal tipe I, malabsorpsi usus (penyakit Crohn, reseksi usus, bedah bariatrik), kelainan anatomi (ginjal tapal kuda, ginjal spons meduler, striktur, refluks), dan obat (indinavir, asetazolamid, topiramat, furosemid, triamteren, seftriakson, sulfonamid, laksatif, vitamin C > 1 g/hari).\n\nManifestasi klinis:\nLokasi dan penjalaran nyeri sesuai segmen batu (PNPK 2022):\n| Lokasi batu | Karakteristik dan penjalaran nyeri (PNPK 2022) |\n|---|---|\n| Ginjal | Nyeri sudut kostovertebra (costovertebral angle/CVA) ipsilateral di bawah kosta ke-12 |\n| Ureter proksimal | Nyeri kolik sesuai peristaltik ureter, menjalar sampai umbilikus |\n| Ureter medial | Menjalar ke kuadran kanan bawah (titik McBurney) sisi kanan, atau kontra-McBurney sisi kiri |\n| Ureter distal | Menjalar ke paha medial, skrotum/labium, disertai iritasi buli-buli (frekuensi, urgensi, nyeri ke ujung penis) |\n| Buli-buli | Nyeri suprapubik, frekuensi, disuria dan hematuria terminal; anak: retensi, enuresis, menarik penis |\n- Pemeriksaan fisik (PNPK 2022): tanda vital, skala nyeri, nyeri tekan/ketok CVA, ballotement ginjal, kesan penuh suprasimfisis, palpasi uretra/skrotum, dan colok dubur bila terindikasi.\n\n{{gambar:3}}\n\nDiagnosis:\n- Laboratorium (PNPK 2022): urinalisis (eritrosit, leukosit, nitrit, pH, kristal) dan kultur urin bila curiga infeksi saluran kemih (ISK). Darah: darah lengkap, ureum, kreatinin, perkiraan laju filtrasi glomerulus (estimated glomerular filtration rate/eGFR), asam urat, kalsium, natrium, kalium, hemostasis pra-tindakan, serta hormon paratiroid bila kalsium tinggi. Saring urin untuk analisis batu dengan difraksi sinar-X atau spektroskopi inframerah (PNPK 2022; AFP 2019).\n- Pencitraan (PNPK 2022; National Institute for Health and Care Excellence/NICE NG118 2019; AFP 2001):\n| Modalitas | Peran dan akurasi |\n|---|---|\n| Ultrasonografi (USG) | Lini pertama PNPK 2022 (bebas radiasi; pilihan ibu hamil & anak); deteksi batu ginjal, buli-buli, hidronefrosis. Batu ureter: sensitivitas 19%, spesifisitas 97% (AFP 2001) |\n| Foto polos / kidney-ureter-bladder (KUB) | Sensitivitas 45-59%, spesifisitas 71-77% (AFP 2001); bedakan radioopak (kalsium), opasitas rendah (struvit, sistin), dan radiolusen (asam urat, xantin, obat) (PNPK 2022) |\n| Non-contrast computed tomography (NCCT) | Baku emas kolik akut (sensitivitas 95-100%, spesifisitas 94-96%, AFP 2001; NICE NG118: NCCT dosis rendah ≤ 24 jam dewasa); nilai ukuran, lokasi, densitas Hounsfield unit (HU), jarak kulit-batu (PNPK 2022) |\n| Urografi intravena / CT kontras | Menilai anatomi pra-intervensi; kontraindikasi bila alergi kontras, kreatinin > 1,5 mg/dL, atau eGFR < 30 (PNPK 2022) |\n\n{{gambar:1}}\n\n{{gambar:2}}\n\nTatalaksana:\n1. Analgesia kolik renal akut (prioritas pertama):\n- Lini pertama: obat antiinflamasi nonsteroid (OAINS) atau parasetamol, lebih efektif dibanding opioid (PNPK 2022; NICE NG118).\n- Alasan farmakologis: OAINS menghambat siklooksigenase → menekan prostaglandin → menurunkan vasodilatasi arteriol aferen, diuresis, tekanan pelviokaliks, edema, dan spasme ureter (AFP 2001; AFP 2011).\n- Dosis (PNPK 2022; AFP 2019): natrium diklofenak 100-150 mg/hari per oral (PO) atau supositoria 3-10 hari; metamizol maksimal 1.000 mg sekali PO (hingga 5.000 mg/hari); ketorolak 30-60 mg intramuskular (AFP 2019); atau parasetamol intravena (NICE NG118).\n- Keamanan: hindari OAINS bila eGFR turun; diklofenak kontraindikasi pada gagal jantung New York Heart Association (NYHA) kelas II-IV, penyakit jantung koroner, serebrovaskular, dan arteri perifer (PNPK 2022). Lini kedua: opioid (hidromorfon, pentazosin, tramadol; hindari petidin). Antispasmodik dan hidrasi paksa tidak dianjurkan saat akut (NICE NG118; AFP 2019).\n\n2. Kegawatdaruratan urologi:\n- Obstruksi disertai sepsis/demam, anuria, bilateral, atau ginjal soliter wajib dekompresi segera dengan stent ureter (double-J/DJ stent) atau nefrostomi perkutan, kultur darah-urin, antibiotik segera, dan tunda pengangkatan batu definitif sampai sepsis teratasi (PNPK 2022).\n\n3. Konservatif dan terapi ekspulsi medikamentosa (medical expulsive therapy/MET) batu ureter:\n- Ekspulsi spontan: batu ≤ 4 mm 95% dalam 40 hari; < 5 mm 75-95% dan 5-10 mm 47-62% (rerata 17 hari; proksimal 49%, medial 58%, distal 68%) (PNPK 2022).\n- Batu ureter < 5 mm tanpa komplikasi: observasi. Batu ureter distal > 5 mm sampai ≤ 10 mm (NICE NG118: < 10 mm) tanpa komplikasi: MET 4-6 minggu dan evaluasi pencitraan dalam 14 hari (PNPK 2022; AFP 2019).\n- Dosis MET (PNPK 2022; AFP 2019): penghambat alfa-1 (utama) tamsulosin 1 × 0,4 mg PO/hari, silodosin 1 × 8 mg PO/hari, atau doksazosin 4 mg PO/hari (anak 2-18 tahun: tamsulosin 0,2-0,4 mg/hari atau doksazosin 0,03 mg/kg/hari); alternatif nifedipin 1 × 10 mg PO/hari atau tadalafil 1 × 5 mg PO/hari.\n- Alasan farmakologis: blokade reseptor alfa-1 ureter distal merelaksasi tonus basal, menurunkan spasme/kolik, mempermudah ekspulsi batu, dan mengurangi keluhan DJ stent (efek samping: hipotensi, ejakulasi retrograd) (PNPK 2022).\n\n4. Kemolisis oral batu asam urat:\n- Alkalinisasi urin dengan kalium sitrat atau natrium bikarbonat PO hingga pH 7,0-7,2 (batu buli-buli pH > 6,5); bila di ureter distal (> 5-8 mm), kombinasikan tamsulosin (PNPK 2022).\n\n5. Intervensi urologi aktif (PNPK 2022; NICE NG118):\n- Indikasi: nyeri refrakter (NICE NG118: ≤ 48 jam), obstruksi persisten, insufisiensi ginjal/ginjal soliter, gagal MET 4-6 minggu, atau batu ginjal simtomatik/membesar (> 5 mm)/ukuran > 15 mm.\n| Lokasi & ukuran | Terapi utama | Catatan klinis (PNPK 2022) |\n|---|---|---|\n| Ginjal < 10 mm | Shock wave lithotripsy (SWL) atau retrograde intrarenal surgery (RIRS) | Percutaneous nephrolithotomy (PNL) bila gagal |\n| Ginjal 10-20 mm | SWL atau RIRS (PNL bila gagal) | Kaliks inferior dengan penyulit SWL (infundibulum < 5 mm, panjang kaliks > 10 mm, jarak kulit-batu > 10 cm, batu > 1.000 HU) → RIRS/PNL |\n| Ginjal > 20 mm / staghorn | PNL (lini pertama) | Tekanan irigasi < 30 mmHg cegah sepsis; RIRS bila PNL kontraindikasi |\n| Ureter < 10 mm | SWL atau ureterorenoskopi (URS) | Tanpa komplikasi tidak perlu stent rutin pasca-URS |\n| Ureter ≥ 10 mm | URS atau SWL | URS lebih cepat bebas batu; pilihan utama pada obesitas |\n| Buli-buli | Vesikolitotripsi transuretra (utama), perkutan, SWL (< 2 cm), bedah terbuka | Tangani BOO bersamaan; biopsi mukosa bila batu > 30 mm (risiko karsinoma 2×) |\n- Kontraindikasi SWL (PNPK 2022): kehamilan, koagulopati/antikoagulan aktif, ISK belum terkontrol, aneurisma dekat batu, kelainan skeletal/obesitas berat, obstruksi distal.\n\n6. Pencegahan kekambuhan (PNPK 2022; NICE NG118; AFP 2019):\n- Minum hingga urin > 2,5 L/hari (AFP 2019: minum 2,5-3 L/hari; batu sistin minum > 4 L/hari agar urin > 3 L/hari); batasi natrium < 2.300 mg/hari (NICE: garam ≤ 6 g/hari), protein 0,8-1,0 g/kg/hari, perbanyak sayur/buah/jeruk nipis, dan pertahankan kalsium 1,0-1,2 g/hari.\n- Medikamentosa (AFP 2019; PNPK 2022): kalium sitrat dewasa 5-12 g/hari PO (awal 9 g/hari terbagi 3 dosis sesudah makan; anak 2-3 mmol/kg/hari); hidroklorotiazid untuk hiperkalsiuria (dewasa 25-50 mg/hari PO, anak 1-1,5 mg/kg tiap 12-24 jam maksimal 50 mg/kali); alopurinol (dewasa 100-300 mg/hari PO; anak 5-10 mg/kg/hari maksimal 300 mg/hari).\n\nKomplikasi dan kapan merujuk:\n- Komplikasi: hidronefrosis, pionefrosis, urosepsis, gangguan ginjal akut (acute kidney injury/AKI), penyakit ginjal kronik, striktur ureter, urinoma, abses perinefrik, dan karsinoma buli-buli (PNPK 2022; AFP 2001).\n- Rujuk darurat bila: obstruksi dengan demam/sepsis, anuria/AKI, ginjal soliter/bilateral, nyeri/muntah refrakter, ibu hamil/terlambat haid (singkirkan kehamilan ektopik), atau usia > 60 tahun (singkirkan aneurisma aorta abdominalis bocor). Rujuk elektif bila batu > 10 mm, hidronefrosis bermakna, gagal MET 4-6 minggu, batu berulang, atau BSK anak (PNPK 2022; AFP 2019).\n\nAnalogi:\n- (Analogi) Ureter seperti lorong berotot yang meremas kelereng berduri (batu). Saat macet, air membendung (hidronefrosis) dan lorong kram hebat (kolik). Saat akut, jangan membanjiri bendungan dengan air, tetapi matikan sinyal radang-tekanan (OAINS) dan longgarkan otot pintu bawah (tamsulosin).\n- (Analogi) Kalsium dan oksalat di usus bila bergandengan akan terbuang lewat tinja. Bila kalsium dipantang, oksalat diserap sendirian ke darah lalu mengendap di ginjal.\n\nMnemonik:\n- Penjalaran nyeri BSK \"K-U-M-IS Buli\" (mnemonik buatan): Kostovertebra (ginjal), Umbilikus (ureter proksimal), McBurney / kontra-McBurney (ureter medial), Inguinal/skrotum/labia + Iritasi buli (ureter distal), Suprapubik + akhir miksi (Buli-buli).\n- Rujuk darurat BSK \"S-A-S-I-H\" (mnemonik buatan): Sepsis/demam + obstruksi, Anuria/AKI, Soliter ginjal/bilateral, Intractable pain/vomiting (nyeri/muntah refrakter), Hamil atau usia > 60 tahun.\n\nPoin untuk koas:\n- Pasien kolik renal gelisah dan terus berguling mencari posisi nyaman, berbeda dengan peritonitis yang berbaring diam (AFP 2001; AFP 2006).\n- Batu ureter medial kanan menjalar ke titik McBurney menyerupai apendisitis akut; selalu cek nyeri ketok CVA dan hematuria.\n- Pastikan fungsi ginjal aman dan tidak ada gagal jantung NYHA II-IV atau kehamilan sebelum memberi OAINS (diklofenak/ketorolak).\n- Demam + hidronefrosis adalah darurat bedah urologi: jangan dipulangkan dengan antibiotik oral saja, wajib rujuk untuk dekompresi segera (DJ stent/nefrostomi).\n- Edukasi pasien batu kalsium agar tidak memantang kalsium makanan (tetap 1-1,2 g/hari); batasi garam (< 2.300 mg/hari) dan protein hewani berlebih, serta minum hingga urin > 2,5 L/hari.\n\nSingkatan:\n- AFP: American Family Physician\n- AKI: acute kidney injury\n- BOO: bladder outlet obstruction\n- BSK: batu saluran kemih\n- CT: computed tomography\n- CVA: costovertebral angle\n- DJ stent: double-J stent\n- eGFR: estimated glomerular filtration rate\n- HU: Hounsfield unit\n- ISK: infeksi saluran kemih\n- KMK: Keputusan Menteri Kesehatan Republik Indonesia\n- KUB: kidney-ureter-bladder\n- MET: medical expulsive therapy\n- NCCT: non-contrast computed tomography\n- NICE: National Institute for Health and Care Excellence\n- NYHA: New York Heart Association\n- OAINS: obat antiinflamasi nonsteroid\n- pH: derajat keasaman\n- PNL: percutaneous nephrolithotomy\n- PNPK: Pedoman Nasional Pelayanan Kedokteran\n- PO: per oral\n- RIRS: retrograde intrarenal surgery\n- SWL: shock wave lithotripsy\n- URS: ureterorenoskopi\n- USG: ultrasonografi",
+   "images": [
+    {
+     "file": "img/20261019-0900-batu-saluran-kemih-1.jpg",
+     "caption": "Gambar 1: Foto polos abdomen (KUB) menunjukkan batu staghorn (cetak ginjal) radioopak besar di kaliks mayor ginjal kiri dan batu kaliks multipel di ginjal kanan",
+     "credit": "Nevit Dilmen, CC BY-SA 3.0, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Medical_X-Ray_imaging_UEI07_nevit.jpg"
+    },
+    {
+     "file": "img/20261019-0900-batu-saluran-kemih-2.jpg",
+     "caption": "Gambar 2: Ultrasonografi (USG) potongan sagital ginjal kanan menunjukkan batu di ureter proksimal disertai pelebaran pelvis renalis dan hidroureter",
+     "credit": "Cerevisae, CC BY-SA 4.0, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Right_kidney_hydroureter_with_stone_within.jpg"
+    },
+    {
+     "file": "img/20261019-0900-batu-saluran-kemih-3.svg",
+     "caption": "Gambar 3: Skema lokasi nyeri berdasarkan segmen batu saluran kemih dan alur tatalaksana kolik renal, MET, serta intervensi aktif",
+     "credit": "Digambar Gemini berdasarkan PNPK Tata Laksana Batu Saluran Kemih (KMK HK.01.07/MENKES/1560/2022) dan NICE NG118 (2019)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kementerian Kesehatan RI",
+     "title": "Pedoman Nasional Pelayanan Kedokteran (PNPK) Tata Laksana Batu Saluran Kemih (KMK HK.01.07/MENKES/1560/2022)",
+     "year": 2022,
+     "url": "https://www.kemkes.go.id/id/pnpk-2022---tata-laksana-batu-saluran-kemih"
+    },
+    {
+     "org": "National Institute for Health and Care Excellence (NICE)",
+     "title": "Renal and ureteric stones: assessment and management (NICE guideline NG118)",
+     "year": 2019,
+     "url": "https://www.nice.org.uk/guidance/ng118"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. Pedoman Nasional Pelayanan Kedokteran Tata Laksana Batu Saluran Kemih",
+     "publisher": "KMK Nomor HK.01.07/MENKES/1560/2022",
+     "year": 2022,
+     "url": "https://www.kemkes.go.id/app_asset/file_content_download/170009556165556649b5ce67.54377142.pdf"
+    },
+    {
+     "title": "National Institute for Health and Care Excellence. Renal and ureteric stones: assessment and management (NG118)",
+     "publisher": "NICE, London (8 Januari 2019)",
+     "year": 2019,
+     "url": "https://www.nice.org.uk/guidance/ng118/chapter/Recommendations"
+    },
+    {
+     "title": "Fontenelle LF, Sarti TD. Kidney Stones: Treatment and Prevention",
+     "publisher": "American Family Physician 99(8):490-496",
+     "year": 2019,
+     "url": "https://www.aafp.org/pubs/afp/issues/2019/0415/p490.html"
+    },
+    {
+     "title": "Frassetto L, Kohlstadt I. Treatment and Prevention of Kidney Stones: An Update",
+     "publisher": "American Family Physician 84(11):1234-1242",
+     "year": 2011,
+     "url": "https://www.aafp.org/pubs/afp/issues/2011/1201/p1234.html"
+    },
+    {
+     "title": "Pietrow PK, Karellas ME. Medical Management of Common Urinary Calculi",
+     "publisher": "American Family Physician 74(1):86-94",
+     "year": 2006,
+     "url": "https://www.aafp.org/pubs/afp/issues/2006/0701/p86.html"
+    },
+    {
+     "title": "Portis AJ, Sundaram CP. Diagnosis and Initial Management of Kidney Stones",
+     "publisher": "American Family Physician 63(7):1329-1339",
+     "year": 2001,
+     "url": "https://www.aafp.org/pubs/afp/issues/2001/0401/p1329.html"
+    },
+    {
+     "title": "Betts JG, Young KA, et al. Anatomy and Physiology 2e, 25.2 Gross Anatomy of Urine Transport",
+     "publisher": "OpenStax, Rice University",
+     "year": 2022,
+     "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport"
     }
    ]
   }
