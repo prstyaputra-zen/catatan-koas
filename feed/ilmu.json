@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-19T02:00:00Z",
+ "updated": "2026-10-19T04:25:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -1746,6 +1746,115 @@
      "publisher": "OpenStax, Rice University",
      "year": 2022,
      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport"
+    }
+   ]
+  },
+  {
+   "id": "20261019-1125-dekompresi-jarum-wsd",
+   "created": "2026-10-19T04:25:00Z",
+   "title": "Dekompresi jarum, torakostomi jari, dan pemasangan WSD (chest tube): segitiga aman dan sistem 3 botol (WSES-AAST 2025, BTS 2023)",
+   "type": "prosedur",
+   "stase": "Bedah",
+   "tags": [
+    "prosedur bedah",
+    "dekompresi jarum",
+    "torakostomi pipa",
+    "WSD",
+    "pneumotoraks",
+    "segitiga aman"
+   ],
+   "body": "Definisi:\n- Dekompresi jarum (needle decompression atau needle thoracostomy / NT) adalah tindakan penyelamatan nyawa darurat berupa penusukan kateter berjarum besar menembus dinding dada ke rongga pleura untuk mengubah pneumotoraks (PNX) terdesak (tension pneumothorax) menjadi PNX sederhana.\n- Torakostomi jari (finger thoracostomy) adalah dekompresi darurat melalui insisi kulit dan diseksi tumpul klem diikuti sapuan jari telunjuk menembus pleura parietalis untuk mengeluarkan udara bertekanan sebelum pemasangan selang dada definitif.\n- Pemasangan selang dada (tube thoracostomy atau chest tube) dengan sistem water seal drainage (WSD) adalah prosedur bedah definitif memasukkan selang ke rongga pleura untuk mengevakuasi udara (PNX), darah (hemotoraks / HTX), atau pus (empiema), serta memulihkan tekanan negatif intropleura agar paru mengembang kembali.\n\nAnatomi dan fisiologi terkait:\n- Dinding dada pada ruang sela iga (intercostal space / ICS) tersusun dari luar ke dalam oleh kulit, fasia subkutan, tiga lapis otot interkostal — musculus intercostalis externus (lapis pertama), musculus intercostalis internus (lapis kedua), dan musculus intercostalis intimus (lapis ketiga) — fasia endotorasika, serta pleura parietalis yang dipersarafi serabut nyeri somatik nervus interkostalis.\n- Berkas neurovaskular interkostal utama tersusun dari superior ke inferior sebagai vena, arteri, dan nervus interkostalis (VAN) di dalam alur kosta (sulcus costae) tepi bawah iga atas, di antara lapis otot kedua dan ketiga, sedangkan cabang kolateral kecil berjalan di tepi atas iga bawah. Karena itu, jarum, klem, dan selang wajib dimasukkan tepat di atas tepi superior iga bawah (50–70% ke bawah sela iga) guna menghindari laserasi arteri interkostalis.\n- Segitiga aman (triangle of safety menurut British Thoracic Society / BTS) adalah zona teraman insersi WSD di dinding dada lateral, dibatasi: anterior oleh tepi lateral musculus pectoralis major, posterior oleh tepi anterior musculus latissimus dorsi, inferior (basis) oleh garis horizontal setinggi papila mamae (ICS ke-4 hingga ke-5), dan apeks di bawah aksila. Survei pada residen junior menunjukkan 45% menempatkan selang di luar segitiga aman, tersering (20%) terlalu rendah. Saat ekspirasi penuh, kubah diafragma naik setinggi ruang intervertebralis dorsalis ke-4 di kanan dan ke-5 di kiri sehingga insersi terlalu rendah berisiko menembus diafragma, hepar, limpa, atau lambung.\n- Meta-analisis ketebalan dinding dada (chest wall thickness / CWT) dewasa mencatat rata-rata CWT 42,79 mm (interval kepercayaan / IK 95% 38,78–46,81 mm) di ICS ke-2 garis midklavikula (midclavicular line / MCL), 39,85 mm (IK 95% 28,70–51,00 mm) di ICS ke-4/5 garis midaksilaris (midaxillary line / MAL), dan paling tipis 34,33 mm (IK 95% 28,20–40,47 mm) di ICS ke-4/5 garis aksilaris anterior (anterior axillary line / AAL). Perempuan memiliki CWT lebih tebal dibanding laki-laki di ICS ke-2 MCL (43,3 mm vs 35,6 mm) dan ICS ke-4/5 MAL (38,3 mm vs 32,6 mm). Di medial MCL berjalan arteria thoracica interna (arteri mamaria interna) dan di superior terdapat pembuluh subklavia.\n\nPatofisiologi:\n- Rongga pleura normal bertekanan negatif (subatmosfer) agar paru tetap mengembang mengikuti dinding dada saat inspirasi.\n- Robekan parenkim paru, bronkus, atau dinding dada yang membentuk katup satu arah (one-way valve) → udara masuk ke rongga pleura saat inspirasi/batuk tetapi terjebak saat ekspirasi → tekanan intropleura menjadi positif tinggi (tension PNX) → paru ipsilateral kolaps total (pirau intrapulmonal dan hipoksemia berat) serta diafragma tertekan ke kaudal.\n- Tekanan positif intratoraks mendorong mediastinum, jantung, dan trakea ke kontralateral → menekan paru kontralateral dan menekuk (kinking) vena kava superior serta inferior → aliran balik vena ke atrium kanan anjlok → curah jantung turun drastis → syok obstruktif (hipotensi, takikardia, distensi vena jugularis) hingga henti jantung aktivitas listrik tanpa nadi (pulseless electrical activity / PEA).\n- Pada luka tembus dinding dada dengan defek melebihi dua pertiga diameter trakea (open PNX / sucking chest wound) → udara keluar-masuk lewat defek dinding dada karena resistensinya lebih rendah daripada trakea → ventilasi alveolar gagal hingga dipasang kasa kedap tiga sisi (three-sided occlusive dressing) dan WSD.\n- Sistem WSD membalikkan proses ini melalui katup satu arah bawah air (water seal): pipa yang terendam 2 cm di bawah air steril membiarkan udara/cairan keluar saat ekspirasi/batuk (gelembung / bubbling), tetapi menahan udara atmosfer agar tidak tersedot masuk saat inspirasi (tampak sebagai ayunan kolom cairan mengikuti napas yang disebut undulasi atau tidaling/swing).\n\nEtiologi dan faktor risiko:\n- Trauma toraks: menurut pedoman World Society of Emergency Surgery (WSES) dan American Association for the Surgery of Trauma (AAST) 2025, trauma tumpul dada mencakup 70–80% trauma toraks dan menyumbang 20–25% kematian trauma; < 10% trauma tumpul dada memerlukan operasi dibanding hingga 30% pada trauma tembus. Risiko PNX sederhana atau tension pada politrauma adalah 20% dan mencapai 50% pada trauma dada berat.\n- Pemicu konversi menjadi tension PNX: ventilasi tekanan positif pada cedera pleura viseralis tanpa drainase pleura, atau balutan kedap empat sisi pada open PNX sebelum WSD terpasang.\n- Non-trauma dan iatrogenik: pneumotoraks spontan primer (primary spontaneous pneumothorax / PSP, ruptur bleb subpleura apikal), pneumotoraks spontan sekunder (secondary spontaneous pneumothorax / SSP, seperti pada penyakit paru obstruktif kronik / PPOK), efusi pleura/empiema, serta komplikasi kateter vena sentral atau barotrauma ventilator.\n\nManifestasi klinis:\n- Tanda tension PNX (diagnosis murni klinis, dilarang menunda dekompresi untuk radiologi): sesak berat, gelisah, takipnea, takikardia, hipotensi (syok obstruktif), distensi vena jugularis, hemitoraks ipsilateral tertinggal, suara napas menghilang, perkusi hipersonor ipsilateral, dan deviasi trakea kontralateral (tanda lanjut).\n- Tanda HTX masif: sesak napas dan syok hipovolemik (vena leher kempes kecuali bila disertai penekanan mediastinum), suara napas hilang, dan perkusi redup (pekak) ipsilateral.\n\n{{gambar:1}}\n\nDiagnosis:\n- Pemeriksaan penunjang dikerjakan pada pasien stabil atau untuk evaluasi pascapemasangan selang:\n  - Ultrasonografi (extended focused assessment with sonography in trauma / E-FAST) transduser 5–10 megahertz (MHz): pada PNX tampak hilangnya lung sliding, hilangnya comet-tail artifacts, barcode/stratosphere sign pada M-mode, dan lung point. Pada HTX traumatik, E-FAST lebih sensitif dibanding foto polos dada (chest X-ray / CXR) (97,5% vs 92,5%) dan lebih cepat (1,3 menit vs 14,2 menit).\n  - CXR: sensitivitas CXR terlentang (supine) untuk PNX hanya 28–75%. CXR pascaprosedur memastikan seluruh lubang drainase (termasuk sentinel hole pada garis radioopak) berada di dalam rongga pleura.\n  - Computed tomography (CT) toraks: mendeteksi cedera toraks tersembunyi pada 71% pasien dengan CXR normal (37,5% memerlukan intervensi penyelamatan nyawa), serta membedakan darah cair (30–45 Hounsfield unit / HU) dari bekuan darah (45–70 HU).\n\nTatalaksana:\n- Indikasi konservatif vs drainase & ukuran selang French (Fr; 1 Fr = 0,33 mm):\n  - Observasi konservatif: PNX traumatik kecil (≤ 2 cm atau apikal ≤ 3,5 cm) dan HTX kecil (< 300 mL) pada pasien stabil tanpa ventilasi tekanan positif dapat diobservasi ≥ 24 jam dengan CXR ulang. Pada PSP gejala minimal/tanpa gejala, BTS 2023 merekomendasikan observasi konservatif tanpa memandang ukuran kolaps.\n  - Kaliber selang: untuk PNX spontan, efusi terinfeksi, atau PNX traumatik terisolasi, gunakan kateter kecil / pigtail ≤ 14 Fr (8,5–16 Fr; pada trauma 18–24 Fr juga diterima; ukuran > 14 Fr meningkatkan nyeri tanpa menambah efikasi menurut BTS 2023). Untuk HTX traumatik (≥ 500 mL pada pasien stabil atau ukuran berapa pun pada pasien tidak stabil), wajib gunakan selang besar 28–40 Fr (tidak ada perbedaan efikasi di atas 32 Fr; selang kecil berisiko menyisakan HTX residual > 300 mL dan empiema).\n- Prosedur 1 — Dekompresi Jarum (NT) & Torakostomi Jari:\n  - Lokasi (Advanced Trauma Life Support / ATLS edisi ke-10 & WSES-AAST 2025): dewasa di ICS ke-4/5 antara AAL dan MAL (kegagalan kateter 5 cm terendah 13% di AAL dan 31% di MAL, dibanding 38% di ICS ke-2 MCL; kateter 3,2 cm gagal 65% vs 4% dengan kateter 4,5 cm). Lokasi ICS ke-2 MCL tetap khusus untuk anak (hanya 60% dokter instalasi gawat darurat / IGD yang mengidentifikasi ICS ke-2 MCL dengan tepat).\n  - Teknik: asepsis kulit, tusukkan kateter berjarum 14-Gauge (14-G) atau 16-G panjang ≥ 5 cm (hingga 8 cm pada dinding tebal, tegak lurus 90° karena jarum 8 cm berisiko 9% mencederai struktur vital pada sudut optimal dan 32% bila miring) tepat di tepi atas iga bawah hingga terdengar desisan udara, dorong kateter plastik, cabut jarum. Bila gagal, lakukan torakostomi jari (insisi 3–4 cm di ICS ke-4/5 AAL–MAL, diseksi tumpul klem menembus pleura, sapuan jari), lalu pasang selang WSD.\n- Prosedur 2 — Pemasangan Selang WSD (Tube Thoracostomy) Diseksi Tumpul:\n  - Posisi & anestesi lokal (50% pasien melaporkan nyeri berat 9–10/10 bila analgesia kurang): posisi terlentang atau elevasi 45° dengan lengan ipsilateral abduksi dan tangan di belakang kepala. Infiltrasi berlapis kulit, subkutan, otot interkostal, periosteum iga bawah, hingga pleura parietalis dengan lidokain 1% (10 mg/mL) rute infiltrasi lokal hingga 3 mg/kg berat badan (BB), maksimal 250 mg (25 mL larutan 1% pada dewasa 70 kg; sediaan 1% dipilih dibanding 2% agar volume sebaran lebih luas), atau hingga 7 mg/kg BB (maksimal 500 mg) dengan epinefrin. Alasan farmakologis: lidokain memblokade kanal natrium berpintu tegangan pada akson nervus interkostalis dan pleura parietalis sehingga menghentikan konduksi nyeri; epinefrin memicu vasokonstriksi alfa-1 adrenergik yang memperlambat absorpsi sistemik.\n  - Insisi, diseksi tumpul, dan sapuan jari: insisi kulit horizontal 2 cm (3–4 cm selang besar) di ICS ke-4/5 AAL–MAL sejajar tepi atas iga bawah. Diseksi tumpul dengan klem Kelly tepat di atas tepi superior iga bawah menembus pleura, diikuti sapuan jari telunjuk 360° (finger sweep) untuk memastikan rongga pleura dan membebaskan perlengketan; dilarang memakai trokar logam tajam karena berisiko tinggi melaserasi organ.\n\n{{gambar:2}}\n\n  - Insersi, fiksasi, dan sistem 3 botol: masukkan selang (ke apeks untuk PNX, basal untuk HTX) hingga semua lubang masuk ke rongga pleura. Fiksasi dengan benang non-absorbable (silk 1.0) jahitan lurus/matras horizontal; hindari jahitan kantung tembakau (purse-string suture) karena memicu nekrosis kulit, parut buruk, dan tidak mencegah bocor udara. Hubungkan ke WSD 3 botol di bawah tinggi dada: Botol 1 (penampung cairan/darah), Botol 2 (water seal terendam 2 cm air sebagai katup satu arah), dan Botol 3 (kontrol hisap vakum rendah –5 hingga –20 sentimeter air / cmH2O bila paru belum mengembang dengan gravitasi).\n\n{{gambar:3}}\n\n- Profilaksis antibiotik & pencabutan selang:\n  - WSES-AAST 2025 menyatakan profilaksis antibiotik tidak diindikasikan rutin pada PNX spontan atau trauma tumpul tertutup, tetapi diberikan pada trauma tembus, open PNX, atau HTX tertahan. Sebaliknya, pedoman Eastern Association for the Surgery of Trauma (EAST) 2022 merekomendasikan kondisional antibiotik intravena (IV) — sefazolin 1–2 gram IV saat insersi hingga 24–48 jam — pada trauma dewasa untuk menurunkan empiema (odds ratio / OR 0,47) dan pneumonia (OR 0,51), terutama pada trauma tembus (OR 0,25; p = 0,002 vs trauma tumpul OR 0,25; p = 0,07). Alasan farmakologis: sefazolin menghambat sintesis dinding sel bakteri via penicillin-binding proteins (PBP) pada flora kulit Gram-positif (Staphylococcus aureus, Streptococcus).\n  - Jangan mengklem WSD yang masih mengeluarkan gelembung udara (bubbling) karena memicu tension PNX. Cabut selang bila paru mengembang penuh dan tanpa kebocoran udara, dilakukan cepat saat manuver Valsalva tertahan atau akhir ekspirasi (tekanan intratoraks positif mencegah udara luar tersedot masuk), lalu tutup dengan kasa kedap udara.\n\nKomplikasi:\n- Malposisi selang (intrafisura 21%, intraparenkim paru 9% pada pasien kritis, subkutan 1–1,8%, atau perforasi organ). Bila selang menembus parenkim paru, jantung, hepar, atau limpa, dilarang mencabut langsung di IGD/bangsal karena selang bekerja sebagai tamponade; pencabutan harus terkontrol di kamar operasi pasca-CT.\n- Edema paru re-ekspansi (re-expansion pulmonary edema / REPE): mortalitas 20%, muncul dalam 2 jam pascadrainase cepat (usia < 40 tahun, kolaps > 3 hari, PNX > 30%). Cegah dengan menghindari hisap aktif awal, menjaga tekanan pleura di atas –20 cmH2O, dan tidak mengevakuasi cairan/darah > 1.000 mL (1 liter / L) sekaligus.\n- Cedera saraf: sindrom Horner (ujung selang menekan rantai simpatis apeks → tarik mundur 2–3 cm), cedera nervus frenikus (jaga ujung selang ≥ 2 cm dari vertebra), dan cedera nervus thoracicus longus (saraf Bell → winged scapula).\n\nKapan merujuk:\n- Rujuk segera ke spesialis bedah toraks kardiovaskular (BTKV) atau bedah umum untuk torakotomi darurat bila: (1) hemodinamik tidak stabil akibat perdarahan intratoraks aktif; (2) produksi darah awal WSD > 1.500 mL (HTX masif); (3) perdarahan berkelanjutan > 200 mL/jam selama 3 jam berturut-turut; (4) kebocoran udara masif akibat cedera trakeobronkial; atau (5) malposisi selang di dalam organ viseral.\n- Rujuk untuk video-assisted thoracoscopic surgery (VATS) dini (≤ 72 jam) bila terdapat HTX tertahan (> 300 mL pada CT) guna mencegah empiema dan fibrothorax.\n\nAnalogi:\n- Analogi balon di dalam kotak dan sedotan di segelas air (ini adalah analogi): pada tension PNX, robekan paru bekerja seperti pintu putar satu arah yang memompa udara ke sela dinding dada hingga balon paru kempis dan vena kava tercekik. Dekompresi jarum ibarat menusukkan jarum pentil untuk membuang tekanan darurat, sedangkan botol water seal WSD ibarat sedotan yang dicelupkan 2 cm ke dalam segelas air: udara dari dada bisa meniup keluar menjadi gelembung di air, tetapi saat menarik napas, air di gelas menahan ujung sedotan sehingga udara luar tidak bisa tersedot masuk.\n\nMnemonik:\n- Batas Segitiga Aman — \"PEK-LAT-45\" (mnemonik buatan):\n  - PEK: Pectoralis major (tepi lateral sebagai batas anterior).\n  - LAT: Latissimus dorsi (tepi anterior sebagai batas posterior).\n  - 45: ICS ke-4 atau ke-5 setinggi papila mamae (batas inferior, apeks di bawah aksila).\n- Posisi terhadap Berkas Interkostal — \"VAN di Bawah Iga Atas, Tusuk di Atas Iga Bawah\" (mnemonik anatomi klasik):\n  - Vena, Arteri, dan Nervus (VAN) berurutan di sulcus costae tepi bawah iga atas; tusukan selalu di tepi atas iga bawah.\n\nPoin untuk koas:\n- Pada soal ujian kompetensi mahasiswa program profesi dokter (UKMPPD) dan jaga IGD: tension PNX adalah diagnosis klinis — tindakan pertama selalu dekompresi jarum segera tanpa menunggu CXR.\n- Lokasi dekompresi jarum ATLS edisi ke-10: dewasa di ICS ke-4/5 antara AAL dan MAL; anak di ICS ke-2 MCL.\n- Saat visite pasien WSD, evaluasi 3 hal: (1) Produksi cairan (jumlah dan warna di botol penampung); (2) Undulasi/swing di pipa water seal (patensi selang dan tekanan pleura); serta (3) Gelembung/bubbling saat batuk (kebocoran udara).\n- Kriteria torakotomi darurat pada HTX masif: drainase awal > 1.500 mL atau perdarahan aktif > 200 mL/jam selama 3 jam berturut-turut.\n- Cabut selang WSD saat pasien melakukan manuver Valsalva atau akhir ekspirasi agar tekanan intratoraks positif mencegah udara tersedot masuk.\n\nSingkatan:\n- AAL: anterior axillary line\n- AAST: American Association for the Surgery of Trauma\n- ATLS: Advanced Trauma Life Support\n- BB: berat badan\n- BTKV: bedah toraks kardiovaskular\n- BTS: British Thoracic Society\n- cmH2O: sentimeter air\n- CT: computed tomography\n- CWT: chest wall thickness\n- CXR: chest X-ray\n- E-FAST: extended focused assessment with sonography in trauma\n- EAST: Eastern Association for the Surgery of Trauma\n- Fr: French\n- G: Gauge\n- HTX: hemotoraks\n- HU: Hounsfield unit\n- ICS: intercostal space\n- IGD: instalasi gawat darurat\n- IK: interval kepercayaan\n- IV: intravena\n- L: liter\n- MAL: midaxillary line\n- MCL: midclavicular line\n- MHz: megahertz\n- NT: needle thoracostomy\n- OR: odds ratio\n- PBP: penicillin-binding proteins\n- PEA: pulseless electrical activity\n- PNX: pneumotoraks\n- PPOK: penyakit paru obstruktif kronik\n- PSP: primary spontaneous pneumothorax\n- REPE: re-expansion pulmonary edema\n- SSP: secondary spontaneous pneumothorax\n- UKMPPD: ujian kompetensi mahasiswa program profesi dokter\n- VAN: vena, arteri, dan nervus interkostalis\n- VATS: video-assisted thoracoscopic surgery\n- WSD: water seal drainage\n- WSES: World Society of Emergency Surgery",
+   "images": [
+    {
+     "file": "img/20261019-1125-dekompresi-jarum-wsd-1.jpg",
+     "caption": "Gambar 1: Foto polos dada (CXR) menunjukkan pneumotoraks kiri luas dengan kolaps paru kiri ke arah hilus, pendataran diafragma kiri, serta pendorongan trakea dan mediastinum ke sisi kanan (tension pneumothorax)",
+     "credit": "Clinical Cases, CC BY-SA 2.5, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Pneumothorax_CXR.jpg"
+    },
+    {
+     "file": "img/20261019-1125-dekompresi-jarum-wsd-2.jpg",
+     "caption": "Gambar 2: Selang dada (chest tube) yang telah terpasang pada dinding dada dengan penanda kedalaman sentimeter (tampak fiksasi benang di tepi kulit; pedoman BTS dan literatur bedah merekomendasikan jahitan lurus/matras benang silk 1.0 dan menghindari jahitan melingkar purse-string)",
+     "credit": "C. H. Chen, S. Y. Lee et al., CC BY 2.5, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:ChestTube.jpg"
+    },
+    {
+     "file": "img/20261019-1125-dekompresi-jarum-wsd-3.svg",
+     "caption": "Gambar 3: Skema batas anatomis segitiga aman (Triangle of Safety BTS) dan perbandingan titik dekompresi jarum, potongan melintang berkas neurovaskular interkostal (VAN) di sulcus costae, serta prinsip sistem drainase WSD 3 botol",
+     "credit": "Digambar Gemini berdasarkan pedoman WSES-AAST (2025), BTS (2023), Kesieme et al. (2012), dan Laan et al. (2016)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "World Society of Emergency Surgery (WSES) & American Association for the Surgery of Trauma (AAST)",
+     "title": "Thoracic trauma WSES-AAST guidelines",
+     "year": 2025,
+     "url": "https://doi.org/10.1186/s13017-025-00651-1"
+    },
+    {
+     "org": "British Thoracic Society (BTS)",
+     "title": "BTS Clinical Statement on Pleural Procedures",
+     "year": 2023,
+     "url": "https://www.brit-thoracic.org.uk/clinical-resources/clinical-statements/pleural-procedures/"
+    },
+    {
+     "org": "Eastern Association for the Surgery of Trauma (EAST)",
+     "title": "Antibiotic prophylaxis for tube thoracostomy placement in trauma: a practice management guideline from the Eastern Association for the Surgery of Trauma",
+     "year": 2022,
+     "url": "https://doi.org/10.1136/tsaco-2022-000886"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Coccolini F, Cremonini C, Chiarugi M, Moore EE, et al. Thoracic trauma WSES-AAST guidelines",
+     "publisher": "World Journal of Emergency Surgery 20:80",
+     "year": 2025,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532459/"
+    },
+    {
+     "title": "Subedi A, Garcha P, et al. Updates on British Thoracic Society Statement on Pleural Disease and Procedures 2023",
+     "publisher": "The Open Respiratory Medicine Journal 17:e18743064286775",
+     "year": 2023,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10772894/"
+    },
+    {
+     "title": "Mounsey CA, Kanellakis NI, Rahman NM, et al. Local Anesthetic Use in Pleural Procedures: Time to Reconsider the Guidelines?",
+     "publisher": "Chest 168(3):768-771",
+     "year": 2025,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12460958/"
+    },
+    {
+     "title": "Freeman JJ, Asfaw SH, Vatsaas CJ, et al. Antibiotic prophylaxis for tube thoracostomy placement in trauma: a practice management guideline from the Eastern Association for the Surgery of Trauma",
+     "publisher": "Trauma Surgery & Acute Care Open 7(1):e000886",
+     "year": 2022,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9594524/"
+    },
+    {
+     "title": "Kuhajda I, Zarogoulidis K, Kougioumtzi I, et al. Tube thoracostomy; chest tube implantation and follow up",
+     "publisher": "Journal of Thoracic Disease 6(Suppl 4):S470-S479",
+     "year": 2014,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4203990/"
+    },
+    {
+     "title": "Kesieme EB, Dongo A, Ezemba N, Irekpita E, Jebbin N, Kesieme C. Tube Thoracostomy: Complications and Its Management",
+     "publisher": "Pulmonary Medicine 2012:256878",
+     "year": 2012,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3205696/"
+    },
+    {
+     "title": "Kim M, Moore JE. Chest Trauma: Current Recommendations for Rib Fractures, Pneumothorax, and Other Injuries",
+     "publisher": "Current Anesthesiology Reports 10(1):61-68",
+     "year": 2020,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7223697/"
+    },
+    {
+     "title": "Laan DV, Vu TD, Thiels CA, Pandian TK, Schiller HJ, Murad MH, Aho JM. Chest Wall Thickness and Decompression Failure: A Systematic Review and Meta-analysis Comparing Anatomic Locations in Needle Thoracostomy",
+     "publisher": "Injury 47(4):797-804",
+     "year": 2016,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4842126/"
+    },
+    {
+     "title": "Wernick B, Hon HH, Mubang RN, Cipriano A, et al. Complications of needle thoracostomy: A comprehensive clinical review",
+     "publisher": "International Journal of Critical Illness and Injury Science 5(3):160-169",
+     "year": 2015,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4613415/"
     }
    ]
   }

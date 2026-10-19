@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="590" viewBox="0 0 880 590" font-family="sans-serif">
+  <defs>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#15803d"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="590" fill="#ffffff"/>
+
+  <!-- Main Title -->
+  <text x="440" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">
+    Anatomi Segitiga Aman, Berkas Interkostal (VAN), dan Sistem Drainase WSD 3 Botol
+  </text>
+  <text x="440" y="46" text-anchor="middle" font-size="13" fill="#475569">
+    Berdasarkan Pedoman WSES-AAST (2025), BTS (2023), ATLS Ed. 10, Kesieme et al. (2012), dan Laan et al. (2016)
+  </text>
+
+  <!-- ================= PANEL A: SEGITIGA AMAN & LOKASI DEKOMPRESI ================= -->
+  <rect x="16" y="58" width="420" height="258" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="16" y="58" width="420" height="30" rx="8" fill="#e0f2fe"/>
+  <text x="226" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#0369a1">
+    A. Segitiga Aman (Triangle of Safety) &amp; Titik Dekompresi
+  </text>
+
+  <!-- Schematic lateral thorax & triangle -->
+  <polygon points="105,112 55,212 155,212" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <circle cx="105" cy="112" r="4" fill="#15803d"/>
+  <text x="105" y="104" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">Apeks: bawah aksila</text>
+
+  <!-- Numbered borders on triangle -->
+  <circle cx="72" cy="160" r="9" fill="#0f172a"/>
+  <text x="72" y="164" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">1</text>
+  <circle cx="138" cy="160" r="9" fill="#0f172a"/>
+  <text x="138" y="164" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">2</text>
+  <line x1="40" y1="212" x2="170" y2="212" stroke="#0369a1" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- Insertion point inside triangle -->
+  <circle cx="105" cy="188" r="5" fill="#16a34a" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="105" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">ICS 4–5</text>
+  <text x="105" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">AAL–MAL</text>
+
+  <!-- Legend below triangle (left column x=22..200) -->
+  <text x="22" y="232" font-size="13" font-weight="bold" fill="#0f172a">1: m. pectoralis major</text>
+  <text x="22" y="250" font-size="13" font-weight="bold" fill="#0f172a">2: m. latissimus dorsi</text>
+  <text x="22" y="268" font-size="13" font-weight="bold" fill="#0369a1">Basis: setinggi ICS 4–5</text>
+  <text x="22" y="286" font-size="13" fill="#475569">Lengan abduksi + tangan</text>
+  <text x="22" y="304" font-size="13" fill="#475569">di belakang kepala</text>
+
+  <!-- Comparison Boxes (right column x=206..428) -->
+  <rect x="206" y="96" width="222" height="104" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="214" y="114" font-size="13" font-weight="bold" fill="#166534">ICS 4–5 AAL–MAL (Dewasa):</text>
+  <text x="214" y="132" font-size="13" fill="#1e293b">• Tebal: 34,3–39,9 mm</text>
+  <text x="214" y="150" font-size="13" fill="#1e293b">• Gagal jarum 5 cm: 13%–31%</text>
+  <text x="214" y="168" font-size="13" fill="#1e293b">• Lokasi WSD &amp; dekompresi</text>
+  <text x="214" y="186" font-size="13" font-weight="bold" fill="#15803d">• Torakostomi jari (3–4 cm)</text>
+
+  <rect x="206" y="206" width="222" height="102" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="214" y="224" font-size="13" font-weight="bold" fill="#991b1b">ICS 2 MCL (Khusus Anak):</text>
+  <text x="214" y="242" font-size="13" fill="#1e293b">• Dewasa: 42,8 mm (gagal 38%)</text>
+  <text x="214" y="260" font-size="13" fill="#1e293b">• Medial → a. thoracica int.</text>
+  <text x="214" y="278" font-size="13" fill="#1e293b">• &gt;ICS 6 → risiko perforasi</text>
+  <text x="222" y="296" font-size="13" font-weight="bold" fill="#b91c1c">diafragma / hepar / limpa</text>
+
+  <!-- ================= PANEL B: POTONGAN MELINTANG SELA IGA (VAN) ================= -->
+  <rect x="446" y="58" width="418" height="258" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="446" y="58" width="418" height="30" rx="8" fill="#fef3c7"/>
+  <text x="655" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#92400e">
+    B. Potongan Melintang Sela Iga (ICS) &amp; Berkas VAN
+  </text>
+
+  <!-- Intercostal muscles background -->
+  <rect x="492" y="118" width="84" height="165" fill="#fde68a" opacity="0.45"/>
+  <!-- Parietal pleura line -->
+  <line x1="576" y1="98" x2="576" y2="300" stroke="#ec4899" stroke-width="3"/>
+  <text x="588" y="112" font-size="13" font-weight="bold" fill="#be185d">Pleura parietalis</text>
+  <text x="588" y="129" font-size="13" fill="#64748b">(Rongga pleura di dalam)</text>
+
+  <!-- Superior Rib (Iga Atas) -->
+  <ellipse cx="532" cy="122" rx="45" ry="21" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <text x="532" y="126" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">IGA ATAS</text>
+
+  <!-- VAN Bundle in sulcus costae -->
+  <circle cx="550" cy="148" r="6" fill="#2563eb"/>
+  <text x="588" y="150" font-size="13" font-weight="bold" fill="#1d4ed8">V = Vena interkostalis</text>
+  <circle cx="550" cy="165" r="6" fill="#dc2626"/>
+  <text x="588" y="167" font-size="13" font-weight="bold" fill="#b91c1c">A = Arteri interkostalis</text>
+  <circle cx="550" cy="182" r="6" fill="#eab308" stroke="#a16207" stroke-width="1"/>
+  <text x="588" y="184" font-size="13" font-weight="bold" fill="#a16207">N = Nervus interkostalis</text>
+  <text x="588" y="201" font-size="13" fill="#991b1b">(Sulcus costae: HINDARI!)</text>
+
+  <!-- Safe insertion arrow right above the superior border of inferior rib -->
+  <line x1="456" y1="234" x2="612" y2="234" stroke="#15803d" stroke-width="4" marker-end="url(#arrowGreen)"/>
+  <rect x="622" y="208" width="232" height="58" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="630" y="225" font-size="13" font-weight="bold" fill="#166534">ZONA AMAN INSERSI:</text>
+  <text x="630" y="243" font-size="13" fill="#14532d">Tepat di TEPI ATAS iga bawah</text>
+  <text x="630" y="260" font-size="13" fill="#14532d">(50–70% ke bawah sela iga)</text>
+
+  <!-- Small collateral vessels above lower rib -->
+  <circle cx="550" cy="252" r="4" fill="#dc2626"/>
+  <text x="588" y="282" font-size="13" fill="#475569">Infiltrasi anestesi lokal:</text>
+  <text x="588" y="300" font-size="13" font-weight="bold" fill="#0f172a">Lidokain 1% maks. 3 mg/kg (250 mg)</text>
+
+  <!-- Inferior Rib (Iga Bawah) -->
+  <ellipse cx="532" cy="278" rx="45" ry="21" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <text x="532" y="282" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">IGA BAWAH</text>
+
+  <!-- ================= PANEL C: SISTEM WSD 3 BOTOL ================= -->
+  <rect x="16" y="326" width="848" height="252" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="16" y="326" width="848" height="30" rx="8" fill="#ede9fe"/>
+  <text x="440" y="346" text-anchor="middle" font-size="14" font-weight="bold" fill="#5b21b6">
+    C. Prinsip Sistem Drainase WSD 3 Botol (Three-Chamber Water Seal System)
+  </text>
+
+  <!-- Patient Box -->
+  <rect x="28" y="378" width="162" height="145" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+  <text x="109" y="398" text-anchor="middle" font-size="14" font-weight="bold" fill="#991b1b">RONGGA PLEURA</text>
+  <text x="109" y="418" text-anchor="middle" font-size="13" fill="#1e293b">• Pneumotoraks:</text>
+  <text x="109" y="436" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">≤ 14 Fr (8,5–16 Fr)</text>
+  <text x="109" y="456" text-anchor="middle" font-size="13" fill="#1e293b">• Hemotoraks trauma:</text>
+  <text x="109" y="474" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">selang 28–40 Fr</text>
+  <text x="109" y="494" text-anchor="middle" font-size="13" fill="#b91c1c">(Diseksi tumpul,</text>
+  <text x="109" y="512" text-anchor="middle" font-size="13" fill="#b91c1c">tanpa trokar tajam!)</text>
+
+  <!-- Tube from patient to Bottle 1 -->
+  <path d="M190,398 L238,398 L238,418" fill="none" stroke="#b91c1c" stroke-width="3.5" marker-end="url(#arrowRed)"/>
+
+  <!-- Bottle 1: Collection Chamber -->
+  <rect x="220" y="390" width="182" height="135" rx="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <rect x="222" y="482" width="178" height="41" rx="4" fill="#fca5a5"/>
+  <text x="311" y="382" text-anchor="middle" font-size="14" font-weight="bold" fill="#0f172a">1. Botol Penampung</text>
+  <text x="311" y="418" text-anchor="middle" font-size="13" fill="#1e293b">Tampung cairan/darah</text>
+  <text x="311" y="438" text-anchor="middle" font-size="13" font-weight="bold" fill="#b91c1c">Indikasi torakotomi:</text>
+  <text x="311" y="456" text-anchor="middle" font-size="13" fill="#991b1b">• Awal &gt; 1.500 mL</text>
+  <text x="311" y="473" text-anchor="middle" font-size="13" fill="#991b1b">• &gt; 200 mL/jam × 3 jam</text>
+  <text x="311" y="508" text-anchor="middle" font-size="13" font-weight="bold" fill="#7f1d1d">Darah / Eksudat Pleura</text>
+
+  <!-- Tube from Bottle 1 to Bottle 2 -->
+  <path d="M385,398 L446,398 L446,506" fill="none" stroke="#1d4ed8" stroke-width="3.5"/>
+
+  <!-- Bottle 2: Water Seal Chamber -->
+  <rect x="428" y="390" width="190" height="135" rx="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <rect x="430" y="482" width="186" height="41" rx="4" fill="#bae6fd"/>
+  <circle cx="458" cy="502" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+  <circle cx="465" cy="491" r="5" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="523" y="382" text-anchor="middle" font-size="14" font-weight="bold" fill="#0369a1">2. Botol Water Seal</text>
+  <text x="532" y="418" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">Katup Satu Arah</text>
+  <text x="532" y="437" text-anchor="middle" font-size="13" fill="#1e293b">• Pipa masuk 2 cm air</text>
+  <text x="532" y="455" text-anchor="middle" font-size="13" fill="#1e293b">• Undulasi (swing) napas</text>
+  <text x="532" y="473" text-anchor="middle" font-size="13" fill="#1e293b">• Gelembung = bocor udara</text>
+  <text x="535" y="508" text-anchor="middle" font-size="13" font-weight="bold" fill="#0369a1">Air Steril (–2 cmH2O)</text>
+
+  <!-- Tube from Bottle 2 to Bottle 3 -->
+  <path d="M602,398 L658,398 L658,506" fill="none" stroke="#0f172a" stroke-width="3"/>
+
+  <!-- Bottle 3: Suction Control Chamber -->
+  <rect x="642" y="390" width="210" height="135" rx="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <rect x="644" y="482" width="206" height="41" rx="4" fill="#bfdbfe"/>
+  <text x="747" y="382" text-anchor="middle" font-size="14" font-weight="bold" fill="#1d4ed8">3. Botol Kontrol Hisap</text>
+  <text x="755" y="418" text-anchor="middle" font-size="13" fill="#1e293b">Vakum rendah bila perlu:</text>
+  <text x="755" y="436" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">–5 hingga –20 cmH2O</text>
+  <text x="755" y="456" text-anchor="middle" font-size="13" font-weight="bold" fill="#b91c1c">Cegah REPE (mortalitas 20%):</text>
+  <text x="755" y="474" text-anchor="middle" font-size="13" fill="#0f172a">Jangan &lt; –20 cmH2O &amp; ≤ 1 L</text>
+  <text x="755" y="508" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">Kedalaman Pipa = Hisap</text>
+
+  <!-- Bottom note -->
+  <text x="440" y="548" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">
+    Pencabutan WSD: paru mengembang penuh &amp; tanpa bocor udara → cabut saat manuver Valsalva / akhir ekspirasi
+  </text>
+  <text x="440" y="566" text-anchor="middle" font-size="13" fill="#475569">
+    (tekanan intratoraks positif mencegah udara tersedot masuk; fiksasi dengan jahitan kasur/lurus silk 1.0, hindari purse-string)
+  </text>
+</svg>
