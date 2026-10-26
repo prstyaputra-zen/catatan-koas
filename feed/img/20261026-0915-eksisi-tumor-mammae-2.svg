@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="690" viewBox="0 0 900 690" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e3a8a" />
+    </linearGradient>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="690" fill="#f8fafc"/>
+
+  <!-- Header -->
+  <rect x="20" y="15" width="860" height="56" rx="8" fill="url(#headerGrad)" filter="url(#shadow)"/>
+  <text x="450" y="39" font-size="17" font-weight="bold" text-anchor="middle" fill="#ffffff" letter-spacing="0.5">PRINSIP BEDAH EKSISI TUMOR MAMMAE &amp; ORIENTASI SAYATAN LANGER</text>
+  <text x="450" y="58" font-size="12" text-anchor="middle" fill="#93c5fd">Berdasarkan PNPK Kemenkes RI (2026), Standar Bedah PERABOI, StatPearls (2024), dan Konsensus ASBrS</text>
+
+  <!-- PANEL A: Pilihan Insisi & Garis Langer -->
+  <g transform="translate(20, 85)">
+    <rect width="415" height="585" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="415" height="36" rx="8" fill="#f1f5f9"/>
+    <path d="M 0 28 L 0 36 L 415 36 L 415 28 Z" fill="#f1f5f9"/>
+    <text x="16" y="23" font-size="14" font-weight="bold" fill="#0f172a">1. Garis Langer &amp; Pemilihan Sayatan Payudara</text>
+
+    <!-- Schematic Drawing of Breast -->
+    <g transform="translate(35, 55)">
+      <!-- Breast contour -->
+      <circle cx="170" cy="170" r="135" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="none"/>
+      <!-- Pectoral boundary indicator -->
+      <path d="M 60 45 Q 170 30 280 45" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+      <text x="170" y="25" font-size="11" text-anchor="middle" fill="#64748b">Batas Kosta II / Pektoralis Mayor</text>
+
+      <!-- Langer tension lines (concentric curved lines) -->
+      <path d="M 75 140 Q 170 95 265 140" fill="none" stroke="#fdba74" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <path d="M 60 170 Q 170 120 280 170" fill="none" stroke="#fdba74" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <path d="M 75 200 Q 170 245 265 200" fill="none" stroke="#fdba74" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <path d="M 95 230 Q 170 285 245 230" fill="none" stroke="#fdba74" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+      <!-- Areola and Nipple -->
+      <circle cx="170" cy="170" r="38" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
+      <circle cx="170" cy="170" r="12" fill="#ea580c" stroke="#9a3412" stroke-width="1.5"/>
+      <text x="170" y="174" font-size="10" font-weight="bold" text-anchor="middle" fill="#ffffff">NAC</text>
+
+      <!-- Incision 1: Circumareolar (Webster) -->
+      <path d="M 132 170 A 38 38 0 0 1 170 132" fill="none" stroke="#16a34a" stroke-width="4.5"/>
+      <!-- Pin 1 -->
+      <line x1="145" y1="145" x2="90" y2="100" stroke="#16a34a" stroke-width="1.5"/>
+      <circle cx="90" cy="100" r="3" fill="#16a34a"/>
+      <rect x="10" y="80" width="105" height="20" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+      <text x="62" y="94" font-size="11" font-weight="bold" text-anchor="middle" fill="#15803d">A. Sirkumareolar</text>
+
+      <!-- Incision 2: Curvilinear concentric over mass -->
+      <!-- Mass in Superolateral Quadrant -->
+      <circle cx="240" cy="105" r="18" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+      <text x="240" y="109" font-size="9" font-weight="bold" text-anchor="middle" fill="#334155">TUMOR</text>
+      <!-- Concentric incision line -->
+      <path d="M 215 90 Q 240 82 265 92" fill="none" stroke="#0284c7" stroke-width="4"/>
+      <!-- Pin 2 -->
+      <line x1="255" y1="85" x2="285" y2="65" stroke="#0284c7" stroke-width="1.5"/>
+      <circle cx="285" cy="65" r="3" fill="#0284c7"/>
+      <rect x="235" y="45" width="100" height="20" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+      <text x="285" y="59" font-size="11" font-weight="bold" text-anchor="middle" fill="#0369a1">B. Kurvilinear</text>
+
+      <!-- Incision 3: Inframammary fold (IMF) -->
+      <path d="M 115 285 Q 170 305 225 285" fill="none" stroke="#8b5cf6" stroke-width="4"/>
+      <!-- Pin 3 -->
+      <line x1="170" y1="295" x2="170" y2="320" stroke="#8b5cf6" stroke-width="1.5"/>
+      <circle cx="170" cy="320" r="3" fill="#8b5cf6"/>
+      <rect x="90" y="320" width="160" height="20" rx="4" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1"/>
+      <text x="170" y="334" font-size="11" font-weight="bold" text-anchor="middle" fill="#6d28d9">C. Lipatan Inframamaria (IMF)</text>
+
+      <!-- FORBIDDEN: Radial Incision across Langer lines -->
+      <line x1="185" y1="85" x2="215" y2="45" stroke="#dc2626" stroke-width="3" stroke-dasharray="4,3"/>
+      <line x1="193" y1="60" x2="207" y2="70" stroke="#dc2626" stroke-width="2.5"/>
+      <line x1="207" y1="60" x2="193" y2="70" stroke="#dc2626" stroke-width="2.5"/>
+      <text x="130" y="60" font-size="10" font-weight="bold" fill="#b91c1c">HINDARI: Radial</text>
+    </g>
+
+    <!-- Legend & Clinical Notes -->
+    <g transform="translate(16, 425)">
+      <rect width="383" height="145" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="12" y="22" font-size="12" font-weight="bold" fill="#0f172a">Prinsip Pemilihan Garis Sayatan:</text>
+      
+      <circle cx="18" cy="42" r="5" fill="#16a34a"/>
+      <text x="30" y="46" font-size="11" font-weight="bold" fill="#15803d">Insisi Sirkumareolar (A):</text>
+      <text x="30" y="60" font-size="11" fill="#334155">Tepi pigmen areola; skar tersamar optimal; akses kuadran sentral / tunneling.</text>
+
+      <circle cx="18" cy="80" r="5" fill="#0284c7"/>
+      <text x="30" y="84" font-size="11" font-weight="bold" fill="#0369a1">Insisi Kurvilinear (B):</text>
+      <text x="30" y="98" font-size="11" fill="#334155">Sejajar garis tegangan Langer/Kraissl; tegangan tepi luka minimal saat sembuh.</text>
+
+      <circle cx="18" cy="118" r="5" fill="#dc2626"/>
+      <text x="30" y="122" font-size="11" font-weight="bold" fill="#b91c1c">Larangan Sayatan Radial:</text>
+      <text x="30" y="136" font-size="11" fill="#334155">Memotong tegak lurus serat dermis; risiko kontraktur skar &amp; retraksi puting.</text>
+    </g>
+  </g>
+
+  <!-- PANEL B: Teknik Diseksi Enukleasi vs Lumpektomi -->
+  <g transform="translate(450, 85)">
+    <rect width="430" height="275" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="430" height="36" rx="8" fill="#f1f5f9"/>
+    <path d="M 0 28 L 0 36 L 430 36 L 430 28 Z" fill="#f1f5f9"/>
+    <text x="16" y="23" font-size="14" font-weight="bold" fill="#0f172a">2. Diseksi: Enukleasi Jinak (FAM) vs Lumpektomi Ganas</text>
+
+    <!-- Subpanel Left: Enukleasi FAM -->
+    <g transform="translate(15, 48)">
+      <rect width="195" height="212" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+      <text x="97" y="20" font-size="12" font-weight="bold" text-anchor="middle" fill="#166534">Enukleasi Jinak (FAM)</text>
+
+      <!-- Cross section sketch -->
+      <rect x="20" y="32" width="155" height="8" fill="#fed7aa" rx="2"/>
+      <text x="97" y="30" font-size="9" text-anchor="middle" fill="#9a3412">Kulit &amp; Dermis</text>
+      <rect x="20" y="42" width="155" height="75" fill="#fef3c7" stroke="#fde68a" stroke-width="1" rx="3"/>
+      <text x="28" y="55" font-size="9" fill="#b45309">Stroma Mammae</text>
+
+      <!-- FAM Tumor with Pseudocapsule -->
+      <ellipse cx="97" cy="80" rx="32" ry="22" fill="#e2e8f0" stroke="#15803d" stroke-width="2.5" stroke-dasharray="3,2"/>
+      <text x="97" y="83" font-size="10" font-weight="bold" text-anchor="middle" fill="#1e293b">FAM</text>
+
+      <!-- Dissection arrows along pseudocapsule -->
+      <path d="M 60 75 Q 65 60 85 58" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+      <path d="M 134 75 Q 129 60 109 58" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+      <text x="97" y="128" font-size="10" font-weight="bold" text-anchor="middle" fill="#15803d">Bidang Pseudokapsul</text>
+      <text x="97" y="143" font-size="9.5" text-anchor="middle" fill="#334155">- Fiksasi jari dari bawah/samping</text>
+      <text x="97" y="158" font-size="9.5" text-anchor="middle" fill="#334155">- Diseksi tumpul menyusuri kapsul</text>
+      <text x="97" y="173" font-size="9.5" text-anchor="middle" fill="#334155">- Tanpa mengorbankan parenkim</text>
+      <text x="97" y="188" font-size="9.5" text-anchor="middle" fill="#334155">- Tumor keluar bulat utuh</text>
+    </g>
+
+    <!-- Subpanel Right: Lumpektomi Curiga Ganas -->
+    <g transform="translate(220, 48)">
+      <rect width="195" height="212" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="97" y="20" font-size="12" font-weight="bold" text-anchor="middle" fill="#1e40af">Lumpektomi (Margin Bebas)</text>
+
+      <!-- Cross section sketch -->
+      <rect x="20" y="32" width="155" height="8" fill="#fed7aa" rx="2"/>
+      <text x="97" y="30" font-size="9" text-anchor="middle" fill="#9a3412">Kulit &amp; Dermis</text>
+      <rect x="20" y="42" width="155" height="75" fill="#fef3c7" stroke="#fde68a" stroke-width="1" rx="3"/>
+
+      <!-- Malignant tumor with irregular borders -->
+      <ellipse cx="97" cy="80" rx="22" ry="16" fill="#cbd5e1" stroke="#dc2626" stroke-width="2"/>
+      <text x="97" y="83" font-size="9" font-weight="bold" text-anchor="middle" fill="#991b1b">Karsinoma</text>
+
+      <!-- Wide excision boundary (margin) -->
+      <ellipse cx="97" cy="80" rx="38" ry="26" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3"/>
+      
+      <text x="97" y="128" font-size="10" font-weight="bold" text-anchor="middle" fill="#1e40af">Margin Sehat &gt; 2 mm / Bebas</text>
+      <text x="97" y="143" font-size="9.5" text-anchor="middle" fill="#334155">- Eksisi en-bloc + parenkim normal</text>
+      <text x="97" y="158" font-size="9.5" text-anchor="middle" fill="#334155">- Evaluasi dasar fasia pektoralis</text>
+      <text x="97" y="173" font-size="9.5" text-anchor="middle" fill="#334155">- Beri benang penanda orientasi</text>
+      <text x="97" y="188" font-size="9.5" text-anchor="middle" fill="#334155">- Target: no ink on tumor</text>
+    </g>
+  </g>
+
+  <!-- PANEL C: Penutupan Berlapis & Reduksi Dead Space -->
+  <g transform="translate(450, 375)">
+    <rect width="430" height="295" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="430" height="36" rx="8" fill="#f1f5f9"/>
+    <path d="M 0 28 L 0 36 L 430 36 L 430 28 Z" fill="#f1f5f9"/>
+    <text x="16" y="23" font-size="14" font-weight="bold" fill="#0f172a">3. Penutupan Berlapis (Layered Closure) Mencegah Dead Space</text>
+
+    <!-- Step 1 Box -->
+    <g transform="translate(15, 46)">
+      <rect width="400" height="68" rx="6" fill="#fff1f2" stroke="#fecdd3" stroke-width="1"/>
+      <rect x="10" y="10" width="28" height="28" rx="14" fill="#e11d48"/>
+      <text x="24" y="28" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+      <text x="48" y="22" font-size="12" font-weight="bold" fill="#9f1239">Hemostasis Rongga Sempurna (Kering Absolut)</text>
+      <text x="48" y="38" font-size="11" fill="#475569">Kauterisasi titik perdarahan dengan diatermi bipolar/monopolar; irigasi NaCl 0,9%.</text>
+      <text x="48" y="54" font-size="10.5" font-weight="bold" fill="#be123c">→ Mencegah komplikasi hematoma pascabedah akibat lonjakan tekanan darah.</text>
+    </g>
+
+    <!-- Step 2 Box -->
+    <g transform="translate(15, 122)">
+      <rect width="400" height="78" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <rect x="10" y="12" width="28" height="28" rx="14" fill="#2563eb"/>
+      <text x="24" y="30" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+      <text x="48" y="23" font-size="12" font-weight="bold" fill="#1e40af">Aproksimasi Parenkim Glandular (Glandular Flap)</text>
+      <text x="48" y="39" font-size="11" fill="#475569">Jahit aproksimasi jaringan kelenjar dengan benang absorbable Vicryl 3-0 / 4-0.</text>
+      <text x="48" y="55" font-size="10.5" font-weight="bold" fill="#1d4ed8">→ Menutup rongga hampa (dead space) &amp; mencegah deformitas cekungan (dimpling).</text>
+      <text x="48" y="70" font-size="10.5" fill="#64748b">*Jangan menjahit terlalu kencang untuk menghindari nekrosis lemak (fat necrosis).</text>
+    </g>
+
+    <!-- Step 3 Box -->
+    <g transform="translate(15, 208)">
+      <rect width="400" height="74" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <rect x="10" y="10" width="28" height="28" rx="14" fill="#16a34a"/>
+      <text x="24" y="28" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">3</text>
+      <text x="48" y="22" font-size="12" font-weight="bold" fill="#166534">Penutupan Subkutan, Kutis, &amp; Pemakaian Bra Bedah</text>
+      <text x="48" y="38" font-size="11" fill="#475569">Subkutan Vicryl 4-0 inverted; kulit subkutikuler kontinu Monocryl / Prolene 4-0.</text>
+      <text x="48" y="54" font-size="10.5" font-weight="bold" fill="#15803d">→ Edukasi sports bra / surgical bra 24 jam selama 1-2 minggu pertama pascabedah.</text>
+      <text x="48" y="68" font-size="10" fill="#64748b">(Drain Jackson-Pratt/Redon 10-14 Fr HANYA bila dead space luas &gt; 50 mL).</text>
+    </g>
+  </g>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrowGreen" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M 0 0 L 7 3.5 L 0 7 Z" fill="#16a34a"/>
+    </marker>
+  </defs>
+</svg>
