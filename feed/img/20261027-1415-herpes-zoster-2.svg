@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 840" width="900" height="840" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#475569"/></marker>
+  <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#0284c7"/></marker>
+  <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#dc2626"/></marker>
+</defs>
+<rect width="900" height="840" fill="#ffffff"/>
+
+<!-- Header -->
+<rect x="15" y="12" width="870" height="58" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="30" y="36" font-size="17" font-weight="700" fill="#0f172a">Herpes Zoster: Patogenesis, Trias Klinis, &amp; Algoritma Tatalaksana Komprehensif</text>
+<text x="30" y="55" font-size="12" fill="#475569">Reaktivasi VZV laten, farmakoterapi fase akut (jendela 72 jam), pencegahan NPH, dan tanda bahaya rujukan</text>
+
+<!-- Box 1: Patofisiologi -->
+<rect x="15" y="80" width="425" height="350" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<rect x="15" y="80" width="425" height="32" rx="8" fill="#dcfce7"/>
+<text x="28" y="101" font-size="13.5" font-weight="700" fill="#166534">1. Rantai Patofisiologi Reaktivasi VZV</text>
+
+<g transform="translate(25, 122)">
+  <rect x="0" y="0" width="395" height="36" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="10" y="16" font-size="11.5" font-weight="700" fill="#14532d">1. Infeksi Primer Varisela (Cacar Air)</text>
+  <text x="10" y="30" font-size="10.5" fill="#334155">Inokulasi mukosa sal. napas / konjungtiva → viremia primer &amp; ruam vesikuler luas</text>
+  
+  <line x1="197" y1="36" x2="197" y2="48" stroke="#475569" stroke-width="1.5" marker-end="url(#ah)"/>
+  
+  <rect x="0" y="50" width="395" height="36" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="10" y="66" font-size="11.5" font-weight="700" fill="#14532d">2. Transpor Retrograd &amp; Latensi Seumur Hidup</text>
+  <text x="10" y="80" font-size="10.5" fill="#334155">Virus masuk ujung saraf sensorik kulit → migrasi retrograd ke ganglion (GRD / N. V)</text>
+  
+  <line x1="197" y1="86" x2="197" y2="98" stroke="#475569" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="0" y="100" width="395" height="48" rx="5" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="10" y="116" font-size="11.5" font-weight="700" fill="#991b1b">3. Penurunan Cell-Mediated Immunity (CMI)</text>
+  <text x="10" y="130" font-size="10.5" fill="#450a0a">Penuaan biologis (&gt; 50 th), stres fisik/psikis, keganasan hematologi,</text>
+  <text x="10" y="143" font-size="10.5" fill="#450a0a">imunodefisiensi (HIV/AIDS), kemoterapi, steroid sistemik dosis tinggi</text>
+
+  <line x1="197" y1="148" x2="197" y2="160" stroke="#dc2626" stroke-width="1.5" marker-end="url(#ah-red)"/>
+
+  <rect x="0" y="162" width="395" height="44" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="10" y="178" font-size="11.5" font-weight="700" fill="#14532d">4. Reaktivasi Virus &amp; Nekrosis Ganglion</text>
+  <text x="10" y="192" font-size="10.5" fill="#334155">VZV bereplikasi masif di neuron sensorik → ganglionitis hemoragik nekrotik,</text>
+  <text x="10" y="203" font-size="10.5" fill="#334155">kerusakan neuron aferen, deafferentation &amp; sensitisasi sentral (pemicu nyeri)</text>
+
+  <line x1="197" y1="206" x2="197" y2="218" stroke="#475569" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="0" y="220" width="395" height="44" rx="5" fill="#ffffff" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="10" y="236" font-size="11.5" font-weight="700" fill="#14532d">5. Transpor Antegrad ke Dermatom Kulit</text>
+  <text x="10" y="250" font-size="10.5" fill="#334155">Virus bermigrasi cepat menyusuri akson sensorik ke perifer → invasi epidermis,</text>
+  <text x="10" y="261" font-size="10.5" fill="#334155">ballooning degeneration keratinosit, vesikel intraepidermal unilateral bergaris</text>
+</g>
+
+<!-- Box 2: Manifestasi Klinis -->
+<rect x="15" y="440" width="425" height="385" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<rect x="15" y="440" width="425" height="32" rx="8" fill="#dbeafe"/>
+<text x="28" y="461" font-size="13.5" font-weight="700" fill="#1e40af">2. Trias &amp; Karakteristik Klinis (SKDI 4A)</text>
+
+<g transform="translate(25, 482)">
+  <rect x="0" y="0" width="395" height="70" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="10" y="17" font-size="11.5" font-weight="700" fill="#1e3a8a">A. Stadium Prodromal (1-3 hari sebelum erupsi)</text>
+  <text x="10" y="32" font-size="10.5" fill="#334155">• Nyeri radikuler menusuk, berdenyut, terbakar, atau gatal hebat</text>
+  <text x="10" y="47" font-size="10.5" fill="#334155">• Terlokalisasi persis pada dermatom yang akan terkena</text>
+  <text x="10" y="62" font-size="10.5" fill="#334155">• Gejala konstitusional ringan: demam subfebris, malaise, cephalgia</text>
+
+  <rect x="0" y="78" width="395" height="90" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="10" y="95" font-size="11.5" font-weight="700" fill="#1e3a8a">B. Stadium Erupsi Akut (Hari ke-3 s/d ke-10)</text>
+  <text x="10" y="110" font-size="10.5" fill="#334155">• Lesi kulit berurutan: makula/plak eritematosa → papul edema →</text>
+  <text x="10" y="125" font-size="10.5" fill="#334155">  vesikel herpetiformis jernih bergerombol di atas dasar eritematosa</text>
+  <text x="10" y="140" font-size="10.5" fill="#334155">• Hari ke-4-6: cairan vesikel menjadi keruh/pustular</text>
+  <text x="10" y="155" font-size="10.5" fill="#334155">• Hari ke-7-10: lesi pecah, membentuk krusta kering, nyeri memuncak</text>
+
+  <rect x="0" y="176" width="395" height="62" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="10" y="193" font-size="11.5" font-weight="700" fill="#1e3a8a">C. Karakteristik Patognomonik Distribusi</text>
+  <text x="10" y="208" font-size="10.5" fill="#334155">• Unilateral tajam: tidak melintasi garis tengah tubuh (linea mediana)</text>
+  <text x="10" y="223" font-size="10.5" fill="#334155">• Terbatas 1-2 dermatom berdekatan (torakal T3-L2 ~55%, kranial ~20%)</text>
+
+  <rect x="0" y="246" width="395" height="88" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="10" y="263" font-size="11.5" font-weight="700" fill="#0f172a">D. Pemeriksaan Penunjang (Bila Diperlukan)</text>
+  <text x="10" y="278" font-size="10.5" fill="#334155">• Tes Tzanck (kerokan dasar vesikel): sel datia berinti banyak (multinucleated</text>
+  <text x="10" y="291" font-size="10.5" fill="#334155">  giant cells) &amp; inklusi eosinofilik intranuklear (sensitivitas ~60-70%)</text>
+  <text x="10" y="306" font-size="10.5" fill="#334155">• PCR VZV DNA: baku emas konfirmasi lab (sensitivitas 95%, spesifisitas 100%)</text>
+  <text x="10" y="321" font-size="10.5" fill="#334155">• Rutin fasyankes primer: diagnosis klinis murni tanpa tes lab canggih</text>
+</g>
+
+<!-- Box 3: Tatalaksana -->
+<rect x="460" y="80" width="425" height="390" rx="8" fill="#fefce8" stroke="#fde047" stroke-width="1.5"/>
+<rect x="460" y="80" width="425" height="32" rx="8" fill="#fef9c3"/>
+<text x="473" y="101" font-size="13.5" font-weight="700" fill="#854d0e">3. Tatalaksana Farmakoterapi (Golden Period ≤ 72 Jam)</text>
+
+<g transform="translate(470, 122)">
+  <rect x="0" y="0" width="395" height="125" rx="5" fill="#ffffff" stroke="#fef08a" stroke-width="1"/>
+  <text x="10" y="17" font-size="11.5" font-weight="700" fill="#713f12">A. Terapi Antivirus Sistemik (Pilih Salah Satu, 7-10 Hari)</text>
+  <text x="10" y="33" font-size="10.5" fill="#334155">• Asiklovir oral: 5 × 800 mg/hari selama 7-10 hari (setiap 4 jam saat</text>
+  <text x="10" y="46" font-size="10.5" fill="#334155">  bangun, mis. pkl 06.00, 10.00, 14.00, 18.00, 22.00; jeda tidur 6-8 jam)</text>
+  <text x="10" y="61" font-size="10.5" fill="#334155">• Valasiklovir oral: 3 × 1.000 mg/hari selama 7 hari (kepatuhan lebih baik,</text>
+  <text x="10" y="74" font-size="10.5" fill="#334155">  bioavailabilitas 54% vs asiklovir 15-30% karena transporter usus)</text>
+  <text x="10" y="89" font-size="10.5" fill="#334155">• Famsiklovir oral: 3 × 500 mg/hari (atau 3 × 250 mg) selama 7 hari</text>
+  <text x="10" y="104" font-size="10.5" fill="#b45309">! Pasien Imunokompromais / Diseminata: Asiklovir IV 10 mg/kgBB tiap 8 jam</text>
+  <text x="10" y="117" font-size="10.5" fill="#b45309">! Sesuaikan dosis bila CrCl ≤ 50 mL/menit; edukasi hidrasi 2-3 L/hari</text>
+
+  <rect x="0" y="133" width="395" height="85" rx="5" fill="#ffffff" stroke="#fef08a" stroke-width="1"/>
+  <text x="10" y="150" font-size="11.5" font-weight="700" fill="#713f12">B. Tatalaksana Nyeri Akut (Analgesik Bertingkat)</text>
+  <text x="10" y="165" font-size="10.5" fill="#334155">• Nyeri ringan-sedang: Parasetamol 3-4 × 500-1.000 mg/hari PO</text>
+  <text x="10" y="178" font-size="10.5" fill="#334155">  atau Ibuprofen 3-4 × 400 mg/hari PO (maks 2.400 mg/hari)</text>
+  <text x="10" y="193" font-size="10.5" fill="#334155">• Nyeri neuropatik akut berat / lansia: tambah Tramadol 50 mg PO</text>
+  <text x="10" y="206" font-size="10.5" fill="#334155">  atau inisiasi dini Gabapentin 1 × 300 mg malam (titrasi perlahan)</text>
+
+  <rect x="0" y="226" width="395" height="64" rx="5" fill="#ffffff" stroke="#fef08a" stroke-width="1"/>
+  <text x="10" y="243" font-size="11.5" font-weight="700" fill="#713f12">C. Perawatan Topikal Lesi Kulit</text>
+  <text x="10" y="258" font-size="10.5" fill="#334155">• Vesikel utuh: bedak salisil 2% agar tidak mudah pecah karena friksi</text>
+  <text x="10" y="271" font-size="10.5" fill="#334155">• Vesikel basah/erosi: kompres terbuka NaCl 0,9% (2-3 kali/hari)</text>
+  <text x="10" y="284" font-size="10.5" fill="#334155">• Infeksi sekunder (+): salep Mupirosin 2% atau Asam Fusidat 2%</text>
+
+  <rect x="0" y="298" width="395" height="52" rx="5" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+  <text x="10" y="315" font-size="11.5" font-weight="700" fill="#166534">D. Pencegahan Primer &amp; Sekunder (Vaksinasi)</text>
+  <text x="10" y="330" font-size="10.5" fill="#14532d">• Vaksin Rekombinan Zoster (RZV / Shingrix): 2 dosis IM (jeda 2-6 bln)</text>
+  <text x="10" y="343" font-size="10.5" fill="#14532d">• Indikasi: usia ≥ 50 th atau ≥ 19 th dengan imunokompromais; efikasi &gt;90%</text>
+</g>
+
+<!-- Box 4: Komplikasi & Kapan Merujuk -->
+<rect x="460" y="480" width="425" height="345" rx="8" fill="#fff1f2" stroke="#fecdd3" stroke-width="1.5"/>
+<rect x="460" y="480" width="425" height="32" rx="8" fill="#ffe4e6"/>
+<text x="473" y="501" font-size="13.5" font-weight="700" fill="#9f1239">4. Komplikasi Bahaya &amp; Indikasi Rujukan Spesialistik</text>
+
+<g transform="translate(470, 522)">
+  <rect x="0" y="0" width="395" height="80" rx="5" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+  <text x="10" y="17" font-size="11.5" font-weight="700" fill="#881337">1. Herpes Zoster Oftalmikus (HZO) - Cabang N. V1</text>
+  <text x="10" y="32" font-size="10.5" fill="#334155">• Tanda Hutchinson (+): vesikel di ujung/cuping hidung (N. nasosiliaris)</text>
+  <text x="10" y="45" font-size="10.5" fill="#334155">• Bahaya: keratitis, uveitis, ulkus dendritik kornea, perforasi, kebutaan</text>
+  <text x="10" y="58" font-size="10.5" fill="#b91c1c">• Tindakan: Antivirus oral 7-10 hari + Rujuk Sp. Mata CITO hari yang sama!</text>
+  <text x="10" y="71" font-size="10" fill="#64748b">  (Dilarang memberi tetes mata steroid topikal tanpa pemeriksaan slit-lamp!)</text>
+
+  <rect x="0" y="88" width="395" height="75" rx="5" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+  <text x="10" y="105" font-size="11.5" font-weight="700" fill="#881337">2. Sindrom Ramsay Hunt (Herpes Zoster Otikus)</text>
+  <text x="10" y="120" font-size="10.5" fill="#334155">• Reaktivasi di ganglion genikulatum (keterlibatan N. VII &amp; N. VIII)</text>
+  <text x="10" y="133" font-size="10.5" fill="#334155">• Trias: vesikel di telinga/aurikula + paresis fasialis LMN + vertigo/tuli</text>
+  <text x="10" y="146" font-size="10.5" fill="#b91c1c">• Tindakan: Antivirus oral + Prednison 1 mg/kgBB/hari + Rujuk Sp.THT / Sp.S</text>
+
+  <rect x="0" y="171" width="395" height="65" rx="5" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+  <text x="10" y="188" font-size="11.5" font-weight="700" fill="#881337">3. Neuralgia Pascaherpes (NPH / PHN)</text>
+  <text x="10" y="203" font-size="10.5" fill="#334155">• Nyeri radikuler kronis menetap &gt; 90 hari setelah ruam sembuh</text>
+  <text x="10" y="216" font-size="10.5" fill="#334155">• Terapi Lini 1: Gabapentin (300-1.800 mg/hari), Pregabalin (150-300 mg/hari),</text>
+  <text x="10" y="229" font-size="10.5" fill="#334155">  Amitriptilin (10-75 mg malam), atau Plester Lidokain 5% topikal</text>
+
+  <rect x="0" y="244" width="395" height="50" rx="5" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+  <text x="10" y="261" font-size="11.5" font-weight="700" fill="#881337">4. Zoster Aberans / Diseminata &amp; Imunokompromais</text>
+  <text x="10" y="276" font-size="10.5" fill="#334155">• &gt; 20 vesikel di luar dermatom utama atau melintasi linea mediana</text>
+  <text x="10" y="289" font-size="10.5" fill="#b91c1c">• Rawat inap, Asiklovir IV 10 mg/kgBB tiap 8 jam, evaluasi HIV/keganasan</text>
+</g>
+</svg>

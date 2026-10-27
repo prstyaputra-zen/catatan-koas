@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-26T14:15:00Z",
+ "updated": "2026-10-27T14:15:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -2107,6 +2107,92 @@
      "publisher": "PERDATIN, Jakarta",
      "year": 2024,
      "url": "https://perdatin.org"
+    }
+   ]
+  },
+  {
+   "id": "20261027-1415-herpes-zoster",
+   "created": "2026-10-27T14:15:00Z",
+   "title": "Herpes zoster: patofisiologi reaktivasi ganglionik, erupsi vesikuler dermatomal, tatalaksana antivirus jendela emas 72 jam, dan prevensi komplikasi neuralgia pascaherpes (PPK PERDOSKI, KMK 1186/2022, CDC)",
+   "type": "topik",
+   "stase": "Kulit",
+   "tags": [
+    "herpes zoster",
+    "shingles",
+    "asiklovir",
+    "neuralgia pascaherpes",
+    "Ramsay Hunt",
+    "SKDI 4A"
+   ],
+   "body": "Definisi:\nHerpes zoster (HZ) atau cacar ular adalah infeksi neurokutan akut akibat reaktivasi varicella-zoster virus (VZV) laten di ganglion radiks dorsalis (GRD) medula spinalis atau ganglion kranialis pascainfeksi varisela (Kementerian Kesehatan Republik Indonesia [Kemenkes RI] 2022, Perhimpunan Dokter Spesialis Kulit dan Kelamin Indonesia [PERDOSKI] 2021, Centers for Disease Control and Prevention [CDC] 2024). Ditandai nyeri radikuler unilateral dan erupsi vesikuler berkelompok mengikuti dermatom (Standar Kompetensi Dokter Indonesia [SKDI] 4A di Fasilitas Kesehatan Tingkat Pertama [FKTP]).\n\nAnatomi dan fisiologi terkait:\n- Dermatom dan GRD: Badan sel sensorik primer berada di ganglion radiks dorsalis (GRD). Setiap radiks posterior menginervasi area kulit segmental (dermatom) dengan batas tegas di linea mediana.\n- Saraf kranialis: Sensorik wajah dipersarafi nervus trigeminus (N. V); cabang oftalmikus (N. V1) mempersarafi dahi, mata, dan apeks hidung via ramus nasosiliaris. Sensorik nervus fasialis (N. VII) di ganglion genikulatum menginervasi aurikula dan liang telinga luar bersama nervus vestibulokoklearis (N. VIII).\n- Latensi dan imunitas seluler: Genom VZV berupa deoxyribonucleic acid (DNA) dorman di neuron ganglion. Pengendalian latensi bergantung pada imunitas yang diperantarai sel (cell-mediated immunity [CMI]) limfosit T spesifik-VZV; antibodi humoral tidak menembus neuron ganglion.\n\nPatofisiologi:\nRantai reaktivasi VZV berlangsung langkah demi langkah:\n- Varisela primer: Virion diangkut retrograd via akson sensorik menuju neuron di GRD atau ganglion kranialis.\n- Latensi: DNA VZV dorman ditekan oleh interferon-gamma limfosit T memori spesifik-VZV.\n- Penurunan CMI: Penuaan atau imunosupresi melemahkan imunitas di bawah ambang proteksi.\n- Reaktivasi: Replikasi virus memicu ganglionitis nekrotik, lisis neuronal, dan radikulitis posterior.\n- Sensitisasi aferen: Cetusan ektopik serabut C/A-delta dan hilangnya inhibisi kornu dorsalis memicu nyeri radikuler membakar dan alodinia pra-ruam (stadium prodromal).\n- Transpor antegrad: Virion diangkut kinesin menyusuri akson sensorik ke dermatom kulit terkait.\n- Kerusakan epidermis: Invasi keratinosit memicu degenerasi balon (ballooning degeneration), akantolisis, dan vesikel intraepidermal dasar eritematosa.\n- Resolusi vs kronisitas: Vesikel mengering jadi krusta dalam 7-10 hari; cedera neuron berat memicu sensitisasi sentral permanen menjadi neuralgia pascaherpes (NPH).\n\nEtiologi dan faktor risiko:\nEtiologi tunggal: reaktivasi VZV laten. Faktor penekan CMI:\n- Usia lanjut (> 50 tahun): Penurunan CMI menaikkan insiden dari 1-3 per 1.000 orang-tahun (usia < 50) menjadi 8-11 per 1.000 orang-tahun (usia ≥ 65).\n- Status imunokompromais: Human immunodeficiency virus / acquired immunodeficiency syndrome (HIV/AIDS; risiko naik 20-100 kali lipat), keganasan hematologi, transplantasi organ, imunosupresan, dan kortikosteroid sistemik (prednison ≥ 20 mg/hari selama ≥ 2 minggu).\n- Stres fisik atau psikis berat: Meningkatkan sekresi kortisol endogen imunosupresif.\n\nManifestasi klinis / Diagnosis:\nDiagnosis HZ ditegakkan secara klinis:\n1. Stadium Prodromal (1-3 hari): Nyeri radikuler membakar, kesemutan, atau alodinia pada satu dermatom; dapat disertai demam subfebris dan malaise (menyerupai infark miokard atau pleuritis pada lesi torakal).\n2. Stadium Erupsi Akut (Hari ke-3-10): Makula-papul berkembang dalam 12-24 jam menjadi kelompok vesikel berdinding tegang dasar eritematosa (\"dewdrops on a rose petal\"). Ciri patognomonik: unilateral tegas pada 1-2 dermatom, berhenti di linea mediana. Predileksi: torakal T3-L2 (50-55%), kranial N. V1 (15-20%), lumbal (15%), servikal (10-15%). Hari ke-4-6 vesikel mengeruh jadi pustul; hari ke-7-10 mengering jadi krusta lepas dalam 2-4 minggu.\n\n{{gambar:1}}\n\nPemeriksaan Penunjang:\n- Klinis murni di fasilitas kesehatan tingkat pertama (American Academy of Family Physicians [AAFP] 2017).\n- Tes Tzanck (kerokan vesikel pulasan Giemsa): sel datia berinti banyak (multinucleated giant cells) dan inklusi Cowdry A (sensitivitas 60-70%).\n- Polymerase chain reaction (PCR) DNA VZV: baku emas (sensitivitas 95%, spesifisitas 100%) untuk lesi atipikal atau zoster sine herpete.\n- Skrining HIV: pada usia muda (< 50 tahun) dengan lesi luas, rekuren, atau aberans.\n\nTatalaksana:\nTujuan: memutus replikasi virus, mempercepat resolusi lesi, meredakan nyeri, dan mencegah NPH (PERDOSKI 2021, Kemenkes RI 2022, Patil dkk. 2022, Saguil dkk. 2017).\n\n{{gambar:2}}\n\n1. Antivirus Sistemik (Jendela Emas ≤ 72 Jam):\nDimulai ≤ 72 jam sejak ruam timbul (di luar 72 jam tetap diberikan bila vesikel baru terus muncul, komplikasi organ, atau pasien lansia/imunokompromais).\nRegimen oral dewasa (7-10 hari):\n- Asiklovir (acyclovir [ACV]): 5 × 800 mg per oral (PO) per hari selama 7-10 hari (tiap 4 jam saat bangun, mis. 06.00, 10.00, 14.00, 18.00, 22.00). Alasan: difosforilasi timidin kinase virus, lalu diubah kinase inang jadi asiklovir trifosfat aktif yang memutus rantai DNA (obligate chain terminator) polimerase VZV. Bioavailabilitas oral 15-30% menuntut dosis 5 kali sehari.\n- Valasiklovir: 3 × 1.000 mg PO per hari selama 7 hari. Alasan: ester L-valil diserap usus via peptide transporter 1 (PEPT1), dihidrolisis hepar jadi asiklovir aktif (bioavailabilitas 54%, cukup 3 kali sehari).\n- Famsiklovir: 3 × 500 mg PO per hari selama 7 hari (prodrug pensiklovir, waktu paruh intraseluler 9-10 jam).\n- Kasus berat/imunokompromais: Asiklovir intravena (IV) 10 mg/kg berat badan (BB) tiap 8 jam dalam natrium klorida (NaCl) 0,9% selama 1 jam (7-14 hari).\n- Proteksi ginjal: Asiklovir diekskresi via ginjal; hidrasi 2-3 L/hari cegah nefropati kristal. Penyesuaian klirens kreatinin (creatinine clearance [CrCl]): CrCl 25-50 mL/menit: asiklovir 800 mg tiap 8 jam; CrCl 10-25: tiap 12 jam; CrCl < 10: tiap 24 jam. Valasiklovir: CrCl 30-49: 1.000 mg tiap 12 jam; CrCl 10-29: tiap 24 jam; CrCl < 10: 500 mg tiap 24 jam.\n\n2. Nyeri Akut (Analgesik Bertingkat):\n- Ringan-sedang: Parasetamol 500-1.000 mg PO tiap 6-8 jam (maksimal 4.000 mg/hari) atau nonsteroidal anti-inflammatory drug (NSAID) Ibuprofen 400 mg PO tiap 6-8 jam sesudah makan (maksimal 2.400 mg/hari).\n- Sedang-berat/neuropatik: Tramadol 50 mg PO tiap 8-12 jam bila refrakter. Gabapentin: 1 × 300 mg PO malam, dititrasi ke 3 × 300-600 mg PO per hari (target 900-1.800 mg/hari; mengikat subunit alfa-2-delta kanal kalsium presinaptik kornu dorsalis menekan substansi P dan glutamat). Alternatif: Pregabalin 2 × 75 mg PO per hari (target 150-300 mg/hari).\n- Kortikosteroid ajuvan: Prednison (tapering: 60, 30, 15 mg/hari per minggu) redakan nyeri akut dan edema radiks; tidak mencegah NPH dan dilarang tanpa antivirus.\n\n3. Terapi Topikal: Bedak salisil 2% pada vesikel utuh. Kompres terbuka NaCl 0,9% 15-20 menit 2-3 kali sehari pada lesi basah untuk krustasi (salep asiklovir topikal tidak bermanfaat). Infeksi sekunder: salep Mupirosin 2% atau Asam Fusidat 2% tiap 12 jam.\n\n4. Pencegahan (Vaksinasi): Recombinant zoster vaccine (RZV / Shingrix) anjuran Advisory Committee on Immunization Practices (ACIP) dan CDC: 2 dosis intramuskular (IM) 0,5 mL selang 2-6 bulan untuk usia ≥ 50 tahun atau ≥ 19 tahun imunokompromais (efikasi > 90%).\n\nKomplikasi / Kapan merujuk:\nKomplikasi:\n1. Neuralgia Pascaherpes (NPH / postherpetic neuralgia [PHN]): Nyeri neuropatik menetap ≥ 90 hari pascaruam sembuh (10-20% pasien). Terapi: Gabapentin (titrasi hingga 1.800 mg/hari), Pregabalin (150-300 mg/hari), antidepresan trisiklik Amitriptilin (10-25 mg malam dititrasi hingga 50-75 mg/hari; modulasi analgesia desenden), dan plester Lidokain 5% topikal.\n2. Herpes Zoster Oftalmikus (HZO): Cabang N. V1. Tanda Hutchinson positif (vesikel apeks/cuping hidung via ramus nasosiliaris) memprediksi keterlibatan kornea hingga 75-80% (keratitis, uveitis, perforasi, kebutaan).\n3. Sindrom Ramsay Hunt (HZ Otikus): Reaktivasi ganglion genikulatum (N. VII dan N. VIII) dengan trias: vesikel aurikula/meatus akustikus, paralisis fasialis lower motor neuron (LMN) ipsilateral, dan disfungsi vestibulokoklearis (tuli, tinitus, vertigo).\n4. Komplikasi Lain: Paresis motorik, superinfeksi bakteri, ensefalitis, mielitis transversa, dan vaskulopati serebral (risiko stroke).\n\nIndikasi Rujukan:\n- Rujukan Cito: HZO atau Tanda Hutchinson positif dirujuk cito Spesialis Mata (Sp.M) untuk slit-lamp (hindari tetes steroid mandiri!). Sindrom Ramsay Hunt dirujuk cito Spesialis THT (Sp.THT) dan Spesialis Saraf (Sp.S) untuk audiometri, terapi saraf, dan proteksi kornea.\n- Rujukan Rawat Inap Rumah Sakit (RS): HZ diseminata (> 20 vesikel di luar dermatom primer atau melewati linea mediana), keterlibatan sistem saraf pusat (SSP) (kejang, kaku kuduk), atau imunokompromais butuh asiklovir IV.\n- Rujukan Poliklinik: NPH refrakter gagal terapi setelah 4-6 minggu di FKTP dirujuk ke Poliklinik Saraf/Nyeri.\n\nAnalogi:\n- Gardu Listrik dan Kabel Satu Sisi: GRD ibarat trafo listrik dan saraf perifer ibarat kabel tembaga ke deretan rumah satu sisi jalan (dermatom). VZV adalah penyusup tertidur di gardu. Saat imunitas sel T lengah, penyusup membakar trafo dan menyusuri kabel. Percikan korsleting (vesikel dan nyeri) hanya timbul di deretan rumah jalur kabel itu, tanpa melompat ke seberang jalan (garis tengah tubuh bersih).\n- Tiket Ekspres Valasiklovir: Asiklovir oral ibarat penumpang mengantre di pintu sempit; hanya 15-30% diserap ke darah sehingga harus diminum 5 kali sehari. Valasiklovir adalah penumpang bertiket ekspres via transporter usus (PEPT1), sehingga > 54% diserap cepat sebelum diubah hepar jadi asiklovir murni. Cukup 3 kali minum sehari, kadar obat tetap optimal.\n\nMnemonik:\n- Tanda Hutchinson \"APEKS\" (mnemonik buatan): Apeks hidung vesikuler, Percabangan nasosiliaris N. V1, Evaluasi kornea cito, Konsul Spesialis Mata segera, Stop tetes steroid mandiri.\n- Trias Ramsay Hunt \"TRIAS\" (mnemonik buatan): Telinga berlesi vesikel, Radang saraf fasialis (paresis LMN), Iritasi otalgia hebat, Akustikus vestibular terganggu (vertigo/tuli), Segera beri antivirus-steroid dan rujuk.\n- Terapi Lini Pertama NPH \"GAP\" (mnemonik buatan): Gabapentinoid (Gabapentin titrasi hingga 1.800 mg/hari atau Pregabalin 150-300 mg/hari), Antidepresan trisiklik (Amitriptilin 10-75 mg malam hari), Plester Lidokain 5% topikal.\n\nPoin untuk koas:\n- Jendela emas 72 jam: Berikan asiklovir oral 5 × 800 mg PO/hari (tiap 4 jam) atau valasiklovir 3 × 1.000 mg PO/hari selama 7-10 hari begitu melihat vesikel dermatomal unilateral tanpa menunggu lab guna memotong nyeri dan risiko NPH.\n- Tanda Hutchinson: Vesikel di apeks hidung (ramus nasosiliaris N. V1) berisiko keterlibatan kornea 80%. Rujuk cito Spesialis Mata (Sp.M); hindari tetes steroid mandiri!\n- Otoskopi paresis fasialis: Paresis wajah LMN dengan otalgia atau vesikel telinga adalah Sindrom Ramsay Hunt. Berikan antivirus, Prednison 1 mg/kgBB/hari tapering, dan rujuk Sp.THT/Sp.S.\n- Hidrasi ginjal: Asiklovir diekskresikan lewat ginjal dengan kelarutan urin rendah. Edukasi minum air minimal 2,5 liter per hari cegah nefropati kristal.\n- Waspadai zoster aberans: Lesi > 2 dermatom atau > 20 vesikel ekstra-dermatom menandakan imunosupresi berat (HIV/keganasan). Rawat inap untuk asiklovir IV 10 mg/kgBB tiap 8 jam dan uji skrining HIV.\n\nSingkatan:\n- AAFP: American Academy of Family Physicians\n- ACIP: Advisory Committee on Immunization Practices\n- ACV: asiklovir (acyclovir)\n- AIDS: acquired immunodeficiency syndrome\n- BB: berat badan\n- CDC: Centers for Disease Control and Prevention\n- CMI: cell-mediated immunity\n- CrCl: creatinine clearance\n- DNA: deoxyribonucleic acid\n- FKTP: Fasilitas Kesehatan Tingkat Pertama\n- GRD: ganglion radiks dorsalis\n- HIV: human immunodeficiency virus\n- HZ: herpes zoster\n- HZO: herpes zoster oftalmikus\n- IM: intramuskular\n- IV: intravena\n- Kemenkes RI: Kementerian Kesehatan Republik Indonesia\n- LMN: lower motor neuron\n- N. V: nervus trigeminus\n- N. V1: cabang oftalmikus nervus trigeminus\n- N. VII: nervus fasialis\n- N. VIII: nervus vestibulokoklearis\n- NaCl: natrium klorida\n- NPH: neuralgia pascaherpes\n- NSAID: nonsteroidal anti-inflammatory drug\n- PCR: polymerase chain reaction\n- PEPT1: peptide transporter 1\n- PERDOSKI: Perhimpunan Dokter Spesialis Kulit dan Kelamin Indonesia\n- PHN: postherpetic neuralgia\n- PO: per oral\n- RS: rumah sakit\n- RZV: recombinant zoster vaccine\n- SKDI: Standar Kompetensi Dokter Indonesia\n- Sp.M: Spesialis Mata\n- Sp.S: Spesialis Saraf\n- Sp.THT: Spesialis Telinga Hidung Tenggorok\n- SSP: sistem saraf pusat\n- VZV: varicella-zoster virus",
+   "images": [
+    {
+     "file": "img/20261027-1415-herpes-zoster-1.jpg",
+     "caption": "Gambar 1: Erupsi vesikuler multipel berkelompok di atas makula eritematosa dengan distribusi segmental unilateral tegas mengikuti dermatom torakal dinding dada kiri, gambaran klinis klasik herpes zoster tanpa melewati linea mediana.",
+     "credit": "Fisle, CC BY-SA 3.0, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Herpes_zoster_chest.png"
+    },
+    {
+     "file": "img/20261027-1415-herpes-zoster-2.svg",
+     "caption": "Gambar 2: Diagram terpadu herpes zoster: rantai patofisiologi reaktivasi VZV (varisela primer hingga sensitisasi sentral kornu dorsalis), manifestasi klinis, algoritma farmakoterapi jendela emas ≤ 72 jam (asiklovir/valasiklovir) serta penanganan neuralgia pascaherpes, dan kriteria rujukan cito/tanda bahaya.",
+     "credit": "Digambar Gemini berdasarkan pedoman Kemenkes RI KMK HK.01.07/MENKES/1186/2022, PPK PERDOSKI (2021), CDC Shingles Overview (2024), dan AAFP (2017)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kementerian Kesehatan Republik Indonesia",
+     "title": "Keputusan Menteri Kesehatan Republik Indonesia Nomor HK.01.07/MENKES/1186/2022 tentang Panduan Praktik Klinis Bagi Dokter di Fasilitas Pelayanan Kesehatan Tingkat Pertama (Herpes Zoster)",
+     "year": 2022,
+     "url": "https://kemkes.go.id"
+    },
+    {
+     "org": "Perhimpunan Dokter Spesialis Kulit dan Kelamin Indonesia (PERDOSKI)",
+     "title": "Panduan Praktik Klinis Bagi Dokter Spesialis Dermatologi dan Venereologi Indonesia: Herpes Zoster",
+     "year": 2021,
+     "url": "https://perdoski.id"
+    },
+    {
+     "org": "Centers for Disease Control and Prevention (CDC)",
+     "title": "Clinical Overview of Shingles (Herpes Zoster) for Healthcare Professionals",
+     "year": 2024,
+     "url": "https://www.cdc.gov/shingles/hcp/clinical-overview/index.html"
+    },
+    {
+     "org": "American Academy of Family Physicians (AAFP)",
+     "title": "Herpes Zoster and Postherpetic Neuralgia: Prevention and Management",
+     "year": 2017,
+     "url": "https://www.aafp.org/pubs/afp/issues/2017/1115/p656.html"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan Republik Indonesia. Keputusan Menteri Kesehatan RI No. HK.01.07/MENKES/1186/2022 tentang Panduan Praktik Klinis bagi Dokter di FKTP",
+     "publisher": "Kemenkes RI, Jakarta",
+     "year": 2022,
+     "url": "https://kemkes.go.id"
+    },
+    {
+     "title": "Perhimpunan Dokter Spesialis Kulit dan Kelamin Indonesia. Panduan Praktik Klinis Bagi Dokter Spesialis Dermatologi dan Venereologi Indonesia",
+     "publisher": "PERDOSKI, Jakarta",
+     "year": 2021,
+     "url": "https://perdoski.id"
+    },
+    {
+     "title": "Saguil A, Kane S, Mercado M, Lauters R. Herpes Zoster and Postherpetic Neuralgia: Prevention and Management",
+     "publisher": "American Family Physician 96(10):656-663",
+     "year": 2017,
+     "url": "https://www.aafp.org/pubs/afp/issues/2017/1115/p656.html"
+    },
+    {
+     "title": "Patil A, Goldust M, Wollina U. Herpes zoster: A Review of Clinical Manifestations and Management",
+     "publisher": "Viruses 14(2):192",
+     "year": 2022,
+     "url": "https://doi.org/10.3390/v14020192"
+    },
+    {
+     "title": "Centers for Disease Control and Prevention. Shingles (Herpes Zoster) Clinical Overview",
+     "publisher": "CDC, Atlanta, GA",
+     "year": 2024,
+     "url": "https://www.cdc.gov/shingles/hcp/clinical-overview/index.html"
     }
    ]
   }
