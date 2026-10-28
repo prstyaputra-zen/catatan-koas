@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-27T14:15:00Z",
+ "updated": "2026-10-28T14:15:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -2193,6 +2193,92 @@
      "publisher": "CDC, Atlanta, GA",
      "year": 2024,
      "url": "https://www.cdc.gov/shingles/hcp/clinical-overview/index.html"
+    }
+   ]
+  },
+  {
+   "id": "20261028-1415-trauma-kimia-mata",
+   "created": "2026-10-28T14:15:00Z",
+   "title": "Trauma kimia mata: patofisiologi luka bakar asam vs basa, iskemia limbus, irigasi darurat, dan klasifikasi Roper-Hall (KMK 1186/2022, AAO, StatPearls)",
+   "type": "topik",
+   "stase": "Mata",
+   "tags": [
+    "trauma kimia mata",
+    "luka bakar kimia",
+    "irigasi mata",
+    "Roper-Hall",
+    "iskemia limbus",
+    "kegawatdaruratan mata"
+   ],
+   "body": "Definisi:\nTrauma kimia mata (ocular chemical burn) adalah kedaruratan oftalmologi akibat paparan bahan asam atau basa (alkali) pada bola mata dan adneksa (Kementerian Kesehatan Republik Indonesia [Kemenkes RI] 2022, American Academy of Ophthalmology [AAO] 2024, StatPearls 2024). Standar Kompetensi Dokter Indonesia (SKDI) menetapkan tatalaksana darurat trauma kimia sebagai kemampuan 3B/4A: dokter di fasilitas pelayanan kesehatan tingkat pertama (FKTP) dan instalasi gawat darurat (IGD) wajib mendiagnosis cepat, melakukan irigasi darurat segera, memulai terapi awal, dan merujuk tepat ke dokter spesialis mata (Sp.M).\n\nAnatomi dan fisiologi terkait:\n- Kornea tersusun atas epitel, membran Bowman, stroma, membran Descemet, dan endotel.\n- Epitel berikatan via tight junctions sebagai sawar mekanik primer.\n- Stroma (90% ketebalan kornea) tersusun atas serat kolagen paralel dalam matriks proteoglikan untuk transparansi optik.\n- Endotel memompa cairan stroma ke camera oculi anterior (COA) / bilik mata depan via pompa Na⁺/K⁺-ATPase (natrium-kalium adenosin trifosfatase), menjaga deturgens stroma.\n- Limbus korneosklera memuat ceruk palisades of Vogt tempat limbal stem cells (LSC) / sel punca limbus berada untuk regenerasi epitel dan mencegah invasi vaskular konjungtiva.\n\nPatofisiologi:\n- 1. Trauma Basa (Alkali) - Nekrosis Likuefaktif:\n  - Zat alkali lipofilik menembus membran sel epitel dalam hitungan menit.\n  - Saponifikasi asam lemak membran sel oleh ion hidroksil (OH⁻) memicu lisis sel dan likuefaksi jaringan.\n  - Melarutkan proteoglikan stroma → penetrasi bebas ke endotel, COA, iris, dan lensa.\n  - Trombosis vaskular limbus → iskemia limbus (limbal blanching) dan destruksi LSC → sindrom limbal stem cell deficiency (LSCD) / defisiensi sel punca limbus.\n  - Efek LSCD: gagal epitelisasi kornea, konjungtivalisasi, neovaskularisasi, dan kekeruhan kornea.\n  - Penetrasi ke COA memicu kontraksi serabut kolagen sklera dan trabekulitis → lonjakan tekanan intraokular (TIO), uveitis anterior, dan katarak.\n- 2. Trauma Asam - Nekrosis Koagulatif:\n  - Ion hidrogen (H⁺) mengubah derajat keasaman (potential of hydrogen [pH]) → presipitasi protein permukaan.\n  - Barier koagulum protein (ground-glass appearance) terbentuk, membatasi penetrasi asam ke segmen dalam.\n  - Pengecualian: asam hidrofluorat (hydrogen fluoride [HF]), asam lemah yang menembus epitel secepat alkali; ion fluorida (F⁻) mengikat ion kalsium (Ca²⁺) intraseluler → hipokalsemia lokal, nekrosis likuefaktif dalam, dan nyeri hebat.\n- 3. Kaskade Pelelehan Kornea (Corneal Melting):\n  - Infiltrasi leukosit polimorfonuklear (PMN) / neutrofil ke stroma melepaskan matrix metalloproteinase (MMP)-8 dan MMP-9.\n  - Deplesi askorbat akuos menghambat sintesis kolagen baru; degradasi oleh MMP memicu penipisan stroma (corneal melting) hingga perforasi.\n\nEtiologi dan faktor risiko:\n- Agen basa (alkali):\n  - Amonia (NH₃): pembersih kaca, pupuk pertanian (penetrasi tercepat).\n  - Natrium hidroksida (sodium hydroxide [NaOH]) / soda api: pembersih pipa toilet, industri sabun.\n  - Kalsium hidroksida (calcium hydroxide [Ca(OH)₂]) / kapur tohor, semen: partikel padat melekat di forniks dan melarutkan alkali berjam-jam.\n  - Kalium hidroksida (potassium hydroxide [KOH]): baterai alkali dan pembersih industri.\n- Agen asam:\n  - Asam sulfat (sulfuric acid [H₂SO₄]): cairan aki (akumulator) kendaraan bermotor (penyebab asam tersering di IGD).\n  - Asam klorida (hydrochloric acid [HCl]): pembersih porselen kamar mandi.\n  - Asam asetat (acetic acid): asam cuka biang pekat.\n  - Asam hidrofluorat (HF): pembersih karat logam dan etsa kaca industri.\n- Faktor risiko: pekerja industri/konstruksi tanpa kacamata pengaman (goggles), ledakan baterai aki, kecelakaan anak, dan penyiraman air keras.\n\nManifestasi klinis / Diagnosis:\n- Gejala: nyeri mata mendadak, mata merah, fotofobia, lakrimasi, blefarospasme berat, dan penurunan tajam penglihatan (visus) drastis.\n- Tanda fisik: kemosis, partikel semen di forniks, kornea berkabut hingga putih porselen (marble cornea), serta iskemia limbus (blanching pembuluh darah dalam clock hours).\n- Klasifikasi Roper-Hall (1965):\n| Derajat | Kornea | Iskemia Limbus | Prognosis |\n|---|---|---|---|\n| Derajat I | Kornea jernih; hanya defek epitel | 0 jam (0°) | Sangat baik |\n| Derajat II | Kornea berkabut; detail iris jelas | < 1/3 limbus (< 4 jam) | Baik |\n| Derajat III | Epitel lisis total; stroma keruh mengaburkan iris | 1/3-1/2 limbus (4-6 jam) | Meragukan (guarded) |\n| Derajat IV | Kornea opak putih porselen (marble cornea) | > 1/2 limbus (> 6 jam) | Sangat buruk |\n- Klasifikasi Dua (2001): menilai jam limbus (0-12 jam) dan persentase defek konjungtiva: Derajat I (0 jam, 0%), II (≤ 3 jam, ≤ 30%), III (> 3-6 jam, > 30-50%), IV (> 6-9 jam, > 50-75%), V (> 9-< 12 jam, > 75-< 100%), VI (12 jam, 100%).\n\n{{gambar:1}}\n\nTatalaksana:\n- Prinsip emas: irigasi masif darurat WAJIB dimulai detik pertama SEBELUM anamnesis atau tes visus!\n- 1. Dekontaminasi dan Irigasi Darurat:\n  - Anestesi topikal: tetrakain hidroklorida (HCl) 0,5% atau pantokain 0,5% 1-2 tetes untuk mengatasi blefarospasme agar mata terbuka.\n  - Irigasi masif: guyur larutan Ringer Laktat (RL) atau natrium klorida (NaCl) 0,9% mengalir via selang infus intravena (IV line) minimal 1-2 liter selama 15-30 menit (basa kuat 5-10 liter).\n  - Eversi kelopak: balik kelopak atas (double eversion) dan bawah; sapu sisa kapur/semen dengan lidi kapas steril basah karena kalsium hidroksida terus melarutkan alkali jika tertinggal.\n  - Cek pH forniks inferior: gunakan kertas lakmus 5 menit SETELAH irigasi distop (mencegah netral palsu). Target: pH netral fisiologis 7,0-7,4.\n- 2. Medikamentosa Fase Akut (Hari ke-1 sampai ke-7):\n  - Antibiotik topikal: salep kloramfenikol 1% 4 kali sehari atau tetes kloramfenikol 0,5% 4-6 kali sehari (alternatif: tetes moksifloksasin 0,5% 4 kali sehari) mencegah infeksi saat epitel terkelupas.\n  - Sikloplegik: tetes siklopentolat 1% 2-3 kali sehari atau sulfas atropin 1% 2 kali sehari melumpuhkan spasme siliaris dan mencegah sinekia posterior.\n  - Asam askorbat (Vitamin C): oral 1.000-2.000 mg per hari per oral (PO) terbagi 2-4 dosis, dan/atau tetes natrium askorbat 10% tiap jam saat bangun (kofaktor sintesis kolagen stroma kornea).\n  - Doksisiklin oral: 100 mg 2 kali sehari PO (inhibisi enzim kolagenase MMP-8 dan MMP-9 guna mencegah corneal melting).\n  - Kortikosteroid topikal: prednisolon asetat 1% atau deksametason 0,1% 4-6 kali sehari HANYA hari ke-1 sampai ke-7 (menekan PMN). WAJIB dihentikan/taper off hari ke-10 karena steroid menghambat fibroblas dan memicu perforasi kornea.\n  - Pengontrol TIO (bila TIO > 21 mmHg): tetes timolol maleat 0,5% 2 kali sehari atau asetazolamid oral 250 mg 2-4 kali sehari PO. Kontraindikasi: HINDARI analog prostaglandin (memperberat uveitis) dan agonis alfa-2 seperti brimonidin (memperparah iskemia limbus).\n  - Lubrikasi: tetes air mata buatan tanpa pengawet (preservative-free artificial tears) tiap 1-2 jam untuk re-epitelisasi.\n  - Analgetik sistemik: parasetamol 500-1.000 mg tiap 6-8 jam PO atau ibuprofen 400 mg tiap 8 jam PO.\n\n{{gambar:2}}\n\nKomplikasi / Kapan merujuk:\n- Komplikasi dini: defek epitel persisten (persistent epithelial defect [PED]), pelelehan stroma (corneal melting), perforasi kornea, lonjakan TIO akut, dan uveitis anterior.\n- Komplikasi lambat: defisiensi sel punca limbus (LSCD) permanen disertai konjungtivalisasi dan neovaskularisasi kornea, simblefaron, ankiloblefaron, entropion sikatrikal, trikiasis, glaukoma sekunder, dan katarak traumatik.\n- Kapan merujuk cito (segera pascairigasi dan pH netral): seluruh derajat II-IV Roper-Hall, alkali pekat, asam hidrofluorat (HF), kornea berkabut, visus turun berat, TIO tinggi, defek epitel luas persisten, atau partikel tertanam. Dokter spesialis mata (Sp.M) dapat melakukan transplantasi membran amnion (amniotic membrane transplantation [AMT]), tenonplasti, cincin simblefaron, atau transplantasi sel punca limbus (limbal stem cell transplantation [LSCT]).\n\nAnalogi:\n- Analogi 1 (Alkali vs asam): Permukaan kornea ibarat benteng kayu berlapis lilin. Zat asam membakar permukaan menjadi kerak arang keras (koagulum protein) yang menahan api menembus interior. Sebaliknya, zat basa (alkali) melumerkan lilin (saponifikasi lemak), langsung meresap menembus pori kayu (likuefaksi), dan meruntuhkan fondasi benteng dalam hitungan menit.\n- Analogi 2 (Urgensi irigasi): Menghadapi trauma kimia mata di IGD ibarat melihat gedung tersiram bensin yang mulai terbakar. Petugas dilarang membuang waktu menanyai sertifikat tanah atau inventaris buku (jangan tunda demi anamnesis atau cek visus); tindakan mutlak nomor satu adalah langsung mengguyur api dengan selang air bertekanan sampai bersih tuntas!\n\nMnemonik:\n- Alur resusitasi darurat \"IRIGASI\" (mnemonik buatan):\n  - I: Irigasi segera dengan cairan fisiologis (RL / NaCl 0,9%) 1-2 liter mengalir tanpa tunda.\n  - R: Redakan nyeri dan blefarospasme dengan anestesi topikal (tetrakain 0,5%) agar mata terbuka lebar.\n  - I: Indikator pH dicek di forniks 5 menit pascairigasi (target netral 7,0-7,4).\n  - G: Gali dan sapu forniks konjungtiva serta balik kelopak untuk membuang partikel semen/kapur.\n  - A: Antibiotik topikal profilaksis dan analgetik oral diberikan guna cegah infeksi dan redakan nyeri.\n  - S: Sikloplegik (siklopentolat 1% / atropin 1%) diteteskan guna atasi spasme siliaris dan cegah sinekia.\n  - I: Inisiasi proteksi stroma (vitamin C oral, doksisiklin oral, steroid terbatas 7 hari) dan rujuk ke Sp.M.\n- Derajat keparahan Roper-Hall \"C-H-E-M\" (mnemonik buatan):\n  - C: Clear cornea (Derajat I: kornea jernih, defek epitel saja, iskemia limbus 0, prognosis sangat baik).\n  - H: Hazy cornea with visible iris (Derajat II: kornea berkabut, iris jelas, iskemia limbus < 1/3, prognosis baik).\n  - E: Extreme haze obscuring iris (Derajat III: kornea sangat keruh mengaburkan iris, iskemia limbus 1/3-1/2, prognosis meragukan).\n  - M: Marble cornea (Derajat IV: kornea putih porselen opak total, iris tersembunyi, iskemia limbus > 1/2, prognosis sangat buruk).\n\nPoin untuk koas:\n- Jangan tunda irigasi mata sedetik pun demi memeriksa visus Snellen atau mengisi rekam medis: irigasi adalah tindakan resusitasi darurat nomor satu yang wajib langsung dimulai begitu pasien tiba di IGD!\n- Lakukan eversi ganda pada kelopak atas dan periksa forniks memakai lidi kapas basah; sisa semen atau kapur tohor di forniks akan terus melarutkan alkali berbahaya jika tidak disapu.\n- Jangan menguji pH saat cairan irigasi masih mengalir: hentikan irigasi, tunggu jeda 5 menit agar air mata alami terkumpul, lalu tempelkan kertas lakmus di forniks inferior guna mendeteksi zat kimia yang merembes keluar dari jaringan dalam (target pH 7,0-7,4).\n- Mata yang tampak \"putih bersih tanpa pembuluh darah\" (marbleized appearance) bukan tanda tenang, melainkan tanda bahaya iskemia limbus masif dan nekrosis vaskular luas (Roper-Hall derajat IV) dengan prognosis sangat buruk.\n- Kontraindikasi mutlak: dilarang menuangkan asam untuk menetralkan basa (atau sebaliknya); reaksi asam-basa menghasilkan panas eksotermik tinggi yang menimbulkan cedera termal tambahan pada kornea!\n- Aturan ketat steroid topikal: sangat bermanfaat pada hari ke-1 sampai ke-7 untuk menekan neutrofil, namun WAJIB dihentikan pada hari ke-10 guna mencegah lisis stroma (corneal melting) dan perforasi kornea spontan.\n\nSingkatan:\n- AAO: American Academy of Ophthalmology\n- AMT: amniotic membrane transplantation (transplantasi membran amnion)\n- Ca(OH)₂: kalsium hidroksida\n- Ca²⁺: ion kalsium\n- COA: camera oculi anterior (bilik mata depan)\n- F⁻: ion fluorida\n- FKTP: fasilitas pelayanan kesehatan tingkat pertama\n- H⁺: ion hidrogen\n- H₂SO₄: asam sulfat\n- HCl: hidroklorida / asam klorida\n- HF: hydrogen fluoride (asam hidrofluorat)\n- IGD: instalasi gawat darurat\n- IV: intravenous / intravena\n- Kemenkes RI: Kementerian Kesehatan Republik Indonesia\n- KOH: kalium hidroksida\n- LSC: limbal stem cells (sel punca limbus)\n- LSCD: limbal stem cell deficiency (defisiensi sel punca limbus)\n- LSCT: limbal stem cell transplantation (transplantasi sel punca limbus)\n- MMP: matrix metalloproteinase (matriks metaloproteinase)\n- Na⁺/K⁺-ATPase: natrium-kalium adenosin trifosfatase\n- NaCl: natrium klorida\n- NaOH: sodium hydroxide (natrium hidroksida)\n- NH₃: amonia\n- OH⁻: ion hidroksil\n- PED: persistent epithelial defect (defek epitel persisten)\n- pH: potential of hydrogen (derajat keasaman)\n- PMN: polimorfonuklear\n- PO: per oral\n- RL: Ringer Laktat\n- SKDI: Standar Kompetensi Dokter Indonesia\n- Sp.M: spesialis mata\n- TIO: tekanan intraokular",
+   "images": [
+    {
+     "file": "img/20261028-1415-trauma-kimia-mata-1.jpg",
+     "caption": "Gambar 1: Gambaran klinis trauma kimia basa pada mata manusia, memperlihatkan kekeruhan kornea difus, iskemia vaskular limbus, neovaskularisasi kornea, dan kegagalan permukaan okular akibat defisiensi sel punca limbus (limbal stem cell deficiency).",
+     "credit": "Secker, G.A. & Daniels, J.T., CC BY 3.0, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Chemical_burn_injury..jpg"
+    },
+    {
+     "file": "img/20261028-1415-trauma-kimia-mata-2.svg",
+     "caption": "Gambar 2: Diagram komprehensif trauma kimia mata: patofisiologi asam vs basa (saponifikasi likuefaktif vs barier koagulatif), stratifikasi keparahan Roper-Hall & Dua, algoritma resusitasi darurat IGD (jendela emas irigasi, anestesi topikal, eversi forniks, target pH), farmakoterapi fase akut, dan kriteria rujukan cito Sp.M.",
+     "credit": "Digambar Gemini berdasarkan pedoman Kemenkes RI KMK HK.01.07/MENKES/1186/2022, AAO Preferred Practice Pattern (2024), Dua et al. (Br J Ophthalmol 2001), dan StatPearls NBK499888 (2024)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kementerian Kesehatan Republik Indonesia",
+     "title": "Keputusan Menteri Kesehatan Republik Indonesia Nomor HK.01.07/MENKES/1186/2022 tentang Panduan Praktik Klinis Bagi Dokter di Fasilitas Pelayanan Kesehatan Tingkat Pertama (Bagian Trauma Kimia Mata)",
+     "year": 2022,
+     "url": "https://kemkes.go.id"
+    },
+    {
+     "org": "American Academy of Ophthalmology (AAO)",
+     "title": "Chemical (Alkali and Acid) Injury of the Conjunctiva and Cornea",
+     "year": 2024,
+     "url": "https://eyewiki.org/Chemical_(Alkali_and_Acid)_Injury_of_the_Conjunctiva_and_Cornea"
+    },
+    {
+     "org": "StatPearls Publishing / National Center for Biotechnology Information",
+     "title": "Ocular Burns",
+     "year": 2024,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK499888/"
+    },
+    {
+     "org": "Perhimpunan Dokter Spesialis Mata Indonesia (PERDAMI)",
+     "title": "Panduan Praktik Klinis Perdami: Kegawatdaruratan dan Trauma Mata",
+     "year": 2020,
+     "url": "https://perdami.id"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan Republik Indonesia. Keputusan Menteri Kesehatan RI No. HK.01.07/MENKES/1186/2022 tentang Panduan Praktik Klinis bagi Dokter di Fasilitas Pelayanan Kesehatan Tingkat Pertama",
+     "publisher": "Kemenkes RI, Jakarta",
+     "year": 2022,
+     "url": "https://kemkes.go.id"
+    },
+    {
+     "title": "Dua HS, King AJ, Joseph A. A new classification of ocular surface burns",
+     "publisher": "British Journal of Ophthalmology 85(11):1379-1383",
+     "year": 2001,
+     "url": "https://doi.org/10.1136/bjo.85.11.1379"
+    },
+    {
+     "title": "Singh P, Tyagi M, Kumar Y, Gupta KK, Sharma PD. Ocular chemical injuries and their management",
+     "publisher": "Oman Journal of Ophthalmology 6(2):83-86",
+     "year": 2013,
+     "url": "https://doi.org/10.4103/0974-620X.116624"
+    },
+    {
+     "title": "Hemmati HD, Sharma S. Ocular Burns",
+     "publisher": "StatPearls Publishing, Treasure Island (FL), Bookshelf ID: NBK499888",
+     "year": 2024,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK499888/"
+    },
+    {
+     "title": "American Academy of Ophthalmology Cornea/External Disease Committee. Chemical (Alkali and Acid) Injury of the Conjunctiva and Cornea",
+     "publisher": "AAO EyeWiki Clinical Guidance, San Francisco, CA",
+     "year": 2024,
+     "url": "https://eyewiki.org/Chemical_(Alkali_and_Acid)_Injury_of_the_Conjunctiva_and_Cornea"
     }
    ]
   }
