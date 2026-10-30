@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-28T14:15:00Z",
+ "updated": "2026-10-30T14:15:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -2279,6 +2279,87 @@
      "publisher": "AAO EyeWiki Clinical Guidance, San Francisco, CA",
      "year": 2024,
      "url": "https://eyewiki.org/Chemical_(Alkali_and_Acid)_Injury_of_the_Conjunctiva_and_Cornea"
+    }
+   ]
+  },
+  {
+   "id": "20261030-1415-rinosinusitis-akut",
+   "created": "2026-10-30T14:15:00Z",
+   "title": "Rinosinusitis akut: kompleks osteomeatal, eskalator mukosiliar, kriteria EPOS 2020, dan komplikasi Chandler (KMK 1186/2022, EPOS, AAO-HNS)",
+   "type": "topik",
+   "stase": "THT",
+   "tags": [
+    "rinosinusitis",
+    "sinusitis akut",
+    "kompleks osteomeatal",
+    "EPOS 2020",
+    "amoksisilin-klavulanat",
+    "klasifikasi Chandler",
+    "SKDI 4A"
+   ],
+   "body": "Definisi:\nRinosinusitis akut (acute rhinosinusitis [ARS]): inflamasi mukosa kavum nasi dan sinus paranasal < 12 minggu tuntas (European Position Paper on Rhinosinusitis and Nasal Polyps [EPOS] 2020, American Academy of Otolaryngology-Head and Neck Surgery [AAO-HNS] 2015, Keputusan Menteri Kesehatan Republik Indonesia [KMK RI] No. HK.01.07/MENKES/1186/2022). Standar Kompetensi Dokter Indonesia (SKDI) menetapkannya kompetensi 4A di fasilitas pelayanan kesehatan tingkat pertama (FKTP) dan instalasi gawat darurat (IGD).\n\nDiagnosis klinis: ≥ 2 gejala (minimal satu kardinal):\n- Kardinal (wajib ≥ 1): hidung tersumbat (nasal obstruction) atau sekret hidung (rinorea/post-nasal drip).\n- Penyerta: nyeri wajah (facial pain/pressure) dan/atau hiposmia/anosmia (anak: batuk).\n\nStratifikasi ARS (EPOS 2020):\n- ARS virus (common cold): durasi < 10 hari tanpa perburukan.\n- ARS pascaviral: menetap ≥ 10 hari, atau perburukan setelah 5 hari (double sickening).\n- Rinosinusitis bakterial akut (acute bacterial rhinosinusitis [ABRS]): 0,5-2% kasus virus, ditegakkan bila ada ≥ 3 dari 5 kriteria: (1) sekret purulen diskolorasi unilateral, (2) nyeri lokal hebat unilateral, (3) demam suhu > 38 °C, (4) laju endap darah (LED) / C-reactive protein (CRP) meningkat, dan (5) double sickening.\n\nAnatomi dan fisiologi terkait:\nEmpat pasang sinus paranasal: maksilaris (~15 mililiter [mL], ostium superomedial melawan gravitasi mengandalkan silia), frontalis, etmoidalis (lamina papirasea tipis pembatas kavum orbita rute infeksi ke mata), dan sfenoidalis (dekat nervus optikus, karotis interna, sinus kavernosus).\n\n{{gambar:1}}\n\nKompleks osteomeatal (KOM): celah sempit meatus medius muara sinus anterior (maksilaris, frontalis, etmoidalis anterior). KOM leher botol drainase; edema 1-2 mm menyumbat ketiga sinus anterior.\n\nFisiologi: epitel bersilia memiliki ~200 silia/sel berdenyut 12-15 denyut/detik mendorong lendir 3-15 milimeter per menit (mm/menit). Gas nitrit oksida (nitric oxide [NO]) bersifat bakterisidal dan memacu silia. Patensi ostium menjaga tekanan parsial oksigen (pO2) normal.\n\nPatofisiologi:\nRantai sebab-akibat rinosinusitis akut:\n1. Inokulasi virus respiratorik merusak epitel hidung dan melumpuhkan silia (ciliostasis).\n2. Sitokin radang memicu vasodilatasi dan permeabilitas kapiler submukosa.\n3. Edema mukosa menyumbat kompleks osteomeatal (KOM) -> oklusi total ostium sinus anterior.\n4. Oklusi ostium dan ciliostasis menghentikan eskalator mukosiliar -> stasis lendir intrasinus.\n5. Penyerapan gas memicu hipoksia (penurunan tekanan parsial oksigen [pO2]) dan asidosis intrasinus.\n6. Hipoksia menekan produksi NO serta melumpuhkan silia -> lingkungan anaerob.\n7. Kolonisasi kuman nasofaring (Streptococcus pneumoniae, Haemophilus influenzae, Moraxella catarrhalis) -> superinfeksi bakterial (ABRS).\n8. Infiltrasi neutrofil dan mieloperoksidase mengubah lendir menjadi nanah mukopurulen kehijauan.\n9. Tekanan intrasinus meregangkan nosiseptor nervus kranialis V (trigeminus) -> nyeri wajah hebat.\n10. Nanah bertekanan menembus lamina papirasea atau vena diploika ke orbita dan intrakranial.\n\nEtiologi dan faktor risiko:\nEtiologi:\n- Virus (98-99,5%): Rinovirus (30-50%), Influenza A/B, Parainfluenza, koronavirus non-pandemik, Adenovirus, Respiratory Syncytial Virus (RSV).\n- Bakteri ABRS (0,5-2%): Streptococcus pneumoniae (30-40%), Haemophilus influenzae non-tipe (20-30%), Moraxella catarrhalis (10-15% anak, ~5% dewasa); kuman anaerob dan Staphylococcus aureus pada sinusitis dentogenik.\n- Jamur: Aspergillus dan Mucorales memicu rinosinusitis jamur invasif akut (acute invasive fungal rhinosinusitis [AIFRS]) fulminan pada pasien imunokompromais.\n\nFaktor risiko:\n- Sinusitis maksilaris dentogen: infeksi periapikal premolar/molar atas menembus dasar maksila.\n- Obstruksi KOM: deviasi septum nasi berat, konka bulosa, hipertrofi konka, atau polip hidung.\n- Lingkungan & atopi: rinitis alergi, asap rokok, polusi udara, serta disfungsi silia.\n\nManifestasi klinis / Diagnosis:\nManifestasi klinis:\n- Nyeri wajah: maksilaris (pipi/gigi atas); frontalis (dahi atas alis, memberat saat menunduk); etmoidalis (retroorbita/pangkal hidung); sfenoidalis (verteks/oksipital).\n- Gejala hidung & sistemik: obstruksi nasal, rinorea mukopurulen, post-nasal drip pemicu batuk malam, hiposmia/anosmia, demam, sefalgia, malaise, halitosis.\n\nPemeriksaan fisik:\n- Rinoskopi anterior: konka hiperemis/edema; sekret mukopurulen di meatus medius (khas sinus anterior).\n- Palpasi/perkusi wajah: nyeri tekan fossa kanina (maksila) atau medial alis (frontalis).\n- Orofaring: post-nasal drip purulen pada dinding faring granular.\n- Gigi: perkusi premolar dan molar atas menyingkirkan etiologi dentogenik.\n\nPemeriksaan penunjang:\n- Foto polos sinus: tidak direkomendasikan rutin (akurasi rendah).\n- Computed tomography (CT-scan) sinus tanpa kontras koronal: baku emas KOM bila curiga komplikasi, jamur invasif, refrakter terapi, atau evaluasi bedah endoskopi sinus fungsional (BESF).\n- Magnetic resonance imaging (MRI) dengan kontras: bila curiga invasi intrakranial, trombosis vaskular, atau komplikasi orbita.\n\nTatalaksana:\nPrinsip: membuka KOM, memulihkan silia, dan eradikasi kuman ABRS.\n\n{{gambar:2}}\n\n1. Suportif:\n- Irigasi salin (nasal saline irrigation): Natrium Klorida (NaCl) 0,9% atau salin 2-3%, 100-200 mL/lubang 2-3 kali/hari (mengencerkan mukus, membilas sitokin, memacu silia; aman segala usia dan hamil).\n- Hidrasi oral adekuat dan inhalasi uap air.\n\n2. Simtomatik:\n- Parasetamol: 500-1.000 miligram (mg) per oral (PO) tiap 6-8 jam (maksimal 4.000 mg/hari; inhibisi prostaglandin sentral).\n- Ibuprofen: 400 mg PO tiap 8 jam (maksimal 1.200 mg/hari; obat antiinflamasi nonsteroid [nonsteroidal anti-inflammatory drugs / NSAID] penghambat cyclooxygenase [COX]).\n- Mometason furoat (mometasone furoate): kortikosteroid intranasal (intranasal corticosteroids [INCS]) 200 mikrogram (mcg)/hari (2 semprot @ 50 mcg/lubang 1x/hari, atau 2 semprot 2x/hari bila berat) 14-21 hari (menekan edema KOM; bioavailabilitas < 1%).\n- Oksimetazolin hidroklorida 0,05%: 2-3 semprot/tetes per lubang tiap 10-12 jam, MAKSIMAL 3-5 HARI (agonis alfa-adrenergik pemicu vasokonstriksi; > 5 hari memicu rhinitis medicamentosa).\n- Antihistamin oral: tidak direkomendasikan rutin pada non-alergi (mengentalkan lendir).\n\n3. Antibiotik (HANYA bila memenuhi kriteria ABRS EPOS 2020):\n- Lini pertama: Amoksisilin-klavulanat (amoxicillin-clavulanate) 2 x 875/125 mg PO/hari atau 3 x 500/125 mg PO/hari 5-7 hari (anak: 45-90 miligram per kilogram berat badan per hari [mg/kgBB/hari] amoksisilin dibagi 2 dosis; amoksisilin mengikat penicillin-binding proteins [PBP] kuman, klavulanat menginaktivasi beta-laktamase Haemophilus influenzae dan Moraxella catarrhalis).\n- Lini pertama FKTP (KMK RI 1186/2022): Amoksisilin 3 x 500 mg PO/hari 7-10 hari (anak: 25-50 mg/kgBB/hari dalam 3 dosis).\n- Alergi penisilin non-anafilaksis: Doksisiklin (doxycycline) hari ke-1 2 x 100 mg PO, lanjut 1 x 100 mg PO/hari 5-7 hari (inhibisi ribosom 30S; kontraindikasi anak < 8 tahun dan hamil).\n- Alergi penisilin berat: Levofloksasin 500 mg PO 1 kali/hari 5 hari (inhibisi DNA girase; lini cadangan ketat).\n- Makrolida (azitromisin): tidak direkomendasikan lini pertama oleh Infectious Diseases Society of America (IDSA) dan EPOS 2020 akibat resistensi Streptococcus pneumoniae tinggi (> 20-30%).\n\nKomplikasi / Kapan merujuk:\nPenyebaran infeksi menembus tulang atau vena diploika:\n1. Komplikasi orbita (Klasifikasi Chandler 1970):\n- Chandler I (Selulitis Preseptal): edema palpebra anterior septum; visus dan motilitas normal, tanpa proptosis.\n- Chandler II (Selulitis Orbita): radang lemak orbita postseptal; kemosis, proptosis, nyeri gerak mata, visus intak.\n- Chandler III (Abses Subperiosteal): pus antara periorbita dan lamina papirasea; proptosis inferolateral, motilitas terbatas.\n- Chandler IV (Abses Orbita): pus intrakonal; oftalmoplegia, kemosis berat, relative afferent pupillary defect (RAPD), visus turun.\n- Chandler V (Trombosis Sinus Kavernosus): tromboflebitis bilateral via vena oftalmika; kemosis bilateral, oftalmoplegia, kesadaran turun (mortalitas 10-30%).\n2. Komplikasi intrakranial: meningitis, abses epidural, subdural, serebri (sefalgia hebat, kaku kuduk, muntah proyektil, kejang, penurunan Glasgow Coma Scale [GCS]).\n3. Komplikasi tulang: osteomielitis os frontale dengan abses dahi (Pott's Puffy Tumor).\n\nKriteria rujukan cito (ke IGD / dokter spesialis telinga, hidung, dan tenggorok, bedah kepala dan leher [Sp.T.H.T.K.L]):\n- Tanda bahaya orbita: proptosis, diplopia, oftalmoplegia, visus turun.\n- Tanda bahaya intrakranial: sefalgia berat, kaku kuduk, kejang, kesadaran turun.\n- Abses dahi fluktuatif (Pott's puffy tumor).\n- Gagal perbaikan setelah 48-72 jam antibiotik di FKTP.\n- Rinosinusitis rekuren (≥ 4 kali/tahun) atau menetap > 12 minggu.\n\nAnalogi:\nAnalogi 1: \"Pipa Kamar Mandi Tersumbat Lumut.\"\nSinus paranasal ibarat lantai kamar mandi dengan pipa sempit di sudut (ostium KOM) dan sikat putar otomatis (eskalator mukosiliar). Saat virus datang, bibir pipa membengkak (edema) dan sikat mogok (ciliostasis). Air tergenang tanpa ventilasi (hipoksia intrasinus), berubah comberan tempat kuman membiak menjadi nanah busuk. Cuci hidung salin dan steroid topikal membuka pipa mampet, sedangkan antibiotik membasmi kuman setelah saluran terbuka.\n\nAnalogi 2: \"Pintu Bioskop Macet di Lantai Dua.\"\nSinus maksilaris ibarat bioskop tanpa jendela dengan pintu darurat sempit di lantai dua (ostium superomedial melawan gravitasi). Tangga berjalan (silia) mengangkut penonton (lendir) keluar teratur. Saat virus melanda, kusen pintu membengkak hingga terkunci macet (obstruksi KOM). Penonton terperangkap di ruangan pengap tanpa oksigen, memberi peluang penyusup (bakteri nasofaring) membajak bioskop.\n\nMnemonik:\n1. Gejala Kardinal ARS \"P-O-D-S\" (mnemonik internasional):\n- P: Pain / Pressure wajah (nyeri tekan/rasa penuh pipi, dahi, mata).\n- O: Obstruction nasal (sumbatan napas hidung).\n- D: Discharge nasal (sekret purulen anterior atau post-nasal drip).\n- S: Smell disturbance (hiposmia/anosmia; anak: batuk).\n\n2. Kriteria Bakterial ABRS EPOS 2020 \"B-A-K-T-E-R-I\" (mnemonik buatan):\n- B: Biphasic illness / Double sickening (perburukan setelah membaik).\n- A: Anterior/posterior discharge (sekret diskolorasi kental unilateral).\n- K: Kenaikan suhu (demam > 38 °C).\n- T: Tekan/nyeri lokal berat wajah (unilateral sinus terkait).\n- E: Elevasi penanda radang (LED atau CRP meningkat).\n- R-I: Resepkan antimikroba bila ada ≥ 3 kriteria di atas!\n\n3. Red Flags Komplikasi Orbita Chandler \"M-A-T-A\" (mnemonik buatan):\n- M: Motilitas okular terhambat dan nyeri gerak mata (Chandler II-IV).\n- A: Ancaman visus turun atau diplopia (kompresi nervus optikus).\n- T: Tonjolan proptosis bola mata (Chandler III-IV).\n- A: Aliran sepsis bilateral / kemosis luas dan kesadaran turun (Chandler V).\n\nPoin untuk koas:\n- 1. Hindari refleks antibiotik: > 90% ARS berakar dari virus (common cold) yang sembuh sendiri (self-limiting). Menahan antibiotik pada durasi < 10 hari tanpa red flags mencegah resistensi kuman.\n- 2. Edukasi semprot hidung (INCS): arahkan nosel ke LATERAL (ke cuping telinga sisi sama), BUKAN ke medial/septum. Semprotan ke medial memicu epistaksis dan perforasi septum, serta mengurangi deposisi di KOM.\n- 3. Batasi dekongestan topikal (oksimetazolin) maksimal 3-5 hari: obat ini hanya jembatan awal pembuka hidung. Pemakaian > 5 hari memicu rebound congestion (rhinitis medicamentosa).\n- 4. Ajarkan cuci hidung salin: larutan NaCl 0,9% suam kuku, miring 45 derajat di wastafel, bernapas lewat mulut terbuka (mencegah air masuk tuba Eustachius), semprotkan lembut dari lubang atas hingga keluar di lubang bawah.\n- 5. Waspadai kegawatan orbita dan intrakranial: proptosis, nyeri melirik, diplopia, visus turun, atau kaku kuduk adalah KEDARURATAN MEDIS. Pasang infus, jadwalkan CT-scan cito, konsulkan segera ke Sp.T.H.T.K.L dan spesialis mata (Sp.M).\n- 6. Periksa gigi rahang atas pada sekret berbau busuk: bila nanah berbau busuk tajam (kakosmia) keluar unilateral, perkusi premolar dan molar atas mendeteksi fokus dentogenik.\n\nSingkatan:\n- AAO-HNS: American Academy of Otolaryngology-Head and Neck Surgery\n- ABRS: acute bacterial rhinosinusitis\n- AIFRS: acute invasive fungal rhinosinusitis\n- ARS: acute rhinosinusitis\n- BESF: bedah endoskopi sinus fungsional\n- COX: cyclooxygenase\n- CRP: C-reactive protein\n- CT-scan: computed tomography scan\n- EPOS: European Position Paper on Rhinosinusitis and Nasal Polyps\n- FKTP: fasilitas pelayanan kesehatan tingkat pertama\n- GCS: Glasgow Coma Scale\n- IDSA: Infectious Diseases Society of America\n- IGD: instalasi gawat darurat\n- INCS: intranasal corticosteroids\n- KMK RI: Keputusan Menteri Kesehatan Republik Indonesia\n- KOM: kompleks osteomeatal\n- LED: laju endap darah\n- mcg: mikrogram\n- mg: miligram\n- mg/kgBB/hari: miligram per kilogram berat badan per hari\n- mL: mililiter\n- mm/menit: milimeter per menit\n- MRI: magnetic resonance imaging\n- NaCl: Natrium Klorida\n- NO: nitric oxide\n- NSAID: nonsteroidal anti-inflammatory drugs\n- PBP: penicillin-binding proteins\n- pO2: tekanan parsial oksigen\n- PO: per oral\n- RAPD: relative afferent pupillary defect\n- RSV: Respiratory Syncytial Virus\n- SKDI: Standar Kompetensi Dokter Indonesia\n- Sp.M: spesialis mata\n- Sp.T.H.T.K.L: spesialis telinga, hidung, dan tenggorok, bedah kepala dan leher",
+   "images": [
+    {
+     "file": "img/20261030-1415-rinosinusitis-akut-1.png",
+     "caption": "Gambar 1: Potongan koronal CT-scan sinus paranasal memperlihatkan anatomi Kompleks Osteomeatal (KOM) normal dengan anotasi: prosesus unsinatus (uncinate process), infundibulum etmoidalis, ostium sinus maksilaris, konka media (middle turbinate), bula etmoidalis, kavum orbita, dan sinus maksilaris. Penyempitan pada celah sempit KOM ini merupakan kunci patofisiologi utama rinosinusitis.",
+     "credit": "Mikael Häggström, M.D., CC BY 4.0, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:CT_of_the_ostiomeatal_complex,_coronal_plane,_with_annotations.png"
+    },
+    {
+     "file": "img/20261030-1415-rinosinusitis-akut-2.svg",
+     "caption": "Gambar 2: Diagram alur diagnosis dan tatalaksana komprehensif rinosinusitis akut: stratifikasi Common Cold vs Post-viral vs ABRS (kriteria EPOS 2020 & AAO-HNS), tangga terapi medikamentosa (irigasi salin, kortikosteroid intranasal, antibiotik lini pertama & lini alergi penisilin), serta kriteria rujukan cito berdasarkan tanda bahaya komplikasi orbita Chandler I–V dan intrakranial.",
+     "credit": "Digambar Gemini berdasarkan pedoman EPOS 2020 (Fokkens et al., Rhinology 2020), AAO-HNS Clinical Practice Guideline: Adult Sinusitis (Rosenfeld et al., 2015), dan Keputusan Menteri Kesehatan RI No. HK.01.07/MENKES/1186/2022"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kementerian Kesehatan Republik Indonesia",
+     "title": "Keputusan Menteri Kesehatan Republik Indonesia Nomor HK.01.07/MENKES/1186/2022 tentang Panduan Praktik Klinis Bagi Dokter di Fasilitas Pelayanan Kesehatan Tingkat Pertama (Bagian Sinusitis/Rinosinusitis)",
+     "year": 2022,
+     "url": "https://kemkes.go.id"
+    },
+    {
+     "org": "European Rhinologic Society (ERS)",
+     "title": "European Position Paper on Rhinosinusitis and Nasal Polyps 2020 (EPOS 2020)",
+     "year": 2020,
+     "url": "https://doi.org/10.4193/rhin20.600"
+    },
+    {
+     "org": "American Academy of Otolaryngology–Head and Neck Surgery (AAO-HNS)",
+     "title": "Clinical Practice Guideline (Update): Adult Sinusitis",
+     "year": 2015,
+     "url": "https://doi.org/10.1177/0194599815572097"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Fokkens WJ, Lund VJ, Hopkins C, et al. European Position Paper on Rhinosinusitis and Nasal Polyps 2020",
+     "publisher": "Rhinology 58(Suppl S29):1-464",
+     "year": 2020,
+     "url": "https://doi.org/10.4193/rhin20.600"
+    },
+    {
+     "title": "Rosenfeld RM, Piccirillo JF, Chandrasekhar SS, et al. Clinical Practice Guideline (Update): Adult Sinusitis",
+     "publisher": "Otolaryngology–Head and Neck Surgery 152(2 Suppl):S1-S39",
+     "year": 2015,
+     "url": "https://doi.org/10.1177/0194599815572097"
+    },
+    {
+     "title": "Kementerian Kesehatan Republik Indonesia. Keputusan Menteri Kesehatan RI No. HK.01.07/MENKES/1186/2022 tentang Panduan Praktik Klinis bagi Dokter di Fasilitas Pelayanan Kesehatan Tingkat Pertama",
+     "publisher": "Kemenkes RI, Jakarta",
+     "year": 2022,
+     "url": "https://kemkes.go.id"
+    },
+    {
+     "title": "Aring AM, Chan MM. Current Concepts in Adult Acute Rhinosinusitis",
+     "publisher": "American Family Physician 94(2):97-105",
+     "year": 2016,
+     "url": "https://www.aafp.org/afp/2016/0715/p97"
+    },
+    {
+     "title": "Chandler JR, Langenbrunner DJ, Stevens ER. The pathogenesis of orbital complications in acute sinusitis",
+     "publisher": "The Laryngoscope 80(9):1414-1428",
+     "year": 1970,
+     "url": "https://doi.org/10.1288/00005537-197009000-00007"
     }
    ]
   }

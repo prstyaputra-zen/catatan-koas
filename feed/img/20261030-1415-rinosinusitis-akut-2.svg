@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 940" width="900" height="940" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#475569"/></marker>
+  <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#0284c7"/></marker>
+  <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#dc2626"/></marker>
+</defs>
+<rect width="900" height="940" fill="#ffffff"/>
+
+<!-- Header Banner -->
+<rect x="15" y="12" width="870" height="58" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="30" y="36" font-size="16" font-weight="700" fill="#0f172a">Rinosinusitis Akut: Alur Klasifikasi EPOS 2020, Terapi Rasional, &amp; Kedaruratan Chandler</text>
+<text x="30" y="55" font-size="11.5" fill="#475569">Diferensiasi Viral vs Post-viral vs ABRS, farmakoterapi bertingkat, stewardship antibiotik, dan red flags komplikasi orbita</text>
+
+<!-- Section 1: Stratifikasi Klinis EPOS 2020 -->
+<rect x="15" y="78" width="870" height="225" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="15" y="78" width="870" height="30" rx="8" fill="#f1f5f9"/>
+<text x="28" y="98" font-size="13" font-weight="700" fill="#0f172a">1. Stratifikasi Klinis Rinosinusitis Akut Berdasarkan Durasi &amp; Pola Perjalanan Penyakit (EPOS 2020 / AAO-HNS)</text>
+
+<!-- Sub-box 1: Common Cold -->
+<rect x="25" y="116" width="270" height="175" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<rect x="25" y="116" width="270" height="26" rx="6" fill="#dcfce7"/>
+<text x="35" y="133" font-size="12" font-weight="700" fill="#166534">A. Viral ARS (Common Cold)</text>
+<text x="35" y="156" font-size="11" font-weight="700" fill="#1e293b">Durasi:</text>
+<text x="85" y="156" font-size="11" fill="#334155">&lt; 10 hari tanpa perburukan</text>
+<text x="35" y="174" font-size="11" font-weight="700" fill="#1e293b">Insidensi:</text>
+<text x="95" y="174" font-size="11" fill="#334155">&gt; 90% total episode rinosinusitis</text>
+<text x="35" y="194" font-size="11" font-weight="700" fill="#166534">Gejala Khas:</text>
+<text x="35" y="210" font-size="10.5" fill="#334155">• Kongesti nasal, rinorea jernih/mukoid</text>
+<text x="35" y="226" font-size="10.5" fill="#334155">• Bersin, nyeri tenggorok, lemas</text>
+<text x="35" y="246" font-size="11" font-weight="700" fill="#15803d">Tatalaksana:</text>
+<text x="35" y="262" font-size="10.5" fill="#166534">Suportif murni, cuci hidung salin, analgetik.</text>
+<text x="35" y="278" font-size="10.5" font-weight="700" fill="#dc2626">DILARANG ANTIBIOTIK! (Self-limiting)</text>
+
+<!-- Sub-box 2: Post-viral ARS -->
+<rect x="305" y="116" width="270" height="175" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+<rect x="305" y="116" width="270" height="26" rx="6" fill="#dbeafe"/>
+<text x="315" y="133" font-size="12" font-weight="700" fill="#1e40af">B. Post-Viral ARS</text>
+<text x="315" y="156" font-size="11" font-weight="700" fill="#1e293b">Durasi:</text>
+<text x="365" y="156" font-size="11" fill="#334155">≥ 10 hari TANPA perbaikan</text>
+<text x="315" y="174" font-size="11" font-weight="700" fill="#1e293b">Atau Pola:</text>
+<text x="380" y="174" font-size="11" fill="#b45309">Double sickening (&gt; hari ke-5)</text>
+<text x="315" y="194" font-size="11" font-weight="700" fill="#1e40af">Patogenesis:</text>
+<text x="315" y="210" font-size="10.5" fill="#334155">• Inflamasi persisten mukosa KOM</text>
+<text x="315" y="226" font-size="10.5" fill="#334155">• Eskalator mukosiliar belum pulih</text>
+<text x="315" y="246" font-size="11" font-weight="700" fill="#1d4ed8">Tatalaksana:</text>
+<text x="315" y="262" font-size="10.5" fill="#1e40af">Cuci hidung salin + Kortikosteroid Intranasal</text>
+<text x="315" y="278" font-size="10.5" font-weight="700" fill="#0284c7">(INCS: Mometason / Flutikason 14-21 hari)</text>
+
+<!-- Sub-box 3: Bacterial ABRS -->
+<rect x="585" y="116" width="290" height="175" rx="6" fill="#fff1f2" stroke="#fecdd3" stroke-width="1.2"/>
+<rect x="585" y="116" width="290" height="26" rx="6" fill="#ffe4e6"/>
+<text x="595" y="133" font-size="12" font-weight="700" fill="#9f1239">C. Bakterial Akut (ABRS - 0,5–2%)</text>
+<text x="595" y="156" font-size="11" font-weight="700" fill="#1e293b">Kriteria Diagnostik EPOS (≥ 3 dari 5):</text>
+<text x="595" y="174" font-size="10.5" fill="#9f1239">1. Sekret purulen diskolorasi unilateral</text>
+<text x="595" y="190" font-size="10.5" fill="#9f1239">2. Nyeri lokal berat unilateral pada wajah</text>
+<text x="595" y="206" font-size="10.5" fill="#9f1239">3. Demam tinggi (suhu &gt; 38°C)</text>
+<text x="595" y="222" font-size="10.5" fill="#9f1239">4. Laju endap darah (LED) / CRP meningkat</text>
+<text x="595" y="238" font-size="10.5" fill="#9f1239">5. Double sickening (perburukan mendadak)</text>
+<text x="595" y="258" font-size="11" font-weight="700" fill="#be123c">Tatalaksana:</text>
+<text x="595" y="274" font-size="10.5" font-weight="700" fill="#881337">Antibiotik Lini 1 + INCS + Cuci Hidung</text>
+
+<!-- Section 2: Farmakoterapi Rasional Berjenjang -->
+<rect x="15" y="312" width="870" height="300" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="15" y="312" width="870" height="30" rx="8" fill="#f1f5f9"/>
+<text x="28" y="332" font-size="13" font-weight="700" fill="#0f172a">2. Tangga Penatalaksanaan Farmakoterapi Rasional (Dosis, Durasi, &amp; Rasional Farmakologi)</text>
+
+<!-- Kolom 1: Irigasi Salin -->
+<rect x="25" y="350" width="205" height="250" rx="6" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.2"/>
+<rect x="25" y="350" width="205" height="24" rx="6" fill="#ccfbf1"/>
+<text x="33" y="366" font-size="11.5" font-weight="700" fill="#115e59">Irigasi Salin (Nasal Rinse)</text>
+<text x="33" y="390" font-size="11" font-weight="700" fill="#0f172a">Rejimen:</text>
+<text x="33" y="406" font-size="10.5" fill="#334155">NaCl 0,9% isotonik / 2-3%</text>
+<text x="33" y="422" font-size="10.5" fill="#334155">100–200 mL per lubang hidung,</text>
+<text x="33" y="438" font-size="10.5" fill="#334155">frekuensi 2–3 kali per hari.</text>
+<text x="33" y="462" font-size="11" font-weight="700" fill="#0f172a">Alasan Farmakologis:</text>
+<text x="33" y="478" font-size="10.5" fill="#334155">• Mengencerkan mukus kental</text>
+<text x="33" y="494" font-size="10.5" fill="#334155">• Membilas antigen &amp; sitokin</text>
+<text x="33" y="510" font-size="10.5" fill="#334155">• Menghidrasi sel silia</text>
+<text x="33" y="526" font-size="10.5" fill="#334155">• Mempercepat transport silia</text>
+<text x="33" y="550" font-size="10.5" font-weight="700" fill="#0f766e">Aman untuk semua usia &amp; ibu hamil</text>
+
+<!-- Kolom 2: INCS Steroid -->
+<rect x="240" y="350" width="205" height="250" rx="6" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.2"/>
+<rect x="240" y="350" width="205" height="24" rx="6" fill="#ede9fe"/>
+<text x="248" y="366" font-size="11.5" font-weight="700" fill="#5b21b6">Kortikosteroid Intranasal</text>
+<text x="248" y="390" font-size="11" font-weight="700" fill="#0f172a">Pilihan Obat &amp; Dosis:</text>
+<text x="248" y="406" font-size="10.5" fill="#334155">• Mometason furoat 200 mcg</text>
+<text x="248" y="422" font-size="10.5" fill="#334155">  (2 semprot @50mcg/lubang/hr)</text>
+<text x="248" y="438" font-size="10.5" fill="#334155">• Flutikason propionat 200 mcg</text>
+<text x="248" y="454" font-size="10.5" fill="#334155">  Durasi: 14–21 hari</text>
+<text x="248" y="478" font-size="11" font-weight="700" fill="#0f172a">Alasan Farmakologis:</text>
+<text x="248" y="494" font-size="10.5" fill="#334155">• Menekan gen sitokin IL-1/TNF</text>
+<text x="248" y="510" font-size="10.5" fill="#334155">• Redakan edema mukosa KOM</text>
+<text x="248" y="526" font-size="10.5" fill="#334155">• Bioavailabilitas sistemik &lt; 1%</text>
+<text x="248" y="550" font-size="10.5" font-weight="700" fill="#6d28d9">Semprot ke LATERAL (hindari septum)</text>
+
+<!-- Kolom 3: Dekongestan & Analgetik -->
+<rect x="455" y="350" width="205" height="250" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="1.2"/>
+<rect x="455" y="350" width="205" height="24" rx="6" fill="#fef3c7"/>
+<text x="463" y="366" font-size="11.5" font-weight="700" fill="#92400e">Dekongestan &amp; Analgetik</text>
+<text x="463" y="390" font-size="11" font-weight="700" fill="#0f172a">Dekongestan Topikal:</text>
+<text x="463" y="406" font-size="10.5" fill="#334155">• Oksimetazolin 0,05% 2-3 tts/spr</text>
+<text x="463" y="422" font-size="10.5" fill="#334155">  tiap 10-12 jam. MAKS 3-5 HARI!</text>
+<text x="463" y="438" font-size="10" font-weight="700" fill="#b45309">&gt; 5 hr: Rhinitis Medicamentosa</text>
+<text x="463" y="460" font-size="11" font-weight="700" fill="#0f172a">Analgetik / Antipiretik:</text>
+<text x="463" y="476" font-size="10.5" fill="#334155">• Parasetamol 500-1000 mg/6-8j</text>
+<text x="463" y="492" font-size="10.5" fill="#334155">• Ibuprofen 400 mg tiap 8 jam</text>
+<text x="463" y="516" font-size="11" font-weight="700" fill="#0f172a">Peringatan Klinis:</text>
+<text x="463" y="532" font-size="10.5" fill="#dc2626">HINDARI antihistamin rutin!</text>
+<text x="463" y="548" font-size="10" fill="#475569">(Mengentalkan mukus sinus)</text>
+
+<!-- Kolom 4: Antibiotik Rasional -->
+<rect x="670" y="350" width="205" height="250" rx="6" fill="#fff1f2" stroke="#fecdd3" stroke-width="1.2"/>
+<rect x="670" y="350" width="205" height="24" rx="6" fill="#ffe4e6"/>
+<text x="678" y="366" font-size="11.5" font-weight="700" fill="#9f1239">Antibiotik (Hanya ABRS)</text>
+<text x="678" y="390" font-size="11" font-weight="700" fill="#0f172a">Lini 1 Dewasa:</text>
+<text x="678" y="406" font-size="10" fill="#334155">• Amoksisilin-klavulanat</text>
+<text x="678" y="420" font-size="10" fill="#334155">  2x875/125 mg / 3x500/125 mg</text>
+<text x="678" y="434" font-size="10" fill="#334155">  PO selama 5–7 hari</text>
+<text x="678" y="450" font-size="10" fill="#334155">• Amoksisilin 3x500 mg (KMK)</text>
+<text x="678" y="470" font-size="11" font-weight="700" fill="#0f172a">Alergi Penisilin:</text>
+<text x="678" y="486" font-size="10" fill="#334155">• Doksisiklin 2x100 mg PO</text>
+<text x="678" y="500" font-size="10" fill="#334155">  (H-1: 200mg, anak &lt;8th CI)</text>
+<text x="678" y="516" font-size="10" fill="#334155">• Levofloksasin 1x500 mg PO</text>
+<text x="678" y="530" font-size="10" fill="#334155">  atau Moksifloksasin 1x400 mg</text>
+<text x="678" y="550" font-size="10" font-weight="700" fill="#be123c">Target: S. pneumoniae, H. flu</text>
+
+<!-- Section 3: Komplikasi Chandler & Red Flags -->
+<rect x="15" y="622" width="870" height="300" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="15" y="622" width="870" height="30" rx="8" fill="#f1f5f9"/>
+<text x="28" y="642" font-size="13" font-weight="700" fill="#0f172a">3. Kedaruratan THT: Klasifikasi Komplikasi Orbita Chandler (1970) &amp; Red Flags Rujukan Cito</text>
+
+<!-- 5 Derajat Chandler -->
+<rect x="25" y="660" width="550" height="250" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="25" y="660" width="550" height="24" fill="#f8fafc"/>
+<text x="35" y="676" font-size="11.5" font-weight="700" fill="#1e293b">Derajat Komplikasi Orbita Chandler (Penjalaran via Lamina Papirasea):</text>
+
+<text x="35" y="700" font-size="11" font-weight="700" fill="#0284c7">Derajat I - Selulitis Preseptal:</text>
+<text x="215" y="700" font-size="10.5" fill="#334155">Edema &amp; eritema palpebra anterior septum; visus normal, bola mata bebas bergerak.</text>
+
+<text x="35" y="732" font-size="11" font-weight="700" fill="#d97706">Derajat II - Selulitis Orbita:</text>
+<text x="215" y="732" font-size="10.5" fill="#334155">Kemosis konjungtiva, proptosis ringan, nyeri gerak bola mata, motilitas mulai terbatas.</text>
+
+<text x="35" y="764" font-size="11" font-weight="700" fill="#ea580c">Derajat III - Abses Subperiosteal:</text>
+<text x="215" y="764" font-size="10.5" fill="#334155">Pus antara periorbita &amp; lamina papirasea; proptosis inferolateral, motilitas terganggu berat.</text>
+
+<text x="35" y="796" font-size="11" font-weight="700" fill="#dc2626">Derajat IV - Abses Orbita:</text>
+<text x="215" y="796" font-size="10.5" fill="#334155">Koleksi pus intrakonal; oftalmoplegia total, kemosis berat, RAPD (+), visus terancam buta.</text>
+
+<text x="35" y="828" font-size="11" font-weight="700" fill="#7f1d1d">Derajat V - Trombosis Sinus Kavernosus:</text>
+<text x="270" y="828" font-size="10.5" fill="#334155">Tromboflebitis septik bilateral via vena oftalmika;</text>
+<text x="35" y="844" font-size="10.5" fill="#334155">kemosis bilateral, paresis N. III/IV/V1/V2/VI, penurunan kesadaran, toksik/sepsis (mortalitas 10-30%).</text>
+
+<line x1="35" y1="862" x2="565" y2="862" stroke="#e2e8f0" stroke-width="1"/>
+<text x="35" y="882" font-size="10.5" font-weight="700" fill="#0f172a">Komplikasi Lain:</text>
+<text x="135" y="882" font-size="10.5" fill="#475569">• Pott&#39;s Puffy Tumor (osteomielitis os frontale &amp; abses subperiosteal dahi)</text>
+<text x="135" y="898" font-size="10.5" fill="#475569">• Intrakranial: Meningitis, abses epidural, abses subdural, abses serebri frontalis</text>
+
+<!-- Box Red Flags Kanan -->
+<rect x="585" y="660" width="290" height="250" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+<rect x="585" y="660" width="290" height="24" rx="6" fill="#fee2e2"/>
+<text x="595" y="676" font-size="11.5" font-weight="700" fill="#991b1b">RED FLAGS: RUJUK CITO IGD / Sp.THT-KL</text>
+
+<text x="595" y="700" font-size="10.5" font-weight="700" fill="#7f1d1d">Tanda Bahaya Mata / Orbita:</text>
+<text x="595" y="716" font-size="10" fill="#334155">• Edema / eritema periorbita progresif</text>
+<text x="595" y="730" font-size="10" fill="#334155">• Proptosis (bola mata menonjol keluar)</text>
+<text x="595" y="744" font-size="10" fill="#334155">• Diplopia (penglihatan ganda) / oftalmoplegia</text>
+<text x="595" y="758" font-size="10" fill="#334155">• Penurunan tajam penglihatan (visus)</text>
+
+<text x="595" y="778" font-size="10.5" font-weight="700" fill="#7f1d1d">Tanda Bahaya Intrakranial / Lokal:</text>
+<text x="595" y="794" font-size="10" fill="#334155">• Nyeri kepala hebat tak tertahankan</text>
+<text x="595" y="808" font-size="10" fill="#334155">• Kaku kuduk, muntah proyektil, kejang</text>
+<text x="595" y="822" font-size="10" fill="#334155">• Penurunan kesadaran / defisit neurologis</text>
+<text x="595" y="836" font-size="10" fill="#334155">• Pembengkakan dahi fluktuatif (Pott&#39;s tumor)</text>
+
+<text x="595" y="856" font-size="10.5" font-weight="700" fill="#7f1d1d">Kriteria Rujukan Elektif / Khusus:</text>
+<text x="595" y="872" font-size="10" fill="#334155">• Gagal antibiotik lini 1 setelah 48–72 jam</text>
+<text x="595" y="886" font-size="10" fill="#334155">• Rekuren (≥4x/thn) atau menetap &gt;12 minggu</text>
+<text x="595" y="900" font-size="10" fill="#334155">• Curiga polip / tumor / jamur invasif</text>
+</svg>
