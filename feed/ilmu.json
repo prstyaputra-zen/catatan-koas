@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-30T14:15:00Z",
+ "updated": "2026-11-02T14:15:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -2360,6 +2360,92 @@
      "publisher": "The Laryngoscope 80(9):1414-1428",
      "year": 1970,
      "url": "https://doi.org/10.1288/00005537-197009000-00007"
+    }
+   ]
+  },
+  {
+   "id": "20261102-1415-anestesi-spinal-sab",
+   "created": "2026-11-02T14:15:00Z",
+   "title": "Anestesi spinal (blok subaraknoid): anatomi lapisan pungsi, dinamika blokade simpatis, prevensi hipotensi, dan tatalaksana PDPH",
+   "type": "topik",
+   "stase": "Anestesi",
+   "tags": [
+    "anestesi spinal",
+    "blok subaraknoid",
+    "bupivakain",
+    "hipotensi spinal",
+    "PDPH",
+    "garis Tuffier"
+   ],
+   "body": "Definisi:\nAnestesi spinal atau blok subaraknoid (subarachnoid block/SAB) adalah anestesi regional neuraksial dengan menyuntikkan anestesi lokal ke ruang subaraknoid (subarachnoid space/SAS) berisi likuor serebrospinalis (cerebrospinal fluid/LCS). Kontak obat pada radiks saraf spinalis memblokade hantaran impuls secara reversibel: otonom simpatis, sensorik (analgesia), dan motorik.\n\nKlasifikasi dan evaluasi:\n- Ketinggian blokade sensorik: Target dermatom: vertebra torakal 4 (T4 / papila mammae) untuk seksio sesarea (SC); vertebra torakal 10 (T10 / umbilikus) untuk apendektomi, herniorafi, dan reseksi prostat transuretra atau transurethral resection of the prostate (TURP); serta vertebra lumbal 1 (L1 / lipat paha) untuk bedah tungkai dan perineum.\n- Skala Bromage: Derajat 0 (bebas gerak), 1 (hanya fleksi lutut/pergelangan), 2 (hanya gerak jari kaki), dan 3 (paralisis total).\n- Barisitas terhadap LCS: Hiperbarik (berat jenis/BJ > 1,008 g/mL; bupivakain 0,5% + dekstrosa 8%) tenggelam mengikuti gravitasi; isobarik (BJ 1,003–1,008 g/mL) menetap; dan hipobarik (BJ < 1,003 g/mL) mengapung ke kranial.\n\n{{gambar:1}}\n\nAnatomi dan fisiologi terkait:\n- Batas anatomis: Medula spinalis berakhir di L1–L2 pada dewasa (L2–L3 neonatus), berlanjut sebagai kauda ekuina hingga sakral 2 (S2). Pungsi spinal hanya aman pada sela L3–L4 atau L4–L5 guna mencegah trauma medula.\n- Garis Tuffier: Garis transversal kedua krista iliaka memotong setinggi prosesus spinosus L4 atau sela L4–L5.\n- Urutan 8 lapisan pendekatan midline: Kulit (skin), subkutis (subcutaneous tissue), ligamentum supraspinosum, ligamentum interspinosum, ligamentum flavum (letupan pertama), ruang epidural (epidural space), dura-araknoid (letupan kedua), dan ruang subaraknoid (SAS berisi LCS).\n- Pendekatan paramedian: Jarum masuk 1,0–1,5 cm lateral garis tengah menembus erektor spina langsung ke ligamentum flavum.\n- Fisiologi LCS: Volume total dewasa ~150 mL (25–35 mL spinal), disekresi pleksus koroideus 0,35 mL/menit (~500 mL/hari).\n\nPatofisiologi:\nMekanisme aksi dan blokade:\n- Bupivakain menghambat saluran natrium berpintu voltase (voltage-gated sodium channel/VGSC) akson saraf, menghentikan influks natrium dan konduksi potensial aksi.\n- Blokade diferensial: Serabut B (simpatis) terblokir 2–4 segmen lebih tinggi dari sensorik. Serabut C dan A-delta (suhu dan nyeri) terblokir berikutnya menghasilkan analgesia. Serabut A-alfa (motorik) terblokir terakhir (2 segmen lebih rendah).\n\nKaskade hipotensi:\n- Blok simpatis (T1–L2) memicu venodilatasi masif -> penumpukan darah vena splanknikus dan tungkai -> aliran balik vena (venous return) anjlok.\n- Penurunan venous return menurunkan stroke volume -> curah jantung (cardiac output/CO) dan resistensi vaskular sistemik (systemic vascular resistance/SVR) anjlok -> hipotensi akut.\n- Blokade T1–T4 memutus serabut akselerator kardia simpatis (cardioaccelerator fibers) -> dominasi nervus vagus (N. X) memicu bradikardia berat (< 50 denyut per menit/dpm). Refleks Bezold-Jarisch dan penekanan vena kava memperberat kolaps.\n\nPatofisiologi post-dural puncture headache (PDPH):\n- Perforasi dura-araknoid memicu kebocoran LCS melebihi sekresi pleksus koroideus -> timbul hipotensi intrakranial.\n- Kehilangan bantalan apung menyebabkan pergeseran otak ke kaudal (downward brain sagging) saat tegak.\n- Traksi struktur peka nyeri (duramater, saraf kranialis N. V, N. IX, N. X, servikal C1–C3) memicu nyeri postural bifrontal/oksipital. Doktrin Monro-Kellie memicu kompensasi vasodilatasi vena serebral termediasi adenosina. Peregangan saraf abdusen (N. VI) memicu paresis rektus lateralis dan diplopia.\n\nEtiologi dan faktor risiko:\nEtiologi: Hipotensi dipicu denervasi simpatis kimiawi torakolumbal; PDPH dipicu defek dura pascapungsi intratekal atau pungsi dural tak disengaja (unintentional dural puncture/UDP).\nFaktor risiko:\n- Hipotensi spinal: Usia lanjut (> 65 tahun), hipovolemia, kehamilan aterm, obesitas (indeks massa tubuh atau body mass index/BMI > 30 kg/m²), blokade > T4, dan dosis bupivakain tinggi.\n- PDPH: Usia muda (20–40 tahun), perempuan, kehamilan, jarum pemotong (Quincke) besar (18G–22G), arah bevel memotong serat dural, dan riwayat PDPH sebelumnya.\n\nManifestasi klinis / Diagnosis:\n- Hipotensi spinal (Kinsella et al. 2018): Tekanan darah sistolik (TDS) < 90% baseline atau TDS < 100 mmHg. Gejala: mual mendadak, muntah, pusing melayang, pucat, diaforesis.\n- Bradikardia: Denyut jantung < 50–60 dpm akibat blok serabut akselerator T1–T4 atau refleks Bezold-Jarisch.\n- Post-dural puncture headache (Russell et al. 2023 / ICHD-3): Nyeri kepala dalam 72 jam pascapungsi. Patognomonik: nyeri bifrontal/oksipital yang memburuk dalam 15 menit setelah duduk/berdiri dan mereda dalam 15 menit setelah berbaring datar. Disertai kaku kuduk, fotofobia, tinitus, mual, serta diplopia.\n- Blok spinal tinggi atau total: Baal jari tangan (C7–C8), sesak napas akibat paresis interkostal dan diafragma (C3–C5), afonia (suara membisik), hipotensi berat, henti napas, hingga koma.\n\n{{gambar:2}}\n\nTatalaksana:\nDosis standar: Bupivakain hiperbarik 0,5% dosis 7,5–12,5 mg (1,5–2,5 mL) intratekal + ajuvan fentanil 15–25 mcg intratekal.\n\nPrevensi dan terapi hipotensi spinal (Kinsella et al. 2018 & ASA Guidelines):\n1. Strategi cairan:\n   - Ko-loading kristaloid (crystalloid co-loading): Ringer laktat (RL) atau natrium klorida (NaCl) 0,9% 10–15 mL/kg berat badan (BB) intravena (IV) diguyur cepat saat injeksi bupivakain.\n   - Pre-loading koloid: 500 mL IV 15–20 menit prepungsi (kristaloid tidak efektif karena cepat merembes).\n2. Pemilihan vasopresor:\n   - Fenilefrin (lini pertama konsensus): Bolus IV 50–100 mcg titrasi tiap 1–2 menit atau infus 25–50 mcg/menit (0,25–0,5 mcg/kg/menit) IV (target TDS > 90% baseline). Alasan farmakologis: Agonis alfa-1 murni memicu venokonstriksi kuat tanpa stimulasi beta; ideal bila laju jantung stabil atau takikardi.\n   - Efedrin: Bolus IV 5–10 mg tiap 3–5 menit bila disertai bradikardia. Alasan farmakologis: Agonis campuran (alfa-1 dan stimulasi beta-1) meningkatkan inotropik dan denyut jantung.\n   - Sulfas atropin: Bolus IV 0,5–1 mg jika denyut jantung < 50 dpm untuk blokade parasimpatis nodus sinoatrial (SA).\n3. Posisi: Ganjal panggul kanan 15 derajat ke kiri (left uterine displacement) pada obstetri untuk dekompresi aortokaval.\n\nTatalaksana post-dural puncture headache (Russell et al. 2023):\n1. Terapi konservatif (24–48 jam pertama): Tirah baring supinasi, hidrasi 2–3 L/hari, parasetamol 1.000 mg per oral (PO) tiap 6 jam + ibuprofen 400 mg PO tiap 8 jam atau obat antiinflamasi nonsteroid (OAINS) lain. Kafein oral/IV 100–200 mg tiap 6 jam (antagonis adenosina membalikkan vasodilatasi serebral).\n2. Epidural blood patch (EBP / baku emas): Bila PDPH menetap > 24–48 jam, injeksi aseptik 15–20 mL darah autolog ke ruang epidural via jarum Tuohy untuk menyumbat defek dura (keberhasilan 70–90%).\n3. Blok ganglion sfenopalatina (sphenopalatine ganglion block/SPGB): Aplikator kapas dibasahi lidokain 2% transnasal ke nasofaring posterior bilateral 10–15 menit.\n\nResusitasi total spinal:\n- Airway & Breathing: Intubasi endotrakeal (endotracheal tube/ETT) bila kesadaran turun; ventilasi tekanan positif oksigen 100% via bag-valve-mask (BVM).\n- Circulation & Drugs: Guyur kristaloid cepat, fenilefrin 100 mcg IV atau efedrin 10 mg IV. Kompresi dada bila pulseless electrical activity (PEA) dan epinefrin IV titrasi 10–20 mcg (atau 1 mg pada henti jantung); elevasi tungkai 30–45 derajat.\n\nKomplikasi / Kapan merujuk:\n- Komplikasi segera: Hipotensi akut (30–80% tanpa prevensi), bradikardia simtomatik, mual muntah, menggigil (shivering), blok spinal tinggi/total, dan henti sirkulasi.\n- Komplikasi lambat: PDPH (0,5–2% jarum pensil vs 5–25% jarum pemotong), retensi urine, transient neurological symptoms (TNS), sindrom kauda ekuina, hematoma epidural spinal, abses epidural spinal, dan meningitis.\n- Kriteria rujukan ke spesialis anestesiologi:\n  1. Blok spinal tinggi/total yang membutuhkan intubasi darurat dan rawat intensif (intensive care unit/ICU).\n  2. Kegagalan blokade yang memerlukan konversi anestesi umum di kamar operasi (operatiekamer/OK).\n  3. Hipotensi atau bradikardia refrakter terhadap vasopresor dan atropin.\n  4. Defisit neurologis baru pascabedah (kelemahan motorik, sindrom kauda ekuina, demam dengan nyeri radikuler): Konsulkan cito ke spesialis saraf/bedah saraf dan jadwalkan magnetic resonance imaging (MRI) vertebra emergensi guna menyingkirkan hematoma/abses.\n  5. PDPH refrakter terapi konservatif > 24–48 jam untuk tindakan EBP atau SPGB.\n\nAnalogi:\n- Lapisan Pungsi Midline: Menusukkan jarum spinal serupa menembus ban mobil radial. Karet luar adalah kulit, subkutis, dan ligamen supraspinosum; sabuk baja penahan terkuat adalah ligamentum flavum yang memberi letupan pertama ke ruang epidural; ban dalam tipis adalah dura-araknoid yang memberi letupan kedua; dan pancaran air adalah LCS yang menetes jernih.\n- Blokade Simpatis dan Hipotensi: Blokade simpatis bekerja seperti membuka pintu bendungan irigasi hilir serentak. Pembuluh vena lumpuh melebar dan menampung darah di perifer. Pompa jantung kekurangan aliran balik vena (venous return), tekanan pipa utama anjlok (hipotensi), dan pasokan organ vital terganggu.\n\nMnemonik:\n1. Lapisan Pungsi Midline \"SKIN-SLIP-ED-SAS\" (mnemonik buatan):\n   - S: Skin (kulit)\n   - K: Kandungan subkutis\n   - IN: Interspinosum dan Supraspinosum\n   - L: Ligamentum flavum (letupan pertama)\n   - IP: Interval epidural (pleksus Batson)\n   - ED: Eksternal dura-araknoid (letupan kedua)\n   - SAS: Subarachnoid space (ruang LCS)\n2. Target Dermatom Operasi \"4-10-1\" (mnemonik buatan):\n   - T4 (Papila mammae): Seksio sesarea.\n   - T10 (Umbilikus): Apendektomi, herniorafi, TURP.\n   - L1 (Lipat paha): Bedah tungkai dan perineum.\n3. Resusitasi Total Spinal \"A-B-C-D-E\" (mnemonik buatan):\n   - A: Airway (amankan jalan napas, intubasi bila koma).\n   - B: Breathing (oksigenasi 100% dan ventilasi tekanan positif).\n   - C: Circulation (guyur kristaloid cepat, kompresi bila henti jantung).\n   - D: Drugs (vasopresor fenilefrin/efedrin, atropin, epinefrin).\n   - E: Elevasi tungkai 30–45 derajat (autotransfusi vena; miringkan uterus 15 derajat).\n\nPoin untuk koas:\n1. Konfirmasi garis Tuffier: Palpasi krista iliaka untuk memastikan garis Tuffier setinggi L4; tusuk hanya pada sela L3–L4 atau L4–L5 guna mencegah trauma konus medularis di L1–L2.\n2. Taktil \"dua letupan\" dan verifikasi LCS: Rasakan tahanan ligamentum flavum diikuti letupan pertama ke epidural, lalu dorong 1–2 mm menembus dura-araknoid (letupan kedua). Pastikan LCS menetes jernih bebas darah (\"no drop, no injection\").\n3. Antisipasi hipotensi: Blok simpatis 2–4 segmen lebih tinggi dari sensorik. Pastikan infus 18G paten, ko-loading 10–15 mL/kgBB siap diguyur, dan vasopresor telah siap di meja!\n4. Pemilihan vasopresor: Berikan fenilefrin bolus 50–100 mcg IV bila tensi turun dengan denyut stabil/takikardia. Berikan efedrin 5–10 mg IV atau sulfas atropin 0,5 mg IV bila bradikardia (< 60 dpm).\n5. Prevensi jarum pensil dan PDPH: Jarum atraumatik (Whitacre 25G–27G) menekan PDPH < 1–2%. Nyeri kepala PDPH patognomonik memburuk saat duduk/berdiri dan mereda saat berbaring mendatar; rujuk untuk EBP bila refrakter 24–48 jam.\n6. Deteksi blok total: Kebas jari tangan (C7–C8), napas berat, afonia, mual hebat, dan kesadaran turun menandakan blok ke kranial; segera beri oksigen 100%, guyur cairan, dan siapkan intubasi!\n\nSingkatan:\n- ASA: American Society of Anesthesiologists\n- BB: berat badan\n- BJ: berat jenis\n- BMI: indeks massa tubuh (body mass index)\n- BVM: bag-valve-mask (sungkup berbalon mengembang sendiri)\n- CO: curah jantung (cardiac output)\n- dpm: denyut per menit\n- EBP: epidural blood patch\n- ETT: pipa endotrakeal (endotracheal tube)\n- ICHD-3: International Classification of Headache Disorders, edisi ke-3\n- ICU: unit terapi intensif (intensive care unit)\n- IV: intravena\n- LCS: likuor serebrospinalis\n- mcg: mikrogram\n- mg: miligram\n- mL: mililiter\n- MRI: magnetic resonance imaging\n- N. V: nervus trigeminus (saraf kranialis ke-5)\n- N. VI: nervus abdusen (saraf kranialis ke-6)\n- N. IX: nervus glosofaringeus (saraf kranialis ke-9)\n- N. X: nervus vagus (saraf kranialis ke-10)\n- NaCl: natrium klorida\n- OAINS: obat antiinflamasi nonsteroid\n- OK: kamar operasi (operatiekamer)\n- PDPH: post-dural puncture headache\n- PEA: pulseless electrical activity\n- PO: per oral\n- RL: ringer laktat\n- SA: sinoatrial\n- SAB: blok subaraknoid (subarachnoid block)\n- SAS: ruang subaraknoid (subarachnoid space)\n- SC: seksio sesarea\n- SPGB: sphenopalatine ganglion block (blok ganglion sfenopalatina)\n- SVR: resistensi vaskular sistemik (systemic vascular resistance)\n- TDS: tekanan darah sistolik\n- TNS: transient neurological symptoms\n- TURP: transurethral resection of the prostate\n- UDP: unintentional dural puncture (pungsi dural tak disengaja)\n- VGSC: voltage-gated sodium channel",
+   "images": [
+    {
+     "file": "img/20261102-1415-anestesi-spinal-sab-1.png",
+     "caption": "Gambar 1: Anatomi kolumna vertebralis lumbal dan insersi jarum spinal menembus ligamentum flavum serta dura-araknoid ke ruang subaraknoid di bawah konus medularis (sela L3–L4 atau L4–L5).",
+     "credit": "BruceBlaus, CC BY 3.0, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Blausen_0617_LumbarPuncture.png"
+    },
+    {
+     "file": "img/20261102-1415-anestesi-spinal-sab-2.svg",
+     "caption": "Gambar 2: Diagram alur komprehensif anestesi spinal: 8 lapisan pungsi midline, perbandingan jarum Quincke vs Whitacre, ketinggian dermatom sensorik, algoritma prevensi hipotensi (Kinsella 2018), resusitasi total spinal ABCDE, dan tangga tatalaksana PDPH.",
+     "credit": "Digambar Gemini berdasarkan pedoman Kinsella et al. (Anaesthesia 2018), Russell et al. (JAMA Netw Open 2023 / Reg Anesth Pain Med 2024), ASA Practice Guidelines (2016), dan KMK RI No. HK.01.07/MENKES/1186/2022"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Obstetric Anaesthetists' Association (OAA) & International Consensus",
+     "title": "International consensus statement on the management of hypotension with vasopressors during caesarean section under spinal anaesthesia",
+     "year": 2018,
+     "url": "https://doi.org/10.1111/anae.14080"
+    },
+    {
+     "org": "Multisociety International Working Group (ASRA Pain Medicine, OAA, SOAP, ESAIC)",
+     "title": "Consensus Practice Guidelines on Postdural Puncture Headache From a Multisociety, International Working Group",
+     "year": 2023,
+     "url": "https://doi.org/10.1001/jamanetworkopen.2023.25387"
+    },
+    {
+     "org": "American Society of Anesthesiologists (ASA)",
+     "title": "Practice Guidelines for Obstetric Anesthesia: An Updated Report by the American Society of Anesthesiologists Task Force on Obstetric Anesthesia",
+     "year": 2016,
+     "url": "https://doi.org/10.1097/ALN.0000000000000935"
+    },
+    {
+     "org": "Kementerian Kesehatan Republik Indonesia",
+     "title": "Keputusan Menteri Kesehatan Republik Indonesia Nomor HK.01.07/MENKES/1186/2022 tentang Panduan Praktik Klinis Bagi Dokter di Fasilitas Pelayanan Kesehatan Tingkat Pertama",
+     "year": 2022,
+     "url": "https://kemkes.go.id"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kinsella SM, Carvalho B, Dyer RA, et al. International consensus statement on the management of hypotension with vasopressors during caesarean section under spinal anaesthesia",
+     "publisher": "Anaesthesia 73(1):71-92",
+     "year": 2018,
+     "url": "https://doi.org/10.1111/anae.14080"
+    },
+    {
+     "title": "Russell R, Groves N, et al. Consensus Practice Guidelines on Postdural Puncture Headache From a Multisociety, International Working Group",
+     "publisher": "JAMA Network Open 6(8):e2325387 / Regional Anesthesia & Pain Medicine",
+     "year": 2023,
+     "url": "https://doi.org/10.1001/jamanetworkopen.2023.25387"
+    },
+    {
+     "title": "American Society of Anesthesiologists Task Force on Obstetric Anesthesia. Practice Guidelines for Obstetric Anesthesia: An Updated Report",
+     "publisher": "Anesthesiology 124(2):270-300",
+     "year": 2016,
+     "url": "https://doi.org/10.1097/ALN.0000000000000935"
+    },
+    {
+     "title": "Olawin AM, Das JM. Spinal Anesthesia",
+     "publisher": "StatPearls [Internet], StatPearls Publishing, Treasure Island (FL)",
+     "year": 2024,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK537142/"
+    },
+    {
+     "title": "Kementerian Kesehatan Republik Indonesia. Keputusan Menteri Kesehatan RI Nomor HK.01.07/MENKES/1186/2022 tentang Panduan Praktik Klinis Bagi Dokter di Fasyankes Tingkat Pertama",
+     "publisher": "Kemenkes RI, Jakarta",
+     "year": 2022,
+     "url": "https://kemkes.go.id"
     }
    ]
   }
