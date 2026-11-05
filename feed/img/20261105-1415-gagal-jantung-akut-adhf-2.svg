@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1020" width="900" height="1020" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#475569"/></marker>
+  <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#0284c7"/></marker>
+  <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#dc2626"/></marker>
+</defs>
+<rect width="900" height="1020" fill="#ffffff"/>
+
+<!-- Header Banner -->
+<rect x="15" y="12" width="870" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="30" y="37" font-size="16" font-weight="700" fill="#0f172a">Matriks Profil Hemodinamik Stevenson (2x2) &amp; Tatalaksana Gagal Jantung Akut (ADHF)</text>
+<text x="30" y="58" font-size="11.5" fill="#475569">Pedoman Nasional PNPK Kemenkes RI (KMK HK.01.07/MENKES/4801/2021), PERKI (2023), dan ESC Guidelines (2021)</text>
+
+<!-- Section 1: Matriks Stevenson 2x2 -->
+<rect x="15" y="84" width="870" height="610" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="15" y="84" width="870" height="32" rx="8" fill="#f1f5f9"/>
+<text x="28" y="106" font-size="13" font-weight="700" fill="#0f172a">1. Klasifikasi Hemodinamik Klinis Bedside Berdasarkan Status Kongesti dan Perfusi</text>
+
+<!-- Axis labels and layout -->
+<!-- Horizontal axis: Kongesti -->
+<text x="450" y="136" text-anchor="middle" font-size="13" font-weight="700" fill="#0369a1">STATUS KONGESTI (Beban Cairan / Tekanan Pengisian Ventrikel Kiri)</text>
+<text x="240" y="154" text-anchor="middle" font-size="11" font-weight="600" fill="#16a34a">KERING (DRY) — Tanpa Kongesti</text>
+<text x="660" y="154" text-anchor="middle" font-size="11" font-weight="600" fill="#dc2626">BASAH (WET) — Kongesti Paru / Sistemik</text>
+
+<!-- Vertical axis indicator on left -->
+<g transform="translate(25, 410) rotate(-90)">
+  <text x="0" y="0" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">STATUS PERFUSI PERIFER (Curah Jantung / Indeks Jantung)</text>
+</g>
+
+<!-- Top Row: HANGAT (WARM) - Perfusi Adekuat -->
+<!-- Kuadran Warm & Dry -->
+<rect x="55" y="166" width="385" height="245" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<rect x="55" y="166" width="385" height="28" rx="6" fill="#dcfce7"/>
+<text x="68" y="185" font-size="12.5" font-weight="700" fill="#166534">HANGAT &amp; KERING (Warm &amp; Dry) — Kompensata</text>
+<text x="68" y="210" font-size="10.5" font-weight="600" fill="#15803d">Temuan Klinis:</text>
+<text x="68" y="226" font-size="10" fill="#334155">• Perfusi baik: akral hangat, CRT &lt; 2 detik, nadi kuat, TD stabil</text>
+<text x="68" y="242" font-size="10" fill="#334155">• Tidak kongesti: ronki (-), JVP normal (&lt; 5+2 cmH2O), edema (-)</text>
+<text x="68" y="258" font-size="10" fill="#334155">• Pasien euvolemik dan terkompensasi baik (stabil)</text>
+<rect x="68" y="270" width="359" height="1" fill="#bbf7d0"/>
+<text x="68" y="288" font-size="10.5" font-weight="700" fill="#166534">Strategi Tatalaksana:</text>
+<text x="68" y="304" font-size="10" fill="#1e293b">• Bukan indikasi rawat darurat dekompensasi</text>
+<text x="68" y="320" font-size="10" fill="#1e293b">• Optimalkan GDMT oral 4 pilar (ARNI/ACEi/ARB + Penyekat Beta +</text>
+<text x="68" y="334" font-size="10" fill="#1e293b">  MRA + SGLT2i) rawat jalan</text>
+<text x="68" y="350" font-size="10" fill="#1e293b">• Pantau berat badan harian, fungsi ginjal, dan kepatuhan diet</text>
+<text x="68" y="366" font-size="10" fill="#1e293b">• Edukasi restriksi garam (&lt; 2 g Na/hari) dan cairan (1,5–2 L/hari)</text>
+<text x="68" y="396" font-size="9.5" font-style="italic" fill="#15803d">Prognosis: Paling baik (mortalitas terendah)</text>
+
+<!-- Kuadran Warm & Wet -->
+<rect x="460" y="166" width="415" height="245" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+<rect x="460" y="166" width="415" height="28" rx="6" fill="#fee2e2"/>
+<text x="473" y="185" font-size="12.5" font-weight="700" fill="#991b1b">HANGAT &amp; BASAH (Warm &amp; Wet) — PALING SERING (&gt; 70%)</text>
+<text x="473" y="210" font-size="10.5" font-weight="600" fill="#b91c1c">Temuan Klinis:</text>
+<text x="473" y="226" font-size="10" fill="#334155">• Perfusi adekuat: akral hangat, TD normal/tinggi (sering SBP &gt; 140)</text>
+<text x="473" y="242" font-size="10" fill="#334155">• Kongesti berat: sesak, ortopnea, ronki basal bilateral, JVP ↑, edema (+)</text>
+<text x="473" y="258" font-size="10" fill="#334155">• Subtipe vaskular (redistribusi cairan) vs kardiak (hipervolemia sistemik)</text>
+<rect x="473" y="270" width="389" height="1" fill="#fecaca"/>
+<text x="473" y="288" font-size="10.5" font-weight="700" fill="#991b1b">Strategi Tatalaksana:</text>
+<text x="473" y="304" font-size="10" fill="#1e293b">• Posisi duduk tegak (high-Fowler) + O2 bila SpO2 &lt; 90% (atau NIV bila takipnea)</text>
+<text x="473" y="320" font-size="10" fill="#1e293b">• DIURETIK LOOP IV: Furosemid 20–40 mg IV bolus (pasien baru) ATAU</text>
+<text x="473" y="334" font-size="10" fill="#1e293b">  bolus IV setara 1–2x dosis harian oral pasien (bila terapi rutin)</text>
+<text x="473" y="350" font-size="10" fill="#1e293b">• VASODILATOR IV (bila TDS &gt; 110 mmHg, tanpa hipotensi):</text>
+<text x="473" y="364" font-size="10" fill="#1e293b">  - Nitrogliserin IV: mulai 10–20 mcg/menit, titrasi naik s.d. 200 mcg/menit</text>
+<text x="473" y="378" font-size="10" fill="#1e293b">  - ISDN IV: mulai 1 mg/jam, titrasi naik s.d. 10 mg/jam (turunkan afterload/preload)</text>
+<text x="473" y="396" font-size="9.5" font-style="italic" fill="#b91c1c">Target: Dekongesti tuntas tanpa penurunan fungsi ginjal berlebih</text>
+
+<!-- Bottom Row: DINGIN (COLD) - Hipoperfusi Perifer -->
+<!-- Kuadran Cold & Dry -->
+<rect x="55" y="425" width="385" height="255" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+<rect x="55" y="425" width="385" height="28" rx="6" fill="#dbeafe"/>
+<text x="68" y="444" font-size="12.5" font-weight="700" fill="#1e40af">DINGIN &amp; KERING (Cold &amp; Dry) — Hipoperfusi Tanpa Kongesti (~5%)</text>
+<text x="68" y="469" font-size="10.5" font-weight="600" fill="#1d4ed8">Temuan Klinis:</text>
+<text x="68" y="485" font-size="10" fill="#334155">• Hipoperfusi: akral dingin, pucat, nadi filiformis, TD sistolik rendah</text>
+<text x="68" y="501" font-size="10" fill="#334155">• Oliguria (&lt; 0,5 mL/kg/jam), pusing berputar, rasa lemas ekstrem</text>
+<text x="68" y="517" font-size="10" fill="#334155">• Tanpa kongesti: paru bersih (tanpa ronki), JVP rendah / datar</text>
+<text x="68" y="533" font-size="10" fill="#334155">• Etiologi: overdiuresis, restriksi cairan berlebih, sepsis/dehidrasi</text>
+<rect x="68" y="544" width="359" height="1" fill="#bfdbfe"/>
+<text x="68" y="562" font-size="10.5" font-weight="700" fill="#1e40af">Strategi Tatalaksana:</text>
+<text x="68" y="578" font-size="10" fill="#1e293b">• STOP SEMENTARA semua agen diuretik dan vasodilator!</text>
+<text x="68" y="594" font-size="10" fill="#1e293b">• TANTANGAN CAIRAN (Fluid challenge) HATI-HATI: Berikan kristaloid</text>
+<text x="68" y="608" font-size="10" fill="#1e293b">  (NaCl 0,9% atau Ringer Laktat) 250–500 mL dalam 15–30 menit</text>
+<text x="68" y="622" font-size="10" fill="#1e293b">• Evaluasi respons: dengarkan paru tiap 10–15 menit (waspada ronki)</text>
+<text x="68" y="636" font-size="10" fill="#1e293b">• Bila perfusi tetap buruk setelah cairan terisi: curigai kegagalan pompa,</text>
+<text x="68" y="650" font-size="10" fill="#1e293b">  pertimbangkan inotropik (Dobutamin) dan rujuk ke ICCU</text>
+<text x="68" y="668" font-size="9.5" font-style="italic" fill="#1d4ed8">Tujuan: Mengembalikan volume intravaskular efektif dan stroke volume</text>
+
+<!-- Kuadran Cold & Wet -->
+<rect x="460" y="425" width="415" height="255" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+<rect x="460" y="425" width="415" height="28" rx="6" fill="#ffedd5"/>
+<text x="473" y="444" font-size="12.5" font-weight="700" fill="#c2410c">DINGIN &amp; BASAH (Cold &amp; Wet) — KRITIS / SYOK KARDIOGENIK (~15%)</text>
+<text x="473" y="469" font-size="10.5" font-weight="600" fill="#ea580c">Temuan Klinis:</text>
+<text x="473" y="485" font-size="10" fill="#334155">• Hipoperfusi perifer berat: akral dingin-basah (clammy), nadi cepat-lemah</text>
+<text x="473" y="501" font-size="10" fill="#334155">• Tekanan darah kolaps: TDS &lt; 90 mmHg, MAP &lt; 65 mmHg, tekanan nadi sempit</text>
+<text x="473" y="517" font-size="10" fill="#334155">• Kongesti paru massif: distres napas berat, ronki basah basalis-apikalis</text>
+<text x="473" y="533" font-size="10" fill="#334155">• Penurunan kesadaran (konfusi), asidosis metabolik, laktat darah &gt; 2 mmol/L</text>
+<rect x="473" y="544" width="389" height="1" fill="#fed7aa"/>
+<text x="473" y="562" font-size="10.5" font-weight="700" fill="#c2410c">Strategi Tatalaksana Darurat (ICU / ICCU):</text>
+<text x="473" y="578" font-size="10" fill="#1e293b">• Bantuan jalan napas/oksigenasi: Segera siapkan NIPPV / intubasi bila gagal napas</text>
+<text x="473" y="592" font-size="10" fill="#1e293b">• Evaluasi TDS awal:</text>
+<text x="473" y="606" font-size="10" fill="#1e293b">  - TDS 70–90 mmHg: Inotropik DOBUTAMIN 2–20 mcg/kgBB/menit</text>
+<text x="473" y="620" font-size="10" fill="#1e293b">  - TDS &lt; 70 mmHg / syok berat: VASOPRESOR NOREPINEFRIN 0,05–0,5</text>
+<text x="473" y="634" font-size="10" fill="#1e293b">    mcg/kgBB/menit untuk mencapai MAP target ≥ 65 mmHg</text>
+<text x="473" y="648" font-size="10" fill="#1e293b">• JANGAN berikan vasodilator saat TDS &lt; 90 mmHg! Diuretik loop IV ditunda</text>
+<text x="473" y="662" font-size="10" fill="#1e293b">  sampai perfusi renal dan MAP pulih, lalu berikan perlahan</text>
+<text x="473" y="676" font-size="9.5" font-style="italic" fill="#c2410c">Mortalitas sangat tinggi (&gt; 40%) → Segera rujuk ke pusat dengan sarana IABP/MCS</text>
+
+<!-- Section 2: Algoritma Evaluasi Diuresis ESC 2021 / PERKI 2023 -->
+<rect x="15" y="705" width="870" height="300" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="15" y="705" width="870" height="32" rx="8" fill="#f1f5f9"/>
+<text x="28" y="727" font-size="13" font-weight="700" fill="#0f172a">2. Algoritma Titrasi &amp; Evaluasi Respons Diuretik Loop Intravena (ESC 2021 / PERKI 2023)</text>
+
+<!-- Step 1: Dosis Inisial -->
+<rect x="30" y="750" width="250" height="120" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<rect x="30" y="750" width="250" height="24" rx="6" fill="#e2e8f0"/>
+<text x="40" y="767" font-size="11" font-weight="700" fill="#0f172a">Langkah 1: Dosis Awal Furosemid IV</text>
+<text x="40" y="790" font-size="10" fill="#334155">• Naive diuretik (belum pernah minum):</text>
+<text x="48" y="804" font-size="10" font-weight="700" fill="#0369a1">Furosemid 20–40 mg IV bolus</text>
+<text x="40" y="824" font-size="10" fill="#334155">• Pasien rutin diuretik oral:</text>
+<text x="48" y="838" font-size="10" font-weight="700" fill="#0369a1">Furosemid IV = 1–2× dosis oral harian</text>
+<text x="48" y="852" font-size="9.5" fill="#64748b">(mis. rutin 40 mg oral → 40–80 mg IV bolus)</text>
+
+<!-- Arrow to Step 2 -->
+<line x1="285" y1="810" x2="325" y2="810" stroke="#0284c7" stroke-width="2" marker-end="url(#ah-blue)"/>
+
+<!-- Step 2: Evaluasi Respons -->
+<rect x="330" y="750" width="265" height="120" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<rect x="330" y="750" width="265" height="24" rx="6" fill="#e0f2fe"/>
+<text x="340" y="767" font-size="11" font-weight="700" fill="#0369a1">Langkah 2: Evaluasi Klinis Terstruktur</text>
+<text x="340" y="790" font-size="10" fill="#334155">• Natrium Urin Spot (jam ke-2):</text>
+<text x="348" y="805" font-size="10" font-weight="700" fill="#0f172a">Target: &gt; 50–70 mEq/L (atau mmol/L)</text>
+<text x="340" y="825" font-size="10" fill="#334155">• Laju Diuresis Urin (jam ke-6):</text>
+<text x="348" y="840" font-size="10" font-weight="700" fill="#0f172a">Target: &gt; 100–150 mL/jam</text>
+<text x="340" y="858" font-size="9.5" fill="#64748b">Pantau juga kreatinin serum dan elektrolit (K, Na)</text>
+
+<!-- Split Arrows from Step 2 to Step 3 -->
+<path d="M 600,790 L 630,775" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+<text x="605" y="765" font-size="9" font-weight="700" fill="#16a34a">RESPONS ADEKUAT</text>
+
+<path d="M 600,830 L 630,845" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#ah-red)"/>
+<text x="605" y="860" font-size="9" font-weight="700" fill="#dc2626">RESPONS KURANG</text>
+
+<!-- Step 3A: Respons Adekuat -->
+<rect x="635" y="740" width="235" height="65" rx="5" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<text x="645" y="758" font-size="10" font-weight="700" fill="#166534">Respons Baik (Target Tercapai):</text>
+<text x="645" y="774" font-size="9.5" fill="#334155">• Teruskan furosemid IV tiap 12 jam atau infus</text>
+<text x="645" y="788" font-size="9.5" fill="#334155">• Evaluasi berat badan tiap 24 jam s.d. euvolemik</text>
+<text x="645" y="800" font-size="9" fill="#15803d">• Transisi ke oral 24 jam sebelum rencana pulang</text>
+
+<!-- Step 3B: Respons Kurang / Resisten -->
+<rect x="635" y="815" width="235" height="80" rx="5" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="645" y="832" font-size="10" font-weight="700" fill="#991b1b">Respons Inadekuat / Resisten:</text>
+<text x="645" y="848" font-size="9.5" fill="#334155">• GANDAKAN dosis furosemid IV (maks. 400–600 mg/hari)</text>
+<text x="645" y="862" font-size="9.5" fill="#334155">• Tambah kombinasi diuretik (blokade nefron berurutan):</text>
+<text x="655" y="876" font-size="9" font-weight="700" fill="#991b1b">+ HCT 25–100 mg PO atau Asetazolamid 500 mg IV</text>
+<text x="645" y="890" font-size="9" fill="#b91c1c">• Bila gagal total + AKI/asidosis → Ultrafiltrasi / Dialisis</text>
+
+<!-- Bottom Summary Strip -->
+<rect x="30" y="910" width="840" height="80" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+<text x="45" y="928" font-size="10.5" font-weight="700" fill="#0f172a">Kunci Penanganan Koas di IGD / Ruang Rawat:</text>
+<text x="45" y="946" font-size="10" fill="#334155">1. Cari faktor pencetus akut dengan mnemonik CHAMPIT (Coronary, Hypertension, Arrhythmia, Mechanical, PE, Infection, Tamponade).</text>
+<text x="45" y="962" font-size="10" fill="#334155">2. Dilarang memberikan morfin secara rutin (meningkatkan kebutuhan ventilasi mekanik dan risiko fatalitas; Rekomendasi Kelas III ESC).</text>
+<text x="45" y="978" font-size="10" fill="#334155">3. Oksigen hanya bila SpO2 &lt; 90% (hindari hiperoksia yang memicu vasokonstriksi koroner/sistemik); utamakan CPAP/BiPAP pada edema paru akut.</text>
+
+</svg>
