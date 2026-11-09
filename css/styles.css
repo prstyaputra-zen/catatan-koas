@@ -621,3 +621,19 @@ details.sec:not([open]) > summary::after { content: '…'; color: var(--muted); 
 }
 .updbar span { min-width: 0; }
 .updbar .btn { white-space: nowrap; flex: none; }
+
+/* Kalkulator puyer & cairan */
+.drug-rows { display: flex; flex-direction: column; gap: 10px; }
+.drug-row { display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-2); }
+.drug-row .row { align-items: flex-end; }
+.drug-row .row > .iconbtn { flex: none; }
+.dose-card { display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); }
+.dose-card.has-warn { border-color: color-mix(in srgb, var(--danger) 45%, var(--line)); }
+.dose-name { font-size: 14px; font-weight: 600; color: var(--muted); }
+.dose-big { font-size: 32px; font-weight: 700; line-height: 1.1; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.dose-big small { font-size: 15px; font-weight: 500; color: var(--muted); }
+.dose-take { font-size: 15px; }
+.warn-line { margin: 0; padding: 8px 10px; border-radius: var(--radius-sm); background: color-mix(in srgb, var(--danger) 10%, transparent); color: var(--text); font-size: 14px; }
+.recipe { margin: 0; padding: 12px 14px; border-radius: var(--radius); background: var(--surface-2); font: 15px/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace; white-space: pre-wrap; }
+.calc-ref td .hint { font-size: 12px; }
+.editor.calc { padding-bottom: 0; }
