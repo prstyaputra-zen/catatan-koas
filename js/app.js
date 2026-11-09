@@ -5,9 +5,10 @@ import * as sync from './sync.js';
 import { parseClaude, CLAUDE_PROMPT } from './paste.js';
 import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText } from './tools.js';
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
+import { icon } from './icons.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.11.1';
+const APP_VERSION = '0.12.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -29,6 +30,7 @@ const state = {
   objectUrls: [],
   editor: null,
   draft: null,
+  anchor: null,           // kunci judul bagian yang dibawa saat berpindah mode Baca/Ubah
   filterFresh: false,     // hanya tampilkan catatan "auto updates"
   feedUnread: new Set(),  // id catatan auto updates yang belum dibuka di perangkat ini // catatan hasil "Tempel dari Claude" yang menunggu dibuka di editor
 };
@@ -154,7 +156,7 @@ function highlight(text, terms) {
 
 function snippet(body, terms, len = 160) {
   // Tabel Markdown diringkas menjadi "sel · sel" agar cuplikan tetap terbaca.
-  const text = plainBody(body).replace(/^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/gm, '').replace(/^[ \t]*\|[ \t]*|[ \t]*\|[ \t]*$/gm, '').replace(/[ \t]*(?<!\\)\|[ \t]*/g, ' · ').replace(/(\s*·)+\s/g, ' · ').replace(/\s+/g, ' ').trim();
+  const text = stripFormat(plainBody(body)).replace(/^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/gm, '').replace(/^[ \t]*\|[ \t]*|[ \t]*\|[ \t]*$/gm, '').replace(/[ \t]*(?<!\\)\|[ \t]*/g, ' · ').replace(/(\s*·)+\s/g, ' · ').replace(/\s+/g, ' ').trim();
   if (!text) return '';
   let pos = -1;
   if (terms && terms.size) {
@@ -167,6 +169,9 @@ function snippet(body, terms, len = 160) {
   const piece = (start > 0 ? '…' : '') + text.slice(start, start + len) + (start + len < text.length ? '…' : '');
   return highlight(piece, terms);
 }
+
+// Penanda format (**tebal**, *miring*, ~~coret~~, # judul) dibuang untuk cuplikan daftar.
+const stripFormat = (t) => t.replace(/^#{1,3}\s+/gm, '').replace(/\*\*(.+?)\*\*/g, '$1').replace(/~~(.+?)~~/g, '$1').replace(/(^|[^*\w])\*(?![\s*])(.+?)(?<![\s*])\*(?![*\w])/g, '$1$2');
 
 // Markdown ringan: baris "Label:" ditebalkan, **tebal**, daftar, dan tautan [[Judul catatan]].
 // Isi catatan tanpa label template yang belum diisi.
@@ -185,6 +190,8 @@ function visibleBody(body, type) {
 function inlineHtml(text, terms) {
   let h = highlight(text, terms);
   h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  h = h.replace(/~~(.+?)~~/g, '<s>$1</s>');
+  h = h.replace(/(^|[^*\w])\*(?![\s*])(.+?)(?<![\s*])\*(?![*\w])/g, '$1<em>$2</em>');
   h = h.replace(/https?:\/\/[^\s<>"]+[^\s<>".,;:)]/g, (u) => `<a href="${u}" target="_blank" rel="noopener" class="extlink">${u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 48)}${u.length > 56 ? '…' : ''}</a>`);
   h = h.replace(/\[\[(.+?)\]\]/g, (_, t) => `<a href="#/cari/${encodeURIComponent(t.replace(/<[^>]+>/g, ''))}" class="wikilink">${t}</a>`);
   return h;
@@ -197,12 +204,48 @@ function tableHtml(rows, header, terms) {
   return `<div class="tbl-wrap"><table class="note-table">${head}<tbody>${bodyRows}</tbody></table></div>`;
 }
 
-function renderBody(body, terms, type) {
+// Judul bagian yang bisa dilipat: "# Judul" (1), "## Judul" (2), "### Judul" (3),
+// atau baris label tanpa isi seperti "Tatalaksana:" (2). Label yang langsung berisi ("Dosis: 500 mg") bukan judul.
+function headingOf(line) {
+  const t = line.trim();
+  const md = t.match(/^(#{1,3})\s+(.+?)\s*#*$/);
+  if (md) return { level: md[1].length, text: md[2].replace(/:$/, '').trim() };
+  if (/^[^:\-•*|#!\[]{1,60}:$/.test(t)) return { level: 2, text: t.slice(0, -1).trim() };
+  return null;
+}
+const headingKey = (h) => h.text.toLowerCase().replace(/\*\*/g, '').replace(/\s+/g, ' ');
+
+// Bagian yang dilipat diingat per catatan di perangkat ini.
+const foldKey = (id) => 'ck-fold:' + id;
+function loadFolds(id) {
+  try { return new Set(JSON.parse(localStorage.getItem(foldKey(id)) || '[]')); } catch { return new Set(); }
+}
+function saveFolds(id, set) {
+  try { set.size ? localStorage.setItem(foldKey(id), JSON.stringify([...set])) : localStorage.removeItem(foldKey(id)); } catch { /* penyimpanan diblokir */ }
+}
+
+function renderBody(body, terms, type, folds = null) {
   let html = '';
+  const stack = [];
+  const seen = new Map();
+  const close = (level) => { while (stack.length && stack[stack.length - 1] >= level) { html += '</div></details>'; stack.pop(); } };
   for (const block of splitBlocks(visibleBody(body, type))) {
     if (block.type === 'table') { html += tableHtml(block.rows, block.header, terms); continue; }
     let inList = false;
     for (const raw of block.lines) {
+      const hd = headingOf(raw);
+      if (hd) {
+        if (inList) { html += '</ul>'; inList = false; }
+        close(hd.level);
+        let key = headingKey(hd);
+        const n = (seen.get(key) || 0) + 1;
+        seen.set(key, n);
+        if (n > 1) key += '#' + n;
+        const open = !(folds && folds.has(key));
+        html += `<details class="sec lv-${hd.level}" data-key="${esc(key)}"${open ? ' open' : ''}><summary><span class="chev" aria-hidden="true">${icon('chevron')}</span><span class="sec-title" role="heading" aria-level="${hd.level + 1}">${inlineHtml(hd.text, terms)}</span></summary><div class="sec-body">`;
+        stack.push(hd.level);
+        continue;
+      }
       const img = raw.match(IMG_LINE);
       if (img) {
         if (inList) { html += '</ul>'; inList = false; }
@@ -219,6 +262,7 @@ function renderBody(body, terms, type) {
     }
     if (inList) html += '</ul>';
   }
+  close(0);
   return html;
 }
 
@@ -257,7 +301,7 @@ function renderHome() {
       </div>
     </div>
     <div id="results" class="results"></div>
-    <a href="#/baru" class="fab" aria-label="Catatan baru">＋</a>`;
+    <a href="#/baru" class="fab" aria-label="Catatan baru" title="Catatan baru">${icon('plus')}</a>`;
   const q = $('#q');
   let t;
   q.addEventListener('input', () => {
@@ -373,44 +417,54 @@ async function renderNote(id) {
   if (state.feedUnread.delete(id)) db.setMeta('feedUnread', [...state.feedUnread]);
   const t = TYPES[n.type] || TYPES.bebas;
   const terms = state.query.trim() ? state.index.search(state.query).terms : null;
+  const folds = loadFolds(n.id);
   view().innerHTML = `
     <div class="topbar">
-      <a href="#/" class="iconbtn" aria-label="Kembali">‹</a>
-      <span class="grow"></span>
-      <button class="iconbtn" id="pin" aria-label="Sematkan">${n.pinned ? '📌' : '📍'}</button>
-      <a class="btn small" href="#/ubah/${n.id}">Ubah</a>
+      <a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a>
+      <span class="grow crumb">${t.icon} ${esc(n.title || '(tanpa judul)')}</span>
+      <button class="iconbtn" id="foldall" aria-label="Lipat semua bagian" title="Lipat / buka semua bagian">${icon('collapse')}</button>
+      <button class="iconbtn pinbtn ${n.pinned ? 'on' : ''}" id="pin" aria-label="Sematkan di atas daftar" aria-pressed="${!!n.pinned}" title="Sematkan">${icon('pin')}</button>
     </div>
     <div class="note-find hidden" id="nf">
-      <input id="nf-q" type="search" placeholder="Cari di catatan ini" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+      <input id="nf-q" type="search" placeholder="Cari di catatan ini" aria-label="Cari di catatan ini" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
       <span class="dv-count" id="nf-count"></span>
-      <button class="iconbtn" data-nf="prev" aria-label="Hasil sebelumnya">⌃</button>
-      <button class="iconbtn" data-nf="next" aria-label="Hasil berikutnya">⌄</button>
-      <button class="iconbtn" data-nf="close" aria-label="Tutup pencarian">✕</button>
+      <button class="iconbtn" data-nf="prev" aria-label="Hasil sebelumnya">${icon('up')}</button>
+      <button class="iconbtn" data-nf="next" aria-label="Hasil berikutnya">${icon('down')}</button>
+      <button class="iconbtn" data-nf="close" aria-label="Tutup pencarian">${icon('x')}</button>
     </div>
     <article class="note">
-      <div class="card-top"><span class="badge t-${n.type}">${t.icon} ${t.label}</span>${n.stase ? `<span class="badge">${esc(n.stase)}</span>` : ''}</div>
+      <div class="page-icon" aria-hidden="true">${t.icon}</div>
       <h1>${highlight(n.title || '(tanpa judul)', terms)}</h1>
-      <div class="meta-line">Dibuat ${fmtDate(n.created)} · diubah ${fmtDate(n.updated)}</div>
-      ${n.tags.length ? `<div class="tags">${n.tags.map((x) => `<a class="tag" href="#/cari/${encodeURIComponent(x)}">#${esc(x)}</a>`).join('')}</div>` : ''}
+      <dl class="props">
+        <div><dt>Jenis</dt><dd><span class="badge t-${n.type}">${t.label}</span></dd></div>
+        ${n.stase ? `<div><dt>Stase</dt><dd>${esc(n.stase)}</dd></div>` : ''}
+        ${n.tags.length ? `<div><dt>Tag</dt><dd class="tags">${n.tags.map((x) => `<a class="tag" href="#/cari/${encodeURIComponent(x)}">#${esc(x)}</a>`).join('')}</dd></div>` : ''}
+        <div><dt>Diubah</dt><dd>${fmtDate(n.updated)} <span class="muted">· dibuat ${fmtDate(n.created)}</span></dd></div>
+      </dl>
       ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di bagian bawah. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
-      <div class="body">${renderBody(n.body, terms, n.type)}</div>
+      <div class="body">${renderBody(n.body, terms, n.type, folds)}</div>
       <div id="gallery" class="gallery"></div>
       ${relatedHtml(n)}
-      <button class="btn danger ghost" id="del">Hapus catatan</button>
+      <button class="btn danger ghost" id="del">${icon('trash')} Hapus catatan</button>
       <div class="note-fabs">
-        <button class="mini-fab hidden" id="totop" aria-label="Kembali ke atas">⬆</button>
-        <button class="mini-fab" id="findbtn" aria-label="Cari di catatan ini">🔍</button>
+        <button class="mini-fab hidden" id="totop" aria-label="Kembali ke atas" title="Ke atas">${icon('up')}</button>
+        <button class="mini-fab" id="findbtn" aria-label="Cari di catatan ini" title="Cari di catatan ini">${icon('search')}</button>
       </div>
-    </article>`;
+    </article>
+    ${modeBarHtml('read')}`;
   $('#pin').onclick = async () => {
     n.pinned = !n.pinned;
     n.updated = Date.now();
     const { mediaIds, ...stored } = n;
     await db.saveNote(stored);
     scheduleSync();
-    $('#pin').textContent = n.pinned ? '📌' : '📍';
+    $('#pin').classList.toggle('on', n.pinned);
+    $('#pin').setAttribute('aria-pressed', String(n.pinned));
     toast(n.pinned ? 'Disematkan di atas daftar' : 'Sematan dilepas');
   };
+  bindFolds(n, folds);
+  bindModeBar('read', n.id);
+  restoreReadAnchor();
   $('#del').onclick = async () => {
     if (!confirm('Hapus catatan ini beserta semua medianya? Tidak bisa dibatalkan.')) return;
     await db.deleteNote(n.id);
@@ -456,17 +510,17 @@ function bindNoteFind(n, initialTerms) {
   const titleEl = view().querySelector('.note h1');
   let marks = [];
   let cur = -1;
-  bar.style.top = ($('.appbar')?.offsetHeight || 0) + 'px';
   const show = (i) => {
     if (!marks.length) { cur = -1; countEl.textContent = input.value.trim() ? 'Tidak ada' : ''; return; }
     cur = (i + marks.length) % marks.length;
+    openAncestors(marks[cur]);
     marks.forEach((el, k) => el.classList.toggle('cur', k === cur));
     countEl.textContent = `${cur + 1}/${marks.length}`;
     marks[cur].scrollIntoView({ block: 'center', behavior: 'smooth' });
   };
   const apply = (terms, jump = true) => {
     titleEl.innerHTML = highlight(n.title || '(tanpa judul)', terms);
-    bodyEl.innerHTML = renderBody(n.body, terms, n.type);
+    bodyEl.innerHTML = renderBody(n.body, terms, n.type, loadFolds(n.id));
     hydrateInlineImages(bodyEl, n);
     marks = [...view().querySelectorAll('.note h1 mark, .note .body mark')];
     if (jump) show(0); else { cur = -1; countEl.textContent = marks.length ? `${marks.length} hasil` : ''; }
@@ -500,6 +554,187 @@ function bindNoteFind(n, initialTerms) {
     marks = [...view().querySelectorAll('.note h1 mark, .note .body mark')];
     countEl.textContent = marks.length ? `${marks.length} hasil` : '';
     if (marks.length) requestAnimationFrame(() => show(0));
+  }
+}
+
+// ---------- Bagian yang bisa dilipat ----------
+
+function openAncestors(el) {
+  for (let d = el?.closest('details'); d; d = d.parentElement?.closest('details')) d.open = true;
+}
+
+function bindFolds(n, folds) {
+  const body = view().querySelector('.note .body');
+  const btn = $('#foldall');
+  const secs = () => [...body.querySelectorAll('details.sec')];
+  const sync = () => {
+    const all = secs();
+    btn.classList.toggle('hidden', !all.length);
+    const anyOpen = all.some((d) => d.open);
+    btn.innerHTML = icon(anyOpen ? 'collapse' : 'expand');
+    btn.setAttribute('aria-label', anyOpen ? 'Lipat semua bagian' : 'Buka semua bagian');
+  };
+  // Hanya ketukan pengguna yang diingat; bagian yang dibuka otomatis oleh pencarian tidak mengubah simpanan.
+  body.addEventListener('click', (e) => {
+    const sum = e.target.closest('summary');
+    if (!sum || e.target.closest('a')) return;
+    const d = sum.parentElement;
+    setTimeout(() => {
+      d.open ? folds.delete(d.dataset.key) : folds.add(d.dataset.key);
+      saveFolds(n.id, folds);
+      sync();
+    }, 0);
+  });
+  btn.onclick = () => {
+    const all = secs();
+    const close = all.some((d) => d.open);
+    all.forEach((d) => { d.open = !close; close ? folds.add(d.dataset.key) : folds.delete(d.dataset.key); });
+    saveFolds(n.id, folds);
+    sync();
+  };
+  sync();
+}
+
+// ---------- Mode Baca / Ubah ----------
+// Tombol mode selalu mengambang di bawah layar. Saat berpindah, posisi bagian yang sedang dibaca/ditulis dibawa ikut.
+
+function modeBarHtml(mode) {
+  const b = (m, ic, label) => `<button type="button" data-mode="${m}" aria-pressed="${mode === m}" title="${label} (Ctrl/⌘+E)">${icon(ic)}<span>${label}</span></button>`;
+  return `<nav class="modebar" aria-label="Mode catatan">${b('read', 'read', 'Baca')}${b('edit', 'edit', 'Ubah')}</nav>`;
+}
+
+function bindModeBar(mode, id) {
+  const bar = view().querySelector('.modebar');
+  bar.onclick = (e) => {
+    const b = e.target.closest('[data-mode]');
+    if (b && b.dataset.mode !== mode) switchMode();
+  };
+}
+
+async function switchMode() {
+  const editing = !!state.editor && !!$('#e-body');
+  if (!editing) {
+    const id = location.hash.split('/')[2];
+    if (!id || !state.notes.has(id)) return;
+    state.anchor = readAnchor();
+    location.replace('#/ubah/' + id);
+    return;
+  }
+  const ed = state.editor;
+  const id = ed.note.id;
+  const anchor = editAnchor();
+  if (ed.dirty || ed.isNew) {
+    if (!(await saveEditor(false))) { toast(ed.isNew ? 'Tulis sesuatu dulu sebelum membaca' : 'Belum bisa disimpan'); return; }
+  } else {
+    state.editor = null;
+  }
+  state.anchor = anchor;
+  location.replace('#/catatan/' + id);
+}
+
+// Batas bawah bilah yang menempel di atas layar, untuk menghitung posisi baca.
+function stickyBottom() {
+  return Math.max(0, ...['.appbar', '#view .topbar', '#view .body-tools', '#nf:not(.hidden)'].map((sel) => $(sel)?.getBoundingClientRect().bottom || 0));
+}
+
+// Judul bagian terakhir yang sudah lewat di bagian atas layar (null = masih di awal catatan).
+function readAnchor() {
+  const limit = stickyBottom() + 24;
+  let key = null;
+  for (const d of view().querySelectorAll('.note .body details.sec')) {
+    const r = d.firstElementChild.getBoundingClientRect();
+    if (!r.height) continue; // di dalam bagian yang terlipat
+    if (r.top <= limit) key = d.dataset.key; else break;
+  }
+  return key;
+}
+
+function scrollToAnchor(getTop) {
+  let done = false;
+  const stop = () => { done = true; };
+  const align = () => { if (!done) { const y = getTop(); if (y != null) window.scrollTo(0, Math.max(0, y)); } };
+  requestAnimationFrame(align);
+  // Gambar yang termuat belakangan menggeser isi; sejajarkan lagi sampai pengguna mulai menggulir.
+  ['touchstart', 'wheel', 'keydown'].forEach((ev) => window.addEventListener(ev, stop, { once: true, passive: true }));
+  setTimeout(stop, 2000);
+  view().addEventListener('load', align, true);
+  setTimeout(() => view().removeEventListener('load', align, true), 2100);
+}
+
+function restoreReadAnchor() {
+  const key = state.anchor;
+  state.anchor = null;
+  if (!key) return;
+  const sec = [...view().querySelectorAll('.note .body details.sec')].find((d) => d.dataset.key === key);
+  if (!sec) return;
+  openAncestors(sec.parentElement);
+  scrollToAnchor(() => sec.getBoundingClientRect().top + window.scrollY - stickyBottom() - 8);
+}
+
+// Judul bagian dari setiap baris teks editor, dengan kunci yang sama seperti tampilan baca.
+function headingLines(text) {
+  const seen = new Map();
+  const out = [];
+  text.split('\n').forEach((line, i) => {
+    const h = headingOf(line);
+    if (!h) return;
+    let key = headingKey(h);
+    const c = (seen.get(key) || 0) + 1;
+    seen.set(key, c);
+    if (c > 1) key += '#' + c;
+    out.push({ i, key });
+  });
+  return out;
+}
+
+// Posisi atas setiap baris di dalam textarea (memperhitungkan baris yang terbungkus).
+function textareaLineTops(ta) {
+  const cs = getComputedStyle(ta);
+  const m = document.createElement('div');
+  for (const p of ['fontFamily', 'fontSize', 'fontWeight', 'lineHeight', 'letterSpacing', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft', 'borderTopWidth', 'borderRightWidth', 'borderBottomWidth', 'borderLeftWidth', 'boxSizing', 'tabSize']) m.style[p] = cs[p];
+  Object.assign(m.style, { position: 'absolute', visibility: 'hidden', left: '-9999px', top: '0', width: ta.offsetWidth + 'px', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', borderStyle: 'solid' });
+  for (const line of ta.value.split('\n')) {
+    const d = document.createElement('div');
+    d.textContent = line || '​';
+    m.appendChild(d);
+  }
+  document.body.appendChild(m);
+  const tops = [...m.children].map((d) => d.offsetTop);
+  m.remove();
+  return tops;
+}
+
+function editAnchor() {
+  const ta = $('#e-body');
+  if (!ta) return null;
+  let idx;
+  if (document.activeElement === ta) {
+    idx = ta.value.slice(0, ta.selectionStart).split('\n').length - 1;
+  } else {
+    const y = stickyBottom() + 12 - ta.getBoundingClientRect().top;
+    if (y < 0) return null;
+    const tops = textareaLineTops(ta);
+    idx = 0;
+    while (idx + 1 < tops.length && tops[idx + 1] <= y) idx++;
+  }
+  let key = null;
+  for (const h of headingLines(ta.value)) { if (h.i <= idx) key = h.key; else break; }
+  return key;
+}
+
+function restoreEditAnchor() {
+  const key = state.anchor;
+  state.anchor = null;
+  const ta = $('#e-body');
+  const h = key && ta && headingLines(ta.value).find((x) => x.key === key);
+  if (!h) return;
+  const tops = textareaLineTops(ta);
+  scrollToAnchor(() => ta.getBoundingClientRect().top + window.scrollY + tops[h.i] - stickyBottom() - 8);
+  // Di laptop kursor langsung ditaruh di bagian itu; di iPhone tidak, agar keyboard tidak muncul tiba-tiba.
+  if (matchMedia('(pointer: fine)').matches) {
+    const pos = ta.value.split('\n').slice(0, h.i + 1).join('\n').length;
+    ta.focus({ preventScroll: true });
+    ta.setSelectionRange(pos, pos);
   }
 }
 
@@ -1064,7 +1299,7 @@ function openLightbox(url, caption) {
 function renderNewPicker() {
   releaseUrls();
   view().innerHTML = `
-    <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Catatan baru</span></div>
+    <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Catatan baru</span></div>
     <div class="picker">
       ${Object.entries(TYPES).map(([k, t]) => `<a class="pick" href="#/baru/${k}"><span class="big">${t.icon}</span><b>${t.label}</b><small>${pickHint(k)}</small></a>`).join('')}
       <a class="pick pick-claude" href="#/tempel"><span class="big">✨</span><b>Tempel dari Claude</b><small>Jadikan obrolan dengan Claude catatan baru</small></a>
@@ -1080,7 +1315,7 @@ function pickHint(k) {
 function renderTools() {
   releaseUrls();
   view().innerHTML = `
-    <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Alat</span></div>
+    <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Alat</span></div>
     <div class="picker">
       <a class="pick" href="#/alat/bmi"><span class="big">⚖️</span><b>Kalkulator IMT / BMI</b><small>Interpretasi Asia-Pasifik, WHO, Kemenkes, BB ideal</small></a>
     </div>`;
@@ -1104,7 +1339,7 @@ function bmiScaleHtml(bmi) {
 function renderBmi() {
   releaseUrls();
   view().innerHTML = `
-    <div class="topbar"><a href="#/alat" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Kalkulator IMT</span></div>
+    <div class="topbar"><a href="#/alat" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Kalkulator IMT</span></div>
     <form class="editor calc" onsubmit="return false">
       <div class="row">
         <label class="field"><span>Tinggi badan</span><span class="unit"><input id="b-h" inputmode="decimal" placeholder="165" autocomplete="off"><i>cm</i></span></label>
@@ -1384,7 +1619,7 @@ function openTableEditor(initialRows, { editing = false, sheets = null, onSave, 
 function renderPaste() {
   releaseUrls();
   view().innerHTML = `
-    <div class="topbar"><a href="#/baru" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Tempel dari Claude</span></div>
+    <div class="topbar"><a href="#/baru" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Tempel dari Claude</span></div>
     <div class="paste">
       <ol class="steps">
         <li>Di akhir obrolan dengan Claude, kirim prompt ini supaya materinya tersalin utuh dan rapi. <button type="button" class="btn small ghost" id="copyprompt">📋 Salin prompt</button></li>
@@ -1502,7 +1737,7 @@ async function renderEditor(id, type) {
 
   view().innerHTML = `
     <div class="topbar">
-      <button class="iconbtn" id="cancel" aria-label="Batal">✕</button>
+      <button class="iconbtn" id="cancel" aria-label="Batal" title="Batal">${icon('x')}</button>
       <span class="grow title">${existing ? 'Ubah catatan' : draft ? 'Periksa hasil tempel' : 'Catatan baru'}</span>
       <button class="btn small" id="save">Simpan</button>
     </div>
@@ -1515,11 +1750,19 @@ async function renderEditor(id, type) {
       <input id="e-title" class="title-input" placeholder="Judul (mis. STEMI anterior, Metformin)" value="${esc(note.title)}">
       <input id="e-tags" placeholder="Tag, pisahkan dengan koma (mis. kardio, ugd)" value="${esc(note.tags.join(', '))}" autocapitalize="off">
       <div class="body-tools">
+        <div class="fmt" role="group" aria-label="Format teks">
+          <button type="button" class="fmtbtn" data-fmt="bold" aria-label="Tebal" title="Tebal (Ctrl/⌘+B)"><b>B</b></button>
+          <button type="button" class="fmtbtn" data-fmt="italic" aria-label="Miring" title="Miring (Ctrl/⌘+I)"><i>I</i></button>
+          <button type="button" class="fmtbtn" data-fmt="strike" aria-label="Coret" title="Coret (Ctrl/⌘+Shift+X)"><s>S</s></button>
+          <select id="t-size" class="fmtsel" aria-label="Ukuran teks" title="Ukuran teks baris ini (Ctrl/⌘+Alt+0–3)">
+            <option value="0">Teks</option><option value="1">Judul 1</option><option value="2">Judul 2</option><option value="3">Judul 3</option>
+          </select>
+        </div>
         <button type="button" class="btn small ghost" id="t-table">▦ Tabel</button>
         <label class="btn small ghost">🖼️ Gambar<input type="file" id="f-inline" accept="image/*" multiple hidden></label>
         <label class="btn small ghost">📊 Impor tabel Excel / CSV<input type="file" id="f-table" accept=".csv,.tsv,.xlsx,.xlsm,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></label>
       </div>
-      <textarea id="e-body" placeholder="Tulis catatan… Gunakan [[Judul catatan lain]] untuk menautkan.">${esc(note.body)}</textarea>
+      <textarea id="e-body" aria-label="Isi catatan" placeholder="Tulis catatan… Baris '## Judul' atau 'Label:' menjadi bagian yang bisa dilipat. [[Judul catatan lain]] untuk menautkan.">${esc(note.body)}</textarea>
       ${note.type === 'kasus' ? '<p class="hint">🔒 Jangan tulis nama, No. RM, NIK, atau alamat pasien. Gunakan inisial dan usia.</p>' : ''}
       <h4 class="section">Lampiran</h4>
       <div class="attach-actions">
@@ -1530,12 +1773,14 @@ async function renderEditor(id, type) {
       </div>
       <div id="recorder" class="recorder hidden"><span class="dot"></span><span id="rec-time">00:00</span><button type="button" class="btn small danger" id="rec-stop">Selesai</button></div>
       <div id="e-media" class="e-media"></div>
-    </form>`;
+    </form>
+    ${modeBarHtml('edit')}`;
 
   const body = $('#e-body');
   const autoGrow = () => { body.style.height = 'auto'; body.style.height = Math.max(220, body.scrollHeight + 4) + 'px'; };
   body.addEventListener('input', autoGrow);
-  requestAnimationFrame(autoGrow);
+  requestAnimationFrame(() => { autoGrow(); restoreEditAnchor(); });
+  bindModeBar('edit', note.id);
   view().querySelectorAll('input, textarea, select').forEach((el) => el.addEventListener('input', () => (state.editor.dirty = true)));
 
   $('#e-type').onchange = (e) => {
@@ -1548,7 +1793,8 @@ async function renderEditor(id, type) {
   $('#cancel').onclick = () => {
     if (state.editor.dirty && !confirm('Buang perubahan yang belum disimpan?')) return;
     state.editor = null;  // dibuang, jadi tidak disimpan otomatis saat pindah halaman
-    history.length > 1 ? history.back() : (location.hash = '#/');
+    if (existing) location.replace('#/catatan/' + existing.id);
+    else history.length > 1 ? history.back() : (location.hash = '#/');
   };
   $('#save').onclick = () => saveEditor();
   $('#f-visual').onchange = (e) => addFiles(e.target.files);
@@ -1556,6 +1802,24 @@ async function renderEditor(id, type) {
   $('#f-doc').onchange = (e) => addFiles(e.target.files);
   $('#rec').onclick = startRecording;
   $('#t-table').onclick = () => editTableAtCursor();
+  const fmtBar = view().querySelector('.fmt');
+  // Di laptop fokus & seleksi tetap di kotak teks saat tombol format diklik.
+  fmtBar.addEventListener('mousedown', (e) => { if (e.target.closest('.fmtbtn')) e.preventDefault(); });
+  fmtBar.addEventListener('click', (e) => { const b = e.target.closest('[data-fmt]'); if (b) wrapSelection(FMT[b.dataset.fmt]); });
+  const size = $('#t-size');
+  const syncSize = () => { size.value = String(lineLevel()); };
+  ['click', 'keyup', 'input'].forEach((ev) => body.addEventListener(ev, syncSize));
+  size.onchange = () => setLineLevel(+size.value);
+  body.addEventListener('keydown', (e) => {
+    if (!(e.metaKey || e.ctrlKey)) return;
+    const k = e.key.toLowerCase();
+    let f = null;
+    if (!e.shiftKey && !e.altKey && k === 'b') f = 'bold';
+    else if (!e.shiftKey && !e.altKey && k === 'i') f = 'italic';
+    else if (e.shiftKey && k === 'x') f = 'strike';
+    if (f) { e.preventDefault(); wrapSelection(FMT[f]); return; }
+    if (e.altKey && /^Digit[0-3]$/.test(e.code)) { e.preventDefault(); setLineLevel(+e.code.slice(5)); syncSize(); }
+  });
   $('#f-table').onchange = (e) => { const f = e.target.files[0]; e.target.value = ''; if (f) importTableFile(f); };
   body.addEventListener('paste', onBodyPaste);
   $('#f-inline').onchange = (e) => { const fs = [...e.target.files]; e.target.value = ''; addInlineImages(fs); };
@@ -1575,6 +1839,71 @@ async function renderEditor(id, type) {
   if (draft) toast('Periksa dan rapikan dulu, lalu ketuk Simpan', 3500);
   else if (state.editor.isNew) $('#e-title').focus();
   renderEditorMedia();
+}
+
+// ---------- Format teks di editor (Markdown, kompatibel Obsidian) ----------
+const FMT = { bold: '**', italic: '*', strike: '~~' };
+
+function editorSel() {
+  const ta = $('#e-body');
+  // Di iPhone tombol membuat kotak teks kehilangan fokus; pakai posisi kursor terakhir.
+  const [a, b] = document.activeElement === ta ? [ta.selectionStart, ta.selectionEnd] : (state.editor?.caret || [ta.value.length, ta.value.length]);
+  return { ta, a, b };
+}
+
+// Membungkus/membuka seleksi dengan penanda. Tanpa seleksi: kata di kursor, atau penanda kosong siap diketik.
+function wrapSelection(mk) {
+  const { ta, a: a0, b: b0 } = editorSel();
+  let a = a0, b = b0;
+  const v = ta.value;
+  if (a === b) {
+    const left = v.slice(0, a).match(/[\p{L}\p{N}_-]*$/u)[0].length;
+    const right = v.slice(a).match(/^[\p{L}\p{N}_-]*/u)[0].length;
+    if (left + right) { a -= left; b += right; }
+  }
+  // Hindari menyertakan spasi di tepi seleksi (penanda Markdown tidak boleh menempel spasi).
+  while (a < b && /\s/.test(v[a])) a++;
+  while (b > a && /\s/.test(v[b - 1])) b--;
+  const sel = v.slice(a, b);
+  // "*" (miring) tidak boleh tertukar dengan "**" (tebal).
+  const solo = (x, y) => mk !== '*' || (x !== '*' && y !== '*');
+  const inside = sel.length >= 2 * mk.length && sel.startsWith(mk) && sel.endsWith(mk) && solo(sel[1], sel[sel.length - 2]);
+  const outside = v.slice(a - mk.length, a) === mk && v.slice(b, b + mk.length) === mk && solo(v[a - 2], v[b + 1]);
+  let text, s0, s1;
+  if (inside) { text = sel.slice(mk.length, sel.length - mk.length); s0 = a; s1 = a + text.length; }
+  else if (outside) { a -= mk.length; b += mk.length; text = sel; s0 = a; s1 = a + sel.length; }
+  else { text = mk + sel + mk; s0 = a + mk.length; s1 = s0 + sel.length; }
+  ta.focus({ preventScroll: true });
+  ta.setRangeText(text, a, b, 'preserve');
+  ta.setSelectionRange(s0, s1);
+  ta.dispatchEvent(new Event('input'));
+  if (state.editor) state.editor.caret = [s0, s1];
+}
+
+function currentLine() {
+  const { ta, a } = editorSel();
+  const start = ta.value.lastIndexOf('\n', a - 1) + 1;
+  const nl = ta.value.indexOf('\n', start);
+  return { ta, start, end: nl === -1 ? ta.value.length : nl };
+}
+
+function lineLevel() {
+  const { ta, start, end } = currentLine();
+  const m = ta.value.slice(start, end).match(/^(#{1,3})\s/);
+  return m ? m[1].length : 0;
+}
+
+// Ukuran teks baris di kursor: 0 = teks biasa, 1-3 = judul (bagian yang bisa dilipat).
+function setLineLevel(level) {
+  const { ta, start, end } = currentLine();
+  const line = ta.value.slice(start, end);
+  const bare = line.replace(/^#{1,3}\s+/, '');
+  const next = level ? '#'.repeat(level) + ' ' + bare.replace(/:\s*$/, '') : bare;
+  if (next === line) return;
+  ta.focus({ preventScroll: true });
+  ta.setRangeText(next, start, end, 'end');
+  ta.dispatchEvent(new Event('input'));
+  if (state.editor) state.editor.caret = [ta.selectionStart, ta.selectionEnd];
 }
 
 function renderEditorMedia() {
@@ -1806,7 +2135,7 @@ async function renderSettings() {
   // Halaman ini dirender asinkron; jangan menimpa tampilan lain bila pengguna sudah pindah.
   if (location.hash !== '#/pengaturan') return;
   view().innerHTML = `
-    <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali">‹</a><span class="grow title">Pengaturan</span></div>
+    <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Pengaturan</span></div>
     <div class="settings">
       <section>
         <h4>Penyimpanan di perangkat ini</h4>
@@ -1985,6 +2314,7 @@ async function route() {
     state.editor = null;
   }
   const [page, arg] = (location.hash.slice(2) || '').split('/');
+  document.body.dataset.view = page || 'home';
   window.scrollTo(0, 0);
   switch (page) {
     case 'catatan': return renderNote(arg);
@@ -2002,6 +2332,17 @@ async function route() {
 }
 
 document.addEventListener('keydown', (e) => {
+  const mod = e.metaKey || e.ctrlKey;
+  if (mod && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 'e' && view().querySelector('.modebar')) {
+    e.preventDefault();
+    switchMode();
+    return;
+  }
+  if (mod && !e.shiftKey && e.key.toLowerCase() === 's' && state.editor && $('#e-body')) {
+    e.preventDefault();
+    saveEditor();
+    return;
+  }
   if ((e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) || ((e.metaKey || e.ctrlKey) && e.key === 'k')) {
     e.preventDefault();
     if (location.hash && location.hash !== '#/') location.hash = '#/';
@@ -2345,7 +2686,21 @@ function updateOnline() {
   $('#net').classList.toggle('hidden', navigator.onLine);
 }
 
+// Keyboard iPhone menutupi elemen fixed di bawah; tombol mode dinaikkan setinggi keyboard.
+function trackKeyboard() {
+  const appbarH = () => document.documentElement.style.setProperty('--appbar-h', ($('.appbar')?.offsetHeight || 56) + 'px');
+  appbarH();
+  window.addEventListener('resize', appbarH);
+  const vv = window.visualViewport;
+  if (!vv) return;
+  const set = () => document.documentElement.style.setProperty('--kb', Math.max(0, window.innerHeight - vv.height - vv.offsetTop) + 'px');
+  vv.addEventListener('resize', set);
+  vv.addEventListener('scroll', set);
+  set();
+}
+
 async function start() {
+  trackKeyboard();
   let authResult = null;
   try {
     authResult = await sync.handleAuthRedirect();
