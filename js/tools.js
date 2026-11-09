@@ -146,7 +146,8 @@ export function roman(n) {
 // Dosis acuan umum anak. Semua angka bisa diubah di layar; selalu cocokkan dengan formularium/IDAI dan kondisi pasien.
 // mode 'dose' = mg/kg/dosis, 'day' = mg/kg/hari (dibagi frekuensi).
 export const PUYER_DRUGS = [
-  // Ditinjau Nov 2026 terhadap Medscape, BNF/BNFc, NZF (Healthify), EMA/MHRA, MedCentral, MIMS.
+  // Ditinjau Nov 2026 terhadap Medscape, BNF/BNFc, NZF (Healthify), EMA/MHRA, MedCentral, MIMS, US Pharmacist (CTM 0,35 mg/kg/hari),
+  // Sari Pediatri/IDAI (parasetamol 10-15, ibuprofen 5-10 mg/kg), dokumen registrasi BPOM ambroksol. PIONAS BPOM tidak bisa diakses (503).
   { id: 'pct', name: 'Parasetamol', mode: 'dose', dose: 10, range: [10, 15], freq: 3, strength: 500, maxDose: 1000, maxDayKg: 60, maxDay: 4000,
     note: 'Tiap 4-6 jam, maks 5 kali/hari. Batas 75 mg/kg/hari hanya untuk 48 jam pertama, selanjutnya 60 mg/kg/hari (NZF, BNFc).' },
   { id: 'ibu', name: 'Ibuprofen', mode: 'dose', dose: 5, range: [5, 10], freq: 3, strength: 200, maxDose: 400, maxDayKg: 40, maxDay: 1200,
