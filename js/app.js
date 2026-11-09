@@ -1405,6 +1405,7 @@ function renderPuyer() {
             <div><dt>Target sebelum pembulatan</dt><dd>${fmtNum(it.target, 2)} mg/bungkus${Math.abs(it.deviation) >= 0.5 ? ` (selisih ${it.deviation > 0 ? '+' : ''}${fmtNum(it.deviation, 1)}%)` : ''}</dd></div>
           </dl>
           ${it.warn.map((x) => `<p class="warn-line">⚠️ ${esc(x)}</p>`).join('')}
+          ${it.note ? `<p class="hint">${esc(it.note)}</p>` : ''}
         </div>`).join('')}
       <pre class="recipe">${esc(puyerRecipe(r))}</pre>
       ${calcActionsHtml}`;

@@ -146,12 +146,19 @@ export function roman(n) {
 // Dosis acuan umum anak. Semua angka bisa diubah di layar; selalu cocokkan dengan formularium/IDAI dan kondisi pasien.
 // mode 'dose' = mg/kg/dosis, 'day' = mg/kg/hari (dibagi frekuensi).
 export const PUYER_DRUGS = [
-  { id: 'pct', name: 'Parasetamol', mode: 'dose', dose: 10, range: [10, 15], freq: 3, strength: 500, maxDose: 1000, maxDayKg: 60, maxDay: 4000, note: 'Interval tiap 4-6 jam bila perlu.' },
-  { id: 'ibu', name: 'Ibuprofen', mode: 'dose', dose: 5, range: [5, 10], freq: 3, strength: 200, maxDose: 400, maxDayKg: 40, maxDay: 1200, note: 'Tidak untuk bayi < 6 bulan, dehidrasi, atau curiga demam berdarah.' },
-  { id: 'amx', name: 'Amoksisilin', mode: 'day', dose: 40, range: [25, 50], freq: 3, strength: 500, maxDose: 1000, note: 'Dosis tinggi 80-90 mg/kg/hari untuk indikasi tertentu (mis. OMA risiko pneumokokus resisten).' },
-  { id: 'ctm', name: 'Klorfeniramin (CTM)', mode: 'day', dose: 0.35, range: [0.35, 0.35], freq: 3, strength: 4, maxDay: 12, note: 'Tidak dianjurkan untuk anak < 2 tahun.' },
-  { id: 'amb', name: 'Ambroksol', mode: 'day', dose: 1.2, range: [1.2, 1.6], freq: 3, strength: 30, maxDay: 90 },
-  { id: 'dom', name: 'Domperidon', mode: 'dose', dose: 0.25, range: [0.25, 0.25], freq: 3, strength: 10, maxDayKg: 0.75, maxDay: 30, note: 'Maksimal 0,75 mg/kg/hari; pakai sesingkat mungkin.' },
+  // Ditinjau Nov 2026 terhadap Medscape, BNF/BNFc, NZF (Healthify), EMA/MHRA, MedCentral, MIMS.
+  { id: 'pct', name: 'Parasetamol', mode: 'dose', dose: 10, range: [10, 15], freq: 3, strength: 500, maxDose: 1000, maxDayKg: 60, maxDay: 4000,
+    note: 'Tiap 4-6 jam, maks 5 kali/hari. Batas 75 mg/kg/hari hanya untuk 48 jam pertama, selanjutnya 60 mg/kg/hari (NZF, BNFc).' },
+  { id: 'ibu', name: 'Ibuprofen', mode: 'dose', dose: 5, range: [5, 10], freq: 3, strength: 200, maxDose: 400, maxDayKg: 40, maxDay: 1200,
+    note: 'Tiap 6-8 jam. BNFc membatasi 30 mg/kg/hari. Tidak untuk bayi < 3 bulan, dehidrasi, atau curiga demam berdarah.' },
+  { id: 'amx', name: 'Amoksisilin', mode: 'day', dose: 40, range: [25, 50], freq: 3, strength: 500, maxDose: 1000, maxDay: 4000,
+    note: 'Dosis tinggi 80-90 mg/kg/hari (maks 4 g/hari) untuk indikasi tertentu, mis. OMA atau pneumonia komunitas.' },
+  { id: 'ctm', name: 'Klorfeniramin (CTM)', mode: 'day', dose: 0.35, range: [0.35, 0.35], freq: 3, strength: 4, maxDose: 2, maxDay: 12,
+    note: 'Usia 2-5 th: 1 mg tiap 4-6 jam, maks 6 mg/hari. Usia 6-11 th: 2 mg tiap 4-6 jam, maks 12 mg/hari. Tidak untuk < 2 tahun.' },
+  { id: 'amb', name: 'Ambroksol', mode: 'day', dose: 1.2, range: [1.2, 1.6], freq: 3, strength: 30, maxDay: 90,
+    note: 'Acuan usia: < 2 th 7,5 mg 2x; 2-5 th 7,5 mg 3x; 6-12 th 15 mg 2-3x sehari (MIMS).' },
+  { id: 'dom', name: 'Domperidon', mode: 'dose', dose: 0.25, range: [0.25, 0.25], freq: 3, strength: 10, maxDose: 10, maxDayKg: 0.75, maxDay: 30,
+    note: 'EMA/MHRA: tidak lagi direkomendasikan untuk anak < 12 tahun atau BB < 35 kg karena tidak terbukti efektif. Bila tetap dipakai: maks 0,75 mg/kg/hari, sesingkat mungkin.' },
 ];
 
 // Satu puyer bisa berisi beberapa obat (racikan). Setiap obat dihitung terpisah, lalu dibulatkan per jumlah tablet total.
@@ -162,7 +169,8 @@ export function computePuyer({ weightKg, freq, packets, rounding = 0.25, rows })
     const target = r.mode === 'day' ? (weightKg * r.dose) / freq : weightKg * r.dose;  // mg per bungkus
     const warn = [];
     let perPacket = target;
-    if (r.maxDose && perPacket > r.maxDose) { perPacket = r.maxDose; warn.push(`Dibatasi dosis maksimal ${fmtNum(r.maxDose)} mg per kali.`); }
+    const capped = !!(r.maxDose && perPacket > r.maxDose);
+    if (capped) { perPacket = r.maxDose; warn.push(`Dibatasi dosis maksimal ${fmtNum(r.maxDose)} mg per kali.`); }
     const exact = (perPacket * packets) / r.strength;
     let tablets = rounding ? Math.round(exact / rounding) * rounding : exact;
     if (rounding && tablets < rounding) tablets = rounding;
@@ -172,14 +180,14 @@ export function computePuyer({ weightKg, freq, packets, rounding = 0.25, rows })
     const perKgDay = daily / weightKg;
     if (r.maxDayKg && perKgDay > r.maxDayKg + 1e-9) warn.push(`Melebihi ${fmtNum(r.maxDayKg, 2)} mg/kg/hari (jadi ${fmtNum(perKgDay, 2)}).`);
     if (r.maxDay && daily > r.maxDay + 1e-9) warn.push(`Melebihi dosis harian maksimal ${fmtNum(r.maxDay)} mg (jadi ${fmtNum(daily)} mg).`);
-    if (r.range && r.range[0]) {
+    if (r.range && r.range[0] && !capped) {
       const v = r.mode === 'day' ? perKgDay : perKgDose;
       const [lo, hi] = r.range;
       if (v < lo * 0.9) warn.push(`Di bawah dosis acuan (${fmtNum(lo, 2)}${hi !== lo ? `-${fmtNum(hi, 2)}` : ''} mg/kg/${r.mode === 'day' ? 'hari' : 'dosis'}).`);
       if (v > hi * 1.1) warn.push(`Di atas dosis acuan (${fmtNum(lo, 2)}${hi !== lo ? `-${fmtNum(hi, 2)}` : ''} mg/kg/${r.mode === 'day' ? 'hari' : 'dosis'}).`);
     }
     const deviation = target ? ((actual - target) / target) * 100 : 0;
-    return { name: r.name || 'Obat', strength: r.strength, target, perPacket, exact, tablets, actual, daily, perKgDose, perKgDay, deviation, warn };
+    return { name: r.name || 'Obat', note: r.preset ? r.note : '', strength: r.strength, target, perPacket, exact, tablets, actual, daily, perKgDose, perKgDay, deviation, warn };
   });
   return items.length ? { weightKg, freq, packets, rounding, items } : null;
 }
