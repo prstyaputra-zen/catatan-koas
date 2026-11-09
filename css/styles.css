@@ -611,3 +611,13 @@ details.sec:not([open]) > summary::after { content: '…'; color: var(--muted); 
 }
 .fmtsel:hover { background-color: var(--hover); }
 .body s { color: var(--muted); }
+
+/* Ajakan memuat ulang saat ada versi baru */
+.updbar {
+  position: fixed; z-index: 55; left: 50%; transform: translateX(-50%);
+  top: calc(env(safe-area-inset-top, 0px) + 10px); width: max-content; max-width: calc(100% - 24px);
+  display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 14px; border-radius: 12px;
+  background: var(--surface); color: var(--text); font-size: 14px; box-shadow: var(--float);
+}
+.updbar span { min-width: 0; }
+.updbar .btn { white-space: nowrap; flex: none; }
