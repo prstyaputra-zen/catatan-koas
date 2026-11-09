@@ -8,7 +8,7 @@ import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular,
 import { icon } from './icons.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.12.0';
+const APP_VERSION = '0.12.1';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -2699,6 +2699,38 @@ function trackKeyboard() {
   set();
 }
 
+// ---------- Pembaruan aplikasi ----------
+// Service worker baru langsung mengambil alih (skipWaiting + clients.claim). Saat itu terjadi, tampilkan ajakan memuat ulang
+// agar versi baru terpakai tanpa harus menutup-buka aplikasi dua kali. Tidak memuat ulang otomatis supaya tulisan tidak hilang.
+function watchForUpdates() {
+  const sw = navigator.serviceWorker;
+  const hadController = !!sw.controller; // pemasangan pertama kali bukan "pembaruan"
+  sw.register('sw.js').then((reg) => {
+    // Aplikasi di iPhone sering dilanjutkan, bukan dibuka ulang; periksa pembaruan setiap kali kembali tampil.
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
+  }).catch(() => {});
+  sw.addEventListener('controllerchange', () => { if (hadController) showUpdateBanner(); });
+}
+
+function showUpdateBanner() {
+  if ($('#updbar')) return;
+  const bar = document.createElement('div');
+  bar.id = 'updbar';
+  bar.className = 'updbar';
+  bar.setAttribute('role', 'status');
+  bar.innerHTML = `<span>Versi baru tersedia.</span><button type="button" class="btn small" data-act="reload">Muat ulang</button><button type="button" class="iconbtn" data-act="later" aria-label="Nanti saja" title="Nanti saja">${icon('x')}</button>`;
+  bar.addEventListener('click', async (e) => {
+    const act = e.target.closest('[data-act]')?.dataset.act;
+    if (act === 'later') bar.remove();
+    if (act !== 'reload') return;
+    // Tulisan di editor disimpan dulu agar tidak hilang saat memuat ulang.
+    if (state.editor?.dirty && $('#e-body') && !(await saveEditor(false))) return;
+    state.editor = null;
+    location.reload();
+  });
+  document.body.appendChild(bar);
+}
+
 async function start() {
   trackKeyboard();
   let authResult = null;
@@ -2737,7 +2769,7 @@ async function start() {
     runSync();
   }
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
+    watchForUpdates();
   }
 }
 
