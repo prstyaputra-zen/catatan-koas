@@ -3,12 +3,12 @@ import { SearchIndex, normalize, tokenize } from './search.js';
 import { createZip, readZip, entryBlob } from './zip.js';
 import * as sync from './sync.js';
 import { parseClaude, CLAUDE_PROMPT } from './paste.js';
-import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText } from './tools.js';
+import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText, fmtNum, fmtTablets, PUYER_DRUGS, computePuyer, puyerRecipe, puyerSummaryText, computeFluid, fluidSummaryText, FLUID_CAP_DAY } from './tools.js';
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { icon } from './icons.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.12.1';
+const APP_VERSION = '0.13.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -1318,7 +1318,195 @@ function renderTools() {
     <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Alat</span></div>
     <div class="picker">
       <a class="pick" href="#/alat/bmi"><span class="big">⚖️</span><b>Kalkulator IMT / BMI</b><small>Interpretasi Asia-Pasifik, WHO, Kemenkes, BB ideal</small></a>
+      <a class="pick" href="#/alat/puyer"><span class="big">💊</span><b>Dosis puyer</b><small>Racikan anak per BB: mg per bungkus, jumlah tablet, resep d.t.d.</small></a>
+      <a class="pick" href="#/alat/cairan"><span class="big">💧</span><b>Cairan Holliday-Segar</b><small>Rumatan mL/hari & mL/jam, tetesan per menit, defisit dehidrasi</small></a>
     </div>`;
+}
+
+// Tombol salin & jadikan catatan untuk hasil kalkulator.
+function bindCalcActions(text, title, tags) {
+  $('#c-copy').onclick = async () => {
+    try { await navigator.clipboard.writeText(text); toast('Hasil disalin'); } catch { toast('Gagal menyalin'); }
+  };
+  $('#c-note').onclick = () => {
+    state.draft = { type: 'bebas', title, body: text, tags, stase: '', sources: [] };
+    location.hash = '#/baru/bebas';
+  };
+}
+const calcActionsHtml = '<div class="row"><button type="button" class="btn ghost" id="c-copy">📋 Salin hasil</button><button type="button" class="btn ghost" id="c-note">📝 Jadikan catatan</button></div>';
+const unitInput = (id, label, unit, ph, val = '') => `<label class="field"><span>${label}</span><span class="unit"><input id="${id}" inputmode="decimal" placeholder="${ph}" value="${val}" autocomplete="off"><i>${unit}</i></span></label>`;
+
+// ---------- Kalkulator puyer ----------
+function renderPuyer() {
+  releaseUrls();
+  const rows = [{ ...PUYER_DRUGS[0], preset: PUYER_DRUGS[0].id }];
+  view().innerHTML = `
+    <div class="topbar"><a href="#/alat" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Dosis puyer</span></div>
+    <form class="editor calc" onsubmit="return false">
+      <div class="row">
+        ${unitInput('p-w', 'Berat badan', 'kg', '12')}
+        <label class="field"><span>Frekuensi</span><select id="p-freq">${[2, 3, 4].map((f) => `<option value="${f}" ${f === 3 ? 'selected' : ''}>${f}× sehari</option>`).join('')}</select></label>
+      </div>
+      <div class="row">
+        ${unitInput('p-days', 'Lama pemberian', 'hari', '3', '3')}
+        ${unitInput('p-n', 'Jumlah bungkus', 'bks', 'otomatis')}
+      </div>
+      <label class="field"><span>Pembulatan jumlah tablet</span><select id="p-round"><option value="0.25">¼ tablet</option><option value="0.5">½ tablet</option><option value="0">Tanpa pembulatan</option></select></label>
+      <h4 class="section">Obat dalam racikan</h4>
+      <div id="p-rows" class="drug-rows"></div>
+      <button type="button" class="btn ghost" id="p-add">${icon('plus')} Tambah obat</button>
+    </form>
+    <div id="p-out" class="calc-out"></div>
+    <details class="calc-ref">
+      <summary>Dosis acuan & catatan</summary>
+      <table>${PUYER_DRUGS.map((d) => `<tr><td>${esc(d.name)}</td><td>${fmtNum(d.range[0], 2)}${d.range[1] !== d.range[0] ? `–${fmtNum(d.range[1], 2)}` : ''} mg/kg/${d.mode === 'day' ? 'hari' : 'dosis'}${d.maxDose ? `; maks ${fmtNum(d.maxDose)} mg/kali` : ''}${d.maxDayKg ? `; maks ${fmtNum(d.maxDayKg, 2)} mg/kg/hari` : ''}${d.maxDay ? `; maks ${fmtNum(d.maxDay)} mg/hari` : ''}${d.note ? `<br><span class="hint">${esc(d.note)}</span>` : ''}</td></tr>`).join('')}</table>
+      <h4>Catatan</h4>
+      <ul>
+        <li>Angka di atas adalah dosis acuan umum dan bisa diubah. Selalu cocokkan dengan formularium, rekomendasi IDAI, usia, dan fungsi ginjal/hati pasien.</li>
+        <li>Jumlah tablet dihitung untuk seluruh bungkus lalu dibulatkan; dosis per bungkus yang tertulis sudah memakai hasil pembulatan.</li>
+        <li>d.t.d. (<i>da tales doses</i>): dosis yang ditulis adalah isi tiap bungkus.</li>
+      </ul>
+    </details>`;
+
+  const rowHtml = (r, i) => `
+    <div class="drug-row" data-i="${i}">
+      <div class="row">
+        <label class="field grow2"><span>Obat</span><select data-k="preset">${PUYER_DRUGS.map((d) => `<option value="${d.id}" ${r.preset === d.id ? 'selected' : ''}>${esc(d.name)}</option>`).join('')}<option value="" ${!r.preset ? 'selected' : ''}>Lainnya…</option></select></label>
+        ${rows.length > 1 ? `<button type="button" class="iconbtn" data-k="del" aria-label="Hapus obat ini" title="Hapus">${icon('x')}</button>` : ''}
+      </div>
+      ${!r.preset ? `<label class="field"><span>Nama obat</span><input data-k="name" value="${esc(r.name || '')}" placeholder="Nama obat" autocomplete="off"></label>` : ''}
+      <div class="row">
+        <label class="field"><span>Dosis</span><span class="unit"><input data-k="dose" inputmode="decimal" value="${Number.isFinite(r.dose) ? r.dose : ''}" autocomplete="off"><i>mg/kg</i></span></label>
+        <label class="field"><span>Per</span><select data-k="mode"><option value="dose" ${r.mode === 'dose' ? 'selected' : ''}>dosis (kali)</option><option value="day" ${r.mode === 'day' ? 'selected' : ''}>hari</option></select></label>
+        <label class="field"><span>Sediaan</span><span class="unit"><input data-k="strength" inputmode="decimal" value="${Number.isFinite(r.strength) ? r.strength : ''}" autocomplete="off"><i>mg/tab</i></span></label>
+      </div>
+    </div>`;
+  const drawRows = () => { $('#p-rows').innerHTML = rows.map(rowHtml).join(''); };
+
+  const calc = () => {
+    const out = $('#p-out');
+    const w = parseNum($('#p-w').value);
+    const freq = +$('#p-freq').value;
+    const days = parseNum($('#p-days').value);
+    const nIn = parseNum($('#p-n').value);
+    const packets = Number.isFinite(nIn) ? Math.round(nIn) : Math.round(freq * days);
+    $('#p-n').placeholder = Number.isFinite(days) ? String(Math.round(freq * days)) : 'otomatis';
+    if (!$('#p-w').value.trim()) { out.innerHTML = '<p class="hint">Isi berat badan untuk melihat hasilnya.</p>'; return; }
+    const r = computePuyer({ weightKg: w, freq, packets, rounding: +$('#p-round').value, rows });
+    if (!r) { out.innerHTML = '<p class="hint">Periksa lagi angkanya (BB 0–150 kg, jumlah bungkus 1–200, dosis dan sediaan terisi).</p>'; return; }
+    out.innerHTML = `
+      ${r.items.map((it) => `
+        <div class="dose-card ${it.warn.length ? 'has-warn' : ''}">
+          <div class="dose-name">${esc(it.name)}</div>
+          <div class="dose-big">${fmtNum(it.actual, 2)} <small>mg / bungkus</small></div>
+          <div class="dose-take">Ambil <b>${fmtTablets(it.tablets)} tablet</b> ${fmtNum(it.strength)} mg untuk ${r.packets} bungkus${r.rounding ? ` <span class="hint">(tepatnya ${fmtNum(it.exact, 2)})</span>` : ''}</div>
+          <dl class="bmi-list">
+            <div><dt>Dosis aktual</dt><dd>${fmtNum(it.perKgDose, 2)} mg/kg/dosis · ${fmtNum(it.perKgDay, 2)} mg/kg/hari · ${fmtNum(it.daily, 1)} mg/hari</dd></div>
+            <div><dt>Target sebelum pembulatan</dt><dd>${fmtNum(it.target, 2)} mg/bungkus${Math.abs(it.deviation) >= 0.5 ? ` (selisih ${it.deviation > 0 ? '+' : ''}${fmtNum(it.deviation, 1)}%)` : ''}</dd></div>
+          </dl>
+          ${it.warn.map((x) => `<p class="warn-line">⚠️ ${esc(x)}</p>`).join('')}
+          ${it.note ? `<p class="hint">${esc(it.note)}</p>` : ''}
+        </div>`).join('')}
+      <pre class="recipe">${esc(puyerRecipe(r))}</pre>
+      ${calcActionsHtml}`;
+    bindCalcActions(puyerSummaryText(r), `Puyer ${r.items.map((x) => x.name).join(' + ')} BB ${fmtNum(w)} kg`, ['puyer', 'dosis-anak']);
+  };
+
+  $('#p-rows').addEventListener('input', (e) => {
+    const i = +e.target.closest('.drug-row').dataset.i;
+    const k = e.target.dataset.k;
+    if (k === 'dose' || k === 'strength') rows[i][k] = parseNum(e.target.value);
+    else if (k === 'name') rows[i].name = e.target.value;
+    else if (k === 'mode') rows[i].mode = e.target.value;
+    else return;
+    calc();
+  });
+  $('#p-rows').addEventListener('change', (e) => {
+    if (e.target.dataset.k !== 'preset') return;
+    const i = +e.target.closest('.drug-row').dataset.i;
+    const d = PUYER_DRUGS.find((x) => x.id === e.target.value);
+    rows[i] = d ? { ...d, preset: d.id } : { preset: '', name: '', mode: 'dose', dose: NaN, strength: NaN };
+    drawRows();
+    calc();
+  });
+  $('#p-rows').addEventListener('click', (e) => {
+    if (e.target.closest('[data-k="del"]')) { rows.splice(+e.target.closest('.drug-row').dataset.i, 1); drawRows(); calc(); }
+  });
+  $('#p-add').onclick = () => {
+    const d = PUYER_DRUGS.find((x) => !rows.some((r) => r.preset === x.id)) || PUYER_DRUGS[0];
+    rows.push({ ...d, preset: d.id });
+    drawRows();
+    calc();
+  };
+  ['#p-w', '#p-freq', '#p-days', '#p-n', '#p-round'].forEach((id) => { $(id).addEventListener('input', calc); $(id).addEventListener('change', calc); });
+  drawRows();
+  calc();
+  if (!matchMedia('(pointer: coarse)').matches) $('#p-w').focus();
+}
+
+// ---------- Cairan rumatan Holliday-Segar ----------
+function renderFluid() {
+  releaseUrls();
+  view().innerHTML = `
+    <div class="topbar"><a href="#/alat" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Cairan Holliday-Segar</span></div>
+    <form class="editor calc" onsubmit="return false">
+      <div class="row">
+        ${unitInput('f-w', 'Berat badan', 'kg', '15')}
+        <label class="field"><span>Set infus</span><select id="f-drop"><option value="20">Makro 20 tetes/mL</option><option value="15">Makro 15 tetes/mL</option><option value="60">Mikro 60 tetes/mL</option></select></label>
+      </div>
+      <label class="field"><span>Defisit dehidrasi (opsional)</span><select id="f-def"><option value="0">Tidak ada (rumatan saja)</option><option value="3">3% (ringan)</option><option value="5">5% (ringan-sedang)</option><option value="7">7%</option><option value="10">10% (berat, setelah syok teratasi)</option></select></label>
+    </form>
+    <div id="f-out" class="calc-out"></div>
+    <details class="calc-ref">
+      <summary>Rumus & catatan</summary>
+      <table>
+        <tr><td>BB ≤ 10 kg</td><td>100 mL/kg/hari · 4 mL/kg/jam</td></tr>
+        <tr><td>BB 10–20 kg</td><td>1.000 mL + 50 mL/kg di atas 10 kg · 40 mL/jam + 2 mL/kg</td></tr>
+        <tr><td>BB &gt; 20 kg</td><td>1.500 mL + 20 mL/kg di atas 20 kg · 60 mL/jam + 1 mL/kg</td></tr>
+        <tr><td>Tetes/menit</td><td>mL/jam × faktor tetes ÷ 60</td></tr>
+        <tr><td>Defisit</td><td>BB × % dehidrasi × 10 mL; ½ dalam 8 jam pertama, ½ dalam 16 jam berikutnya, ditambah rumatan</td></tr>
+      </table>
+      <h4>Catatan</h4>
+      <ul>
+        <li>Dibatasi ${fmtNum(FLUID_CAP_DAY, 0)} mL/hari (±100 mL/jam) untuk BB besar.</li>
+        <li>Syok/dehidrasi berat: resusitasi dulu (bolus kristaloid 10–20 mL/kg atau Rencana C WHO), bukan rumus ini. Diare akut dehidrasi ringan-sedang: utamakan oralit (Rencana B).</li>
+        <li>Untuk rumatan anak, cairan isotonik (mis. RL atau NaCl 0,9% + dekstrosa) dianjurkan untuk mencegah hiponatremia (AAP 2018, NICE NG29).</li>
+        <li>Kurangi bila ada risiko retensi cairan (gagal jantung, gagal ginjal, SIADH pada meningitis/pneumonia); tidak untuk neonatus &lt; 28 hari.</li>
+      </ul>
+    </details>`;
+  const calc = () => {
+    const out = $('#f-out');
+    if (!$('#f-w').value.trim()) { out.innerHTML = '<p class="hint">Isi berat badan untuk melihat hasilnya.</p>'; return; }
+    const r = computeFluid({ weightKg: parseNum($('#f-w').value), deficitPct: +$('#f-def').value, dropFactor: +$('#f-drop').value });
+    if (!r) { out.innerHTML = '<p class="hint">Periksa lagi berat badannya (0–200 kg).</p>'; return; }
+    const tpm = r.dropFactor === 60 ? r.tpmMicro : r.tpmMacro;
+    const d = r.deficit;
+    out.innerHTML = `
+      <div class="dose-card">
+        <div class="dose-name">Rumatan</div>
+        <div class="dose-big">${fmtNum(r.hour)} <small>mL/jam</small></div>
+        <div class="dose-take"><b>${fmtNum(tpm)} tetes/menit</b> (${r.dropFactor} tetes/mL) · ${fmtNum(r.day, 0)} mL/hari${r.capped ? ` <span class="hint">(dibatasi dari ${fmtNum(r.dayRaw, 0)} mL)</span>` : ''}</div>
+        <dl class="bmi-list">
+          ${r.steps.map((s) => `<div><dt>${s.label}</dt><dd>${fmtNum(s.kg)} kg × ${s.perKg} mL = ${fmtNum(s.kg * s.perKg, 0)} mL</dd></div>`).join('')}
+          ${r.dropFactor !== 60 ? `<div><dt>Set mikro (60 tetes/mL)</dt><dd>${fmtNum(r.tpmMicro)} tetes/menit</dd></div>` : ''}
+        </dl>
+      </div>
+      ${d ? `
+      <div class="dose-card">
+        <div class="dose-name">Rumatan + defisit ${fmtNum(d.pct)}% (${fmtNum(d.ml, 0)} mL)</div>
+        <dl class="bmi-list">
+          <div><dt>8 jam pertama</dt><dd><b>${fmtNum(d.first)} mL/jam</b> · ${fmtNum(r.dropFactor === 60 ? d.first : d.tpmFirst)} tetes/menit</dd></div>
+          <div><dt>16 jam berikutnya</dt><dd><b>${fmtNum(d.next)} mL/jam</b> · ${fmtNum(r.dropFactor === 60 ? d.next : d.tpmNext)} tetes/menit</dd></div>
+          <div><dt>Total 24 jam</dt><dd>${fmtNum(d.total, 0)} mL</dd></div>
+        </dl>
+        ${d.pct >= 10 ? '<p class="warn-line">⚠️ Dehidrasi berat/syok: lakukan resusitasi cairan dulu, lalu nilai ulang sebelum memakai rencana ini.</p>' : ''}
+      </div>` : ''}
+      ${calcActionsHtml}`;
+    bindCalcActions(fluidSummaryText(r), `Cairan Holliday-Segar BB ${fmtNum(r.weightKg)} kg`, ['cairan', 'holliday-segar']);
+  };
+  ['#f-w', '#f-def', '#f-drop'].forEach((id) => { $(id).addEventListener('input', calc); $(id).addEventListener('change', calc); });
+  calc();
+  if (!matchMedia('(pointer: coarse)').matches) $('#f-w').focus();
 }
 
 // Skala warna IMT Asia-Pasifik untuk penanda posisi.
@@ -2320,7 +2508,7 @@ async function route() {
     case 'catatan': return renderNote(arg);
     case 'baru': return arg ? renderEditor(null, arg) : renderNewPicker();
     case 'tempel': return renderPaste();
-    case 'alat': return arg === 'bmi' ? renderBmi() : renderTools();
+    case 'alat': return arg === 'bmi' ? renderBmi() : arg === 'puyer' ? renderPuyer() : arg === 'cairan' ? renderFluid() : renderTools();
     case 'ubah': return renderEditor(arg);
     case 'pengaturan': return renderSettings();
     case 'cari':

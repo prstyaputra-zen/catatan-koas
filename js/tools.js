@@ -118,3 +118,143 @@ export function bmiSummaryText(input, r) {
   if (r.waist) lines.push(`Lingkar perut: ${r.waist.central ? 'obesitas sentral' : 'normal'} (batas ${r.waist.cut} cm)`);
   return lines.join('\n');
 }
+
+// ---------- Format angka Indonesia ----------
+export function fmtNum(x, maxDec = 1) {
+  if (!Number.isFinite(x)) return '–';
+  const f = 10 ** maxDec;
+  return String(Math.round(x * f) / f).replace('.', ',');
+}
+
+// Pecahan tablet: 2,25 -> "2¼".
+export function fmtTablets(t) {
+  const whole = Math.floor(t + 1e-9);
+  const q = Math.round((t - whole) * 4);
+  const frac = ['', '¼', '½', '¾'][q] || '';
+  if (q === 4) return String(whole + 1);
+  return frac ? (whole ? `${whole}${frac}` : frac) : String(whole);
+}
+
+export function roman(n) {
+  const map = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
+  let out = '';
+  for (const [v, s] of map) while (n >= v) { out += s; n -= v; }
+  return out;
+}
+
+// ---------- Kalkulator puyer ----------
+// Dosis acuan umum anak. Semua angka bisa diubah di layar; selalu cocokkan dengan formularium/IDAI dan kondisi pasien.
+// mode 'dose' = mg/kg/dosis, 'day' = mg/kg/hari (dibagi frekuensi).
+export const PUYER_DRUGS = [
+  // Ditinjau Nov 2026 terhadap Medscape, BNF/BNFc, NZF (Healthify), EMA/MHRA, MedCentral, MIMS, US Pharmacist (CTM 0,35 mg/kg/hari),
+  // Sari Pediatri/IDAI (parasetamol 10-15, ibuprofen 5-10 mg/kg), dokumen registrasi BPOM ambroksol. PIONAS BPOM tidak bisa diakses (503).
+  { id: 'pct', name: 'Parasetamol', mode: 'dose', dose: 10, range: [10, 15], freq: 3, strength: 500, maxDose: 1000, maxDayKg: 60, maxDay: 4000,
+    note: 'Tiap 4-6 jam, maks 5 kali/hari. Batas 75 mg/kg/hari hanya untuk 48 jam pertama, selanjutnya 60 mg/kg/hari (NZF, BNFc).' },
+  { id: 'ibu', name: 'Ibuprofen', mode: 'dose', dose: 5, range: [5, 10], freq: 3, strength: 200, maxDose: 400, maxDayKg: 40, maxDay: 1200,
+    note: 'Tiap 6-8 jam. BNFc membatasi 30 mg/kg/hari. Tidak untuk bayi < 3 bulan, dehidrasi, atau curiga demam berdarah.' },
+  { id: 'amx', name: 'Amoksisilin', mode: 'day', dose: 40, range: [25, 50], freq: 3, strength: 500, maxDose: 1000, maxDay: 4000,
+    note: 'Dosis tinggi 80-90 mg/kg/hari (maks 4 g/hari) untuk indikasi tertentu, mis. OMA atau pneumonia komunitas.' },
+  { id: 'ctm', name: 'Klorfeniramin (CTM)', mode: 'day', dose: 0.35, range: [0.35, 0.35], freq: 3, strength: 4, maxDose: 2, maxDay: 12,
+    note: 'Usia 2-5 th: 1 mg tiap 4-6 jam, maks 6 mg/hari. Usia 6-11 th: 2 mg tiap 4-6 jam, maks 12 mg/hari. Tidak untuk < 2 tahun.' },
+  { id: 'amb', name: 'Ambroksol', mode: 'day', dose: 1.2, range: [1.2, 1.6], freq: 3, strength: 30, maxDay: 90,
+    note: 'Acuan usia: < 2 th 7,5 mg 2x; 2-5 th 7,5 mg 3x; 6-12 th 15 mg 2-3x sehari (MIMS).' },
+  { id: 'dom', name: 'Domperidon', mode: 'dose', dose: 0.25, range: [0.25, 0.25], freq: 3, strength: 10, maxDose: 10, maxDayKg: 0.75, maxDay: 30,
+    note: 'EMA/MHRA: tidak lagi direkomendasikan untuk anak < 12 tahun atau BB < 35 kg karena tidak terbukti efektif. Bila tetap dipakai: maks 0,75 mg/kg/hari, sesingkat mungkin.' },
+];
+
+// Satu puyer bisa berisi beberapa obat (racikan). Setiap obat dihitung terpisah, lalu dibulatkan per jumlah tablet total.
+// rows: [{ name, mode, dose, strength, maxDose, maxDayKg, maxDay, range }]; rounding: 0 (tanpa), 0.25, 0.5 tablet.
+export function computePuyer({ weightKg, freq, packets, rounding = 0.25, rows }) {
+  if (!(weightKg > 0 && weightKg <= 150) || !(freq >= 1 && freq <= 6) || !(packets >= 1 && packets <= 200)) return null;
+  const items = rows.filter((r) => r.dose > 0 && r.strength > 0).map((r) => {
+    const target = r.mode === 'day' ? (weightKg * r.dose) / freq : weightKg * r.dose;  // mg per bungkus
+    const warn = [];
+    let perPacket = target;
+    const capped = !!(r.maxDose && perPacket > r.maxDose);
+    if (capped) { perPacket = r.maxDose; warn.push(`Dibatasi dosis maksimal ${fmtNum(r.maxDose)} mg per kali.`); }
+    const exact = (perPacket * packets) / r.strength;
+    let tablets = rounding ? Math.round(exact / rounding) * rounding : exact;
+    if (rounding && tablets < rounding) tablets = rounding;
+    const actual = (tablets * r.strength) / packets;
+    const daily = actual * freq;
+    const perKgDose = actual / weightKg;
+    const perKgDay = daily / weightKg;
+    if (r.maxDayKg && perKgDay > r.maxDayKg + 1e-9) warn.push(`Melebihi ${fmtNum(r.maxDayKg, 2)} mg/kg/hari (jadi ${fmtNum(perKgDay, 2)}).`);
+    if (r.maxDay && daily > r.maxDay + 1e-9) warn.push(`Melebihi dosis harian maksimal ${fmtNum(r.maxDay)} mg (jadi ${fmtNum(daily)} mg).`);
+    if (r.range && r.range[0] && !capped) {
+      const v = r.mode === 'day' ? perKgDay : perKgDose;
+      const [lo, hi] = r.range;
+      if (v < lo * 0.9) warn.push(`Di bawah dosis acuan (${fmtNum(lo, 2)}${hi !== lo ? `-${fmtNum(hi, 2)}` : ''} mg/kg/${r.mode === 'day' ? 'hari' : 'dosis'}).`);
+      if (v > hi * 1.1) warn.push(`Di atas dosis acuan (${fmtNum(lo, 2)}${hi !== lo ? `-${fmtNum(hi, 2)}` : ''} mg/kg/${r.mode === 'day' ? 'hari' : 'dosis'}).`);
+    }
+    const deviation = target ? ((actual - target) / target) * 100 : 0;
+    return { name: r.name || 'Obat', note: r.preset ? r.note : '', strength: r.strength, target, perPacket, exact, tablets, actual, daily, perKgDose, perKgDay, deviation, warn };
+  });
+  return items.length ? { weightKg, freq, packets, rounding, items } : null;
+}
+
+export function puyerRecipe(r) {
+  const lines = ['R/'];
+  r.items.forEach((it) => lines.push(`  ${it.name} ${fmtNum(it.actual, 2)} mg`));
+  lines.push(`  m.f. pulv. d.t.d. No. ${roman(r.packets)}`);
+  lines.push(`  S ${r.freq} dd pulv I`);
+  return lines.join('\n');
+}
+
+export function puyerSummaryText(r) {
+  const lines = [`BB ${fmtNum(r.weightKg)} kg, ${r.freq}x sehari, ${r.packets} bungkus`];
+  for (const it of r.items) {
+    lines.push(`${it.name}: ${fmtNum(it.actual, 2)} mg/bungkus (${fmtNum(it.perKgDose, 2)} mg/kg/dosis, ${fmtNum(it.perKgDay, 2)} mg/kg/hari); ambil ${fmtTablets(it.tablets)} tablet ${fmtNum(it.strength)} mg untuk ${r.packets} bungkus`);
+    it.warn.forEach((w) => lines.push(`  ⚠ ${w}`));
+  }
+  lines.push('', puyerRecipe(r));
+  return lines.join('\n');
+}
+
+// ---------- Cairan rumatan Holliday-Segar ----------
+// Harian 100/50/20 mL/kg (10 kg pertama / 10 kg kedua / sisanya); per jam 4-2-1 mL/kg. Dibatasi 2.400 mL/hari (~100 mL/jam).
+export const FLUID_CAP_DAY = 2400;
+
+export function computeFluid({ weightKg, deficitPct = 0, dropFactor = 20 }) {
+  if (!(weightKg > 0 && weightKg <= 200)) return null;
+  const w = weightKg;
+  const dayRaw = w <= 10 ? 100 * w : w <= 20 ? 1000 + 50 * (w - 10) : 1500 + 20 * (w - 20);
+  const hourRaw = w <= 10 ? 4 * w : w <= 20 ? 40 + 2 * (w - 10) : 60 + (w - 20);
+  const capped = dayRaw > FLUID_CAP_DAY;
+  const day = Math.min(dayRaw, FLUID_CAP_DAY);
+  const hour = Math.min(hourRaw, FLUID_CAP_DAY / 24);
+  const tpm = (mlh) => (mlh * dropFactor) / 60;
+  const r = {
+    weightKg: w, dayRaw, day, hourRaw, hour, capped, dropFactor,
+    tpmMacro: tpm(hour), tpmMicro: hour, // set mikro 60 tetes/mL: tpm = mL/jam
+    steps: [
+      { label: '10 kg pertama', kg: Math.min(w, 10), perKg: 100 },
+      { label: '10 kg kedua', kg: Math.max(0, Math.min(w, 20) - 10), perKg: 50 },
+      { label: 'Sisa di atas 20 kg', kg: Math.max(0, w - 20), perKg: 20 },
+    ].filter((s) => s.kg > 0),
+  };
+  // Defisit dehidrasi: BB x % x 10 mL. Separuh di 8 jam pertama, separuh di 16 jam berikutnya, ditambah rumatan.
+  if (deficitPct > 0 && deficitPct <= 15) {
+    const deficit = w * deficitPct * 10;
+    const first = (deficit / 2 + hour * 8) / 8;
+    const next = (deficit / 2 + hour * 16) / 16;
+    r.deficit = { pct: deficitPct, ml: deficit, first, next, total: deficit + day, tpmFirst: tpm(first), tpmNext: tpm(next) };
+  }
+  return r;
+}
+
+export function fluidSummaryText(r) {
+  const lines = [
+    `BB ${fmtNum(r.weightKg)} kg`,
+    `Rumatan Holliday-Segar: ${fmtNum(r.day, 0)} mL/hari${r.capped ? ` (dibatasi dari ${fmtNum(r.dayRaw, 0)})` : ''}`,
+    `Kecepatan (4-2-1): ${fmtNum(r.hour)} mL/jam = ${fmtNum(r.tpmMacro)} tpm makro (${r.dropFactor} tetes/mL) = ${fmtNum(r.tpmMicro)} tpm mikro`,
+  ];
+  if (r.deficit) {
+    const d = r.deficit;
+    lines.push(`Defisit dehidrasi ${fmtNum(d.pct)}%: ${fmtNum(d.ml, 0)} mL`);
+    lines.push(`8 jam pertama: ${fmtNum(d.first)} mL/jam (${fmtNum(d.tpmFirst)} tpm makro)`);
+    lines.push(`16 jam berikutnya: ${fmtNum(d.next)} mL/jam (${fmtNum(d.tpmNext)} tpm makro)`);
+    lines.push(`Total 24 jam: ${fmtNum(d.total, 0)} mL`);
+  }
+  return lines.join('\n');
+}
