@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-05T14:15:00Z",
+ "updated": "2026-11-11T12:20:00Z",
  "items": [
   {
    "id": "20261010-hipokalemia",
@@ -2514,6 +2514,281 @@
      "publisher": "European Heart Journal 42(36):3599-3726",
      "year": 2021,
      "url": "https://doi.org/10.1093/eurheartj/ehab368"
+    }
+   ]
+  },
+  {
+   "id": "20261111-1200-selulitis-abses-bula",
+   "created": "2026-11-11T12:00:00Z",
+   "title": "Selulitis tungkai dengan abses dan bula: kedalaman infeksi, derajat IDSA, dan kapan curiga infeksi nekrotikans (IDSA 2014, StatPearls 2025)",
+   "type": "topik",
+   "stase": "Bedah",
+   "tags": [
+    "selulitis",
+    "abses",
+    "infeksi kulit dan jaringan lunak",
+    "IDSA",
+    "laporan kasus selulitis"
+   ],
+   "body": "Definisi:\n- Selulitis adalah infeksi bakteri akut pada dermis bagian dalam dan jaringan subkutan di sekitarnya, secara klasik tanpa abses atau duh purulen (Brown dkk., StatPearls 2025).\n- Infectious Diseases Society of America (IDSA) 2014 membagi infeksi kulit dan jaringan lunak (IKJL) menjadi purulen (furunkel, karbunkel, abses) dan nonpurulen (selulitis, erisipelas, infeksi nekrotikans), karena tatalaksananya berbeda.\n- Derajat menurut IDSA:\n  - Ringan: infeksi lokal tanpa tanda sistemik.\n  - Sedang: disertai tanda infeksi sistemik.\n  - Berat: gagal terapi oral, tanda sistemik dengan hipotensi, imunokompromais, atau tanda infeksi jaringan dalam.\n- Tanda sistemik memakai kriteria systemic inflammatory response syndrome (SIRS): suhu > 38 °C atau < 36 °C, laju napas > 24x/menit, nadi > 90x/menit, atau leukosit > 12.000 atau < 4.000/µL.\n- Epidemiologi: lebih dari 14 juta kasus per tahun di Amerika Serikat dengan sekitar 650.000 rawat inap per tahun (Brown dkk., 2025).\n\nAnatomi dan fisiologi terkait:\n- Kulit tersusun atas epidermis (sawar tanduk tanpa pembuluh darah), dermis (kolagen, pembuluh darah, pleksus limfatik), lalu jaringan subkutan (lemak dengan septa jaringan ikat). Di bawahnya terdapat fasia otot, otot, dan vena dalam.\n- Lapisan yang terkena menentukan nama penyakit: erisipelas di dermis superfisial dan limfatik superfisial, selulitis di dermis dalam dan subkutan, necrotizing fasciitis di fasia dan subkutan, sedangkan deep vein thrombosis (DVT) berada di vena dalam di antara otot.\n- Epidermis yang utuh adalah benteng utama. Begitu sawar ini robek (luka tusuk, ulkus, fisura sela jari akibat tinea pedis), bakteri kulit dan lingkungan mendapat akses ke dermis yang kaya pembuluh darah.\n\n{{gambar:1}}\n\nPatofisiologi:\n1. Port d'entrée: luka, ulkus, atau fisura kulit menjadi pintu masuk bakteri.\n2. Invasi: bakteri masuk ke dermis dalam dan jaringan subkutan.\n3. Penyebaran: toksin dan enzim bakteri (misalnya hialuronidase dan streptokinase streptokokus) mencerna matriks jaringan sehingga infeksi menjalar tanpa batas yang jelas → batas eritema tidak tegas.\n4. Inflamasi: sitokin memicu vasodilatasi → eritema dan hangat; permeabilitas kapiler meningkat → edema; mediator nyeri dan regangan jaringan → nyeri tekan.\n5. Migrasi neutrofil ke lokasi infeksi; pada sistemik tampak sebagai leukositosis dengan neutrofilia.\n6. Bila neutrofil, bakteri mati, dan jaringan nekrotik terkurung dinding fibrin → terbentuk abses (fluktuasi positif). Abses mengubah kasus menjadi infeksi purulen yang wajib didrainase karena antibiotik sulit menembus rongga pus.\n7. Edema hebat di dermis dapat memisahkan lapisan kulit → bula. Bula, nekrosis kulit, dan krepitasi adalah tanda yang mengarah ke infeksi lebih dalam atau nekrotikans sehingga harus dievaluasi.\n8. Bakteri masuk sirkulasi → bakteremia dan sepsis (takikardia, hipotensi relatif).\n\nEtiologi dan faktor risiko:\n- Penyebab tersering Streptococcus β-hemolitikus, terutama grup A (S. pyogenes), diikuti Staphylococcus aureus yang sensitif metisilin (methicillin-sensitive S. aureus, MSSA).\n- Pasien imunokompromais, terkolonisasi methicillin-resistant S. aureus (MRSA), digigit hewan, atau memiliki komorbid seperti diabetes melitus (DM) dapat terinfeksi bakteri lain.\n- Faktor predisposisi: kerusakan sawar kulit (luka, ulkus, tinea pedis), edema dan insufisiensi vena, limfedema, obesitas, serta riwayat selulitis sebelumnya.\n- Memijat atau mengurut area yang terinfeksi tidak dianjurkan; secara konseptual tekanan mekanis memperluas cedera jaringan dan edema.\n\nManifestasi klinis:\n- Area eritema dengan batas tidak tegas, hangat, edema, dan nyeri tekan; umumnya unilateral dan tersering pada tungkai bawah.\n- Dapat disertai tanda sistemik (demam, takikardia, takipnea, leukositosis).\n- Tanda bahaya ke arah infeksi dalam atau nekrotikans: nyeri yang tidak sebanding dengan temuan kulit, bula, krepitasi, nekrosis kulit, anestesia kulit, edema melampaui batas eritema, dan hipotensi.\n\nDiagnosis:\n- Diagnosis terutama klinis lewat anamnesis dan pemeriksaan fisik; tidak ada pemeriksaan penunjang yang definitif.\n- Kultur darah atau aspirat kulit tidak rutin (IDSA). Kultur darah dianjurkan dan kultur/mikroskopi jaringan dipertimbangkan pada keganasan dengan kemoterapi, neutropenia, imunodefisiensi seluler berat, cedera rendaman air, dan gigitan hewan.\n- Pada infeksi purulen derajat sedang dan berat, lakukan kultur pus dan uji sensitivitas.\n- Foto polos membantu menyingkirkan fraktur atau benda asing setelah trauma, tetapi tidak menyingkirkan infeksi nekrotikans.\n- Bila curiga nekrotikans, hitung skor Laboratory Risk Indicator for Necrotizing Fasciitis (LRINEC) dan segera konsultasi bedah (lihat catatan Necrotizing fasciitis).\n- Diagnosis banding: erisipelas, abses kulit, necrotizing fasciitis, DVT, dermatitis stasis, dermatitis kontak, limfedema, artritis gout akut.\n\n{{gambar:2}}\n\nTatalaksana:\n- Nonpurulen ringan: antibiotik oral yang aktif terhadap streptokokus (misalnya penisilin V, sefalosporin, dikloksasilin, atau klindamisin), rawat jalan bila tanpa SIRS, perubahan status mental, atau ketidakstabilan hemodinamik.\n- Nonpurulen sedang: antibiotik sistemik intravena (IV), misalnya penisilin, ceftriaxone, cefazolin, atau klindamisin; banyak klinisi menambahkan cakupan MSSA.\n- Nonpurulen berat: bila ada trauma tembus, bukti MRSA di tempat lain, kolonisasi MRSA nasal, pengguna narkoba suntik, atau SIRS → vankomisin atau antimikroba lain yang efektif terhadap MRSA dan streptokokus. Pada infeksi berat, vankomisin ditambah piperasilin-tazobaktam atau imipenem/meropenem adalah regimen empiris yang wajar. Curiga nekrotikans → eksplorasi bedah.\n- Purulen (abses): insisi dan drainase (I&D) adalah terapi utama; antibiotik empiris ditambahkan bila ada tanda sistemik.\n- Lama antibiotik: 5 hari, diperpanjang bila infeksi belum membaik dalam periode itu (IDSA, rekomendasi kuat).\n- Rawat inap bila curiga infeksi dalam atau nekrotikans, kepatuhan buruk, imunokompromais berat, atau terapi rawat jalan gagal.\n- Elevasi area yang terkena dan obati faktor predisposisi (edema, kelainan kulit). Pada selulitis tungkai, periksa sela jari kaki: mengobati fisura, skuama, atau maserasi mengurangi kolonisasi dan kekambuhan.\n- Bula dibiarkan utuh dan ditutup kasa steril; tandai batas eritema dengan spidol untuk memantau perluasan.\n- Dosis spesifik mengikuti formularium dan protokol rumah sakit (RS) setempat; sesuaikan dengan fungsi ginjal.\n\nKomplikasi:\n- Abses dan perluasan ke jaringan lebih dalam, infeksi nekrotikans, bakteremia dan sepsis, serta selulitis rekuren.\n- Profilaksis antibiotik (penisilin atau eritromisin oral dua kali sehari selama 4-52 minggu, atau benzatin penisilin intramuskular (IM) tiap 2-4 minggu) dipertimbangkan bila 3-4 episode per tahun meskipun faktor predisposisi sudah ditangani (IDSA).\n\nKapan merujuk:\n- Abses yang perlu I&D atau debridemen, bula luas, nekrosis, krepitasi, nyeri tidak sebanding, atau perburukan cepat: konsultasi bedah segera.\n- Tanda sepsis atau hipotensi: tatalaksana sepsis dan pertimbangkan perawatan intensif.\n- DM tidak terkontrol: konsultasi penyakit dalam.\n\nKaitan dengan kasus:\n- Perempuan 62 tahun dengan luka tusuk kecil setelah tertimpa motor (port d'entrée), riwayat kaki dipijat, dan DM (faktor risiko).\n- Pemeriksaan: eritema batas tidak tegas, hangat, edema, nyeri tekan, abses berfluktuasi, dan bula multipel; nadi 105x/menit memenuhi satu kriteria SIRS.\n- Laboratorium: leukosit 22.600/µL dengan neutrofil 92,6% (kriteria SIRS kedua). Rontgen pedis menyingkirkan fraktur.\n- Derajat IDSA sedang sampai berat; ada abses sehingga perlu drainase/debridemen, dan bula menuntut penyingkiran infeksi nekrotikans (lengkapi C-reactive protein (CRP), natrium, dan kreatinin untuk LRINEC).\n- Tatalaksana awal di RS: ceftriaxone 2 x 1 g IV (sesuai protokol RS setempat), elevasi, penandaan batas eritema, kasa steril, rencana debridemen, dan kontrol gula darah.\n\nAnalogi:\n- (Analogi) Selulitis seperti tinta yang meresap ke kertas tisu: tidak ada garis tepi yang jelas karena bakteri menyebar di \"serat\" jaringan. Erisipelas lebih mirip cat yang menggenang di permukaan dengan tepi yang tegas.\n- (Analogi) Abses seperti genangan air di ruang tertutup: obat dari pembuluh darah tidak bisa masuk ke kolam pus, jadi \"pintunya\" harus dibuka (drainase).\n\nMnemonik:\n- Tanda radang klasik: rubor, kalor, dolor, tumor, fungsio laesa (merah, hangat, nyeri, bengkak, gangguan fungsi), semuanya tampak pada selulitis.\n- \"PUS → POTONG\" (mnemonik buatan): bila ada pus (purulen), terapi utamanya insisi dan drainase, bukan sekadar antibiotik.\n\nPoin untuk koas:\n- Bedakan purulen dan nonpurulen dulu; keduanya beda terapi utama.\n- Hitung SIRS di IGD: suhu, nadi, napas, leukosit. Satu saja positif sudah menaikkan derajat.\n- Selalu cari tanda nekrotikans: nyeri tidak sebanding, bula, krepitasi, nekrosis, anestesia kulit, hipotensi.\n- Tandai batas eritema dan waktunya dengan spidol saat pasien masuk.\n- Periksa sela jari kaki dan sebab edema; itu sumber kekambuhan.\n- Antibiotik cukup 5 hari bila membaik; jangan otomatis 10-14 hari.\n\nSingkatan:\n- CRP: C-reactive protein\n- DM: diabetes melitus\n- DVT: deep vein thrombosis\n- I&D: insisi dan drainase\n- IDSA: Infectious Diseases Society of America\n- IGD: instalasi gawat darurat\n- IKJL: infeksi kulit dan jaringan lunak\n- IM: intramuskular\n- IV: intravena\n- LRINEC: Laboratory Risk Indicator for Necrotizing Fasciitis\n- MRSA: methicillin-resistant Staphylococcus aureus\n- MSSA: methicillin-sensitive Staphylococcus aureus\n- RS: rumah sakit\n- SIRS: systemic inflammatory response syndrome",
+   "images": [
+    {
+     "file": "img/20261111-1200-selulitis-abses-bula-1.svg",
+     "caption": "Gambar 1: Lapisan kulit dan jaringan lunak tungkai serta lokasi tiap diagnosis banding (erisipelas, selulitis, necrotizing fasciitis, deep vein thrombosis).",
+     "credit": "Digambar Claude berdasarkan Brown dkk. (StatPearls 2025), Michael & Shaukat (StatPearls 2023), Wallace & Perera (StatPearls 2023), dan Waheed dkk. (StatPearls 2023)"
+    },
+    {
+     "file": "img/20261111-1200-selulitis-abses-bula-2.svg",
+     "caption": "Gambar 2: Alur infeksi kulit nonpurulen vs purulen, derajat ringan-sedang-berat, kriteria SIRS, dan lama antibiotik menurut IDSA 2014.",
+     "credit": "Digambar Claude berdasarkan Stevens dkk., IDSA Practice Guidelines for SSTI 2014 (Clin Infect Dis 59:e10-e52)"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Infectious Diseases Society of America (IDSA)",
+     "title": "Practice Guidelines for the Diagnosis and Management of Skin and Soft Tissue Infections: 2014 Update by the IDSA",
+     "year": 2014,
+     "url": "https://doi.org/10.1093/cid/ciu296"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Brown BD, Syed HA, Hood Watson KL. Cellulitis",
+     "publisher": "StatPearls Publishing (NCBI Bookshelf NBK549770)",
+     "year": 2025,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK549770/"
+    },
+    {
+     "title": "Raff AB, Kroshinsky D. Cellulitis: a review",
+     "publisher": "JAMA 316(3):325-337",
+     "year": 2016,
+     "url": "https://doi.org/10.1001/jama.2016.8825"
+    },
+    {
+     "title": "Stevens DL, Bisno AL, Chambers HF, et al. Practice guidelines for the diagnosis and management of skin and soft tissue infections: 2014 update by the Infectious Diseases Society of America",
+     "publisher": "Clinical Infectious Diseases 59(2):e10-e52",
+     "year": 2014,
+     "url": "https://www.idsociety.org/practice-guideline/skin-and-soft-tissue-infections/"
+    }
+   ]
+  },
+  {
+   "id": "20261111-1205-erisipelas",
+   "created": "2026-11-11T12:05:00Z",
+   "title": "Erisipelas: infeksi dermis superfisial berbatas tegas, beda dengan selulitis, dan profilaksis kekambuhan (StatPearls 2023, IDSA 2014)",
+   "type": "topik",
+   "stase": "Kulit",
+   "tags": [
+    "erisipelas",
+    "St. Anthony's fire",
+    "streptokokus grup A",
+    "selulitis",
+    "laporan kasus selulitis"
+   ],
+   "body": "Definisi:\n- Erisipelas adalah infeksi kulit yang mengenai lapisan dermis dan dapat meluas ke pembuluh limfe kulit superfisial (Michael & Shaukat, StatPearls 2023).\n- Ciri khas: eritema berbatas tegas yang meninggi di atas permukaan kulit sekitarnya. Dikenal juga sebagai St. Anthony's fire karena ruam merah yang \"menyala\".\n- Menurut IDSA 2014, erisipelas termasuk IKJL nonpurulen bersama selulitis dan infeksi nekrotikans.\n\nAnatomi dan fisiologi terkait:\n- Dermis superfisial (papilaris) tipis dan berisi anyaman kapiler serta limfatik superfisial. Dermis dalam (retikularis) dan subkutan berada di bawahnya.\n- Karena infeksi erisipelas berhenti di lapisan atas dan menyumbat limfatik superfisial, cairan radang tertahan di dermis atas. Itu sebabnya lesinya menonjol dan tepinya teraba sebagai \"tanggul\".\n- Selulitis terletak lebih dalam (dermis dalam dan subkutan) sehingga permukaan kulit tetap datar dan batasnya kabur.\n\n{{gambar:1}}\n\nPatofisiologi:\n1. Bakteri, tersering Streptococcus grup A, masuk melalui celah kulit kecil (luka, fisura tinea pedis, ulkus, gigitan serangga).\n2. Bakteri berkembang di dermis superfisial dan menyebar lewat limfatik superfisial.\n3. Inflamasi dan obstruksi limfatik → cairan radang terkumpul di dermis atas → plak merah, meninggi, berbatas tegas.\n4. Penyebaran limfatik yang cepat → lesi meluas lebih cepat dibanding selulitis, sering disertai demam dan menggigil di awal.\n5. Kerusakan limfatik berulang → limfedema → faktor risiko kekambuhan (lingkaran setan).\n\nEtiologi dan faktor risiko:\n- Penyebab tersering Streptococcus grup A.\n- Lokasi tersering ekstremitas bawah, lalu wajah sebagai lokasi kedua tersering.\n- Faktor risiko yang sama dengan selulitis: kerusakan sawar kulit, edema, insufisiensi vena, limfedema, obesitas, dan riwayat episode sebelumnya.\n\nManifestasi klinis:\n- Plak eritema berbatas tegas, meninggi, hangat, nyeri, dan berkembang cepat.\n- Bandingkan dengan selulitis: batas tidak tegas dan perkembangan lebih lambat.\n- Gambaran klinis sering tumpang tindih dengan selulitis sehingga diagnosis pasti kadang sulit ditegakkan.\n\nDiagnosis:\n- Diagnosis klinis; pemeriksaan penunjang tidak rutin diperlukan.\n- Kultur darah tidak rutin, kecuali pada kelompok khusus menurut IDSA (keganasan dengan kemoterapi, neutropenia, imunodefisiensi seluler berat, cedera rendaman air, gigitan hewan).\n- Selalu periksa tanda bahaya infeksi dalam (nyeri tidak sebanding, bula, nekrosis, krepitasi, hipotensi).\n\nTatalaksana:\n- Antibiotik antistreptokokus seperti penisilin, oral atau IV sesuai derajat keparahan (ringan oral, sedang IV, sesuai derajat IDSA pada catatan Selulitis tungkai dengan abses dan bula).\n- Lama terapi mengikuti selulitis: 5 hari, diperpanjang bila belum membaik (IDSA).\n- Elevasi area yang terkena untuk membantu drainase limfe dan vena; obati faktor predisposisi (tinea pedis, edema).\n- Profilaksis antibiotik (penisilin atau eritromisin oral dua kali sehari selama 4-52 minggu, atau benzatin penisilin IM tiap 2-4 minggu) dipertimbangkan pada pasien dengan 3-4 episode per tahun meskipun faktor predisposisi sudah ditangani (IDSA).\n- Dosis spesifik mengikuti protokol RS setempat.\n\nKomplikasi dan prognosis:\n- Respons terhadap antibiotik umumnya cepat dan baik; erisipelas dapat serius tetapi jarang fatal.\n- Komplikasi lokal lebih sering dibanding komplikasi sistemik; kekambuhan dan limfedema adalah masalah utama jangka panjang.\n\nKaitan dengan kasus:\n- Pada kasus, eritema regio cruris dextra berbatas TIDAK tegas dan tidak meninggi, disertai abses dan bula. Ini lebih sesuai selulitis daripada erisipelas, sehingga erisipelas menjadi diagnosis banding yang disingkirkan secara klinis.\n\nAnalogi:\n- (Analogi) Erisipelas seperti peta wilayah yang diberi tinta merah dengan garis batas yang jelas; selulitis seperti noda teh di kain yang tepinya memudar.\n\nMnemonik:\n- \"Erisipelas = Elevated, Edge jelas\" (mnemonik buatan): lesi meninggi dan tepinya tegas.\n\nPoin untuk koas:\n- Raba tepi lesi: tepi meninggi dan tegas mengarah ke erisipelas, tepi kabur mengarah ke selulitis.\n- Terapi awal keduanya sama-sama menyasar streptokokus, jadi tidak perlu ragu memulai antibiotik.\n- Cari pintu masuk di sela jari kaki (tinea pedis) dan tangani agar tidak kambuh.\n- Pikirkan profilaksis bila 3-4 episode per tahun.\n\nSingkatan:\n- IDSA: Infectious Diseases Society of America\n- IKJL: infeksi kulit dan jaringan lunak\n- IM: intramuskular\n- IV: intravena\n- RS: rumah sakit",
+   "images": [
+    {
+     "file": "img/20261111-1205-erisipelas-1.svg",
+     "caption": "Gambar 1: Perbandingan erisipelas dan selulitis berdasarkan lapisan, batas lesi, kecepatan perkembangan, penyebab, lokasi, terapi, dan profilaksis.",
+     "credit": "Digambar Claude berdasarkan Michael & Shaukat (StatPearls 2023), Brown dkk. (StatPearls 2025), dan IDSA 2014"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Infectious Diseases Society of America (IDSA)",
+     "title": "Practice Guidelines for the Diagnosis and Management of Skin and Soft Tissue Infections: 2014 Update by the IDSA",
+     "year": 2014,
+     "url": "https://doi.org/10.1093/cid/ciu296"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Michael Y, Shaukat NM. Erysipelas",
+     "publisher": "StatPearls Publishing (NCBI Bookshelf NBK532247)",
+     "year": 2023,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK532247/"
+    },
+    {
+     "title": "Stevens DL, Bisno AL, Chambers HF, et al. Practice guidelines for the diagnosis and management of skin and soft tissue infections: 2014 update by the Infectious Diseases Society of America",
+     "publisher": "Clinical Infectious Diseases 59(2):e10-e52",
+     "year": 2014,
+     "url": "https://www.idsociety.org/practice-guideline/skin-and-soft-tissue-infections/"
+    }
+   ]
+  },
+  {
+   "id": "20261111-1210-necrotizing-fasciitis",
+   "created": "2026-11-11T12:10:00Z",
+   "title": "Necrotizing fasciitis: penyebaran di bidang fasia, skor LRINEC, dan debridemen ulang 24-36 jam (IDSA 2014, Wong 2004)",
+   "type": "topik",
+   "stase": "Bedah",
+   "tags": [
+    "necrotizing fasciitis",
+    "fasciitis nekrotikans",
+    "LRINEC",
+    "debridemen",
+    "kegawatdaruratan bedah",
+    "laporan kasus selulitis"
+   ],
+   "body": "Definisi:\n- Necrotizing fasciitis (NF) adalah bagian dari IKJL yang agresif, menyebabkan nekrosis fasia otot dan jaringan subkutan (Wallace & Perera, StatPearls 2023).\n- Klasifikasi mikrobiologis:\n  - Tipe I: polimikroba, campuran bakteri aerob dan anaerob (sering pada DM, pascaoperasi, perineum).\n  - Tipe II: monomikroba, umumnya Streptococcus grup A dengan atau tanpa S. aureus.\n- NF adalah kegawatdaruratan bedah: penundaan debridemen meningkatkan kematian.\n\nAnatomi dan fisiologi terkait:\n- Fasia superfisial dan fasia dalam adalah lembar jaringan ikat yang membungkus otot. Bidang di antara lapisan ini longgar dan perfusinya buruk.\n- Pembuluh darah yang memberi makan kulit berjalan menembus fasia (perforator). Bila pembuluh ini tersumbat trombus, kulit di atasnya ikut mati belakangan.\n- Karena infeksi berjalan di bidang fasia, kulit di atasnya awalnya tampak normal atau hanya seperti selulitis. Inilah sumber keterlambatan diagnosis.\n\nPatofisiologi:\n1. Bakteri masuk lewat trauma (bahkan kecil), luka operasi, prosedur invasif, atau prosedur sekecil flebotomi.\n2. Bakteri menyebar cepat di sepanjang bidang fasia yang perfusinya buruk, dibantu enzim dan toksin.\n3. Toksin dan inflamasi → trombosis pembuluh perforator → iskemia → nekrosis fasia dan lemak subkutan.\n4. Saraf kutan ikut mati → nyeri awalnya hebat dan tidak sebanding temuan kulit, lalu berubah menjadi anestesia kulit.\n5. Iskemia kulit lanjut → bula (sering keruh atau hemoragik), kulit kehitaman, nekrosis.\n6. Bakteri penghasil gas (terutama tipe I) → krepitasi dan gas di jaringan.\n7. Toksin sistemik (misalnya superantigen streptokokus) → syok sepsis dan gagal organ multipel.\n8. Antibiotik sulit menembus jaringan nekrotik tanpa aliran darah, sehingga debridemen adalah terapi kunci.\n\nEtiologi dan faktor risiko:\n- Tipe I: campuran aerob dan anaerob; tipe II: Streptococcus grup A ± S. aureus.\n- Faktor risiko: DM, imunokompromais, trauma atau operasi, penyakit vaskular perifer, dan prosedur invasif.\n\nManifestasi klinis:\n- Nyeri hebat yang tidak sebanding dengan temuan kulit (tanda paling awal dan paling penting).\n- Edema yang meluas melampaui batas eritema, perabaan jaringan keras seperti kayu.\n- Bula, nekrosis kulit, krepitasi, dan anestesia kulit.\n- Toksisitas sistemik serta perburukan cepat (jam ke jam).\n\nDiagnosis:\n- Diagnosis klinis dengan kecurigaan tinggi; eksplorasi bedah adalah cara pasti menegakkan diagnosis (fasia pucat, mudah dipisahkan dengan jari, cairan keruh \"dishwater\", tidak berdarah).\n- Skor LRINEC (Wong dkk., 2004) memakai enam pemeriksaan rutin: CRP, leukosit, hemoglobin, natrium, kreatinin, dan glukosa. Pada studi asal, cut-off 6 poin memberi nilai prediktif positif 92% dan nilai prediktif negatif 96%; pasien dengan skor ≥ 6 harus dievaluasi cermat untuk NF.\n- Skor rendah tidak menyingkirkan NF bila klinis mencurigakan.\n- Pencitraan (rontgen gas jaringan, CT, USG) boleh membantu tetapi tidak boleh menunda tindakan bedah.\n\n{{gambar:1}}\n\nTatalaksana:\n- Konsultasi bedah segera dan debridemen agresif.\n- IDSA: sebagian besar pasien perlu kembali ke kamar operasi 24-36 jam setelah debridemen pertama, lalu setiap hari sampai tim bedah tidak menemukan lagi jaringan yang perlu didebridemen.\n- Antibiotik empiris NF polimikroba harus mencakup aerob termasuk MRSA dan anaerob: vankomisin, linezolid, atau daptomisin, dikombinasikan dengan salah satu: piperasilin-tazobaktam, karbapenem (imipenem-cilastatin, meropenem, ertapenem), ceftriaxone + metronidazol, atau fluorokuinolon + metronidazol.\n- NF atau sindrom syok toksik akibat Streptococcus grup A: penisilin + klindamisin. Klindamisin menekan produksi toksin dan sitokin streptokokus; penisilin ditambahkan karena kemungkinan resistensi terhadap klindamisin.\n- Lama antibiotik: sampai debridemen tidak diperlukan lagi, klinis membaik, dan bebas demam 48-72 jam (IDSA).\n- Resusitasi cairan dan dukungan hemodinamik sesuai tatalaksana sepsis; kendalikan gula darah.\n- Dosis spesifik mengikuti protokol RS setempat dan fungsi ginjal.\n\nKomplikasi:\n- Syok sepsis, gagal organ multipel, amputasi, dan kematian, terutama bila tindakan bedah terlambat.\n\nKapan merujuk:\n- Curiga NF sedikit pun: konsultasi spesialis bedah segera, jangan menunggu hasil pencitraan. Pasien tidak stabil memerlukan perawatan intensif.\n\nKaitan dengan kasus:\n- Pada kasus ditemukan bula multipel pada pedis, leukositosis 22.600/µL, dan DM. Krepitasi negatif, tetapi bula tetap tanda yang harus dievaluasi.\n- LRINEC parsial: leukosit 22.600/µL = 1 poin, hemoglobin 11,3 g/dL = 1 poin, glukosa sewaktu 137 mg/dL = 0 poin. Total sementara 2 poin; CRP, natrium, dan kreatinin belum diperiksa, padahal CRP ≥ 150 mg/L saja bernilai 4 poin. Karena itu ketiganya ada di rencana pemeriksaan.\n- Rencana debridemen dengan dokter spesialis bedah memungkinkan inspeksi langsung fasia.\n\nAnalogi:\n- (Analogi) NF seperti api yang menjalar di bawah lantai kayu: permukaan lantai masih tampak biasa, tetapi balok di bawahnya sudah terbakar. Saat lantai menghitam, kerusakan di bawahnya jauh lebih luas.\n\nMnemonik:\n- \"Nyeri melebihi tampilan\" (pain out of proportion): tanda yang paling dikenal luas untuk NF.\n- \"LRINEC: CRP-Leuko-Hb-Na-Kr-Glu\" (mnemonik buatan): dari yang terbesar poinnya (CRP 4) lalu sisanya.\n\nPoin untuk koas:\n- Nyeri tidak sebanding dengan kulit, edema melampaui eritema, bula, krepitasi, anestesia kulit: lapor segera ke dokter bedah.\n- Saat mencurigai NF, minta CRP, natrium, kreatinin, glukosa, darah lengkap untuk LRINEC.\n- Jangan tunggu CT; diagnosis pasti di meja operasi.\n- Pada infeksi Streptococcus grup A, ingat klindamisin untuk menekan toksin.\n- Debridemen hampir selalu diulang dalam 24-36 jam.\n\nSingkatan:\n- CRP: C-reactive protein\n- CT: computed tomography\n- DM: diabetes melitus\n- IDSA: Infectious Diseases Society of America\n- IKJL: infeksi kulit dan jaringan lunak\n- LRINEC: Laboratory Risk Indicator for Necrotizing Fasciitis\n- MRSA: methicillin-resistant Staphylococcus aureus\n- NF: necrotizing fasciitis\n- RS: rumah sakit\n- USG: ultrasonografi",
+   "images": [
+    {
+     "file": "img/20261111-1210-necrotizing-fasciitis-1.svg",
+     "caption": "Gambar 1: Skor LRINEC (CRP, leukosit, hemoglobin, natrium, kreatinin, glukosa), cut-off ≥ 6, dan prinsip bahwa eksplorasi bedah adalah diagnosis pasti.",
+     "credit": "Digambar Claude berdasarkan Wong dkk., Crit Care Med 2004;32:1535-41 dan IDSA 2014"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Infectious Diseases Society of America (IDSA)",
+     "title": "Practice Guidelines for the Diagnosis and Management of Skin and Soft Tissue Infections: 2014 Update by the IDSA",
+     "year": 2014,
+     "url": "https://doi.org/10.1093/cid/ciu296"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Wallace HA, Perera TB. Necrotizing Fasciitis",
+     "publisher": "StatPearls Publishing (NCBI Bookshelf NBK430756)",
+     "year": 2023,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK430756/"
+    },
+    {
+     "title": "Wong CH, Khin LW, Heng KS, Tan KC, Low CO. The LRINEC (Laboratory Risk Indicator for Necrotizing Fasciitis) score: a tool for distinguishing necrotizing fasciitis from other soft tissue infections",
+     "publisher": "Critical Care Medicine 32(7):1535-1541",
+     "year": 2004,
+     "url": "https://doi.org/10.1097/01.ccm.0000129486.35458.7d"
+    },
+    {
+     "title": "Stevens DL, Bryant AE. Necrotizing soft-tissue infections",
+     "publisher": "New England Journal of Medicine 377(23):2253-2265",
+     "year": 2017,
+     "url": "https://doi.org/10.1056/NEJMra1600673"
+    },
+    {
+     "title": "Stevens DL, Bisno AL, Chambers HF, et al. Practice guidelines for the diagnosis and management of skin and soft tissue infections: 2014 update by the Infectious Diseases Society of America",
+     "publisher": "Clinical Infectious Diseases 59(2):e10-e52",
+     "year": 2014,
+     "url": "https://www.idsociety.org/practice-guideline/skin-and-soft-tissue-infections/"
+    }
+   ]
+  },
+  {
+   "id": "20261111-1215-deep-vein-thrombosis",
+   "created": "2026-11-11T12:15:00Z",
+   "title": "Deep vein thrombosis (DVT): trias Virchow, skor Wells, D-dimer dan USG kompresi, serta antikoagulan (MJA 2019, StatPearls 2023)",
+   "type": "topik",
+   "stase": "Bedah",
+   "tags": [
+    "deep vein thrombosis",
+    "DVT",
+    "skor Wells",
+    "D-dimer",
+    "antikoagulan",
+    "laporan kasus selulitis"
+   ],
+   "body": "Definisi:\n- Deep vein thrombosis (DVT) adalah bekuan darah yang terbentuk di vena dalam, umumnya di tungkai, bermula di vena dalam betis lalu menjalar ke proksimal (Waheed dkk., StatPearls 2023).\n- DVT bersama emboli paru (EP) disebut tromboemboli vena (venous thromboembolism, VTE), penyebab kematian kardiovaskular ketiga tersering setelah serangan jantung dan stroke.\n- Klasifikasi lokasi: distal (vena betis) dan proksimal (poplitea, femoral, iliaka). Insidensi sekitar 1,6 per 1.000 orang per tahun; distribusi: distal 40%, poplitea 16%, femoral 20%, femoral komunis 20%, iliaka 4%.\n- Klasifikasi pemicu: provoked (ada pemicu sementara seperti operasi, trauma, imobilisasi) dan unprovoked.\n\nAnatomi dan fisiologi terkait:\n- Vena dalam tungkai berjalan di antara otot dan mengalirkan sebagian besar darah balik tungkai. Katup vena mencegah aliran balik.\n- Pompa otot betis: kontraksi otot memeras vena dalam dan mendorong darah ke jantung. Imobilisasi mematikan pompa ini.\n- Kantong di belakang daun katup adalah area aliran lambat, tempat trombus sering mulai terbentuk.\n\nPatofisiologi:\n1. Trias Virchow: stasis vena, cedera dinding pembuluh (endotel), dan hiperkoagulabilitas.\n2. Stasis (imobilisasi, tirah baring) → faktor koagulasi aktif menumpuk di kantong katup.\n3. Cedera endotel (trauma, operasi) → paparan faktor jaringan → kaskade koagulasi aktif.\n4. Hiperkoagulabilitas (keganasan, inflamasi, usia lanjut) → keseimbangan bergeser ke pembentukan bekuan.\n5. Trombus membesar → obstruksi aliran balik → tekanan vena naik → edema, nyeri, dan pelebaran vena superfisial kolateral.\n6. Inflamasi dinding vena → eritema dan hangat, sehingga DVT dapat menyerupai selulitis.\n7. Trombus lepas → terbawa ke paru → emboli paru.\n8. Katup rusak permanen → hipertensi vena kronis → sindrom pascatrombotik.\n\nEtiologi dan faktor risiko:\n- Imobilisasi, trauma atau operasi, keganasan, usia lanjut, riwayat VTE, serta kondisi inflamasi akut termasuk infeksi.\n\nManifestasi klinis:\n- Gejala dan tanda tersering: nyeri, bengkak, eritema, dan pelebaran vena pada tungkai yang terkena; gambaran ini dapat menyerupai selulitis.\n\nDiagnosis:\n- Probabilitas pratest dinilai dengan aturan keputusan klinis (skor Wells). Skor total -2 sampai 9; ≤ 1 = unlikely, ≥ 2 = likely (Kruger dkk., MJA 2019).\n- Kriteria Wells (+1 masing-masing): kanker aktif; paralisis, paresis, atau imobilisasi gips tungkai; tirah baring ≥ 3 hari atau operasi besar; nyeri tekan lokal sepanjang vena dalam; seluruh tungkai bengkak; selisih lingkar betis > 3 cm; edema pitting pada tungkai simtomatik; vena kolateral superfisial (bukan varises); riwayat DVT terdokumentasi. Diagnosis lain sama atau lebih mungkin: -2.\n- Unlikely → periksa D-dimer. D-dimer normal pada pasien unlikely secara efektif menyingkirkan DVT. D-dimer sensitif (94-96%) tetapi tidak spesifik (42-52%) karena juga meningkat pada usia lanjut, keganasan, sepsis, inflamasi, gagal ginjal kronis, operasi baru, trauma, luka bakar, dan kehamilan.\n- Likely, atau D-dimer meningkat → ultrasonografi kompresi (compression ultrasonography, CUS). CUS seluruh tungkai yang negatif tidak perlu diulang.\n\n{{gambar:1}}\n\nTatalaksana:\n- Antikoagulan untuk mengendalikan gejala, mencegah progresi, serta menurunkan risiko emboli paru dan sindrom pascatrombotik.\n- Pilihan regimen (Kruger dkk., MJA 2019):\n  - Apiksaban 10 mg oral 2 x sehari selama 7 hari, lalu 5 mg 2 x sehari.\n  - Rivaroksaban 15 mg oral 2 x sehari selama 21 hari, lalu 20 mg 1 x sehari.\n  - Enoksaparin 1,5 mg/kg subkutan 1 x sehari atau 1 mg/kg subkutan 2 x sehari.\n  - Heparin tidak terfraksi 80 IU/kg bolus IV, lalu 18 IU/kg/jam infus IV; target activated partial thromboplastin time (aPTT) sesuai RS.\n  - Dabigatran 150 mg oral 2 x sehari (110 mg 2 x sehari bila usia > 75 tahun atau klirens kreatinin 30-49 mL/menit), setelah antikoagulan parenteral minimal 5 hari.\n  - Warfarin dengan target international normalized ratio (INR) 2,0-3,0, diawali tumpang tindih dengan antikoagulan parenteral sampai INR tercapai.\n- Antikoagulan oral langsung (direct oral anticoagulant, DOAC) lebih dipilih daripada warfarin bila tidak ada kontraindikasi, dengan penyesuaian dosis pada gangguan fungsi ginjal.\n- Durasi: minimal 3 bulan untuk DVT proksimal lalu evaluasi ulang; minimal 6 bulan bila dipicu kanker aktif; terapi diperpanjang pada DVT kedua atau unprovoked dengan risiko perdarahan rendah.\n- DVT distal terisolasi: sekitar 15% meluas ke proksimal bila tidak diobati; antikoagulan 3 bulan dipertimbangkan bila gejala berat atau ada faktor risiko perluasan, atau ulangi CUS dalam 1-2 minggu.\n\nKomplikasi:\n- Emboli paru, trombosis berulang, dan sindrom pascatrombotik.\n\nKapan merujuk:\n- Curiga emboli paru (sesak, nyeri dada, hipoksemia, takikardia), DVT iliofemoral luas, atau kontraindikasi antikoagulan: rujuk/konsultasi spesialis penyakit dalam atau bedah vaskular.\n\nKaitan dengan kasus:\n- Tungkai kanan bengkak, merah, dan nyeri setelah trauma, dengan mobilitas terbatas, membuat DVT wajar menjadi diagnosis banding.\n- Namun ada luka tusuk, abses berfluktuasi, dan bula yang menjelaskan gejala sebagai infeksi, sehingga \"diagnosis lain sama atau lebih mungkin\" (-2). Bila skor tetap ≤ 1, langkah berikutnya D-dimer; tetapi D-dimer pada infeksi aktif cenderung meningkat, jadi CUS lebih informatif bila kecurigaan menetap.\n- Pasien yang dirawat dan diimobilisasi juga perlu dinilai kebutuhan profilaksis VTE sesuai protokol RS.\n\nAnalogi:\n- (Analogi) Vena dalam seperti sungai di dataran rendah: bila arus melambat (stasis), tepian rusak (cedera endotel), dan airnya keruh (hiperkoagulasi), endapan menumpuk dan akhirnya membendung aliran.\n\nMnemonik:\n- Trias Virchow \"SEH\": Stasis, Endotel rusak, Hiperkoagulasi (mnemonik buatan).\n\nPoin untuk koas:\n- Tungkai merah bengkak unilateral: selalu pikirkan selulitis DAN DVT; keduanya bisa bersamaan.\n- Hitung Wells dulu sebelum memesan D-dimer; D-dimer hanya berguna untuk menyingkirkan pada kelompok unlikely.\n- D-dimer tinggi pada infeksi, usia lanjut, dan pascaoperasi; jangan jadikan dasar diagnosis.\n- Ukur lingkar betis 10 cm di bawah tuberositas tibia pada kedua sisi.\n- Hafalkan dosis awal apiksaban dan rivaroksaban yang lebih tinggi pada minggu-minggu pertama.\n\nSingkatan:\n- aPTT: activated partial thromboplastin time\n- CUS: compression ultrasonography\n- DOAC: direct oral anticoagulant\n- DVT: deep vein thrombosis\n- EP: emboli paru\n- INR: international normalized ratio\n- IU: international unit\n- IV: intravena\n- RS: rumah sakit\n- VTE: venous thromboembolism",
+   "images": [
+    {
+     "file": "img/20261111-1215-deep-vein-thrombosis-1.svg",
+     "caption": "Gambar 1: Kriteria skor Wells DVT dan alur diagnosis: unlikely (≤ 1) dengan D-dimer, likely (≥ 2) atau D-dimer meningkat dengan USG kompresi.",
+     "credit": "Digambar Claude berdasarkan Kruger dkk., Med J Aust 2019;210:516-524 dan Wells dkk., N Engl J Med 2003;349:1227-35"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "American College of Chest Physicians (CHEST)",
+     "title": "Antithrombotic Therapy for VTE Disease: CHEST Guideline and Expert Panel Report",
+     "year": 2016,
+     "url": "https://doi.org/10.1016/j.chest.2015.11.026"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kruger PC, Eikelboom JW, Douketis JD, Hankey GJ. Deep vein thrombosis: update on diagnosis and management",
+     "publisher": "Medical Journal of Australia 210(11):516-524",
+     "year": 2019,
+     "url": "https://www.mja.com.au/journal/2019/210/11/deep-vein-thrombosis-update-diagnosis-and-management"
+    },
+    {
+     "title": "Waheed SM, Kudaravalli P, Hotwagner DT. Deep Venous Thrombosis",
+     "publisher": "StatPearls Publishing (NCBI Bookshelf NBK507708)",
+     "year": 2023,
+     "url": "https://www.ncbi.nlm.nih.gov/books/NBK507708/"
+    },
+    {
+     "title": "Wells PS, Anderson DR, Rodger M, et al. Evaluation of D-dimer in the diagnosis of suspected deep-vein thrombosis",
+     "publisher": "New England Journal of Medicine 349(13):1227-1235",
+     "year": 2003,
+     "url": "https://doi.org/10.1056/NEJMoa023153"
+    },
+    {
+     "title": "Stone J, Hangge P, Albadawi H, et al. Deep vein thrombosis: pathogenesis, diagnosis, and medical management",
+     "publisher": "Cardiovascular Diagnosis and Therapy 7(Suppl 3):S276-S284",
+     "year": 2017,
+     "url": "https://doi.org/10.21037/cdt.2017.09.01"
+    }
+   ]
+  },
+  {
+   "id": "20261111-1220-dm-tipe-2-infeksi-kulit",
+   "created": "2026-11-11T12:20:00Z",
+   "title": "Diabetes melitus tipe 2 pada pasien infeksi kulit: kriteria diagnosis PNPK 2026, mengapa infeksi lebih berat, dan target glukosa rawat inap (PNPK 2026, ADA 2026)",
+   "type": "topik",
+   "stase": "IPD",
+   "tags": [
+    "diabetes melitus tipe 2",
+    "hiperglikemia rawat inap",
+    "infeksi pada diabetes",
+    "PNPK DM 2026",
+    "laporan kasus selulitis"
+   ],
+   "body": "Definisi:\n- Diabetes melitus (DM) adalah kelompok penyakit metabolik dengan karakteristik hiperglikemia akibat kelainan sekresi insulin, kerja insulin, atau keduanya (PERKENI 2021).\n- Kriteria diagnosis DM (Pedoman Nasional Pelayanan Klinis (PNPK) Tata Laksana DM Tipe 2 Dewasa, KMK HK.01.07/MENKES/302/2026), salah satu dari:\n  - Hemoglobin terglikasi (HbA1c) ≥ 6,5% dengan metode tersertifikasi National Glycohemoglobin Standardization Program (NGSP).\n  - Glukosa plasma puasa ≥ 126 mg/dL.\n  - Glukosa plasma ≥ 200 mg/dL 2 jam setelah tes toleransi glukosa oral (TTGO) beban 75 gram.\n  - Glukosa darah sewaktu ≥ 200 mg/dL dengan gejala klasik, atau dua kali pemeriksaan pada hari yang sama bila tanpa gejala klasik.\n- Prediabetes: glukosa puasa 100-125 mg/dL, glukosa 2 jam TTGO 140-199 mg/dL, atau HbA1c 5,7-6,4%.\n- Glukosuria saja tidak dapat dipakai untuk menegakkan diagnosis.\n\nAnatomi dan fisiologi terkait:\n- Insulin dari sel beta pankreas memasukkan glukosa ke otot dan lemak serta menekan produksi glukosa hati.\n- Pada DM tipe 2, inti kerusakannya adalah resistensi insulin di otot dan hati serta kegagalan sel beta; kegagalan sel beta terjadi lebih dini dan lebih berat dari yang diperkirakan sebelumnya (PERKENI 2021).\n- Pertahanan tubuh terhadap bakteri kulit bergantung pada neutrofil yang sigap, aliran darah yang baik, dan sensasi utuh agar luka cepat disadari.\n\nPatofisiologi (mengapa infeksi kulit pada DM lebih berat):\n1. Hiperglikemia → fungsi neutrofil (kemotaksis, fagositosis, pembunuhan bakteri) terganggu → bakteri lebih mudah berkembang.\n2. Mikroangiopati dan makroangiopati (penyakit arteri perifer) → perfusi jaringan dan pengiriman antibiotik berkurang → penyembuhan lambat.\n3. Neuropati perifer → hilangnya sensasi distal → luka kecil tidak disadari, berisiko ulkus kaki dan amputasi (PNPK 2026).\n4. Infeksi dan stres → hormon kontra-regulasi (kortisol, katekolamin) dan sitokin → resistensi insulin bertambah → hiperglikemia memburuk → lingkaran setan dengan infeksi.\n5. Akibatnya pasien DM lebih mudah terkena infeksi oleh bakteri selain streptokokus, termasuk infeksi polimikroba dan nekrotikans.\n\nEtiologi dan faktor risiko DM tipe 2:\n- Tidak dapat dimodifikasi: ras dan etnik, riwayat keluarga DM, usia (> 45 tahun harus diperiksa), riwayat melahirkan bayi > 4.000 gram atau DM gestasional, berat lahir < 2,5 kg.\n- Dapat dimodifikasi: berat badan lebih (indeks massa tubuh (IMT) ≥ 23 kg/m2), kurang aktivitas fisik, hipertensi (> 140/80 mmHg), dislipidemia.\n\nManifestasi klinis:\n- Gejala klasik: poliuria, polidipsia, polifagia, dan penurunan berat badan yang tidak jelas sebabnya.\n- Keluhan lain: lemah badan, kesemutan, gatal, mata kabur, disfungsi ereksi pada pria, dan pruritus vulva pada wanita.\n- Banyak pasien terdiagnosis pertama kali saat datang dengan infeksi atau komplikasi.\n\n{{gambar:1}}\n\nTatalaksana pada pasien rawat inap dengan infeksi:\n- Periksa glukosa darah berkala dan HbA1c (bila belum ada dalam 3 bulan) untuk menilai kontrol jangka panjang.\n- American Diabetes Association (ADA) 2026: mulai insulin bila hiperglikemia menetap ≥ 180 mg/dL; target glukosa 140-180 mg/dL untuk sebagian besar pasien rawat inap. Target 100-180 mg/dL dapat dipakai pada kelompok tertentu (termasuk perioperatif) bila aman dari hipoglikemia.\n- Insulin adalah pilihan utama di RS karena dosisnya mudah dititrasi; pada pasien perawatan intensif, insulin IV umumnya lebih dipilih (PNPK 2026). Insulin kerja cepat/pendek dapat diberikan IV, bolus atau drip, untuk hiperglikemia akut.\n- Kontrol sumber infeksi (drainase, debridemen) ikut menurunkan kebutuhan insulin.\n- Konsultasi spesialis penyakit dalam untuk regimen jangka panjang. Sasaran pengendalian rawat jalan PNPK 2026: HbA1c < 7% (individual), glukosa preprandial kapiler 80-130 mg/dL, glukosa 1-2 jam postprandial kapiler < 180 mg/dL.\n- Hipoglikemia (glukosa < 70 mg/dL): pasien sadar diberi karbohidrat atau minuman bergula 15-20 gram glukosa, cek ulang glukosa tiap 15 menit; pasien tidak sadar diberi glukosa 40% IV terlebih dahulu sebagai tindakan darurat (PNPK 2026).\n- Edukasi perawatan kaki: periksa kaki setiap hari, jaga kebersihan, alas kaki yang tepat, dan segera periksakan luka sekecil apa pun.\n\nKomplikasi:\n- Akut: ketoasidosis diabetik, status hiperglikemik hiperosmolar, hipoglikemia.\n- Kronik: makroangiopati (penyakit jantung koroner, stroke, penyakit arteri perifer), mikroangiopati (nefropati, retinopati), neuropati, dan kaki diabetik.\n- Skrining polineuropati distal simetris dengan monofilamen 10 gram setelah diagnosis DM tipe 2 ditegakkan (PNPK 2026).\n\nKapan merujuk:\n- Dekompensasi metabolik berat (ketoasidosis, stres berat, berat badan turun cepat, ketonuria) harus segera dirujuk ke pelayanan sekunder atau tersier (PERKENI 2021).\n\nKaitan dengan kasus:\n- Riwayat DM positif; glukosa darah sewaktu 137 mg/dL saat masuk. Angka ini tidak bisa dipakai untuk diagnosis baru, tetapi diagnosis DM sudah diketahui dari riwayat.\n- Rencana GDP, GD2PP, dan HbA1c bertujuan menilai kontrol glikemik; pemantauan glukosa berkala dan konsultasi penyakit dalam sudah tepat.\n- DM menjelaskan mengapa infeksi tungkai berkembang menjadi abses dan bula serta mengapa infeksi nekrotikans harus disingkirkan dengan serius.\n\nAnalogi:\n- (Analogi) Darah yang terlalu manis seperti lumpur yang membuat \"pasukan\" neutrofil bergerak lambat: musuh (bakteri) sudah menyebar sebelum pasukan tiba.\n\nMnemonik:\n- Gejala klasik \"3P + BB turun\": poliuria, polidipsia, polifagia, berat badan turun.\n- Angka diagnosis \"126-200-6,5\": glukosa puasa ≥ 126, sewaktu/TTGO 2 jam ≥ 200, HbA1c ≥ 6,5% (mnemonik buatan).\n\nPoin untuk koas:\n- Pasien infeksi kulit dengan DM: selalu cek gula darah saat masuk dan berkala.\n- Jangan mendiagnosis DM dari satu GDS tanpa gejala klasik; ulangi atau periksa HbA1c.\n- Target rawat inap 140-180 mg/dL; hindari hipoglikemia (< 70 mg/dL).\n- Infeksi pada DM lebih mungkin polimikroba dan nekrotikans; ambang konsultasi bedah lebih rendah.\n- Edukasi perawatan kaki adalah bagian dari terapi, bukan pelengkap.\n\nSingkatan:\n- ADA: American Diabetes Association\n- BB: berat badan\n- DM: diabetes melitus\n- GD2PP: glukosa darah 2 jam postprandial\n- GDP: glukosa darah puasa\n- GDS: glukosa darah sewaktu\n- HbA1c: hemoglobin terglikasi (glycated hemoglobin)\n- IMT: indeks massa tubuh\n- IV: intravena\n- KMK: Keputusan Menteri Kesehatan\n- NGSP: National Glycohemoglobin Standardization Program\n- PERKENI: Perkumpulan Endokrinologi Indonesia\n- PNPK: Pedoman Nasional Pelayanan Klinis\n- RS: rumah sakit\n- TTGO: tes toleransi glukosa oral",
+   "images": [
+    {
+     "file": "img/20261111-1220-dm-tipe-2-infeksi-kulit-1.svg",
+     "caption": "Gambar 1: Kriteria diagnosis DM tipe 2 dan prediabetes menurut PNPK Kemenkes 2026, serta target glukosa rawat inap ADA 2026 dan batas hipoglikemia.",
+     "credit": "Digambar Claude berdasarkan PNPK Tata Laksana DM Tipe 2 Dewasa (KMK HK.01.07/MENKES/302/2026), PERKENI 2021, dan ADA Standards of Care 2026 bagian 16"
+    }
+   ],
+   "guidelines": [
+    {
+     "org": "Kementerian Kesehatan Republik Indonesia",
+     "title": "KMK HK.01.07/MENKES/302/2026 tentang Pedoman Nasional Pelayanan Klinis Tata Laksana Diabetes Melitus Tipe 2 Dewasa",
+     "year": 2026,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan1777518085_672976.pdf"
+    },
+    {
+     "org": "Perkumpulan Endokrinologi Indonesia (PERKENI)",
+     "title": "Pedoman Pengelolaan dan Pencegahan Diabetes Melitus Tipe 2 Dewasa di Indonesia 2021",
+     "year": 2021,
+     "url": "https://pbperkeni.or.id/wp-content/uploads/2021/11/22-10-21-Website-Pedoman-Pengelolaan-dan-Pencegahan-DMT2-Ebook.pdf"
+    },
+    {
+     "org": "American Diabetes Association (ADA)",
+     "title": "16. Diabetes Care in the Hospital: Standards of Care in Diabetes-2026",
+     "year": 2026,
+     "url": "https://diabetesjournals.org/care/article-pdf/49/Supplement_1/S339/848851/dc26s016.pdf"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Kementerian Kesehatan RI. KMK HK.01.07/MENKES/302/2026 tentang PNPK Tata Laksana Diabetes Melitus Tipe 2 Dewasa",
+     "publisher": "Kemenkes RI, Jakarta",
+     "year": 2026,
+     "url": "https://keslan.kemkes.go.id/unduhan/fileunduhan1777518085_672976.pdf"
+    },
+    {
+     "title": "Soelistijo SA, dkk. Pedoman Pengelolaan dan Pencegahan Diabetes Melitus Tipe 2 Dewasa di Indonesia 2021",
+     "publisher": "PB PERKENI, Jakarta",
+     "year": 2021,
+     "url": "https://pbperkeni.or.id/wp-content/uploads/2021/11/22-10-21-Website-Pedoman-Pengelolaan-dan-Pencegahan-DMT2-Ebook.pdf"
+    },
+    {
+     "title": "American Diabetes Association Professional Practice Committee. 16. Diabetes Care in the Hospital: Standards of Care in Diabetes-2026",
+     "publisher": "Diabetes Care 49(Suppl 1):S339",
+     "year": 2026,
+     "url": "https://diabetesjournals.org/care/article-pdf/49/Supplement_1/S339/848851/dc26s016.pdf"
     }
    ]
   }
