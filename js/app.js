@@ -8,7 +8,7 @@ import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular,
 import { icon } from './icons.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.13.0';
+const APP_VERSION = '0.14.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -224,6 +224,9 @@ function saveFolds(id, set) {
   try { set.size ? localStorage.setItem(foldKey(id), JSON.stringify([...set])) : localStorage.removeItem(foldKey(id)); } catch { /* penyimpanan diblokir */ }
 }
 
+// Lebar indentasi awal baris; tab dihitung 2 spasi, sama dengan satu langkah indentasi di editor.
+const listIndent = (ws) => ws.replace(/\t/g, '  ').length;
+
 function renderBody(body, terms, type, folds = null) {
   let html = '';
   const stack = [];
@@ -231,11 +234,13 @@ function renderBody(body, terms, type, folds = null) {
   const close = (level) => { while (stack.length && stack[stack.length - 1] >= level) { html += '</div></details>'; stack.pop(); } };
   for (const block of splitBlocks(visibleBody(body, type))) {
     if (block.type === 'table') { html += tableHtml(block.rows, block.header, terms); continue; }
-    let inList = false;
+    // Daftar bertingkat: indentasi (spasi atau tab) lebih dalam dari poin sebelumnya menjadi sub-poin.
+    const lists = [];
+    const endLists = () => { while (lists.length) { html += '</li></ul>'; lists.pop(); } };
     for (const raw of block.lines) {
       const hd = headingOf(raw);
       if (hd) {
-        if (inList) { html += '</ul>'; inList = false; }
+        endLists();
         close(hd.level);
         let key = headingKey(hd);
         const n = (seen.get(key) || 0) + 1;
@@ -248,19 +253,31 @@ function renderBody(body, terms, type, folds = null) {
       }
       const img = raw.match(IMG_LINE);
       if (img) {
-        if (inList) { html += '</ul>'; inList = false; }
+        endLists();
         html += `<figure class="inline-img" data-mid="${esc(img[2])}"><span class="img-ph">🖼️</span>${img[1].trim() ? `<figcaption>${inlineHtml(img[1], terms)}</figcaption>` : ''}</figure>`;
         continue;
       }
-      const listItem = raw.match(/^\s*[-*•]\s+(.*)$/);
-      if (listItem && !inList) { html += '<ul>'; inList = true; }
-      if (!listItem && inList) { html += '</ul>'; inList = false; }
-      let h = inlineHtml(listItem ? listItem[1] : raw, terms);
-      const label = !listItem && h.match(/^([^:<]{1,60}):(.*)$/);
+      const listItem = raw.match(/^([ \t]*)[-*•]\s+(.*)$/);
+      if (listItem) {
+        const indent = listIndent(listItem[1]);
+        while (lists.length > 1 && indent < lists[lists.length - 1]) {
+          // Indentasi di antara dua tingkat (tidak rata) dianggap setingkat dengan poin terdalam.
+          if (indent > lists[lists.length - 2]) { lists[lists.length - 1] = indent; break; }
+          html += '</li></ul>';
+          lists.pop();
+        }
+        if (!lists.length || indent > lists[lists.length - 1]) { html += `<ul class="lv-${Math.min(lists.length, 2)}"><li>`; lists.push(indent); }
+        else html += '</li><li>';
+        html += inlineHtml(listItem[2], terms);
+        continue;
+      }
+      endLists();
+      let h = inlineHtml(raw, terms);
+      const label = h.match(/^([^:<]{1,60}):(.*)$/);
       if (label) h = `<span class="label">${label[1]}:</span>${label[2]}`;
-      html += listItem ? `<li>${h}</li>` : h.trim() ? `<p>${h}</p>` : '<div class="gap"></div>';
+      html += h.trim() ? `<p>${h}</p>` : '<div class="gap"></div>';
     }
-    if (inList) html += '</ul>';
+    endLists();
   }
   close(0);
   return html;
@@ -1942,6 +1959,9 @@ async function renderEditor(id, type) {
           <button type="button" class="fmtbtn" data-fmt="bold" aria-label="Tebal" title="Tebal (Ctrl/⌘+B)"><b>B</b></button>
           <button type="button" class="fmtbtn" data-fmt="italic" aria-label="Miring" title="Miring (Ctrl/⌘+I)"><i>I</i></button>
           <button type="button" class="fmtbtn" data-fmt="strike" aria-label="Coret" title="Coret (Ctrl/⌘+Shift+X)"><s>S</s></button>
+          <button type="button" class="fmtbtn" data-fmt="bullet" aria-label="Poin" title="Jadikan poin / teks biasa">•</button>
+          <button type="button" class="fmtbtn" data-fmt="outdent" aria-label="Naikkan tingkat poin" title="Naikkan tingkat (Shift+Tab)">⇤</button>
+          <button type="button" class="fmtbtn" data-fmt="indent" aria-label="Jadikan sub-poin" title="Jadikan sub-poin (Tab)">⇥</button>
           <select id="t-size" class="fmtsel" aria-label="Ukuran teks" title="Ukuran teks baris ini (Ctrl/⌘+Alt+0–3)">
             <option value="0">Teks</option><option value="1">Judul 1</option><option value="2">Judul 2</option><option value="3">Judul 3</option>
           </select>
@@ -1993,12 +2013,28 @@ async function renderEditor(id, type) {
   const fmtBar = view().querySelector('.fmt');
   // Di laptop fokus & seleksi tetap di kotak teks saat tombol format diklik.
   fmtBar.addEventListener('mousedown', (e) => { if (e.target.closest('.fmtbtn')) e.preventDefault(); });
-  fmtBar.addEventListener('click', (e) => { const b = e.target.closest('[data-fmt]'); if (b) wrapSelection(FMT[b.dataset.fmt]); });
+  fmtBar.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-fmt]');
+    if (!b) return;
+    const f = b.dataset.fmt;
+    if (f === 'bullet') toggleBullet();
+    else if (f === 'indent') indentLines(1);
+    else if (f === 'outdent') indentLines(-1);
+    else wrapSelection(FMT[f]);
+  });
   const size = $('#t-size');
   const syncSize = () => { size.value = String(lineLevel()); };
   ['click', 'keyup', 'input'].forEach((ev) => body.addEventListener(ev, syncSize));
   size.onchange = () => setLineLevel(+size.value);
   body.addEventListener('keydown', (e) => {
+    if (e.isComposing) return;
+    // Tab hanya ditangkap di baris poin, agar navigasi keyboard di luar daftar tetap normal.
+    if (e.key === 'Tab' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const { ta, start, end } = selectedLines();
+      if (ta.value.slice(start, end).split('\n').some((l) => LIST_LINE.test(l))) { e.preventDefault(); indentLines(e.shiftKey ? -1 : 1); }
+      return;
+    }
+    if (e.key === 'Enter' && !e.shiftKey && !e.metaKey && !e.ctrlKey && !e.altKey) { continueList(e); return; }
     if (!(e.metaKey || e.ctrlKey)) return;
     const k = e.key.toLowerCase();
     let f = null;
@@ -2090,6 +2126,80 @@ function setLineLevel(level) {
   if (next === line) return;
   ta.focus({ preventScroll: true });
   ta.setRangeText(next, start, end, 'end');
+  ta.dispatchEvent(new Event('input'));
+  if (state.editor) state.editor.caret = [ta.selectionStart, ta.selectionEnd];
+}
+
+// ---------- Daftar bertingkat di editor ----------
+const LIST_STEP = '  ';
+const LIST_LINE = /^([ \t]*)([-*•])\s+/;
+
+// Baris-baris yang tersentuh seleksi (atau baris kursor).
+function selectedLines() {
+  const { ta, a, b } = editorSel();
+  const start = ta.value.lastIndexOf('\n', a - 1) + 1;
+  const nl = ta.value.indexOf('\n', Math.max(b - (b > a && ta.value[b - 1] === '\n' ? 1 : 0), a));
+  return { ta, a, b, start, end: nl === -1 ? ta.value.length : nl };
+}
+
+function replaceLines(ta, start, end, next, a, b) {
+  ta.focus({ preventScroll: true });
+  ta.setRangeText(next, start, end, 'preserve');
+  ta.setSelectionRange(a, b);
+  ta.dispatchEvent(new Event('input'));
+  if (state.editor) state.editor.caret = [a, b];
+}
+
+// dir +1 = jadikan sub-poin (geser ke kanan), -1 = naikkan satu tingkat. Baris biasa ikut dijadikan poin.
+function indentLines(dir) {
+  const { ta, a, b, start, end } = selectedLines();
+  const lines = ta.value.slice(start, end).split('\n');
+  let shiftA = 0, shiftTotal = 0;
+  const out = lines.map((line, k) => {
+    let next = line;
+    if (dir > 0) next = LIST_LINE.test(line) ? LIST_STEP + line : line.trim() ? line.replace(/^([ \t]*)/, '$1- ') : line;
+    else next = line.replace(/^(\t| {1,2})/, '');
+    if (k === 0) shiftA = next.length - line.length;
+    shiftTotal += next.length - line.length;
+    return next;
+  });
+  replaceLines(ta, start, end, out.join('\n'), Math.max(start, a + shiftA), b + shiftTotal);
+}
+
+// Jadikan baris poin, atau kembalikan poin menjadi teks biasa.
+function toggleBullet() {
+  const { ta, a, b, start, end } = selectedLines();
+  const lines = ta.value.slice(start, end).split('\n');
+  const allList = lines.filter((l) => l.trim()).every((l) => LIST_LINE.test(l));
+  let shiftA = 0, shiftTotal = 0;
+  const out = lines.map((line, k) => {
+    const next = allList ? line.replace(LIST_LINE, '$1') : LIST_LINE.test(line) || !line.trim() ? line : line.replace(/^([ \t]*)/, '$1- ');
+    if (k === 0) shiftA = next.length - line.length;
+    shiftTotal += next.length - line.length;
+    return next;
+  });
+  replaceLines(ta, start, end, out.join('\n'), Math.max(start, a + shiftA), b + shiftTotal);
+}
+
+// Enter di baris poin: buat poin baru setingkat. Enter di poin kosong: naik satu tingkat, atau keluar dari daftar.
+function continueList(e) {
+  const ta = e.target;
+  if (ta.selectionStart !== ta.selectionEnd) return;
+  const pos = ta.selectionStart;
+  const start = ta.value.lastIndexOf('\n', pos - 1) + 1;
+  const line = ta.value.slice(start, pos);
+  const m = line.match(LIST_LINE);
+  if (!m) return;
+  e.preventDefault();
+  const nl = ta.value.indexOf('\n', pos);
+  const end = nl === -1 ? ta.value.length : nl;
+  if (!line.slice(m[0].length).trim() && !ta.value.slice(pos, end).trim()) {
+    const up = m[1] ? m[1].replace(/(\t| {1,2})$/, '') + '- ' : '';
+    replaceLines(ta, start, end, up, start + up.length, start + up.length);
+    return;
+  }
+  const ins = '\n' + m[1] + '- ';
+  ta.setRangeText(ins, pos, pos, 'end');
   ta.dispatchEvent(new Event('input'));
   if (state.editor) state.editor.caret = [ta.selectionStart, ta.selectionEnd];
 }
