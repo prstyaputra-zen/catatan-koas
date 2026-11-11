@@ -8,7 +8,7 @@ import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular,
 import { icon } from './icons.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.15.0';
+const APP_VERSION = '0.16.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -45,6 +45,12 @@ function esc(s) {
 
 function uid() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+
+// Waktu ubah selalu maju. Sinkron memakai "yang terbaru menang"; bila jam perangkat lebih lambat dari waktu
+// ubah sebelumnya (mis. catatan feed bertanggal di depan), perubahan seperti sematan tidak boleh kalah.
+function touch(note) {
+  note.updated = Math.max(Date.now(), (note.updated || 0) + 1);
 }
 
 function fmtDate(ts) {
@@ -216,6 +222,32 @@ function headingOf(line) {
 }
 const headingKey = (h) => h.text.toLowerCase().replace(/\*\*/g, '').replace(/\s+/g, ' ');
 
+// Judul ditampilkan sesuai EYD: huruf pertama setiap kata kapital, kecuali kata tugas yang tidak di awal.
+// Hanya kata yang seluruhnya huruf kecil yang diubah, jadi singkatan (eGFR, pH, MgSO4, kgBB) tetap utuh.
+// Teks aslinya tidak diubah; ini hanya tampilan.
+const KATA_TUGAS = new Set(('di ke dari dan yang untuk pada dengan atau dalam oleh bagi tentang sebagai terhadap antara '
+  + 'tanpa serta per kepada daripada akan agar karena sejak hingga sampai menurut melalui bila jika apabila maupun '
+  + 'namun tetapi atas demi para si sang setelah sebelum saat ketika seperti secara pun').split(' '));
+const KATA_INGGRIS = new Set('of the and or in on for to with by at vs'.split(' '));
+const KATA_TETAP = new Set('dll dsb dkk et al sp spp mg mcg kg ml dl cm mm'.split(' ')); // singkatan/satuan huruf kecil
+function judulEYD(text) {
+  return String(text).split(/(https?:\/\/\S+)/).map((part, i) => {
+    if (i % 2) return part; // tautan dibiarkan apa adanya
+    let start = i === 0;
+    return part.replace(/(:\s*)|([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’]*)/g, (m, colon, w, off, s) => {
+      if (colon) { start = true; return m; }
+      const first = start;
+      start = false;
+      const prev = s[off - 1];
+      if (prev && /[\p{N}.]/u.test(prev)) return w; // 2x, i.v.
+      const low = w.toLowerCase();
+      if (!first && KATA_TUGAS.has(low) && (w === low || w === low[0].toUpperCase() + low.slice(1))) return low;
+      if (w !== low || w.length < 2 || KATA_TETAP.has(w) || (!first && KATA_INGGRIS.has(w))) return w;
+      return w[0].toUpperCase() + w.slice(1);
+    });
+  }).join('');
+}
+
 // Bagian yang dilipat diingat per catatan di perangkat ini.
 const foldKey = (id) => 'ck-fold:' + id;
 function loadFolds(id) {
@@ -248,7 +280,7 @@ function renderBody(body, terms, type, folds = null) {
         seen.set(key, n);
         if (n > 1) key += '#' + n;
         const open = !(folds && folds.has(key));
-        html += `<details class="sec lv-${hd.level}" data-key="${esc(key)}"${open ? ' open' : ''}><summary><span class="chev" aria-hidden="true">${icon('chevron')}</span><span class="sec-title" role="heading" aria-level="${hd.level + 1}">${inlineHtml(hd.text, terms)}</span></summary><div class="sec-body">`;
+        html += `<details class="sec lv-${hd.level}" data-key="${esc(key)}"${open ? ' open' : ''}><summary><span class="chev" aria-hidden="true">${icon('chevron')}</span><span class="sec-title" role="heading" aria-level="${hd.level + 1}">${inlineHtml(judulEYD(hd.text), terms)}</span></summary><div class="sec-body">`;
         stack.push(hd.level);
         continue;
       }
@@ -376,7 +408,7 @@ function renderResults() {
     box.innerHTML = `
       <div class="empty">
         <div class="big">🩺</div>
-        <h2>Belum ada catatan</h2>
+        <h2>Belum Ada Catatan</h2>
         <p>Tekan <b>＋</b> untuk menulis catatan kasus, topik, obat, atau prosedur. Foto, video, dan rekaman suara bisa dilampirkan. Semua tersimpan di perangkat ini dan bisa dicari tanpa internet.</p>
         <button class="btn ghost" id="demo">Coba dengan contoh catatan</button>
       </div>`;
@@ -411,7 +443,7 @@ function cardHtml(n, terms) {
     <a class="card ${state.feedUnread.has(n.id) ? 'unread' : ''}" href="#/catatan/${n.id}">
       <div class="card-main">
         <div class="card-top"><span class="badge t-${n.type}">${t.icon} ${t.label}</span>${n.stase ? `<span class="badge">${esc(n.stase)}</span>` : ''}${n.pinned ? '<span class="pin">📌</span>' : ''}</div>
-        <h3>${highlight(n.title || '(tanpa judul)', terms)}</h3>
+        <h3>${highlight(n.title ? judulEYD(n.title) : '(tanpa judul)', terms)}</h3>
         <p class="snip">${snippet(visibleBody(n.body, n.type), terms)}</p>
         ${matchedMedia ? `<p class="snip media-hit">${KIND_ICON[matchedMedia.kind]} ${highlight(matchedMedia.caption || matchedMedia.name, terms)}</p>` : ''}
         ${dh ? `<p class="snip media-hit doc-hit"><b>📄 ${esc(dh.m.name)}${dh.m.pageCount ? ` · hal. ${dh.page + 1}` : ''}</b> ${snippet(dh.m.docPages[dh.page], terms, 120)}</p>` : ''}
@@ -439,7 +471,7 @@ async function renderNote(id) {
   view().innerHTML = `
     <div class="topbar">
       <a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a>
-      <span class="grow crumb">${t.icon} ${esc(n.title || '(tanpa judul)')}</span>
+      <span class="grow crumb">${t.icon} ${esc(n.title ? judulEYD(n.title) : '(tanpa judul)')}</span>
       <button class="iconbtn" id="foldall" aria-label="Lipat semua bagian" title="Lipat / buka semua bagian">${icon('collapse')}</button>
       <button class="iconbtn pinbtn ${n.pinned ? 'on' : ''}" id="pin" aria-label="Sematkan di atas daftar" aria-pressed="${!!n.pinned}" title="Sematkan">${icon('pin')}</button>
     </div>
@@ -452,23 +484,23 @@ async function renderNote(id) {
     </div>
     <article class="note">
       <div class="page-icon" aria-hidden="true">${t.icon}</div>
-      <h1>${highlight(n.title || '(tanpa judul)', terms)}</h1>
+      <h1>${highlight(n.title ? judulEYD(n.title) : '(tanpa judul)', terms)}</h1>
       <dl class="props">
         <div><dt>Jenis</dt><dd><span class="badge t-${n.type}">${t.label}</span></dd></div>
         ${n.stase ? `<div><dt>Stase</dt><dd>${esc(n.stase)}</dd></div>` : ''}
         ${n.tags.length ? `<div><dt>Tag</dt><dd class="tags">${n.tags.map((x) => `<a class="tag" href="#/cari/${encodeURIComponent(x)}">#${esc(x)}</a>`).join('')}</dd></div>` : ''}
         <div><dt>Diubah</dt><dd>${fmtDate(n.updated)} <span class="muted">· dibuat ${fmtDate(n.created)}</span></dd></div>
       </dl>
-      ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di bagian bawah. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
+      ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di kartu Rujukan. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
       <nav class="toc-card hidden" id="toc-inline" aria-label="Daftar isi"></nav>
+      <section class="ref-card hidden" id="refs" aria-labelledby="refs-title"></section>
       <div class="body">${renderBody(n.body, terms, n.type, folds)}</div>
-      <div class="refs hidden" id="refs" role="group" aria-label="Rujukan catatan"></div>
       <div id="gallery" class="gallery"></div>
       ${relatedHtml(n)}
       <button class="btn danger ghost" id="del">${icon('trash')} Hapus catatan</button>
       <div class="note-fabs">
         <button class="mini-fab hidden" id="totop" aria-label="Kembali ke atas" title="Ke atas">${icon('up')}</button>
-        <button class="mini-fab hidden" id="tocbtn" aria-label="Daftar isi" title="Daftar isi" aria-haspopup="dialog">${icon('toc')}</button>
+        <button class="mini-fab hidden" id="tocbtn" aria-label="Daftar Isi" title="Daftar Isi" aria-haspopup="dialog">${icon('toc')}</button>
         <button class="mini-fab" id="findbtn" aria-label="Cari di catatan ini" title="Cari di catatan ini">${icon('search')}</button>
       </div>
     </article>
@@ -479,7 +511,7 @@ async function renderNote(id) {
     ${modeBarHtml('read')}`;
   $('#pin').onclick = async () => {
     n.pinned = !n.pinned;
-    n.updated = Date.now();
+    touch(n);
     const { mediaIds, ...stored } = n;
     await db.saveNote(stored);
     scheduleSync();
@@ -545,7 +577,7 @@ function bindNoteFind(n, initialTerms) {
     marks[cur].scrollIntoView({ block: 'center', behavior: 'smooth' });
   };
   const apply = (terms, jump = true) => {
-    titleEl.innerHTML = highlight(n.title || '(tanpa judul)', terms);
+    titleEl.innerHTML = highlight(n.title ? judulEYD(n.title) : '(tanpa judul)', terms);
     bodyEl.innerHTML = renderBody(n.body, terms, n.type, loadFolds(n.id));
     hydrateInlineImages(bodyEl, n);
     state.noteNav?.();
@@ -585,7 +617,8 @@ function bindNoteFind(n, initialTerms) {
 }
 
 // ---------- Daftar isi dan rujukan ----------
-// Bagian rujukan dikeluarkan dari alur baca dan dibuka sebagai lembar (show/hide) lewat tombol di akhir catatan.
+// Bagian rujukan dikeluarkan dari alur baca dan dikumpulkan di kartu Rujukan di bawah Daftar Isi;
+// tiap barisnya membuka lembar (show/hide).
 const REF_SECTION = /^(daftar singkatan|singkatan|sumber|referensi|rujukan|daftar pustaka|guideline( terkait)?|pedoman terkait)$/i;
 const TOC_MIN = 3;
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -625,6 +658,8 @@ function jumpToSection(key) {
   setTimeout(settle, 900);
 }
 
+const refIcon = (title) => (/singkatan/i.test(title) ? 'abbr' : /guideline|pedoman/i.test(title) ? 'guide' : 'library');
+
 function tocHtml(items, current) {
   return `<ol class="toc-list">${items.map((it) => `<li class="toc-l${it.level}"><button type="button" class="toc-link" data-key="${esc(it.key)}"${it.key === current ? ' aria-current="location"' : ''}>${esc(it.title)}</button></li>`).join('')}</ol>`;
 }
@@ -649,7 +684,7 @@ function setupNoteNav(n) {
     if (b) openSheet(refs[+b.dataset.ref].title, refs[+b.dataset.ref].node.cloneNode(true));
   });
   let items = [];
-  fab.onclick = () => openSheet('Daftar isi', tocHtml(items, readAnchor()));
+  fab.onclick = () => openSheet('Daftar Isi', tocHtml(items, readAnchor()));
   const refresh = () => {
     refs = [];
     for (const d of [...bodyEl.querySelectorAll('details.sec')]) {
@@ -661,7 +696,11 @@ function setupNoteNav(n) {
       d.remove();
     }
     refsEl.classList.toggle('hidden', !refs.length);
-    refsEl.innerHTML = '<h4 class="section">Rujukan</h4><div class="ref-chips">' + refs.map((r, i) => `<button type="button" class="ref-chip" data-ref="${i}" aria-haspopup="dialog">${icon('library')}<span>${esc(r.title)}</span>${r.count ? `<span class="ref-count" aria-label="${r.count} butir">${r.count}</span>` : ''}</button>`).join('') + '</div>';
+    refsEl.innerHTML = `<h2 class="ref-head" id="refs-title"><span class="toc-ic" aria-hidden="true">${icon('library')}</span>Rujukan</h2>`
+      + '<ul class="ref-list">' + refs.map((r, i) => `<li><button type="button" class="ref-row" data-ref="${i}" aria-haspopup="dialog">`
+      + `<span class="ref-ic" aria-hidden="true">${icon(refIcon(r.title))}</span>`
+      + `<span class="ref-text"><span class="ref-name">${esc(r.title)}</span>${r.count ? `<span class="ref-sub">${r.count} butir</span>` : ''}</span>`
+      + `<span class="ref-go" aria-hidden="true">${icon('chevron')}</span></button></li>`).join('') + '</ul>';
     items = [...bodyEl.querySelectorAll('details.sec')].map((d) => ({
       key: d.dataset.key,
       level: +(d.className.match(/lv-(\d)/)?.[1] || 2),
@@ -673,7 +712,7 @@ function setupNoteNav(n) {
     if (show) {
       let open = true;
       try { open = localStorage.getItem(tocOpenKey) !== '0'; } catch { /* diblokir */ }
-      inline.innerHTML = `<details${open ? ' open' : ''}><summary><span class="toc-ic" aria-hidden="true">${icon('toc')}</span>Daftar isi <span class="muted">· ${items.length} bagian</span></summary>${tocHtml(items)}</details>`;
+      inline.innerHTML = `<details${open ? ' open' : ''}><summary><span class="toc-ic" aria-hidden="true">${icon('toc')}</span>Daftar Isi <span class="muted">· ${items.length} bagian</span></summary>${tocHtml(items)}</details>`;
     } else inline.innerHTML = '';
   };
   refresh();
@@ -915,7 +954,7 @@ async function saveImagesToNote(note, items) {
   // Dikumpulkan di bawah label "Gambar:" agar tidak terbaca sebagai isi bagian terakhir (mis. Sumber).
   const head = /^Gambar:\s*$/m.test(note.body) ? '' : 'Gambar:\n';
   note.body = (note.body.replace(/\s+$/, '') + '\n\n' + head + refs.join('\n\n')).replace(/^\s+/, '');
-  note.updated = Date.now();
+  touch(note);
   const { mediaIds, ...stored } = note;
   try {
     await db.saveNote(stored, add);
@@ -1028,7 +1067,7 @@ function relatedHtml(n) {
   });
   scored.sort((a, b) => b[1] - a[1] || b[0].updated - a[0].updated);
   if (!scored.length) return '';
-  return `<h4 class="section">Catatan terkait</h4><div class="related">${scored.slice(0, 6).map(([o]) => `<a href="#/catatan/${o.id}">${TYPES[o.type]?.icon || ''} ${esc(o.title)}</a>`).join('')}</div>`;
+  return `<h4 class="section">Catatan Terkait</h4><div class="related">${scored.slice(0, 6).map(([o]) => `<a href="#/catatan/${o.id}">${TYPES[o.type]?.icon || ''} ${esc(o.title)}</a>`).join('')}</div>`;
 }
 
 // ---------- Dokumen: kartu di catatan & penampil ----------
@@ -1100,7 +1139,7 @@ async function rereadDocText(note, m) {
     return false;
   }
   const patch = { id: m.id, docPages: pages, pageCount: ex.pageCount ?? m.pageCount ?? null };
-  note.updated = Date.now();
+  touch(note);
   const { mediaIds, ...stored } = note;
   await db.saveNote(stored, [], [patch]);
   state.mediaMeta.set(m.id, { ...state.mediaMeta.get(m.id), ...patch });
@@ -1141,7 +1180,7 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
       <button class="iconbtn" data-act="next" aria-label="Hasil berikutnya">⌄</button>
     </div>` : ''}
     <div class="dv-body"></div>
-    ${older.length ? `<div class="dv-versions"><h4 class="section">Versi sebelumnya</h4>${older.map((v) => `<div class="dv-ver"><span>${fmtDate(v.created)} · ${fmtSize(v.size)}</span><button class="btn small ghost" data-ver="${v.id}">Buka</button></div>`).join('')}</div>` : ''}`;
+    ${older.length ? `<div class="dv-versions"><h4 class="section">Versi Sebelumnya</h4>${older.map((v) => `<div class="dv-ver"><span>${fmtDate(v.created)} · ${fmtSize(v.size)}</span><button class="btn small ghost" data-ver="${v.id}">Buka</button></div>`).join('')}</div>` : ''}`;
   document.body.appendChild(ov);
   document.body.classList.add('noscroll');
   const body = ov.querySelector('.dv-body');
@@ -1392,7 +1431,7 @@ async function saveNewVersion(note, old, file) {
   const nm = await buildDocMedia(file, docType, note.id);
   nm.caption = old.caption || '';
   const { isNew, dirty, ...stored } = nm;
-  note.updated = Date.now();
+  touch(note);
   const { mediaIds, ...storedNote } = note;
   try {
     await db.saveNote(storedNote, [stored], [{ id: old.id, supersededBy: nm.id }]);
@@ -1497,13 +1536,13 @@ function renderPuyer() {
         ${unitInput('p-n', 'Jumlah bungkus', 'bks', 'otomatis')}
       </div>
       <label class="field"><span>Pembulatan jumlah tablet</span><select id="p-round"><option value="0.25">¼ tablet</option><option value="0.5">½ tablet</option><option value="0">Tanpa pembulatan</option></select></label>
-      <h4 class="section">Obat dalam racikan</h4>
+      <h4 class="section">Obat dalam Racikan</h4>
       <div id="p-rows" class="drug-rows"></div>
       <button type="button" class="btn ghost" id="p-add">${icon('plus')} Tambah obat</button>
     </form>
     <div id="p-out" class="calc-out"></div>
     <details class="calc-ref">
-      <summary>Dosis acuan & catatan</summary>
+      <summary>Dosis Acuan & Catatan</summary>
       <table>${PUYER_DRUGS.map((d) => `<tr><td>${esc(d.name)}</td><td>${fmtNum(d.range[0], 2)}${d.range[1] !== d.range[0] ? `–${fmtNum(d.range[1], 2)}` : ''} mg/kg/${d.mode === 'day' ? 'hari' : 'dosis'}${d.maxDose ? `; maks ${fmtNum(d.maxDose)} mg/kali` : ''}${d.maxDayKg ? `; maks ${fmtNum(d.maxDayKg, 2)} mg/kg/hari` : ''}${d.maxDay ? `; maks ${fmtNum(d.maxDay)} mg/hari` : ''}${d.note ? `<br><span class="hint">${esc(d.note)}</span>` : ''}</td></tr>`).join('')}</table>
       <h4>Catatan</h4>
       <ul>
@@ -1603,7 +1642,7 @@ function renderFluid() {
     </form>
     <div id="f-out" class="calc-out"></div>
     <details class="calc-ref">
-      <summary>Rumus & catatan</summary>
+      <summary>Rumus & Catatan</summary>
       <table>
         <tr><td>BB ≤ 10 kg</td><td>100 mL/kg/hari · 4 mL/kg/jam</td></tr>
         <tr><td>BB 10–20 kg</td><td>1.000 mL + 50 mL/kg di atas 10 kg · 40 mL/jam + 2 mL/kg</td></tr>
@@ -1685,7 +1724,7 @@ function renderBmi() {
     </form>
     <div id="b-out" class="calc-out"><p class="hint">Isi tinggi dan berat badan untuk melihat hasilnya.</p></div>
     <details class="calc-ref">
-      <summary>Tabel kategori dan catatan</summary>
+      <summary>Tabel Kategori dan Catatan</summary>
       ${Object.values(BMI_SYSTEMS).map((sys) => {
         let lo = null;
         const rows = sys.cats.map((c) => {
@@ -2523,7 +2562,7 @@ async function saveEditor(navigate = true) {
   n.body = $('#e-body').value.replace(/\s+$/, '');
   if (!n.title && !n.body.trim() && !ed.media.length) { if (navigate) toast('Catatan masih kosong'); return false; }
   if (!n.title) n.title = n.body.split('\n').find((l) => l.trim())?.slice(0, 80) || 'Catatan ' + fmtDate(Date.now());
-  n.updated = Date.now();
+  touch(n);
   const strip = ({ isNew, dirty, ...m }) => m;
   const add = ed.media.filter((m) => m.isNew).map(strip);
   const upd = ed.media.filter((m) => !m.isNew && m.dirty).map((m) => ({ id: m.id, caption: m.caption }));
@@ -2564,12 +2603,12 @@ async function renderSettings() {
     <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Pengaturan</span></div>
     <div class="settings">
       <section>
-        <h4>Penyimpanan di perangkat ini</h4>
+        <h4>Penyimpanan di Perangkat Ini</h4>
         <p>${state.notes.size} catatan · ${state.mediaMeta.size} lampiran${est ? ` · terpakai ${fmtSize(est.usage || 0)}` : ''}</p>
         <p>Penyimpanan permanen: <b>${persisted === null ? 'tidak diketahui' : persisted ? 'aktif ✓' : 'belum aktif'}</b>${standalone ? '' : '. Pasang aplikasi ke layar utama agar iPhone tidak menghapus data saat memori menipis.'}</p>
       </section>
       ${standalone ? '' : `<section class="install">
-        <h4>Pasang di iPhone (sekali saja)</h4>
+        <h4>Pasang di iPhone (Sekali Saja)</h4>
         <ol><li>Buka halaman ini di <b>Safari</b>.</li><li>Ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas).</li><li>Pilih <b>Tambah ke Layar Utama</b>.</li></ol>
         <p>Setelah itu aplikasi terbuka seperti app biasa dan berjalan tanpa internet.</p>
       </section>`}
@@ -3062,7 +3101,7 @@ async function syncSectionHtml() {
         : `<p>Buat <b>kata sandi sinkron</b> (minimal 8 karakter). Kata sandi ini mengenkripsi catatanmu di Drive dan diperlukan saat menyambungkan perangkat lain. Jika lupa, data di Drive tidak bisa dibuka, tapi data di perangkat tetap aman.</p>
            <div class="row"><input id="g-pass" class="field" type="password" placeholder="Kata sandi baru" autocomplete="new-password"><input id="g-pass2" class="field" type="password" placeholder="Ulangi kata sandi" autocomplete="new-password"><button class="btn" id="g-pass-save">Buat & sinkron</button></div>`;
   }
-  return `<section class="sync"><h4>Sinkron iPhone & laptop (Google Drive)</h4>${inner}<p class="sync-status" id="g-status"></p></section>`;
+  return `<section class="sync"><h4>Sinkron iPhone & Laptop (Google Drive)</h4>${inner}<p class="sync-status" id="g-status"></p></section>`;
 }
 
 function bindSyncSection() {
@@ -3168,7 +3207,7 @@ async function start() {
   try {
     await loadAll();
   } catch (e) {
-    view().innerHTML = `<div class="empty"><h2>Penyimpanan tidak bisa dibuka</h2><p>${esc(e?.message || e)}. Jika memakai mode Private di Safari, buka di tab biasa.</p></div>`;
+    view().innerHTML = `<div class="empty"><h2>Penyimpanan Tidak Bisa Dibuka</h2><p>${esc(e?.message || e)}. Jika memakai mode Private di Safari, buka di tab biasa.</p></div>`;
     return;
   }
   window.addEventListener('hashchange', route);
