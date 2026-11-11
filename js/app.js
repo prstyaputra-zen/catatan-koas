@@ -8,7 +8,7 @@ import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular,
 import { icon } from './icons.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.14.0';
+const APP_VERSION = '0.15.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -31,6 +31,7 @@ const state = {
   editor: null,
   draft: null,
   anchor: null,           // kunci judul bagian yang dibawa saat berpindah mode Baca/Ubah
+  noteNav: null,          // fungsi penyegar daftar isi & rujukan catatan yang sedang dibuka
   filterFresh: false,     // hanya tampilkan catatan "auto updates"
   feedUnread: new Set(),  // id catatan auto updates yang belum dibuka di perangkat ini // catatan hasil "Tempel dari Claude" yang menunggu dibuka di editor
 };
@@ -459,15 +460,22 @@ async function renderNote(id) {
         <div><dt>Diubah</dt><dd>${fmtDate(n.updated)} <span class="muted">· dibuat ${fmtDate(n.created)}</span></dd></div>
       </dl>
       ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di bagian bawah. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
+      <nav class="toc-card hidden" id="toc-inline" aria-label="Daftar isi"></nav>
       <div class="body">${renderBody(n.body, terms, n.type, folds)}</div>
+      <div class="refs hidden" id="refs" role="group" aria-label="Rujukan catatan"></div>
       <div id="gallery" class="gallery"></div>
       ${relatedHtml(n)}
       <button class="btn danger ghost" id="del">${icon('trash')} Hapus catatan</button>
       <div class="note-fabs">
         <button class="mini-fab hidden" id="totop" aria-label="Kembali ke atas" title="Ke atas">${icon('up')}</button>
+        <button class="mini-fab hidden" id="tocbtn" aria-label="Daftar isi" title="Daftar isi" aria-haspopup="dialog">${icon('toc')}</button>
         <button class="mini-fab" id="findbtn" aria-label="Cari di catatan ini" title="Cari di catatan ini">${icon('search')}</button>
       </div>
     </article>
+    <dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+      <div class="sheet-head"><h2 id="sheet-title"></h2><button type="button" class="iconbtn" data-close aria-label="Tutup">${icon('x')}</button></div>
+      <div class="sheet-body"></div>
+    </dialog>
     ${modeBarHtml('read')}`;
   $('#pin').onclick = async () => {
     n.pinned = !n.pinned;
@@ -480,6 +488,7 @@ async function renderNote(id) {
     toast(n.pinned ? 'Disematkan di atas daftar' : 'Sematan dilepas');
   };
   bindFolds(n, folds);
+  state.noteNav = setupNoteNav(n);
   bindModeBar('read', n.id);
   restoreReadAnchor();
   $('#del').onclick = async () => {
@@ -539,6 +548,7 @@ function bindNoteFind(n, initialTerms) {
     titleEl.innerHTML = highlight(n.title || '(tanpa judul)', terms);
     bodyEl.innerHTML = renderBody(n.body, terms, n.type, loadFolds(n.id));
     hydrateInlineImages(bodyEl, n);
+    state.noteNav?.();
     marks = [...view().querySelectorAll('.note h1 mark, .note .body mark')];
     if (jump) show(0); else { cur = -1; countEl.textContent = marks.length ? `${marks.length} hasil` : ''; }
   };
@@ -572,6 +582,102 @@ function bindNoteFind(n, initialTerms) {
     countEl.textContent = marks.length ? `${marks.length} hasil` : '';
     if (marks.length) requestAnimationFrame(() => show(0));
   }
+}
+
+// ---------- Daftar isi dan rujukan ----------
+// Bagian rujukan dikeluarkan dari alur baca dan dibuka sebagai lembar (show/hide) lewat tombol di akhir catatan.
+const REF_SECTION = /^(daftar singkatan|singkatan|sumber|referensi|rujukan|daftar pustaka|guideline( terkait)?|pedoman terkait)$/i;
+const TOC_MIN = 3;
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const tocOpenKey = 'ck-toc-open';
+
+function openSheet(title, content) {
+  const dlg = $('#sheet');
+  if (!dlg) return;
+  $('#sheet-title').textContent = title;
+  const body = dlg.querySelector('.sheet-body');
+  body.replaceChildren(...(typeof content === 'string' ? [] : [content]));
+  if (typeof content === 'string') body.innerHTML = content;
+  body.scrollTop = 0;
+  if (!dlg.open) dlg.showModal();
+  return dlg;
+}
+
+function closeSheet() {
+  const dlg = $('#sheet');
+  if (dlg?.open) dlg.close();
+}
+
+// Lompat ke judul bagian: buka bagian induk yang terlipat, gulir dengan memperhitungkan bilah yang menempel.
+function jumpToSection(key) {
+  const sec = [...view().querySelectorAll('.note .body details.sec')].find((d) => d.dataset.key === key);
+  if (!sec) return;
+  openAncestors(sec);
+  const sum = sec.firstElementChild;
+  const getTop = () => sum.getBoundingClientRect().top + window.scrollY - stickyBottom() - 8;
+  sum.focus({ preventScroll: true });
+  // Gambar yang baru termuat saat melintas menggeser posisi; setelah gulir halus selesai, sejajarkan ulang.
+  if (reducedMotion()) { scrollToAnchor(getTop); return; }
+  window.scrollTo({ top: Math.max(0, getTop()), behavior: 'smooth' });
+  let settled = false;
+  const settle = () => { if (!settled) { settled = true; scrollToAnchor(getTop); } };
+  window.addEventListener('scrollend', settle, { once: true });
+  setTimeout(settle, 900);
+}
+
+function tocHtml(items, current) {
+  return `<ol class="toc-list">${items.map((it) => `<li class="toc-l${it.level}"><button type="button" class="toc-link" data-key="${esc(it.key)}"${it.key === current ? ' aria-current="location"' : ''}>${esc(it.title)}</button></li>`).join('')}</ol>`;
+}
+
+// Dipanggil setiap kali isi catatan dirender ulang (mis. oleh pencarian di catatan).
+function setupNoteNav(n) {
+  const bodyEl = view().querySelector('.note .body');
+  const refsEl = $('#refs');
+  const inline = $('#toc-inline');
+  const fab = $('#tocbtn');
+  const dlg = $('#sheet');
+  dlg.addEventListener('click', (e) => {
+    if (e.target === dlg || e.target.closest('[data-close]')) { closeSheet(); return; }
+    const link = e.target.closest('.toc-link');
+    if (link) { closeSheet(); jumpToSection(link.dataset.key); }
+  });
+  inline.addEventListener('click', (e) => { const link = e.target.closest('.toc-link'); if (link) jumpToSection(link.dataset.key); });
+  inline.addEventListener('toggle', (e) => { try { localStorage.setItem(tocOpenKey, e.target.open ? '1' : '0'); } catch { /* diblokir */ } }, true);
+  let refs = [];
+  refsEl.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-ref]');
+    if (b) openSheet(refs[+b.dataset.ref].title, refs[+b.dataset.ref].node.cloneNode(true));
+  });
+  let items = [];
+  fab.onclick = () => openSheet('Daftar isi', tocHtml(items, readAnchor()));
+  const refresh = () => {
+    refs = [];
+    for (const d of [...bodyEl.querySelectorAll('details.sec')]) {
+      if (!d.isConnected) continue;
+      const title = d.querySelector(':scope > summary .sec-title')?.textContent.trim() || '';
+      if (!REF_SECTION.test(title)) continue;
+      const node = d.querySelector(':scope > .sec-body');
+      refs.push({ title, node, count: node.querySelectorAll(':scope > ul > li').length });
+      d.remove();
+    }
+    refsEl.classList.toggle('hidden', !refs.length);
+    refsEl.innerHTML = '<h4 class="section">Rujukan</h4><div class="ref-chips">' + refs.map((r, i) => `<button type="button" class="ref-chip" data-ref="${i}" aria-haspopup="dialog">${icon('library')}<span>${esc(r.title)}</span>${r.count ? `<span class="ref-count" aria-label="${r.count} butir">${r.count}</span>` : ''}</button>`).join('') + '</div>';
+    items = [...bodyEl.querySelectorAll('details.sec')].map((d) => ({
+      key: d.dataset.key,
+      level: +(d.className.match(/lv-(\d)/)?.[1] || 2),
+      title: d.querySelector(':scope > summary .sec-title').textContent.trim(),
+    }));
+    const show = items.length >= TOC_MIN;
+    fab.classList.toggle('hidden', !show);
+    inline.classList.toggle('hidden', !show);
+    if (show) {
+      let open = true;
+      try { open = localStorage.getItem(tocOpenKey) !== '0'; } catch { /* diblokir */ }
+      inline.innerHTML = `<details${open ? ' open' : ''}><summary><span class="toc-ic" aria-hidden="true">${icon('toc')}</span>Daftar isi <span class="muted">· ${items.length} bagian</span></summary>${tocHtml(items)}</details>`;
+    } else inline.innerHTML = '';
+  };
+  refresh();
+  return refresh;
 }
 
 // ---------- Bagian yang bisa dilipat ----------
@@ -620,12 +726,34 @@ function modeBarHtml(mode) {
   return `<nav class="modebar" aria-label="Mode catatan">${b('read', 'read', 'Baca')}${b('edit', 'edit', 'Ubah')}</nav>`;
 }
 
+// Saat tidak dipakai, bilah menciut menjadi ikon mode aktif; ketuk, arahkan kursor, atau fokus keyboard untuk membukanya.
+const MODEBAR_IDLE = 2500;
 function bindModeBar(mode, id) {
   const bar = view().querySelector('.modebar');
+  let timer;
+  const collapse = () => { clearTimeout(timer); if (!bar.matches(':hover, :focus-within')) bar.classList.add('compact'); };
+  let expandedAt = 0;
+  const expand = () => { bar.classList.remove('compact'); expandedAt = Date.now(); clearTimeout(timer); timer = setTimeout(collapse, MODEBAR_IDLE); };
   bar.onclick = (e) => {
     const b = e.target.closest('[data-mode]');
-    if (b && b.dataset.mode !== mode) switchMode();
+    if (!b) return;
+    if (bar.classList.contains('compact')) { expand(); return; }
+    if (b.dataset.mode !== mode) switchMode();
+    else expand();
   };
+  bar.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') expand(); });
+  bar.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') timer = setTimeout(collapse, 600); });
+  bar.addEventListener('focusin', expand);
+  bar.addEventListener('focusout', () => { timer = setTimeout(collapse, 600); });
+  // Menggulir atau mengetik berarti pengguna sedang membaca/menulis: ciutkan agar tidak menutupi isi.
+  const busy = () => {
+    if (!bar.isConnected) { window.removeEventListener('scroll', busy); return; }
+    // Gulir sisa (momentum) tepat setelah bilah diketuk tidak langsung menciutkannya lagi.
+    if (!bar.classList.contains('compact') && Date.now() - expandedAt > 800) collapse();
+  };
+  window.addEventListener('scroll', busy, { passive: true });
+  $('#e-body')?.addEventListener('input', busy);
+  timer = setTimeout(collapse, MODEBAR_IDLE);
 }
 
 async function switchMode() {
