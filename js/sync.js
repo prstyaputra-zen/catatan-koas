@@ -11,7 +11,7 @@ const CHUNK = 4 * 1024 * 1024;
 const PBKDF2_ITER = 310000;
 const CHECK_TEXT = 'catatan-koas-ok';
 // Nilai meta yang ikut sinkron terenkripsi; waktu simpannya di meta <nama>At.
-const SECRETS = ['githubToken'];
+const SECRETS = ['githubToken', 'geminiKey', 'groqKey'];
 
 export class AuthError extends Error {}
 
@@ -251,7 +251,7 @@ export async function syncNow(onProgress = () => {}) {
 
   const stats = { up: 0, down: 0, deleted: 0, skipped: 0 };
 
-  // Rahasia perangkat (token GitHub) ikut sinkron, terenkripsi dengan kata sandi sinkron seperti catatan.
+  // Rahasia perangkat (token GitHub, API key Gemini/Groq) ikut sinkron, terenkripsi dengan kata sandi sinkron seperti catatan.
   // Yang terbaru (waktu simpan) menang; nilai null berarti token dihapus di semua perangkat.
   for (const name of SECRETS) {
     const r = files.find((f) => f.appProperties?.t === 'sec' && f.appProperties.id === name);

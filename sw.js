@@ -1,5 +1,5 @@
 // Service worker: menyimpan seluruh aplikasi di perangkat agar terbuka tanpa internet.
-const CACHE = 'catatan-koas-v27';
+const CACHE = 'catatan-koas-v28';
 const ASSETS = [
   './',
   'index.html',
@@ -16,6 +16,7 @@ const ASSETS = [
   'js/table.js',
   'js/config.js',
   'js/github.js',
+  'js/tanya.js',
   'vendor/pdfjs/pdf.min.mjs',
   'vendor/pdfjs/pdf.worker.min.mjs',
   'vendor/pdfjs/standard_fonts/FoxitDingbats.pfb',
