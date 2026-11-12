@@ -1192,6 +1192,7 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
   terms = terms || new Set();
   const ov = document.createElement('div');
   ov.className = 'docviewer';
+  ov.dataset.media = m.id; // dibaca Tanya AI untuk teks halaman PDF yang tampil
   ov.innerHTML = `
     <div class="dv-bar">
       <button class="iconbtn" data-act="close" aria-label="Tutup">✕</button>
@@ -3839,16 +3840,20 @@ async function loadAiHistory() {
 
 // ---------- Tanya AI (Gemini & Groq, gratis) ----------
 
-const TANYA_KEYS = { gemini: 'geminiKey', groq: 'groqKey' };
 const TANYA_INFO = {
   gemini: { name: 'Gemini', ph: 'AIza…', how: 'Buka <b>aistudio.google.com</b> › Get API key › Create API key.' },
   groq: { name: 'Groq', ph: 'gsk_…', how: 'Buka <b>console.groq.com/keys</b> › Create API Key.' },
 };
+// Slot 1 memakai nama lama (geminiKey/groqKey) agar key yang sudah tersimpan tetap terbaca.
+const tanyaSlot = (p, i) => `${p}Key${i ? i + 1 : ''}`;
+const SLOTS = [...Array(tanya.KEY_SLOTS).keys()];
 
-let tanyaKeysOpen = false; // panel key tetap terbuka setelah menyimpan/menghapus key, agar key kedua bisa langsung diisi
+let tanyaKeysOpen = false; // panel key tetap terbuka setelah menyimpan/menghapus key, agar key berikutnya bisa langsung diisi
 
 async function tanyaKeys() {
-  return { gemini: await db.getMeta('geminiKey'), groq: await db.getMeta('groqKey') };
+  const out = {};
+  for (const p of Object.keys(TANYA_INFO)) out[p] = await Promise.all(SLOTS.map((i) => db.getMeta(tanyaSlot(p, i))));
+  return out;
 }
 
 // Pertanyaan -> catatan paling relevan. Kolom cari mewajibkan semua kata cocok; pertanyaan bebas
@@ -3882,11 +3887,187 @@ function tanyaRefs(question, prevQuestion) {
 }
 
 function tanyaMsgHtml(m) {
-  if (m.role === 'user') return `<div class="tq-msg user"><div class="tq-bubble">${esc(m.content).replace(/\n/g, '<br>')}</div></div>`;
+  if (m.role === 'user') return `<div class="tq-msg user"><div class="tq-bubble">${esc(m.content).replace(/\n/g, '<br>')}</div>${m.ctx ? `<small class="tq-meta">${esc(m.ctx)}</small>` : ''}</div>`;
   const refs = (m.refs || []).filter((r) => state.notes.has(r.id));
   return `<div class="tq-msg ai"><div class="tq-bubble note-body">${m.error ? `<p class="tq-err">${esc(m.content).replace(/\n/g, '<br>')}</p>` : renderBody(m.content, null, null)}</div>
-    <small class="tq-meta">${refs.length ? 'Catatan dipakai: ' + refs.map((r) => `<a href="#/catatan/${esc(r.id)}">${esc(judulEYD(r.title))}</a>`).join(', ') + ' · ' : ''}${m.model ? esc(m.model) : ''}${m.error ? '' : ' · cek angka klinis ke sumber'}</small></div>`;
+    <small class="tq-meta">${refs.length ? 'Catatan dipakai: ' + refs.map((r) => `<a href="#/catatan/${esc(r.id)}">${esc(judulEYD(r.title))}</a>`).join(', ') + ' · ' : ''}${m.model ? esc(m.model) : ''}${m.note ? ' · ' + esc(m.note) : ''}${m.error ? '' : ' · cek angka klinis ke sumber'}</small></div>`;
 }
+
+// ---------- Tanya AI: membaca layar ----------
+// Yang dibaca: teks yang sedang tampil (± sedikit di atas/bawah layar), nilai kolom isian, teks halaman PDF yang
+// tampil (dari teks hasil ekstraksi), teks yang diblok, dan (bila dicentang) gambar yang tampil. Semua diambil
+// saat Kirim ditekan, dari halaman di bawah panel.
+
+const tanyaCtx = { screenOff: false, selOff: false, sel: '', img: false };
+let tanyaSel = { text: '', at: 0 };
+
+function tanyaScreenRoot() {
+  return document.querySelector('.lightbox') || document.querySelector('.docviewer') || view();
+}
+const tqInView = (r, pad = 0) => r.width > 0 && r.height > 0 && r.bottom > -pad && r.top < innerHeight + pad && r.right > 0 && r.left < innerWidth;
+const tqOutside = (n) => !(n && tanyaPanel?.contains(n.nodeType === 1 ? n : n.parentNode));
+
+// Teks yang sedang diblok di halaman (termasuk di dalam kolom isian, mis. editor catatan).
+function tanyaSelection() {
+  const a = document.activeElement;
+  if (a && /^(TEXTAREA|INPUT)$/.test(a.tagName) && tqOutside(a) && a.selectionEnd > a.selectionStart) {
+    return a.value.slice(a.selectionStart, a.selectionEnd).trim();
+  }
+  const sel = getSelection();
+  return sel && !sel.isCollapsed && tqOutside(sel.anchorNode) ? sel.toString().trim() : '';
+}
+
+document.addEventListener('selectionchange', () => {
+  const t = tanyaSelection();
+  if (!t) return; // di HP, blok hilang saat tombol 💬 diketuk; blok terakhir tetap diingat sebentar
+  tanyaSel = { text: t.slice(0, 3000), at: Date.now() };
+  if (tanyaOpen()) { tanyaCtx.sel = tanyaSel.text; tanyaCtx.selOff = false; tanyaCtxBar(); }
+});
+
+function tanyaScreenLabel(root) {
+  if (root.classList.contains('lightbox')) return 'Gambar';
+  if (root.classList.contains('docviewer')) {
+    const name = root.querySelector('.dv-title b')?.textContent || 'Dokumen';
+    const pg = [...root.querySelectorAll('.pdfpage, .dv-page')].find((d) => tqInView(d.getBoundingClientRect()));
+    return pg && root.querySelectorAll('.pdfpage, .dv-page').length > 1 ? `${name} › hlm ${+pg.dataset.no + 1}` : name;
+  }
+  const title = root.querySelector('h1')?.textContent.trim() || root.querySelector('.topbar .title')?.textContent.trim() || document.title;
+  // Judul bagian yang sedang dibaca: judul terakhir yang sudah lewat tepi atas layar, atau yang pertama tampil.
+  const heads = [...root.querySelectorAll('h2, h3')].filter((h) => h.getBoundingClientRect().height > 0);
+  const top = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--appbar-h')) || 56) + 60;
+  let cur = null;
+  for (const h of heads) { if (h.getBoundingClientRect().top <= top) cur = h; else break; }
+  cur ||= heads.find((h) => tqInView(h.getBoundingClientRect()));
+  const sec = cur?.textContent.trim();
+  return [title, sec].filter(Boolean).map((s) => s.slice(0, 60)).join(' › ');
+}
+
+const TQ_BLOCK = 'p,li,h1,h2,h3,h4,h5,h6,tr,pre,blockquote,dt,dd,label,figcaption,summary,section,div';
+
+function tanyaVisibleText(root, max) {
+  const out = [];
+  let len = 0;
+  let lastBlock = null;
+  let lastCell = null;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: (n) => (!n.data.trim() || n.parentElement?.closest('script,style,svg,button,textarea,select,option,.tq-panel,.tq-fab,[hidden],[aria-hidden="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+  });
+  const range = document.createRange();
+  for (let n = walker.nextNode(); n && len < max; n = walker.nextNode()) {
+    range.selectNodeContents(n);
+    if (!tqInView(range.getBoundingClientRect(), 150)) continue;
+    const block = n.parentElement.closest(TQ_BLOCK);
+    const cell = n.parentElement.closest('td,th');
+    let t = n.data.replace(/\s+/g, ' ');
+    if (block !== lastBlock) { if (out.length) out.push('\n'); t = t.trimStart(); }
+    else if (cell !== lastCell) out.push(' | ');
+    out.push(t);
+    len += t.length;
+    lastBlock = block;
+    lastCell = cell;
+  }
+  // Isian yang tampil (kalkulator, editor): label + nilai. Isi editor diambil di sekitar kursor saja.
+  const fields = [];
+  root.querySelectorAll('input:not([type=hidden]):not([type=password]):not([type=file]):not([type=search]), select, textarea').forEach((el) => {
+    if (!tqOutside(el) || !tqInView(el.getBoundingClientRect())) return;
+    let v = el.tagName === 'SELECT' ? el.selectedOptions[0]?.textContent
+      : /^(checkbox|radio)$/.test(el.type) ? (el.checked ? '✓' : '')
+      : el.tagName === 'TEXTAREA' ? el.value.slice(Math.max(0, el.selectionStart - 1500), Math.max(0, el.selectionStart - 1500) + 3000)
+      : el.value;
+    v = String(v || '').trim();
+    if (!v) return;
+    const lab = (el.labels?.[0]?.textContent || el.getAttribute('aria-label') || el.placeholder || '').trim().slice(0, 60);
+    fields.push(lab ? `${lab}: ${v}` : v);
+  });
+  const text = out.join('').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+  return (text + (fields.length ? '\n\nIsian di layar:\n' + fields.join('\n') : '')).slice(0, max);
+}
+
+async function tanyaScreen(max) {
+  const root = tanyaScreenRoot();
+  const label = tanyaScreenLabel(root);
+  let text = '';
+  const pdfPages = [...root.querySelectorAll('.pdfpage')].filter((d) => tqInView(d.getBoundingClientRect()));
+  if (pdfPages.length) {
+    const m = await db.getMedia(root.dataset.media);
+    text = pdfPages.slice(0, 2).map((d) => `[Halaman ${+d.dataset.no + 1}]\n${(m?.docPages?.[+d.dataset.no] || '').trim() || '(halaman ini tidak memuat teks, mungkin hasil scan: sertakan gambar di layar agar terbaca)'}`).join('\n\n').slice(0, max);
+  } else {
+    text = tanyaVisibleText(root, max);
+  }
+  return { label, text };
+}
+
+// Gambar yang tampil (foto catatan beserta coretannya, halaman PDF), diperkecil ke sisi terpanjang 1024 px, JPEG.
+function tanyaScreenImageEls() {
+  const root = tanyaScreenRoot();
+  return [...root.querySelectorAll('img, .pdfpage canvas')]
+    .map((el) => ({ el, r: el.getBoundingClientRect() }))
+    .filter(({ el, r }) => tqOutside(el) && tqInView(r) && r.width >= 60 && r.height >= 60)
+    .map(({ el, r }) => ({ el, area: (Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) * (Math.min(r.right, innerWidth) - Math.max(r.left, 0)) }))
+    .sort((a, b) => b.area - a.area)
+    .slice(0, 3)
+    .map((x) => x.el);
+}
+
+async function tanyaImageData(el) {
+  const w0 = el.naturalWidth || el.width;
+  const h0 = el.naturalHeight || el.height;
+  if (!w0 || !h0) return null;
+  const k = Math.min(1, 1024 / Math.max(w0, h0));
+  const w = Math.round(w0 * k);
+  const h = Math.round(h0 * k);
+  const c = document.createElement('canvas');
+  c.width = w;
+  c.height = h;
+  const g = c.getContext('2d');
+  g.fillStyle = '#fff';
+  g.fillRect(0, 0, w, h);
+  g.drawImage(el, 0, 0, w, h);
+  const svg = el.closest('.annot-wrap')?.querySelector('svg.annot');
+  if (svg) {
+    // Coretan disimpan sebagai SVG di atas gambar; gaya dari CSS ditulis ulang sebagai atribut agar ikut tergambar.
+    const s = svg.cloneNode(true);
+    s.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    s.setAttribute('width', w);
+    s.setAttribute('height', h);
+    s.querySelectorAll('path').forEach((p) => { p.setAttribute('fill', 'none'); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('stroke-linejoin', 'round'); });
+    s.querySelectorAll('text').forEach((t) => { t.setAttribute('font-family', 'system-ui, sans-serif'); t.setAttribute('font-weight', '600'); t.setAttribute('stroke', '#fff'); t.setAttribute('paint-order', 'stroke'); });
+    const im = new Image();
+    im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(s));
+    await im.decode();
+    g.drawImage(im, 0, 0, w, h);
+  }
+  return c.toDataURL('image/jpeg', 0.8).split(',')[1];
+}
+
+async function tanyaScreenImages() {
+  const out = [];
+  for (const el of tanyaScreenImageEls()) {
+    try { const d = await tanyaImageData(el); if (d) out.push(d); } catch (e) { console.warn('Gambar layar dilewati', e); }
+  }
+  return out;
+}
+
+// Baris konteks di bawah judul panel: apa yang akan ikut dibaca, dengan tombol untuk mematikannya.
+function tanyaCtxBar() {
+  const bar = tanyaPanel?.querySelector('#tq-ctx');
+  if (!bar) return;
+  const nImg = tanyaScreenImageEls().length;
+  if (!nImg) tanyaCtx.img = false;
+  const sel = tanyaCtx.selOff ? '' : tanyaCtx.sel;
+  bar.innerHTML = (tanyaCtx.screenOff
+    ? '<button type="button" class="tq-chip off" data-ctx="screen">＋ Baca layar</button>'
+    : `<span class="tq-chip">📄 Layar: ${esc(tanyaScreenLabel(tanyaScreenRoot()))}<button type="button" data-ctx="screen" aria-label="Jangan baca layar">×</button></span>`)
+    + (sel ? `<span class="tq-chip">✂️ Dipilih: “${esc(sel.slice(0, 40))}${sel.length > 40 ? '…' : ''}”<button type="button" data-ctx="sel" aria-label="Abaikan teks dipilih">×</button></span>` : '')
+    + (nImg ? `<label class="tq-chip ${tanyaCtx.img ? '' : 'off'}"><input type="checkbox" data-ctx="img" ${tanyaCtx.img ? 'checked' : ''}> 🖼️ Sertakan ${nImg} gambar di layar</label>` : '')
+    + (tanyaCtx.img ? '<small class="tq-ctx-hint">Gambar hanya terbaca oleh Gemini. Pastikan tidak ada identitas pasien di gambar.</small>' : '');
+}
+
+let tqScrollRaf = 0;
+window.addEventListener('scroll', (e) => {
+  if (!tanyaOpen() || tqScrollRaf || !tqOutside(e.target === document ? null : e.target)) return;
+  tqScrollRaf = requestAnimationFrame(() => { tqScrollRaf = 0; tanyaCtxBar(); });
+}, { capture: true, passive: true });
 
 // Panel melayang: bisa dibuka dari halaman mana pun lewat gelembung 💬 di kiri bawah. Percakapan tetap
 // tersimpan saat panel ditutup atau halaman berpindah, dan jawaban yang datang saat panel tertutup tetap disimpan.
@@ -3900,21 +4081,28 @@ function tanyaBubble() {
   b.setAttribute('aria-label', 'Tanya AI');
   b.title = 'Tanya AI';
   b.textContent = '💬';
+  // Di desktop, menekan tombol tidak boleh menghapus blok teks sebelum sempat dibaca.
+  b.addEventListener('mousedown', (e) => e.preventDefault());
   b.addEventListener('click', () => openTanya());
   document.body.append(b);
 }
 
 function openTanya() {
+  const sel = tanyaSelection() || (Date.now() - tanyaSel.at < 8000 ? tanyaSel.text : '');
+  Object.assign(tanyaCtx, { screenOff: false, selOff: false, sel: sel.slice(0, 3000), img: false });
   if (!tanyaPanel) {
     tanyaPanel = document.createElement('section');
     tanyaPanel.className = 'tq-panel settings';
     tanyaPanel.setAttribute('role', 'dialog');
     tanyaPanel.setAttribute('aria-label', 'Tanya AI');
     tanyaPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeTanya(); } });
-    // Di layar sempit panel menutupi halaman, jadi membuka catatan rujukan sekaligus menutup panel.
     tanyaPanel.addEventListener('click', (e) => {
+      const c = e.target.closest('button[data-ctx]');
+      if (c) { if (c.dataset.ctx === 'screen') tanyaCtx.screenOff = !tanyaCtx.screenOff; else tanyaCtx.selOff = true; tanyaCtxBar(); return; }
+      // Di layar sempit panel menutupi halaman, jadi membuka catatan rujukan sekaligus menutup panel.
       if (e.target.closest('a[href^="#/"]') && matchMedia('(max-width: 640px)').matches) closeTanya();
     });
+    tanyaPanel.addEventListener('change', (e) => { if (e.target.dataset?.ctx === 'img') { tanyaCtx.img = e.target.checked; tanyaCtxBar(); } });
     document.body.append(tanyaPanel);
   }
   tanyaPanel.hidden = false;
@@ -3938,45 +4126,53 @@ async function renderTanya() {
   const chat = (await db.getMeta('tanyaChat')) || [];
   if (!tanyaOpen()) return;
   const root = tanyaPanel;
-  const hasKey = !!(keys.gemini || keys.groq);
+  const draft = root.querySelector('#tq-q')?.value || '';
+  const hasKey = Object.values(keys).some((ks) => ks.some(Boolean));
   const busy = !!state.tanyaBusy;
-  const keyRow = (p) => {
+  const keyRows = (p) => {
     const info = TANYA_INFO[p];
+    const ks = keys[p];
     const n = Array.isArray(models[p]) ? models[p].filter((id) => tanya.CHAIN.some((c) => c.model === id)).length : null;
-    return keys[p]
-      ? `<div class="ai-item"><span class="grow"><b>${info.name}</b><small>Tersimpan${n === null ? '' : ` · ${n} model dalam urutan dipakai`}</small></span><button type="button" class="btn small ghost danger" data-key-del="${p}">Hapus</button></div>`
-      : `<div class="tq-keyrow"><label><b>${info.name}</b> <small>${info.how}</small></label><div class="row"><input type="password" autocomplete="off" data-key-in="${p}" placeholder="${info.ph}" aria-label="API key ${info.name}"><button type="button" class="btn" data-key-save="${p}">Simpan</button></div></div>`;
+    const saved = SLOTS.filter((i) => ks[i]).map((i) => `<div class="ai-item"><span class="grow"><b>${info.name} · key ${i + 1}</b><small>Tersimpan${i === SLOTS.find((j) => ks[j]) && n !== null ? ` · ${n} model dalam urutan dipakai` : ''}</small></span><button type="button" class="btn small ghost danger" data-key-del="${p}:${i}">Hapus</button></div>`).join('');
+    const free = SLOTS.find((i) => !ks[i]);
+    const anySaved = ks.some(Boolean);
+    const input = free === undefined ? '' : `<div class="tq-keyrow"><label><b>${info.name} · key ${free + 1}</b> <small>${anySaved ? 'Opsional: dari proyek/akun lain untuk menambah kuota. ' : ''}${info.how}</small></label><div class="row"><input type="password" autocomplete="off" data-key-in="${p}:${free}" placeholder="${info.ph}" aria-label="API key ${info.name} ${free + 1}"><button type="button" class="btn" data-key-save="${p}:${free}">Simpan</button></div></div>`;
+    return saved + input;
   };
   root.innerHTML = `
     <div class="tq-top"><span class="grow title">💬 Tanya AI</span>${chat.length ? '<button type="button" class="btn small ghost" id="tq-new">Percakapan baru</button>' : ''}<button type="button" class="iconbtn" id="tq-close" aria-label="Tutup Tanya AI" title="Tutup">${icon('x')}</button></div>
     <div class="tq-scroll tanya">
       <details class="tq-keys" ${hasKey && !tanyaKeysOpen ? '' : 'open'}><summary>API key (gratis) ${hasKey ? '✓' : ''}</summary>
-        <p>Isi salah satu atau keduanya. Satu key per layanan sudah cukup: kuota gratis dihitung per akun dan per model, bukan per key. Bila satu model kena batas, pertanyaan otomatis dialihkan ke model berikutnya: ${tanya.CHAIN.map((c) => esc(c.label)).join(' › ')}.</p>
-        ${keyRow('gemini')}${keyRow('groq')}
+        <p>Isi Gemini, Groq, atau keduanya; masing-masing hingga ${tanya.KEY_SLOTS} key. Kuota gratis dihitung per proyek Google / akun Groq dan per model, jadi key tambahan hanya menambah kuota bila dibuat di proyek atau akun lain. Bila satu model kena batas, key berikutnya dicoba, lalu model berikutnya: ${tanya.CHAIN.map((c) => esc(c.label)).join(' › ')}.</p>
+        ${keyRows('gemini')}${keyRows('groq')}
         <p class="hint">🔒 Key disimpan di perangkat, ikut sinkron Google Drive terenkripsi dengan kata sandi sinkronmu, tidak masuk file backup, dan hanya dikirim ke Google (Gemini) atau Groq. Di tier gratis, Google boleh memakai isi pertanyaan untuk melatih modelnya: <b>jangan masukkan data pasien</b>.</p>
       </details>
-      <div id="tq-chat" class="tq-chat">${chat.length ? chat.map(tanyaMsgHtml).join('') : `<p class="hint">Contoh: "Apa beda luka bakar derajat 1, 2, dan 3?" Jawaban memakai catatanmu yang paling relevan, lalu pengetahuan umum model bila perlu (ditandai).</p>`}</div>
+      <div id="tq-chat" class="tq-chat">${chat.length ? chat.map(tanyaMsgHtml).join('') : `<p class="hint">Contoh: "Apa beda luka bakar derajat 1, 2, dan 3?" atau, sambil membuka catatan, "jelaskan bagian ini". Jawaban memakai teks di layar, teks yang kamu blok, dan catatanmu yang paling relevan, lalu pengetahuan umum model bila perlu (ditandai).</p>`}</div>
     </div>
     <form id="tq-form" class="ai-form tq-form" onsubmit="return false">
+      <div class="tq-ctx" id="tq-ctx"></div>
       <textarea id="tq-q" rows="2" maxlength="2000" placeholder="${hasKey ? 'Tulis pertanyaan…' : 'Isi API key dulu'}" ${hasKey ? '' : 'disabled'}></textarea>
       <div class="row"><span class="hint grow" id="tq-status">${busy ? 'Menunggu jawaban…' : TANYA_HINT}</span><button type="button" class="btn" id="tq-send" ${hasKey && !busy ? '' : 'disabled'}>Kirim</button></div>
     </form>`;
   const box = root.querySelector('#tq-chat');
   box.lastElementChild?.scrollIntoView({ block: 'end' });
   root.querySelector('#tq-close').addEventListener('click', closeTanya);
+  tanyaCtxBar();
 
   root.querySelectorAll('[data-key-save]').forEach((b) => b.addEventListener('click', async () => {
-    const p = b.dataset.keySave;
-    const v = root.querySelector(`[data-key-in="${p}"]`).value.trim();
+    const [p, i] = b.dataset.keySave.split(':');
+    const v = root.querySelector(`[data-key-in="${p}:${i}"]`).value.trim();
     if (!v) return;
+    if ((await tanyaKeys())[p].includes(v)) { toast('Key ini sudah tersimpan'); return; }
     b.disabled = true;
     try {
       const ids = await tanya.listModels(p, v);
-      await setSecret(TANYA_KEYS[p], v);
+      await setSecret(tanyaSlot(p, +i), v);
       tanyaKeysOpen = true;
-      await db.setMeta('tanyaModels', { ...((await db.getMeta('tanyaModels')) || {}), [p]: ids });
+      const all = (await db.getMeta('tanyaModels')) || {};
+      await db.setMeta('tanyaModels', { ...all, [p]: [...new Set([...(all[p] || []), ...ids])] });
       const n = ids.filter((id) => tanya.CHAIN.some((c) => c.model === id)).length;
-      toast(n ? `Key ${TANYA_INFO[p].name} tersimpan · ${n} model siap. Ikut sinkron ke perangkatmu yang lain.` : `Key ${TANYA_INFO[p].name} benar, tetapi model dalam daftar tidak tersedia untuknya`, 5000);
+      toast(n ? `Key ${TANYA_INFO[p].name} ${+i + 1} tersimpan · ${n} model siap. Ikut sinkron ke perangkatmu yang lain.` : `Key ${TANYA_INFO[p].name} benar, tetapi model dalam daftar tidak tersedia untuknya`, 5000);
       renderTanya();
     } catch (err) {
       b.disabled = false;
@@ -3984,7 +4180,8 @@ async function renderTanya() {
     }
   }));
   root.querySelectorAll('[data-key-del]').forEach((b) => b.addEventListener('click', async () => {
-    await setSecret(TANYA_KEYS[b.dataset.keyDel], null);
+    const [p, i] = b.dataset.keyDel.split(':');
+    await setSecret(tanyaSlot(p, +i), null);
     tanyaKeysOpen = true;
     toast('Key dihapus dari semua perangkat (lewat sinkron)', 4000);
     renderTanya();
@@ -3993,6 +4190,7 @@ async function renderTanya() {
   root.querySelector('#tq-new')?.addEventListener('click', clearChat);
 
   const q = root.querySelector('#tq-q');
+  q.value = draft;
   let privacyOk = false;
   q.addEventListener('input', () => { privacyOk = false; });
   q.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); root.querySelector('#tq-send').click(); } });
@@ -4000,18 +4198,34 @@ async function renderTanya() {
     const question = cleanText(q.value, 2000);
     if (!question || state.tanyaBusy) return;
     if (!navigator.onLine) { toast('Perlu internet untuk bertanya'); return; }
-    if (tanya.PRIVACY_RE.test(question) && !privacyOk) {
-      privacyOk = true;
-      toast('Sepertinya ada data pasien (nama/No. RM/nomor panjang). Hapus dulu, atau tekan Kirim lagi bila yakin aman.', 7000);
-      return;
+    // Batas konteks ±8.000 karakter (muat di batas token per menit tier gratis Groq):
+    // teks dipilih ≤2.000, layar ≤4.000 (≤2.500 bila ada teks dipilih), sisanya untuk catatan hasil pencarian.
+    const selText = tanyaCtx.selOff ? '' : tanyaCtx.sel.slice(0, 2000);
+    const scr = tanyaCtx.screenOff ? null : await tanyaScreen(selText ? 2500 : 4000);
+    if (!privacyOk) {
+      const where = tanya.PRIVACY_RE.test(question) ? 'pertanyaan' : tanya.PRIVACY_RE.test(selText) ? 'teks yang dipilih' : scr && tanya.PRIVACY_RE.test(scr.text) ? 'teks di layar' : '';
+      if (where) {
+        privacyOk = true;
+        toast(`Sepertinya ada data pasien (nama/No. RM/nomor panjang) di ${where}. Hapus dulu${where === 'teks di layar' ? ' atau matikan "Layar"' : ''}, atau tekan Kirim lagi bila yakin aman.`, 7000);
+        return;
+      }
     }
+    const images = tanyaCtx.img ? await tanyaScreenImages() : [];
     const history = (await db.getMeta('tanyaChat')) || [];
     const prevQ = [...history].reverse().find((m) => m.role === 'user')?.content;
-    const { notes, terms } = tanyaRefs(question, prevQ);
-    const ctx = tanya.buildContext(notes.map((n) => ({ title: judulEYD(n.title), body: plainBody(n.body) })), terms);
+    let { notes, terms } = tanyaRefs(question + (selText ? ' ' + selText.slice(0, 300) : ''), prevQ);
+    if (!notes.length && scr?.label) ({ notes, terms } = tanyaRefsFor(scr.label.split(' › ')[0]));
+    const used = (selText.length || 0) + (scr?.text.length || 0);
+    const ctx = tanya.buildContext(notes.map((n) => ({ title: judulEYD(n.title), body: plainBody(n.body) })), terms, Math.max(2000, 8000 - used));
     const msgs = history.filter((m) => !m.error).slice(-6).map((m) => ({ role: m.role, content: m.content }));
-    msgs.push({ role: 'user', content: `CATATAN:\n${ctx || '(tidak ada catatan yang cocok)'}\n\nPERTANYAAN:\n${question}` });
-    const userMsg = { role: 'user', content: question, at: Date.now() };
+    msgs.push({ role: 'user', content: [
+      scr?.text ? `LAYAR (${scr.label}):\n${scr.text}` : '',
+      selText ? `TEKS DIPILIH:\n${selText}` : '',
+      `CATATAN:\n${ctx || '(tidak ada catatan yang cocok)'}`,
+      `PERTANYAAN:\n${question}`,
+    ].filter(Boolean).join('\n\n') });
+    const ctxLabel = [scr?.text ? '📄 ' + scr.label : '', selText ? '✂️ teks dipilih' : '', images.length ? `🖼️ ${images.length} gambar` : ''].filter(Boolean).join(' · ');
+    const userMsg = { role: 'user', content: question, ...(ctxLabel ? { ctx: ctxLabel } : {}), at: Date.now() };
     // Pertanyaan disimpan sebelum menunggu, agar tetap tampil bila panel ditutup lalu dibuka lagi.
     await db.setMeta('tanyaChat', [...history, userMsg].slice(-40));
     if (!history.length) box.innerHTML = '';
@@ -4024,10 +4238,11 @@ async function renderTanya() {
     let reply;
     try {
       const r = await tanya.ask({
-        keys: await tanyaKeys(), available: (await db.getMeta('tanyaModels')) || {}, messages: msgs,
-        onTry: (step) => { const st = tanyaPanel.querySelector('#tq-status'); if (st) st.textContent = `Bertanya ke ${step.label}…`; },
+        keys: await tanyaKeys(), available: (await db.getMeta('tanyaModels')) || {}, messages: msgs, images,
+        onTry: (step, no) => { const st = tanyaPanel.querySelector('#tq-status'); if (st) st.textContent = `Bertanya ke ${step.label}${no > 1 ? ` (key ${no})` : ''}…`; },
       });
-      reply = { role: 'assistant', content: r.text, model: r.used.label, refs: notes.slice(0, 3).map((n) => ({ id: n.id, title: n.title })), at: Date.now() };
+      const note = [r.keyNo ? `key ${r.keyNo}` : '', r.imagesDropped ? 'gambar tidak terbaca (model Groq hanya teks)' : ''].filter(Boolean).join(' · ');
+      reply = { role: 'assistant', content: r.text, model: r.used.label, ...(note ? { note } : {}), refs: notes.slice(0, 3).map((n) => ({ id: n.id, title: n.title })), at: Date.now() };
     } catch (err) {
       reply = { role: 'assistant', error: true, content: 'Gagal mendapat jawaban:\n' + (err?.message || err) };
     } finally {
@@ -4041,7 +4256,7 @@ async function renderTanya() {
     box.lastElementChild.scrollIntoView({ block: 'start', behavior: 'smooth' });
     root.querySelector('#tq-send').disabled = false;
     if (status) status.textContent = TANYA_HINT;
-    if (reply.error) q.value = question;
+    if (reply.error && !q.value) q.value = question;
     if (!root.querySelector('#tq-new')) {
       root.querySelector('#tq-close').insertAdjacentHTML('beforebegin', '<button type="button" class="btn small ghost" id="tq-new">Percakapan baru</button>');
       root.querySelector('#tq-new').addEventListener('click', clearChat);
@@ -4222,7 +4437,7 @@ async function runSync({ manual = false } = {}) {
     if (st.secrets) {
       if (await getGhToken()) { checkFeed(); syncTaxonomy().catch(() => {}); }
       if (location.hash === '#/ai' && !state.editor) renderAi();
-      if (location.hash === '#/ai/tanya' && !state.editor && !state.tanyaBusy) renderTanya();
+      if (tanyaOpen() && !state.tanyaBusy) renderTanya();
     }
     if (st.down || st.deleted) {
       await reloadAll();

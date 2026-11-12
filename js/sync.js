@@ -11,7 +11,7 @@ const CHUNK = 4 * 1024 * 1024;
 const PBKDF2_ITER = 310000;
 const CHECK_TEXT = 'catatan-koas-ok';
 // Nilai meta yang ikut sinkron terenkripsi; waktu simpannya di meta <nama>At.
-const SECRETS = ['githubToken', 'geminiKey', 'groqKey'];
+const SECRETS = ['githubToken', 'geminiKey', 'geminiKey2', 'geminiKey3', 'groqKey', 'groqKey2', 'groqKey3'];
 
 export class AuthError extends Error {}
 
