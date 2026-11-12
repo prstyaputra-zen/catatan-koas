@@ -831,6 +831,8 @@ body.tq-open .tq-fab { display: none; }
 .tq-ctx { display: flex; flex-wrap: wrap; gap: 6px; }
 .tq-ctx:empty { display: none; }
 .tq-chip { display: inline-flex; align-items: center; gap: 4px; max-width: 100%; padding: 3px 4px 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 12.5px; color: var(--text); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tq-chip-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tq-form .row .btn { flex: none; min-width: 88px; }
 .tq-chip > button { flex: none; width: 22px; height: 22px; border: 0; border-radius: 11px; background: transparent; color: var(--muted); font-size: 15px; line-height: 1; cursor: pointer; }
 .tq-chip > button:hover { background: var(--line); }
 .tq-chip.off { color: var(--muted); border-style: dashed; padding-right: 10px; cursor: pointer; }
