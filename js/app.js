@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.19.0';
+const APP_VERSION = '0.20.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -3023,7 +3023,7 @@ async function route() {
     case 'alat': return arg === 'bmi' ? renderBmi() : arg === 'puyer' ? renderPuyer() : arg === 'cairan' ? renderFluid() : renderTools();
     case 'ubah': return renderEditor(arg);
     case 'pengaturan': return renderSettings();
-    case 'ai': return arg === 'jenis-stase' ? renderTaxonomy() : arg === 'tanya' ? renderTanya() : renderAi();
+    case 'ai': return arg === 'jenis-stase' ? renderTaxonomy() : arg === 'tanya' ? (history.replaceState(null, '', '#/ai'), openTanya(), renderAi()) : renderAi();
     case 'cari':
       state.query = decodeURIComponent(arg || '');
       history.replaceState(null, '', '#/');
@@ -3666,6 +3666,7 @@ async function renderAi() {
         <h4>Tanya AI</h4>
         <p>Tanya jawab langsung, berdasarkan catatanmu sendiri, lewat API gratis Gemini dan Groq.</p>
         <div class="row"><a class="btn" href="#/ai/tanya">💬 Buka Tanya AI</a></div>
+        <p class="hint">Bisa juga dibuka dari halaman mana pun lewat tombol 💬 di kiri bawah.</p>
       </section>
       <section>
         <h4>Minta Catatan Baru</h4>
@@ -3887,13 +3888,58 @@ function tanyaMsgHtml(m) {
     <small class="tq-meta">${refs.length ? 'Catatan dipakai: ' + refs.map((r) => `<a href="#/catatan/${esc(r.id)}">${esc(judulEYD(r.title))}</a>`).join(', ') + ' · ' : ''}${m.model ? esc(m.model) : ''}${m.error ? '' : ' · cek angka klinis ke sumber'}</small></div>`;
 }
 
+// Panel melayang: bisa dibuka dari halaman mana pun lewat gelembung 💬 di kiri bawah. Percakapan tetap
+// tersimpan saat panel ditutup atau halaman berpindah, dan jawaban yang datang saat panel tertutup tetap disimpan.
+let tanyaPanel = null;
+
+function tanyaBubble() {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.id = 'tq-bubble';
+  b.className = 'tq-fab';
+  b.setAttribute('aria-label', 'Tanya AI');
+  b.title = 'Tanya AI';
+  b.textContent = '💬';
+  b.addEventListener('click', () => openTanya());
+  document.body.append(b);
+}
+
+function openTanya() {
+  if (!tanyaPanel) {
+    tanyaPanel = document.createElement('section');
+    tanyaPanel.className = 'tq-panel settings';
+    tanyaPanel.setAttribute('role', 'dialog');
+    tanyaPanel.setAttribute('aria-label', 'Tanya AI');
+    tanyaPanel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeTanya(); } });
+    // Di layar sempit panel menutupi halaman, jadi membuka catatan rujukan sekaligus menutup panel.
+    tanyaPanel.addEventListener('click', (e) => {
+      if (e.target.closest('a[href^="#/"]') && matchMedia('(max-width: 640px)').matches) closeTanya();
+    });
+    document.body.append(tanyaPanel);
+  }
+  tanyaPanel.hidden = false;
+  document.body.classList.add('tq-open');
+  renderTanya().then(() => tanyaPanel.querySelector('#tq-q:not([disabled])')?.focus({ preventScroll: true }));
+}
+
+function closeTanya() {
+  if (!tanyaPanel) return;
+  tanyaPanel.hidden = true;
+  document.body.classList.remove('tq-open');
+  $('#tq-bubble')?.focus({ preventScroll: true });
+}
+
+const tanyaOpen = () => !!tanyaPanel && !tanyaPanel.hidden;
+const TANYA_HINT = 'Tanpa data pasien. Jawaban AI bisa salah: cek ke sumber.';
+
 async function renderTanya() {
-  releaseUrls();
   const keys = await tanyaKeys();
   const models = (await db.getMeta('tanyaModels')) || {};
   const chat = (await db.getMeta('tanyaChat')) || [];
-  if (location.hash !== '#/ai/tanya') return;
+  if (!tanyaOpen()) return;
+  const root = tanyaPanel;
   const hasKey = !!(keys.gemini || keys.groq);
+  const busy = !!state.tanyaBusy;
   const keyRow = (p) => {
     const info = TANYA_INFO[p];
     const n = Array.isArray(models[p]) ? models[p].filter((id) => tanya.CHAIN.some((c) => c.model === id)).length : null;
@@ -3901,26 +3947,27 @@ async function renderTanya() {
       ? `<div class="ai-item"><span class="grow"><b>${info.name}</b><small>Tersimpan${n === null ? '' : ` · ${n} model dalam urutan dipakai`}</small></span><button type="button" class="btn small ghost danger" data-key-del="${p}">Hapus</button></div>`
       : `<div class="tq-keyrow"><label><b>${info.name}</b> <small>${info.how}</small></label><div class="row"><input type="password" autocomplete="off" data-key-in="${p}" placeholder="${info.ph}" aria-label="API key ${info.name}"><button type="button" class="btn" data-key-save="${p}">Simpan</button></div></div>`;
   };
-  view().innerHTML = `
-    <div class="topbar"><a href="#/ai" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">💬 Tanya AI</span>${chat.length ? '<button type="button" class="btn small ghost" id="tq-new">Percakapan baru</button>' : ''}</div>
-    <div class="settings tanya">
+  root.innerHTML = `
+    <div class="tq-top"><span class="grow title">💬 Tanya AI</span>${chat.length ? '<button type="button" class="btn small ghost" id="tq-new">Percakapan baru</button>' : ''}<button type="button" class="iconbtn" id="tq-close" aria-label="Tutup Tanya AI" title="Tutup">${icon('x')}</button></div>
+    <div class="tq-scroll tanya">
       <details class="tq-keys" ${hasKey && !tanyaKeysOpen ? '' : 'open'}><summary>API key (gratis) ${hasKey ? '✓' : ''}</summary>
         <p>Isi salah satu atau keduanya. Satu key per layanan sudah cukup: kuota gratis dihitung per akun dan per model, bukan per key. Bila satu model kena batas, pertanyaan otomatis dialihkan ke model berikutnya: ${tanya.CHAIN.map((c) => esc(c.label)).join(' › ')}.</p>
         ${keyRow('gemini')}${keyRow('groq')}
         <p class="hint">🔒 Key disimpan di perangkat, ikut sinkron Google Drive terenkripsi dengan kata sandi sinkronmu, tidak masuk file backup, dan hanya dikirim ke Google (Gemini) atau Groq. Di tier gratis, Google boleh memakai isi pertanyaan untuk melatih modelnya: <b>jangan masukkan data pasien</b>.</p>
       </details>
       <div id="tq-chat" class="tq-chat">${chat.length ? chat.map(tanyaMsgHtml).join('') : `<p class="hint">Contoh: "Apa beda luka bakar derajat 1, 2, dan 3?" Jawaban memakai catatanmu yang paling relevan, lalu pengetahuan umum model bila perlu (ditandai).</p>`}</div>
-      <form id="tq-form" class="ai-form tq-form" onsubmit="return false">
-        <textarea id="tq-q" rows="2" maxlength="2000" placeholder="${hasKey ? 'Tulis pertanyaan…' : 'Isi API key dulu'}" ${hasKey ? '' : 'disabled'}></textarea>
-        <div class="row"><span class="hint grow" id="tq-status">Tanpa data pasien. Jawaban AI bisa salah: cek ke sumber.</span><button type="button" class="btn" id="tq-send" ${hasKey ? '' : 'disabled'}>Kirim</button></div>
-      </form>
-    </div>`;
-  const box = $('#tq-chat');
+    </div>
+    <form id="tq-form" class="ai-form tq-form" onsubmit="return false">
+      <textarea id="tq-q" rows="2" maxlength="2000" placeholder="${hasKey ? 'Tulis pertanyaan…' : 'Isi API key dulu'}" ${hasKey ? '' : 'disabled'}></textarea>
+      <div class="row"><span class="hint grow" id="tq-status">${busy ? 'Menunggu jawaban…' : TANYA_HINT}</span><button type="button" class="btn" id="tq-send" ${hasKey && !busy ? '' : 'disabled'}>Kirim</button></div>
+    </form>`;
+  const box = root.querySelector('#tq-chat');
   box.lastElementChild?.scrollIntoView({ block: 'end' });
+  root.querySelector('#tq-close').addEventListener('click', closeTanya);
 
-  view().querySelectorAll('[data-key-save]').forEach((b) => b.addEventListener('click', async () => {
+  root.querySelectorAll('[data-key-save]').forEach((b) => b.addEventListener('click', async () => {
     const p = b.dataset.keySave;
-    const v = view().querySelector(`[data-key-in="${p}"]`).value.trim();
+    const v = root.querySelector(`[data-key-in="${p}"]`).value.trim();
     if (!v) return;
     b.disabled = true;
     try {
@@ -3936,20 +3983,20 @@ async function renderTanya() {
       toast(`Key ${TANYA_INFO[p].name} gagal dicek: ${err?.message || err}`, 6000);
     }
   }));
-  view().querySelectorAll('[data-key-del]').forEach((b) => b.addEventListener('click', async () => {
+  root.querySelectorAll('[data-key-del]').forEach((b) => b.addEventListener('click', async () => {
     await setSecret(TANYA_KEYS[b.dataset.keyDel], null);
     tanyaKeysOpen = true;
     toast('Key dihapus dari semua perangkat (lewat sinkron)', 4000);
     renderTanya();
   }));
-  const clearChat = async () => { await db.setMeta('tanyaChat', []); renderTanya(); };
-  $('#tq-new')?.addEventListener('click', clearChat);
+  const clearChat = async () => { if (state.tanyaBusy) return; await db.setMeta('tanyaChat', []); renderTanya(); };
+  root.querySelector('#tq-new')?.addEventListener('click', clearChat);
 
-  const q = $('#tq-q');
+  const q = root.querySelector('#tq-q');
   let privacyOk = false;
   q.addEventListener('input', () => { privacyOk = false; });
-  q.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); $('#tq-send').click(); } });
-  $('#tq-send').addEventListener('click', async () => {
+  q.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); root.querySelector('#tq-send').click(); } });
+  root.querySelector('#tq-send').addEventListener('click', async () => {
     const question = cleanText(q.value, 2000);
     if (!question || state.tanyaBusy) return;
     if (!navigator.onLine) { toast('Perlu internet untuk bertanya'); return; }
@@ -3965,18 +4012,20 @@ async function renderTanya() {
     const msgs = history.filter((m) => !m.error).slice(-6).map((m) => ({ role: m.role, content: m.content }));
     msgs.push({ role: 'user', content: `CATATAN:\n${ctx || '(tidak ada catatan yang cocok)'}\n\nPERTANYAAN:\n${question}` });
     const userMsg = { role: 'user', content: question, at: Date.now() };
+    // Pertanyaan disimpan sebelum menunggu, agar tetap tampil bila panel ditutup lalu dibuka lagi.
+    await db.setMeta('tanyaChat', [...history, userMsg].slice(-40));
     if (!history.length) box.innerHTML = '';
     box.insertAdjacentHTML('beforeend', tanyaMsgHtml(userMsg));
+    box.lastElementChild.scrollIntoView({ block: 'end' });
     q.value = '';
     state.tanyaBusy = true;
-    const btn = $('#tq-send');
-    btn.disabled = true;
-    const status = $('#tq-status');
+    root.querySelector('#tq-send').disabled = true;
+    const status = root.querySelector('#tq-status');
     let reply;
     try {
       const r = await tanya.ask({
         keys: await tanyaKeys(), available: (await db.getMeta('tanyaModels')) || {}, messages: msgs,
-        onTry: (step) => { if (status) status.textContent = `Bertanya ke ${step.label}…`; },
+        onTry: (step) => { const st = tanyaPanel.querySelector('#tq-status'); if (st) st.textContent = `Bertanya ke ${step.label}…`; },
       });
       reply = { role: 'assistant', content: r.text, model: r.used.label, refs: notes.slice(0, 3).map((n) => ({ id: n.id, title: n.title })), at: Date.now() };
     } catch (err) {
@@ -3984,17 +4033,18 @@ async function renderTanya() {
     } finally {
       state.tanyaBusy = false;
     }
-    const next = [...history, userMsg, reply].slice(-40);
-    await db.setMeta('tanyaChat', next);
-    if (location.hash !== '#/ai/tanya' || !document.body.contains(box)) return;
+    const latest = (await db.getMeta('tanyaChat')) || [];
+    await db.setMeta('tanyaChat', [...latest, reply].slice(-40));
+    if (!tanyaOpen()) { toast('Jawaban Tanya AI sudah masuk 💬'); return; }
+    if (!box.isConnected) { await renderTanya(); return; }
     box.insertAdjacentHTML('beforeend', tanyaMsgHtml(reply));
     box.lastElementChild.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    btn.disabled = false;
-    if (status) status.textContent = 'Tanpa data pasien. Jawaban AI bisa salah: cek ke sumber.';
+    root.querySelector('#tq-send').disabled = false;
+    if (status) status.textContent = TANYA_HINT;
     if (reply.error) q.value = question;
-    if (!$('#tq-new')) {
-      view().querySelector('.topbar').insertAdjacentHTML('beforeend', '<button type="button" class="btn small ghost" id="tq-new">Percakapan baru</button>');
-      $('#tq-new').addEventListener('click', clearChat);
+    if (!root.querySelector('#tq-new')) {
+      root.querySelector('#tq-close').insertAdjacentHTML('beforebegin', '<button type="button" class="btn small ghost" id="tq-new">Percakapan baru</button>');
+      root.querySelector('#tq-new').addEventListener('click', clearChat);
     }
   });
 }
@@ -4346,6 +4396,7 @@ async function start() {
     return;
   }
   window.addEventListener('hashchange', route);
+  tanyaBubble();
   window.addEventListener('online', updateOnline);
   window.addEventListener('offline', updateOnline);
   updateOnline();
