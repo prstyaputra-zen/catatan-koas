@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.20.0';
+const APP_VERSION = '0.20.1';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
