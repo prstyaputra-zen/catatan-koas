@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.20.0';
+const APP_VERSION = '0.20.1';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -1193,6 +1193,7 @@ async function openDocViewer(note, mediaId, startPage = 0, terms = null) {
   const ov = document.createElement('div');
   ov.className = 'docviewer';
   ov.dataset.media = m.id; // dibaca Tanya AI untuk teks halaman PDF yang tampil
+  if (note?.id) ov.dataset.note = note.id; // dan untuk mengenali catatan yang sedang dibuka
   ov.innerHTML = `
     <div class="dv-bar">
       <button class="iconbtn" data-act="close" aria-label="Tutup">✕</button>
@@ -3997,6 +3998,12 @@ async function tanyaScreen(max) {
   return { label, text };
 }
 
+// Catatan yang sedang dibuka di bawah panel (halaman catatan, editor, atau dokumen di dalam catatan).
+function tanyaOpenNote() {
+  const id = document.querySelector('.docviewer')?.dataset.note || location.hash.match(/^#\/(?:catatan|ubah)\/([^/?#]+)/)?.[1];
+  return id ? state.notes.get(decodeURIComponent(id)) || null : null;
+}
+
 // Gambar yang tampil (foto catatan beserta coretannya, halaman PDF), diperkecil ke sisi terpanjang 1024 px, JPEG.
 function tanyaScreenImageEls() {
   const root = tanyaScreenRoot();
@@ -4057,8 +4064,8 @@ function tanyaCtxBar() {
   const sel = tanyaCtx.selOff ? '' : tanyaCtx.sel;
   bar.innerHTML = (tanyaCtx.screenOff
     ? '<button type="button" class="tq-chip off" data-ctx="screen">＋ Baca layar</button>'
-    : `<span class="tq-chip">📄 Layar: ${esc(tanyaScreenLabel(tanyaScreenRoot()))}<button type="button" data-ctx="screen" aria-label="Jangan baca layar">×</button></span>`)
-    + (sel ? `<span class="tq-chip">✂️ Dipilih: “${esc(sel.slice(0, 40))}${sel.length > 40 ? '…' : ''}”<button type="button" data-ctx="sel" aria-label="Abaikan teks dipilih">×</button></span>` : '')
+    : `<span class="tq-chip"><span class="tq-chip-t">📄 Layar: ${esc(tanyaScreenLabel(tanyaScreenRoot()))}</span><button type="button" data-ctx="screen" aria-label="Jangan baca layar">×</button></span>`)
+    + (sel ? `<span class="tq-chip"><span class="tq-chip-t">✂️ Dipilih: “${esc(sel.slice(0, 40))}${sel.length > 40 ? '…' : ''}”</span><button type="button" data-ctx="sel" aria-label="Abaikan teks dipilih">×</button></span>` : '')
     + (nImg ? `<label class="tq-chip ${tanyaCtx.img ? '' : 'off'}"><input type="checkbox" data-ctx="img" ${tanyaCtx.img ? 'checked' : ''}> 🖼️ Sertakan ${nImg} gambar di layar</label>` : '')
     + (tanyaCtx.img ? '<small class="tq-ctx-hint">Gambar hanya terbaca oleh Gemini. Pastikan tidak ada identitas pasien di gambar.</small>' : '');
 }
@@ -4198,10 +4205,12 @@ async function renderTanya() {
     const question = cleanText(q.value, 2000);
     if (!question || state.tanyaBusy) return;
     if (!navigator.onLine) { toast('Perlu internet untuk bertanya'); return; }
-    // Batas konteks ±8.000 karakter (muat di batas token per menit tier gratis Groq):
-    // teks dipilih ≤2.000, layar ≤4.000 (≤2.500 bila ada teks dipilih), sisanya untuk catatan hasil pencarian.
+    // Batas konteks ±9.000 karakter (muat di batas token per menit tier gratis Groq). Bila sebuah catatan sedang
+    // dibuka, catatan itu yang utama (bagian yang paling cocok dengan pertanyaan, ≤4.500), layar hanya menunjuk
+    // posisi baca (≤1.500), dan catatan lain ikut hanya bila membahas topik yang sama (≤1.500).
     const selText = tanyaCtx.selOff ? '' : tanyaCtx.sel.slice(0, 2000);
-    const scr = tanyaCtx.screenOff ? null : await tanyaScreen(selText ? 2500 : 4000);
+    const openNote = tanyaCtx.screenOff ? null : tanyaOpenNote();
+    const scr = tanyaCtx.screenOff ? null : await tanyaScreen(openNote ? 1500 : selText ? 2500 : 4000);
     if (!privacyOk) {
       const where = tanya.PRIVACY_RE.test(question) ? 'pertanyaan' : tanya.PRIVACY_RE.test(selText) ? 'teks yang dipilih' : scr && tanya.PRIVACY_RE.test(scr.text) ? 'teks di layar' : '';
       if (where) {
@@ -4213,17 +4222,36 @@ async function renderTanya() {
     const images = tanyaCtx.img ? await tanyaScreenImages() : [];
     const history = (await db.getMeta('tanyaChat')) || [];
     const prevQ = [...history].reverse().find((m) => m.role === 'user')?.content;
-    let { notes, terms } = tanyaRefs(question + (selText ? ' ' + selText.slice(0, 300) : ''), prevQ);
-    if (!notes.length && scr?.label) ({ notes, terms } = tanyaRefsFor(scr.label.split(' › ')[0]));
-    const used = (selText.length || 0) + (scr?.text.length || 0);
-    const ctx = tanya.buildContext(notes.map((n) => ({ title: judulEYD(n.title), body: plainBody(n.body) })), terms, Math.max(2000, 8000 - used));
+    const toCtx = (n) => ({ title: judulEYD(n.title), body: plainBody(n.body) });
+    const blocks = [];
+    if (scr?.text) blocks.push(`LAYAR (${scr.label}):\n${scr.text}`);
+    if (selText) blocks.push(`TEKS DIPILIH:\n${selText}`);
+    let refs;
+    if (openNote) {
+      const qTerms = new Set(tokenize(question + ' ' + selText.slice(0, 300) + ' ' + (prevQ || '')));
+      // Ejaan bervariasi di catatan: "tatalaksana" vs "tata laksana".
+      if (qTerms.has('tatalaksana')) qTerms.add('laksana');
+      if (qTerms.has('laksana')) qTerms.add('tatalaksana');
+      blocks.push(`CATATAN TERBUKA:\n### ${judulEYD(openNote.title)}\n${tanya.pickSections(plainBody(openNote.body), qTerms, 4500)}`);
+      // Catatan lain hanya yang memuat judul inti catatan terbuka (mis. "Luka Bakar"), agar kata umum seperti
+      // "tatalaksana" tidak menarik catatan topik lain.
+      const core = judulEYD(openNote.title).split(/[:(—–]/)[0].trim();
+      const sameTopic = new Set(core ? state.index.search(core, 100).results.map((r) => r.id) : []);
+      const r = tanyaRefsFor(core + ' ' + question);
+      const others = r.notes.filter((n) => n.id !== openNote.id && sameTopic.has(n.id)).slice(0, 2);
+      if (others.length) blocks.push(`CATATAN LAIN (topik sama):\n${tanya.buildContext(others.map(toCtx), r.terms, 1500)}`);
+      refs = [openNote, ...others];
+    } else {
+      let { notes, terms } = tanyaRefs(question + (selText ? ' ' + selText.slice(0, 300) : ''), prevQ);
+      if (!notes.length && scr?.label) ({ notes, terms } = tanyaRefsFor(scr.label.split(' › ')[0]));
+      const used = selText.length + (scr?.text.length || 0);
+      const ctx = tanya.buildContext(notes.map(toCtx), terms, Math.max(2000, 8000 - used));
+      blocks.push(`CATATAN:\n${ctx || '(tidak ada catatan yang cocok)'}`);
+      refs = notes;
+    }
+    blocks.push(`PERTANYAAN:\n${question}`);
     const msgs = history.filter((m) => !m.error).slice(-6).map((m) => ({ role: m.role, content: m.content }));
-    msgs.push({ role: 'user', content: [
-      scr?.text ? `LAYAR (${scr.label}):\n${scr.text}` : '',
-      selText ? `TEKS DIPILIH:\n${selText}` : '',
-      `CATATAN:\n${ctx || '(tidak ada catatan yang cocok)'}`,
-      `PERTANYAAN:\n${question}`,
-    ].filter(Boolean).join('\n\n') });
+    msgs.push({ role: 'user', content: blocks.join('\n\n') });
     const ctxLabel = [scr?.text ? '📄 ' + scr.label : '', selText ? '✂️ teks dipilih' : '', images.length ? `🖼️ ${images.length} gambar` : ''].filter(Boolean).join(' · ');
     const userMsg = { role: 'user', content: question, ...(ctxLabel ? { ctx: ctxLabel } : {}), at: Date.now() };
     // Pertanyaan disimpan sebelum menunggu, agar tetap tampil bila panel ditutup lalu dibuka lagi.
@@ -4242,7 +4270,7 @@ async function renderTanya() {
         onTry: (step, no) => { const st = tanyaPanel.querySelector('#tq-status'); if (st) st.textContent = `Bertanya ke ${step.label}${no > 1 ? ` (key ${no})` : ''}…`; },
       });
       const note = [r.keyNo ? `key ${r.keyNo}` : '', r.imagesDropped ? 'gambar tidak terbaca (model Groq hanya teks)' : ''].filter(Boolean).join(' · ');
-      reply = { role: 'assistant', content: r.text, model: r.used.label, ...(note ? { note } : {}), refs: notes.slice(0, 3).map((n) => ({ id: n.id, title: n.title })), at: Date.now() };
+      reply = { role: 'assistant', content: r.text, model: r.used.label, ...(note ? { note } : {}), refs: refs.slice(0, 3).map((n) => ({ id: n.id, title: n.title })), at: Date.now() };
     } catch (err) {
       reply = { role: 'assistant', error: true, content: 'Gagal mendapat jawaban:\n' + (err?.message || err) };
     } finally {
