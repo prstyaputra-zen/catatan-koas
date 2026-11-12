@@ -6,9 +6,10 @@ import { parseClaude, CLAUDE_PROMPT } from './paste.js';
 import { BMI_SYSTEMS, parseNum, computeBmi, brocaStatus, fmtKg, bmiSummaryText, fmtNum, fmtTablets, PUYER_DRUGS, computePuyer, puyerRecipe, puyerSummaryText, computeFluid, fluidSummaryText, FLUID_CAP_DAY } from './tools.js';
 import { splitBlocks, toMarkdown, tableAt, fromCsv, fromDelimited, looksTabular, tablesFromHtml, readXlsx, convertTabRuns } from './table.js';
 import { icon } from './icons.js';
+import * as github from './github.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.16.0';
+const APP_VERSION = '0.18.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -19,6 +20,38 @@ const TYPES = {
 };
 
 const STASE = ['IPD', 'Bedah', 'Anak', 'Obgyn', 'Saraf', 'Jiwa', 'Kulit', 'Mata', 'THT', 'Anestesi', 'Radiologi', 'Forensik', 'IKM', 'Kardiologi', 'Pulmonologi', 'Rehab Medik', 'Lainnya'];
+
+// Jenis dan stase bisa diatur di tab AI. TYPES dan STASE diisi ulang di tempat (bukan diganti) agar semua pemakai ikut berubah.
+// Jenis bawaan tidak bisa dihapus (catatan dan rutin AI memakai kuncinya), hanya disembunyikan.
+const BUILTIN_TYPES = structuredClone(TYPES);
+const DEFAULT_STASE = [...STASE];
+// Giliran rutin AI sebelum bisa diatur (lihat feed/PANDUAN-RUTIN.md).
+const DEFAULT_RUTIN = ['IPD', 'Bedah', 'Anak', 'Obgyn', 'Saraf', 'Jiwa', 'Kulit', 'Mata', 'THT', 'Anestesi', 'Kardiologi', 'Pulmonologi', 'Radiologi', 'Forensik', 'IKM'];
+
+function defaultTaxonomy() {
+  return {
+    updated: 0,
+    types: Object.entries(BUILTIN_TYPES).map(([key, t]) => ({ key, label: t.label, icon: t.icon, template: t.template, hidden: false })),
+    stase: DEFAULT_STASE.map((name) => ({ name, rutin: DEFAULT_RUTIN.includes(name), fokus: false })),
+  };
+}
+
+function applyTaxonomy(cfg) {
+  Object.keys(TYPES).forEach((k) => delete TYPES[k]);
+  for (const t of cfg.types || []) {
+    if (!t || !/^[a-z0-9-]{1,30}$/.test(t.key)) continue;
+    // Label dan ikon ditampilkan tanpa di-escape di banyak tempat; buang karakter HTML (data bisa datang dari repo).
+    const clean = (x, max) => String(x || '').replace(/[<>&"'`]/g, '').trim().slice(0, max);
+    TYPES[t.key] = { label: clean(t.label, 40) || t.key, icon: clean(t.icon, 8) || '📝', template: String(t.template || '').slice(0, 2000), hidden: !!t.hidden };
+  }
+  for (const [k, t] of Object.entries(BUILTIN_TYPES)) if (!TYPES[k]) TYPES[k] = { ...t, hidden: false };
+  STASE.splice(0, STASE.length, ...(cfg.stase || []).map((x) => String(x?.name || '').replace(/[<>&"'`]/g, '').trim().slice(0, 40)).filter(Boolean));
+  if (!STASE.length) STASE.push(...DEFAULT_STASE);
+  state.taxonomy = cfg;
+}
+
+// Jenis yang ditampilkan di pilihan; jenis tersembunyi tetap muncul bila sedang dipakai catatan itu.
+const visibleTypes = (current) => Object.entries(TYPES).filter(([k, t]) => !t.hidden || k === current);
 
 const state = {
   notes: new Map(),
@@ -33,6 +66,7 @@ const state = {
   anchor: null,           // kunci judul bagian yang dibawa saat berpindah mode Baca/Ubah
   noteNav: null,          // fungsi penyegar daftar isi & rujukan catatan yang sedang dibuka
   filterFresh: false,     // hanya tampilkan catatan "auto updates"
+  feedPending: new Map(), // id catatan -> item feed revisi yang menunggu persetujuan (catatannya sudah kamu ubah)
   feedUnread: new Set(),  // id catatan auto updates yang belum dibuka di perangkat ini // catatan hasil "Tempel dari Claude" yang menunggu dibuka di editor
 };
 
@@ -143,6 +177,7 @@ async function loadAll() {
     indexNote(n);
   });
   state.feedUnread = new Set(((await db.getMeta('feedUnread')) || []).filter((id) => state.notes.has(id)));
+  state.feedPending = new Map(Object.entries((await db.getMeta('feedPending')) || {}));
 }
 
 // ---------- Teks & sorotan ----------
@@ -343,7 +378,7 @@ function renderHome() {
       <div class="filters">
         ${hasFreshNotes() ? `<button class="chip fresh-chip ${state.filterFresh ? 'on' : ''}" data-fresh>✨ Auto updates${state.feedUnread.size ? ` <b class="dot-count">${state.feedUnread.size}</b>` : ''}</button>` : ''}
         <button class="chip ${state.filterType === '' ? 'on' : ''}" data-type="">Semua</button>
-        ${Object.entries(TYPES).map(([k, t]) => `<button class="chip ${state.filterType === k ? 'on' : ''}" data-type="${k}">${t.icon} ${t.label}</button>`).join('')}
+        ${visibleTypes(state.filterType).map(([k, t]) => `<button class="chip ${state.filterType === k ? 'on' : ''}" data-type="${k}">${t.icon} ${esc(t.label)}</button>`).join('')}
         <select id="stasefilter" class="chip ${state.filterStase ? 'on' : ''}" aria-label="Filter stase">
           <option value="">Semua stase</option>
           ${allStase().map((s) => `<option ${s === state.filterStase ? 'selected' : ''}>${esc(s)}</option>`).join('')}
@@ -492,6 +527,7 @@ async function renderNote(id) {
         <div><dt>Diubah</dt><dd>${fmtDate(n.updated)} <span class="muted">· dibuat ${fmtDate(n.created)}</span></dd></div>
       </dl>
       ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di kartu Rujukan. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
+      ${revisionBannerHtml(n)}
       <nav class="toc-card hidden" id="toc-inline" aria-label="Daftar isi"></nav>
       <section class="ref-card hidden" id="refs" aria-labelledby="refs-title"></section>
       <div class="body">${renderBody(n.body, terms, n.type, folds)}</div>
@@ -535,6 +571,8 @@ async function renderNote(id) {
     location.hash = '#/';
   };
   hydrateInlineImages(view(), n);
+  bindRevisionBanner(n);
+  if (state.openRevPreview === n.id) { state.openRevPreview = null; if (state.feedPending.has(n.id)) showRevisionPreview(n); }
   bindNoteFind(n, terms);
   const gallery = $('#gallery');
   const inline = inlineImageIds(n.body);
@@ -551,10 +589,9 @@ async function renderNote(id) {
     const cap = m.caption ? `<figcaption>${highlight(m.caption, terms)}</figcaption>` : '';
     const el = document.createElement('figure');
     el.className = 'm-' + m.kind;
-    if (m.kind === 'image') el.innerHTML = `<img src="${url}" alt="${esc(m.caption || m.name)}" loading="lazy">${cap}`;
+    if (m.kind === 'image') { el.innerHTML = cap; el.prepend(annotatedImage(url, m, m.caption, n)); }
     else if (m.kind === 'video') el.innerHTML = `<video src="${url}" controls playsinline preload="metadata"></video>${cap}`;
     else el.innerHTML = `<div class="audio-row"><span>🎙️</span><audio src="${url}" controls preload="metadata"></audio></div>${cap}`;
-    if (m.kind === 'image') el.querySelector('img').onclick = () => openLightbox(url, m.caption);
     gallery.appendChild(el);
   }
 }
@@ -931,12 +968,7 @@ async function hydrateInlineImages(root, note) {
     if (!m || m.kind !== 'image') { ph.textContent = 'Gambar belum tersedia di perangkat ini'; ph.classList.add('missing'); continue; }
     const url = objUrl(m.blob);
     const cap = fig.querySelector('figcaption')?.textContent || m.caption || '';
-    const img = document.createElement('img');
-    img.src = url;
-    img.alt = cap || m.name || 'Gambar';
-    img.loading = 'lazy';
-    img.onclick = () => openLightbox(url, cap);
-    ph.replaceWith(img);
+    ph.replaceWith(annotatedImage(url, m, cap, note));
   }
 }
 
@@ -1470,12 +1502,199 @@ async function docToNote(parent, m) {
   location.hash = '#/ubah/' + n.id;
 }
 
-function openLightbox(url, caption) {
+// Bila note dan mid diisi, gambar bisa dicoret dan diberi catatan kecil langsung dari sini.
+function openLightbox(url, caption, note = null, mid = null) {
   const lb = document.createElement('div');
   lb.className = 'lightbox';
-  lb.innerHTML = `<img src="${url}" alt="">${caption ? `<p>${esc(caption)}</p>` : ''}<button class="iconbtn" aria-label="Tutup">✕</button>`;
-  lb.onclick = () => lb.remove();
+  const annot = mid ? state.mediaMeta.get(mid)?.annot : null;
+  lb.innerHTML = `<span class="annot-wrap"><img src="${url}" alt="">${annotSvg(annot)}</span>${caption ? `<p>${esc(caption)}</p>` : ''}
+    ${mid ? '<button type="button" class="btn small" data-act="annot">✏️ Coret & catatan</button>' : ''}<button class="iconbtn" aria-label="Tutup">✕</button>`;
+  fitImage(lb.querySelector('img'), '80vh');
+  lb.onclick = async (e) => {
+    lb.remove();
+    if (e.target.closest('[data-act="annot"]')) await editAnnotation(note, mid);
+  };
   document.body.appendChild(lb);
+}
+
+// ---------- Coretan & catatan kecil di gambar ----------
+// Disimpan terpisah dari foto sebagai m.annot = { w: 1000, h, s: [{ c, z, p: [x, y, ...] }], t: [{ x, y, c, f, v }] }
+// dalam satuan gambar selebar 1000. Foto asli tidak diubah, dan annot ikut sinkron/backup sebagai metadata media.
+const ANNOT_COLORS = ['#e53935', '#1e88e5', '#2e7d32', '#f9a825', '#111111'];
+
+function annotSvg(a, editing = false) {
+  if (!a || (!a.s?.length && !a.t?.length)) return editing && a ? `<svg class="annot" viewBox="0 0 ${a.w} ${a.h}" preserveAspectRatio="xMidYMid slice"></svg>` : '';
+  const paths = (a.s || []).map((st) => {
+    const p = st.p;
+    const d = p.length === 2 ? `M${p[0]} ${p[1]}h0.1` : 'M' + p.reduce((acc, v, i) => acc + (i % 2 ? ' ' + v : (i ? ' L' : '') + v), '');
+    return `<path d="${d}" stroke="${st.c}" stroke-width="${st.z}"/>`;
+  }).join('');
+  const texts = (a.t || []).map((t) => `<text x="${t.x}" y="${t.y}" fill="${t.c}" font-size="${t.f}" stroke-width="${(t.f * 0.22).toFixed(1)}">${
+    String(t.v).split('\n').map((line, i) => `<tspan x="${t.x}" dy="${i ? '1.2em' : '0.9em'}">${esc(line)}</tspan>`).join('')}</text>`).join('');
+  return `<svg class="annot" viewBox="0 0 ${a.w} ${a.h}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${paths}${texts}</svg>`;
+}
+
+// Lebar eksplisit agar gambar tanpa ukuran bawaan (mis. SVG yang hanya punya viewBox) tidak menciut di dalam
+// pembungkus coretan, dengan batas tinggi maxH tanpa mengubah rasio (lapisan coretan harus pas menutupi gambar).
+function fitImage(img, maxH) {
+  const set = () => {
+    const w = img.naturalWidth; const h = img.naturalHeight;
+    img.style.width = w && h ? `min(${w}px, 100%, calc(${maxH} * ${(w / h).toFixed(4)}))` : '100%';
+  };
+  if (img.complete && img.naturalWidth) set(); else img.addEventListener('load', set, { once: true });
+}
+
+// Gambar dengan lapisan coretannya; ketuk untuk memperbesar (dan mencoret).
+function annotatedImage(url, m, caption, note) {
+  const wrap = document.createElement('span');
+  wrap.className = 'annot-wrap';
+  wrap.dataset.annotMid = m.id;
+  wrap.innerHTML = `<img src="${url}" alt="${esc(caption || m.name || 'Gambar')}" loading="lazy">${annotSvg(m.annot)}`;
+  fitImage(wrap.querySelector('img'), '70vh');
+  wrap.onclick = () => openLightbox(url, caption, note, m.id);
+  return wrap;
+}
+
+async function editAnnotation(note, mid) {
+  const m = await db.getMedia(mid);
+  if (!m?.blob) { toast('Gambar belum tersedia di perangkat ini'); return; }
+  const annot = await annotateImage(m.blob, m.annot);
+  if (annot === undefined) return; // batal
+  const patch = { id: mid, annot };
+  touch(note);
+  const { mediaIds, ...stored } = note;
+  try {
+    await db.saveNote(stored, [], [patch]);
+  } catch (e) {
+    toast('Gagal menyimpan coretan: ' + (e?.message || e), 6000);
+    return;
+  }
+  state.mediaMeta.set(mid, { ...state.mediaMeta.get(mid), ...patch });
+  state.notes.set(note.id, note);
+  document.querySelectorAll(`.annot-wrap[data-annot-mid="${mid}"]`).forEach((w) => {
+    w.querySelector('svg.annot')?.remove();
+    w.insertAdjacentHTML('beforeend', annotSvg(annot));
+  });
+  scheduleSync();
+  toast(annot ? 'Coretan disimpan' : 'Coretan dihapus');
+}
+
+// Editor coretan. Mengembalikan annot baru, null bila semua coretan dihapus, atau undefined bila batal.
+function annotateImage(blob, initial) {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(blob);
+    const ov = document.createElement('div');
+    ov.className = 'cropper annotator';
+    ov.innerHTML = `
+      <div class="topbar"><button class="iconbtn" data-act="cancel" aria-label="Batal">✕</button><span class="grow title">Coret & catatan</span><button class="btn small" data-act="ok">Simpan</button></div>
+      <div class="annot-tools">
+        <div class="seg"><button type="button" data-tool="pen" class="on">✏️ Pena</button><button type="button" data-tool="text">🔤 Catatan</button><button type="button" data-tool="erase">🧽 Hapus</button></div>
+        <div class="swatches">${ANNOT_COLORS.map((c, i) => `<button type="button" data-color="${c}" class="${i ? '' : 'on'}" style="background:${c}" aria-label="Warna ${i + 1}"></button>`).join('')}</div>
+        <div class="seg"><button type="button" data-size="1" class="on">Tipis</button><button type="button" data-size="2">Tebal</button></div>
+        <div class="seg"><button type="button" data-act="undo" aria-label="Urungkan">↶ Urungkan</button><button type="button" data-act="clear">Hapus semua</button></div>
+      </div>
+      <p class="hint" data-hint>Gambar dengan jari/mouse di atas foto.</p>
+      <div class="crop-stage annot-stage"><img src="${url}" alt="" draggable="false"></div>`;
+    document.body.appendChild(ov);
+    const img = ov.querySelector('img');
+    const stage = ov.querySelector('.annot-stage');
+    const hint = ov.querySelector('[data-hint]');
+    const HINTS = { pen: 'Gambar dengan jari/mouse di atas foto.', text: 'Ketuk tempat catatan, ketik, lalu tekan Enter.', erase: 'Ketuk atau sapu coretan/catatan yang ingin dihapus.' };
+    let a = null;
+    let tool = 'pen'; let color = ANNOT_COLORS[0]; let size = 1;
+    const history = [];
+    const snap = () => history.push(JSON.stringify(a));
+    const draw = () => { stage.querySelector('svg')?.remove(); stage.insertAdjacentHTML('beforeend', annotSvg(a, true)); };
+    const ready = () => {
+      const h = Math.max(1, Math.round(1000 * img.naturalHeight / img.naturalWidth));
+      a = initial?.w ? structuredClone(initial) : { w: 1000, h, s: [], t: [] };
+      a.s ||= []; a.t ||= [];
+      draw();
+    };
+    fitImage(img, 'calc(100vh - 210px)');
+    if (img.complete && img.naturalWidth) ready(); else img.addEventListener('load', ready, { once: true });
+    const pt = (e) => {
+      const r = img.getBoundingClientRect();
+      return [Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * a.w), Math.round(Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)) * a.h)];
+    };
+    const eraseAt = ([x, y]) => {
+      const before = a.s.length + a.t.length;
+      a.s = a.s.filter((st) => {
+        const tol = Math.max(st.z, 14) ** 2;
+        for (let i = 0; i < st.p.length; i += 2) if ((st.p[i] - x) ** 2 + (st.p[i + 1] - y) ** 2 <= tol) return false;
+        return true;
+      });
+      const texts = [...stage.querySelectorAll('svg text')];
+      a.t = a.t.filter((t, i) => {
+        const b = texts[i]?.getBBox();
+        return !b || !(x >= b.x - 6 && x <= b.x + b.width + 6 && y >= b.y - 6 && y <= b.y + b.height + 6);
+      });
+      if (a.s.length + a.t.length !== before) draw();
+    };
+    let cur = null; let erasing = false;
+    stage.addEventListener('pointerdown', (e) => {
+      if (!a || e.target.closest('input')) return;
+      e.preventDefault();
+      const p = pt(e);
+      if (tool === 'text') { askText(p); return; }
+      stage.setPointerCapture(e.pointerId);
+      snap();
+      if (tool === 'erase') { erasing = true; eraseAt(p); return; }
+      cur = { c: color, z: size === 1 ? 6 : 14, p: [...p] };
+      a.s.push(cur);
+      draw();
+    });
+    stage.addEventListener('pointermove', (e) => {
+      if (erasing) { eraseAt(pt(e)); return; }
+      if (!cur) return;
+      const [x, y] = pt(e);
+      const n = cur.p.length;
+      if ((cur.p[n - 2] - x) ** 2 + (cur.p[n - 1] - y) ** 2 < 9) return;
+      cur.p.push(x, y);
+      draw();
+    });
+    const end = () => {
+      if (erasing && history.at(-1) === JSON.stringify(a)) history.pop();
+      cur = null; erasing = false;
+    };
+    stage.addEventListener('pointerup', end);
+    stage.addEventListener('pointercancel', end);
+    const askText = ([x, y]) => {
+      stage.querySelector('input')?.blur();
+      const inp = document.createElement('input');
+      inp.className = 'annot-input';
+      inp.placeholder = 'Catatan…';
+      inp.style.cssText = `left:${(x / a.w) * 100}%;top:${(y / a.h) * 100}%;color:${color}`;
+      stage.appendChild(inp);
+      let committed = false;
+      const commit = () => {
+        if (committed) return;
+        committed = true;
+        const v = inp.value.trim();
+        inp.remove();
+        if (!v) return;
+        snap();
+        a.t.push({ x, y, c: color, f: size === 1 ? 30 : 46, v });
+        draw();
+      };
+      inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } if (e.key === 'Escape') { inp.value = ''; commit(); } });
+      inp.addEventListener('blur', commit);
+      inp.focus(); // harus sinkron di dalam ketukan agar keyboard iPhone muncul
+    };
+    const done = (v) => { URL.revokeObjectURL(url); ov.remove(); resolve(v); };
+    ov.addEventListener('click', (e) => {
+      const b = e.target.closest('button');
+      if (!b || !a) { if (b?.dataset.act === 'cancel') done(undefined); return; }
+      const sel = (attr) => { b.parentElement.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); return b.dataset[attr]; };
+      if (b.dataset.tool) { tool = sel('tool'); hint.textContent = HINTS[tool]; stage.classList.toggle('erase', tool === 'erase'); }
+      else if (b.dataset.color) color = sel('color');
+      else if (b.dataset.size) size = +sel('size');
+      else if (b.dataset.act === 'undo') { if (history.length) { a = JSON.parse(history.pop()); draw(); } }
+      else if (b.dataset.act === 'clear') { if (a.s.length || a.t.length) { snap(); a.s = []; a.t = []; draw(); } }
+      else if (b.dataset.act === 'cancel') done(undefined);
+      else if (b.dataset.act === 'ok') { stage.querySelector('input')?.blur(); done(a.s.length || a.t.length ? a : null); }
+    });
+  });
 }
 
 // ---------- Tampilan: pilih jenis & editor ----------
@@ -1485,13 +1704,14 @@ function renderNewPicker() {
   view().innerHTML = `
     <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Catatan baru</span></div>
     <div class="picker">
-      ${Object.entries(TYPES).map(([k, t]) => `<a class="pick" href="#/baru/${k}"><span class="big">${t.icon}</span><b>${t.label}</b><small>${pickHint(k)}</small></a>`).join('')}
+      ${visibleTypes().map(([k, t]) => `<a class="pick" href="#/baru/${k}"><span class="big">${t.icon}</span><b>${esc(t.label)}</b><small>${esc(pickHint(k))}</small></a>`).join('')}
       <a class="pick pick-claude" href="#/tempel"><span class="big">✨</span><b>Tempel dari Claude</b><small>Jadikan obrolan dengan Claude catatan baru</small></a>
     </div>`;
 }
 
 function pickHint(k) {
-  return { kasus: 'Pasien yang kamu temui', topik: 'Penyakit atau materi', obat: 'Dosis, indikasi, efek samping', prosedur: 'Langkah tindakan', bebas: 'Tanpa template' }[k];
+  return { kasus: 'Pasien yang kamu temui', topik: 'Penyakit atau materi', obat: 'Dosis, indikasi, efek samping', prosedur: 'Langkah tindakan', bebas: 'Tanpa template' }[k]
+    || (TYPES[k]?.template || '').split('\n').filter((l) => l.trim()).slice(0, 3).join(' · ').replace(/:/g, '') || 'Jenis buatanmu';
 }
 
 // ---------- Alat: kalkulator klinis ----------
@@ -2115,7 +2335,7 @@ async function renderEditor(id, type) {
     </div>
     <form class="editor" onsubmit="return false">
       <div class="row">
-        <select id="e-type" aria-label="Jenis">${Object.entries(TYPES).map(([k, t]) => `<option value="${k}" ${k === note.type ? 'selected' : ''}>${t.icon} ${t.label}</option>`).join('')}</select>
+        <select id="e-type" aria-label="Jenis">${visibleTypes(note.type).map(([k, t]) => `<option value="${k}" ${k === note.type ? 'selected' : ''}>${t.icon} ${esc(t.label)}</option>`).join('')}</select>
         <input id="e-stase" list="stase-list" placeholder="Stase" value="${esc(note.stase)}" aria-label="Stase">
         <datalist id="stase-list">${allStase().map((s) => `<option value="${esc(s)}">`).join('')}</datalist>
       </div>
@@ -2139,6 +2359,7 @@ async function renderEditor(id, type) {
       </div>
       <textarea id="e-body" aria-label="Isi catatan" placeholder="Tulis catatan… Baris '## Judul' atau 'Label:' menjadi bagian yang bisa dilipat. [[Judul catatan lain]] untuk menautkan.">${esc(note.body)}</textarea>
       ${note.type === 'kasus' ? '<p class="hint">🔒 Jangan tulis nama, No. RM, NIK, atau alamat pasien. Gunakan inisial dan usia.</p>' : ''}
+      ${note.feed ? '<p class="hint">✨ Tulis tambahanmu di bagian <b>## Catatanku</b> agar tetap ada saat catatan ini direvisi. Editan di luar bagian itu akan ditanyakan dulu sebelum revisi dipasang. <button type="button" class="linkbtn" id="e-mine">＋ Bagian Catatanku</button></p>' : ''}
       <h4 class="section">Lampiran</h4>
       <div class="attach-actions">
         <label class="btn ghost">📷 Foto / video<input type="file" id="f-visual" accept="image/*,video/*" multiple hidden></label>
@@ -2177,6 +2398,19 @@ async function renderEditor(id, type) {
   $('#f-doc').onchange = (e) => addFiles(e.target.files);
   $('#rec').onclick = startRecording;
   $('#t-table').onclick = () => editTableAtCursor();
+  const mineBtn = $('#e-mine');
+  if (mineBtn) mineBtn.onclick = () => {
+    const ta = $('#e-body');
+    if (!/^##\s+Catatanku\s*$/im.test(ta.value)) ta.value = ta.value.replace(/\s+$/, '') + '\n\n## Catatanku\n';
+    const lines = ta.value.split('\n');
+    const h = lines.findIndex((l) => /^##\s+Catatanku\s*$/i.test(l.trim()));
+    let end = lines.findIndex((l, i) => i > h && /^#{1,2}\s+\S/.test(l));
+    if (end < 0) end = lines.length;
+    const pos = lines.slice(0, end).join('\n').replace(/\s+$/, '').length + (end < lines.length ? 0 : 1);
+    ta.dispatchEvent(new Event('input', { bubbles: true }));
+    ta.focus();
+    ta.setSelectionRange(Math.min(pos, ta.value.length), Math.min(pos, ta.value.length));
+  };
   const fmtBar = view().querySelector('.fmt');
   // Di laptop fokus & seleksi tetap di kotak teks saat tombol format diklik.
   fmtBar.addEventListener('mousedown', (e) => { if (e.target.closest('.fmtbtn')) e.preventDefault(); });
@@ -2596,7 +2830,7 @@ async function renderSettings() {
   const lastBackup = await db.getMeta('lastBackup');
   const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
   const syncHtml = await syncSectionHtml();
-  const feedHtml = await feedSectionHtml();
+  const feedHtml = `<section><h4>✨ Auto Updates dan AI</h4><p>Pengaturan Auto updates, permintaan catatan baru ke AI, revisi yang menunggu, serta jenis dan stase kini ada di tab AI.</p><div class="row"><a class="btn ghost" href="#/ai">Buka tab AI</a></div></section>`;
   // Halaman ini dirender asinkron; jangan menimpa tampilan lain bila pengguna sudah pindah.
   if (location.hash !== '#/pengaturan') return;
   view().innerHTML = `
@@ -2788,6 +3022,7 @@ async function route() {
     case 'alat': return arg === 'bmi' ? renderBmi() : arg === 'puyer' ? renderPuyer() : arg === 'cairan' ? renderFluid() : renderTools();
     case 'ubah': return renderEditor(arg);
     case 'pengaturan': return renderSettings();
+    case 'ai': return arg === 'jenis-stase' ? renderTaxonomy() : renderAi();
     case 'cari':
       state.query = decodeURIComponent(arg || '');
       history.replaceState(null, '', '#/');
@@ -2825,7 +3060,8 @@ window.addEventListener('beforeunload', (e) => {
 // lengkap dengan gambar/ilustrasi (feed/img) dan guideline terkait. Aplikasi memeriksanya saat dibuka dan online,
 // lalu menambahkannya sebagai catatan bertag #auto-updates.
 
-const FEED_URL = 'feed/ilmu.json';
+// Feed ada di repo data privat (lihat js/github.js); dibaca dengan token GitHub yang ikut sinkron antarperangkat.
+const FEED_FILE = 'feed/ilmu.json';
 const FEED_TAG = 'auto-updates';
 const LEGACY_FEED_TAG = 'ilmu-baru';
 let feedChecking = false;
@@ -2844,11 +3080,24 @@ const feedRev = (it) => Math.max(1, parseInt(it.rev, 10) || 1);
 const feedUpdated = (it) => Date.parse(it.revised) || Date.parse(it.created) || Date.now();
 
 async function fetchFeedImage(img) {
-  const url = new URL(String(img.file || img.url || ''), new URL(FEED_URL, location.href)).href;
-  const res = await fetch(url, { cache: 'no-store' });
-  if (!res.ok) throw new Error('HTTP ' + res.status);
-  let blob = await res.blob();
-  if (/\.svg(\?|$)/i.test(url) && blob.type !== 'image/svg+xml') blob = new Blob([blob], { type: 'image/svg+xml' });
+  const file = String(img.file || '');
+  let blob;
+  if (file) {
+    // Gambar feed ("img/<id>-N.svg") ada di repo data privat, relatif terhadap folder feed.
+    const path = 'feed/' + file.replace(/^\.?\//, '');
+    if (path.includes('..')) throw Object.assign(new Error('Nama gambar tidak sah'), { permanent: true });
+    const token = await getGhToken();
+    if (!token) throw new Error('Token GitHub belum diisi');
+    blob = await github.readRaw(token, path);
+    if (!blob) throw Object.assign(new Error('HTTP 404'), { permanent: true });
+  } else {
+    const res = await fetch(String(img.url), { cache: 'no-store' });
+    if (!res.ok) throw Object.assign(new Error('HTTP ' + res.status), { permanent: res.status === 404 || res.status === 410 });
+    blob = await res.blob();
+  }
+  const ext = (file || String(img.url)).split('?')[0].split('.').pop().toLowerCase();
+  const mime = { svg: 'image/svg+xml', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp' }[ext];
+  if (mime && blob.type !== mime) blob = new Blob([blob], { type: mime });
   return blob;
 }
 
@@ -2858,21 +3107,41 @@ async function feedItemToNote(it, id) {
   const rev = feedRev(it);
   const media = [];
   const refs = [];
-  const images = (it.images || []).filter((x) => x && (x.file || x.url)).slice(0, 6);
+  let transient = 0; // gagal karena koneksi/server: sebaiknya dicoba lagi nanti
+  const images = feedImages(it);
   for (let k = 0; k < images.length; k++) {
     const img = images[k];
     try {
       const raw = await fetchFeedImage(img);
       const { blob, thumb } = await processImage(raw);
-      const caption = [img.caption, img.credit].filter(Boolean).join(' · ').slice(0, 300);
+      const caption = feedImageCaption(img);
       const mid = `${id}-r${rev}-img${k + 1}`;
-      const name = String(img.file || img.url).split('/').pop().split('?')[0] || 'gambar';
+      const name = feedImageName(img);
       media.push({ id: mid, noteId: id, kind: 'image', name, mime: blob.type || raw.type || 'image/png', size: blob.size, caption, blob, thumb, created: feedUpdated(it) + k });
       refs[k] = `![${caption.replace(/[\[\]]/g, '')}](img:${mid})`;
     } catch (e) {
       console.warn('Gambar feed', img, e);
+      if (!e?.permanent) transient++;
     }
   }
+  const body = feedBody(it, refs);
+  // created/updated diambil dari feed agar dua perangkat yang mengimpor item yang sama menghasilkan catatan identik saat sinkron.
+  const note = {
+    id, type, title: String(it.title).slice(0, 200), body: body.trim(),
+    tags: [...new Set([...(it.tags || []).map(String), FEED_TAG])],
+    stase: it.stase || '', pinned: false, created: Date.parse(it.created) || Date.now(), updated: feedUpdated(it),
+  };
+  // Salinan versi feed: dasar untuk mengetahui apa yang kamu ubah dan apa yang diubah revisi berikutnya.
+  note.feed = { rev, title: note.title, body: note.body, tags: [...note.tags], type: note.type, stase: note.stase };
+  return { note, media, missing: images.length - media.length, transient };
+}
+
+const feedImages = (it) => (it.images || []).filter((x) => x && (x.file || x.url)).slice(0, 6);
+const feedImageCaption = (img) => [img.caption, img.credit].filter(Boolean).join(' · ').slice(0, 300);
+const feedImageName = (img) => String(img.file || img.url).split('/').pop().split('?')[0] || 'gambar';
+
+// Isi catatan dari item feed; refs[k] = baris gambar ke-k (boleh kosong bila gagal diambil).
+function feedBody(it, refs) {
   let body = String(it.body || '').replace(/\s+$/, '');
   // {{gambar:N}} di body diganti gambar ke-N; gambar yang tidak disebut ditaruh di bawah label "Gambar:".
   const placed = new Set();
@@ -2892,13 +3161,299 @@ async function feedItemToNote(it, id) {
   if (sources.length && !/^Sumber:\s*$/m.test(body)) {
     body += '\n\nSumber:\n' + sources.map((x) => `- ${[x.title, x.publisher, x.year].filter(Boolean).join(', ')}${x.url ? ` (${x.url})` : ''}`).join('\n');
   }
-  // created/updated diambil dari feed agar dua perangkat yang mengimpor item yang sama menghasilkan catatan identik saat sinkron.
-  const note = {
-    id, type, title: String(it.title).slice(0, 200), body: body.trim(),
-    tags: [...new Set([...(it.tags || []).map(String), FEED_TAG])],
-    stase: it.stase || '', pinned: false, created: Date.parse(it.created) || Date.now(), updated: feedUpdated(it),
-  };
-  return { note, media };
+  return body.trim();
+}
+
+// ---------- Revisi feed: bawa perubahanmu, pratinjau sebelum dipasang ----------
+
+// Bagian "## Catatanku" (sampai judul # / ## berikutnya) milikmu dan selalu dipertahankan saat revisi.
+const MINE_HEAD = /^##\s+Catatanku\s*$/i;
+function splitMine(body) {
+  const lines = (body || '').split('\n');
+  const start = lines.findIndex((l) => MINE_HEAD.test(l.trim()));
+  if (start < 0) return { rest: body || '', mine: '' };
+  let end = lines.findIndex((l, i) => i > start && /^#{1,2}\s+\S/.test(l));
+  if (end < 0) end = lines.length;
+  const mine = lines.slice(start, end).join('\n').trim();
+  const rest = [...lines.slice(0, start), ...lines.slice(end)].join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  return { rest, mine: mine.split('\n').length > 1 ? mine : '' };
+}
+
+// Teks untuk dibandingkan: penanda gambar (id-nya berganti tiap revisi) jadi keterangannya saja.
+const feedNorm = (body) => (body || '').replace(IMG_REF_G, (_, cap) => `🖼️ ${cap || 'Gambar'}`).replace(/[ \t]+$/gm, '').replace(/\n{3,}/g, '\n\n').trim();
+
+function feedUserEdited(n, known) {
+  if (!n.feed) return n.updated !== known.updated; // catatan lama tanpa salinan: pakai waktu ubah
+  return n.title !== n.feed.title || feedNorm(splitMine(n.body).rest) !== feedNorm(n.feed.body);
+}
+
+// Memasang revisi sambil membawa sematan, bagian Catatanku, tag tambahanmu, dan coretan pada gambar yang filenya sama.
+// Gambar yang gagal karena koneksi membatalkan pemasangan (catatan lama tetap utuh); gambar yang memang
+// tidak ada di feed (404) dilewati dan dilaporkan lewat missing.
+async function applyFeedRevision(existing, it) {
+  const { note, media, missing, transient } = await feedItemToNote(it, existing.id);
+  if (transient) throw Object.assign(new Error(`${transient} gambar revisi gagal diunduh. Coba lagi saat koneksi stabil.`), { transient: true });
+  // Jenis dan stase yang kamu ubah dipertahankan (catatan lama tanpa salinan feed: selalu pakai milikmu).
+  for (const k of ['type', 'stase']) if (!existing.feed || existing.feed[k] === undefined || existing[k] !== existing.feed[k]) note[k] = existing[k];
+  const { mine } = splitMine(existing.body);
+  if (mine) note.body += '\n\n' + mine;
+  note.pinned = !!existing.pinned;
+  const feedTags = new Set(existing.feed?.tags || []);
+  note.tags = [...new Set([...note.tags, ...existing.tags.filter((t) => !feedTags.has(t))])];
+  const annotated = existing.mediaIds.map((m) => state.mediaMeta.get(m)).filter((m) => m?.annot);
+  let carried = 0;
+  for (const m of media) {
+    const o = annotated.find((x) => x.name === m.name && x.size === m.size);
+    if (o) { m.annot = o.annot; carried++; }
+  }
+  note.updated = Math.max(note.updated, existing.updated + 1);
+  const remove = existing.mediaIds.filter((m) => !media.some((x) => x.id === m));
+  await db.saveNote(note, media, [], remove);
+  remove.forEach((m) => state.mediaMeta.delete(m));
+  media.forEach(({ blob, thumb, ...meta }) => state.mediaMeta.set(meta.id, meta));
+  note.mediaIds = media.map((m) => m.id);
+  state.notes.set(note.id, note);
+  indexNote(note);
+  return { note, carried, lost: annotated.length - carried, missing };
+}
+
+// Perbandingan LCS sederhana: [{ t: '=' | '-' | '+', v }].
+function diffSeq(a, b) {
+  const n = a.length; const m = b.length;
+  const L = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) L[i][j] = a[i] === b[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  const out = [];
+  let i = 0; let j = 0;
+  while (i < n && j < m) {
+    if (a[i] === b[j]) { out.push({ t: '=', v: a[i] }); i++; j++; }
+    else if (L[i + 1][j] >= L[i][j + 1]) out.push({ t: '-', v: a[i++] });
+    else out.push({ t: '+', v: b[j++] });
+  }
+  while (i < n) out.push({ t: '-', v: a[i++] });
+  while (j < m) out.push({ t: '+', v: b[j++] });
+  return out;
+}
+
+function wordDiffHtml(a, b) {
+  const tok = (x) => x.split(/(\s+)/).filter(Boolean);
+  const ta = tok(a); const tb = tok(b);
+  if (ta.length * tb.length > 250000) return `<del>${esc(a)}</del><br><ins>${esc(b)}</ins>`;
+  return diffSeq(ta, tb).map((d) => (d.t === '=' ? esc(d.v) : d.t === '-' ? `<del>${esc(d.v)}</del>` : `<ins>${esc(d.v)}</ins>`)).join('');
+}
+
+// Bagian-bagian teks: { key, title, lines }. Judul = "#.. Judul" atau baris "Label:".
+function feedSections(body) {
+  const secs = [{ key: '', title: 'Pembuka', lines: [] }];
+  for (const l of feedNorm(body).split('\n')) {
+    const t = l.trim();
+    const h = /^#{1,3}\s+\S/.test(t) || /^[^:\-•*]{1,60}:$/.test(t);
+    if (h) secs.push({ key: t.replace(/^#+\s*/, '').replace(/:$/, '').toLowerCase(), title: t.replace(/^#+\s*/, '').replace(/:$/, ''), lines: [] });
+    else if (t) secs.at(-1).lines.push(t);
+  }
+  return secs.filter((x) => x.key || x.lines.length);
+}
+
+// Ringkasan otomatis perubahan (dipakai bila rutin tidak menulis revNote).
+function revisionSummary(oldBody, newBody, imgAdded, imgRemoved, titleChanged) {
+  const A = feedSections(oldBody); const B = feedSections(newBody);
+  let changed = 0; let lines = 0;
+  for (const b of B) {
+    const a = A.find((x) => x.key === b.key);
+    if (!a) continue;
+    const ops = diffSeq(a.lines, b.lines).filter((o) => o.t !== '=');
+    if (ops.length) { changed++; lines += ops.filter((o) => o.t === '+').length || ops.length; }
+  }
+  const added = B.filter((b) => !A.some((a) => a.key === b.key)).map((b) => b.title);
+  const removed = A.filter((a) => !B.some((b) => b.key === a.key)).map((a) => a.title);
+  const out = [];
+  if (titleChanged) out.push('judul diubah');
+  if (changed) out.push(`${changed} bagian diubah (${lines} baris)`);
+  if (added.length) out.push(`bagian baru: ${added.join(', ')}`);
+  if (removed.length) out.push(`bagian dihapus: ${removed.join(', ')}`);
+  if (imgAdded) out.push(`${imgAdded} gambar baru`);
+  if (imgRemoved) out.push(`${imgRemoved} gambar dihapus`);
+  return out.length ? out.join('; ') : 'tidak ada perubahan isi';
+}
+
+// HTML perbedaan dua versi teks per bagian; null bila sama persis.
+function sectionDiffHtml(oldBody, newBody) {
+  const A = feedSections(oldBody); const B = feedSections(newBody);
+  const keys = [...new Set([...B.map((x) => x.key), ...A.map((x) => x.key)])];
+  let same = 0;
+  const parts = [];
+  for (const k of keys) {
+    const a = A.find((x) => x.key === k); const b = B.find((x) => x.key === k);
+    const title = esc((b || a).title);
+    if (!a) { parts.push(`<div class="dsec add"><b>＋ Bagian baru: ${title}</b>${b.lines.map((l) => `<p><ins>${esc(l)}</ins></p>`).join('')}</div>`); continue; }
+    if (!b) { parts.push(`<div class="dsec del"><b>－ Bagian dihapus: ${title}</b>${a.lines.map((l) => `<p><del>${esc(l)}</del></p>`).join('')}</div>`); continue; }
+    const ops = diffSeq(a.lines, b.lines);
+    if (ops.every((o) => o.t === '=')) { same++; continue; }
+    const rows = [];
+    let kept = 0;
+    for (let i = 0; i < ops.length; i++) {
+      const o = ops[i];
+      if (o.t === '=') { kept++; continue; }
+      if (kept) { rows.push(`<p class="dsame">… ${kept} baris sama</p>`); kept = 0; }
+      // Baris dihapus yang langsung diganti baris baru: tampilkan perubahan per kata.
+      if (o.t === '-' && ops[i + 1]?.t === '+') { rows.push(`<p>${wordDiffHtml(o.v, ops[i + 1].v)}</p>`); i++; continue; }
+      rows.push(o.t === '-' ? `<p><del>${esc(o.v)}</del></p>` : `<p><ins>${esc(o.v)}</ins></p>`);
+    }
+    if (kept) rows.push(`<p class="dsame">… ${kept} baris sama</p>`);
+    parts.push(`<div class="dsec"><b>✎ ${title}</b>${rows.join('')}</div>`);
+  }
+  if (!parts.length) return null;
+  if (same) parts.push(`<p class="hint">${same} bagian lain tidak berubah.</p>`);
+  return parts.join('');
+}
+
+function revisionBannerHtml(n) {
+  const it = state.feedPending.get(n.id);
+  if (!it) return '';
+  const rev = feedRev(it);
+  if ((n.feed?.rev || 0) >= rev || (n.feedSkip || 0) >= rev) return '';
+  const when = Date.parse(it.revised) ? ` · ${fmtDate(Date.parse(it.revised))}` : '';
+  return `<div class="rev-banner" id="rev-banner">
+      <p><b>🔄 Revisi tersedia (rev ${rev}${when})</b><br>Catatan ini sudah kamu ubah, jadi revisi belum dipasang. Lihat perubahannya dulu sebelum memutuskan.</p>
+      <div class="row"><button type="button" class="btn small" data-rev="show">Lihat perubahan</button><button type="button" class="btn small ghost" data-rev="skip">Tetap versiku</button></div>
+    </div>`;
+}
+
+function bindRevisionBanner(n) {
+  const box = $('#rev-banner');
+  if (!box) return;
+  box.addEventListener('click', (e) => {
+    const act = e.target.closest('[data-rev]')?.dataset.rev;
+    if (act === 'show') showRevisionPreview(n);
+    else if (act === 'skip') skipRevision(n);
+  });
+}
+
+async function finishPending(id, rev, updated) {
+  state.feedPending.delete(id);
+  updateAiBadge();
+  await db.setMeta('feedPending', Object.fromEntries(state.feedPending));
+  const revs = (await db.getMeta('feedRevs')) || {};
+  revs[id] = { rev, updated };
+  await db.setMeta('feedRevs', revs);
+}
+
+async function skipRevision(n) {
+  const it = state.feedPending.get(n.id);
+  if (!it) return;
+  // Disimpan di catatan agar ikut sinkron: perangkat lain tidak menanyakan revisi yang sama lagi.
+  n.feedSkip = feedRev(it);
+  touch(n);
+  const { mediaIds, ...stored } = n;
+  await db.saveNote(stored);
+  await finishPending(n.id, n.feedSkip, n.updated);
+  scheduleSync();
+  toast('Versimu dipertahankan. Revisi berikutnya akan ditanyakan lagi.');
+  renderNote(n.id);
+}
+
+async function showRevisionPreview(n) {
+  const it = state.feedPending.get(n.id);
+  if (!it) return;
+  const rev = feedRev(it);
+  const images = feedImages(it);
+  const newBody = feedBody(it, images.map((img, k) => `![${feedImageCaption(img).replace(/[\[\]]/g, '')}](img:baru${k})`));
+  const newTitle = String(it.title).slice(0, 200);
+  const { rest: myRest, mine } = splitMine(n.body);
+  const sec = (title, inner, cls = '') => `<section class="rev-sec ${cls}"><h3>${title}</h3>${inner}</section>`;
+  const out = [];
+
+  const oldRev = n.feed?.rev;
+  const oldImgs = n.mediaIds.map((id) => state.mediaMeta.get(id)).filter((m) => m && m.kind === 'image' && !m.supersededBy);
+  const newNames = images.map(feedImageName);
+  const imgAdded = newNames.filter((x) => !oldImgs.some((m) => m.name === x)).length;
+  const imgRemoved = oldImgs.filter((m) => !newNames.includes(m.name)).length;
+  const auto = revisionSummary(n.feed ? n.feed.body : myRest, newBody, imgAdded, imgRemoved, (n.feed ? n.feed.title : n.title) !== newTitle);
+  const noteHtml = it.revNote
+    ? `<p class="rev-note">“${esc(String(it.revNote))}”</p>`
+    : `<p class="rev-note">Ringkasan otomatis${n.feed ? '' : ' (termasuk editanmu)'}: ${esc(auto)}.</p>`;
+  out.push(sec('Ringkasan', `<p>${oldRev ? `Rev ${oldRev} → rev ${rev}` : `Revisi rev ${rev}`}${Date.parse(it.revised) ? ` · direvisi ${fmtDate(Date.parse(it.revised))}` : ''}</p>${noteHtml}`));
+
+  // 1. Yang diubah revisi pada isi feed.
+  if (n.feed) {
+    const titleDiff = n.feed.title !== newTitle ? `<div class="dsec"><b>✎ Judul</b><p>${wordDiffHtml(n.feed.title, newTitle)}</p></div>` : '';
+    const d = sectionDiffHtml(n.feed.body, newBody);
+    out.push(sec('Perubahan dari revisi', titleDiff + (d || (titleDiff ? '' : '<p class="hint">Teks tidak berubah.</p>'))));
+  } else {
+    const d = sectionDiffHtml(myRest, newBody);
+    out.push(sec('Perbedaan versimu dengan revisi', `<p class="hint">Versi feed lama tidak tersimpan untuk catatan ini, jadi editanmu dan perubahan dari revisi tercampur di bawah. Hijau = isi revisi, merah = isi versimu sekarang.</p>${d || '<p class="hint">Teks sama.</p>'}`));
+  }
+
+  // 2. Gambar.
+  const rows = [];
+  images.forEach((img, k) => {
+    const name = newNames[k];
+    const o = oldImgs.find((m) => m.name === name);
+    const status = o ? (o.annot ? 'sama · coretanmu ikut bila file tidak diganti' : 'sama') : 'baru';
+    rows.push(`<div class="rev-img"><img alt="" data-feed-img="${k}"><span><b>${o ? '' : '＋ '}${esc(feedImageCaption(img) || name)}</b><small>${status}</small></span></div>`);
+  });
+  oldImgs.filter((m) => !newNames.includes(m.name)).forEach((m) => {
+    rows.push(`<div class="rev-img gone"><img alt="" data-old-thumb="${m.id}"><span><b>－ ${esc(m.caption || m.name)}</b><small>dihapus${m.annot ? ' · coretanmu di gambar ini ikut hilang' : ''}</small></span></div>`);
+  });
+  out.push(sec('Gambar', rows.join('') || '<p class="hint">Tidak ada gambar.</p>'));
+
+  // 3. Yang dibawa dan yang hilang.
+  const carry = [];
+  if (n.pinned) carry.push('Sematan 📌');
+  if (mine) carry.push('Bagian Catatanku');
+  const feedTags = new Set(n.feed?.tags || []);
+  const myTags = n.tags.filter((t) => !feedTags.has(t) && !(it.tags || []).includes(t) && t !== FEED_TAG);
+  if (n.feed && myTags.length) carry.push('Tag tambahanmu: ' + myTags.map((t) => '#' + esc(t)).join(' '));
+  const newType = TYPES[it.type] ? it.type : 'topik';
+  if (n.type !== newType && (!n.feed?.type || n.type !== n.feed.type)) carry.push(`Jenis pilihanmu: ${esc((TYPES[n.type] || TYPES.bebas).label)}`);
+  if ((n.stase || '') !== (it.stase || '') && (!n.feed || n.feed.stase === undefined || n.stase !== n.feed.stase)) carry.push(`Stase pilihanmu: ${esc(n.stase || '(kosong)')}`);
+  const annotN = oldImgs.filter((m) => m.annot && newNames.includes(m.name)).length;
+  if (annotN) carry.push(`Coretan di ${annotN} gambar (bila file gambarnya tidak diganti)`);
+  out.push(sec('Tetap dibawa', carry.length ? `<ul>${carry.map((c) => `<li>${c}</li>`).join('')}</ul>` : '<p class="hint">Tidak ada sematan, Catatanku, tag tambahan, atau coretan.</p>'));
+
+  if (n.feed) {
+    const titleLost = n.title !== n.feed.title ? `<div class="dsec"><b>✎ Judul</b><p>${wordDiffHtml(n.feed.title, n.title)}</p></div>` : '';
+    const d = sectionDiffHtml(n.feed.body, myRest);
+    if (titleLost || d) out.push(sec('⚠️ Editanmu yang akan hilang', `<p class="hint">Hijau = yang kamu tambahkan/ubah, merah = isi feed yang kamu hapus. Pindahkan ke bagian Catatanku dulu bila ingin disimpan.</p>${titleLost}${d || ''}`, 'warn'));
+  } else {
+    out.push(sec('⚠️ Editanmu', '<p class="hint">Editan teks di luar bagian Catatanku akan diganti isi revisi. Lihat bagian merah di atas.</p>', 'warn'));
+  }
+
+  const wrap = document.createElement('div');
+  wrap.className = 'rev-preview';
+  wrap.innerHTML = out.join('') + `<div class="row rev-actions"><button type="button" class="btn" data-rev="apply">Pakai revisi</button><button type="button" class="btn ghost" data-rev="skip">Tetap versiku</button></div>`;
+  openSheet('Perubahan revisi', wrap);
+  wrap.querySelectorAll('[data-feed-img]').forEach(async (el) => {
+    try {
+      const blob = await fetchFeedImage(images[+el.dataset.feedImg]);
+      if (el.isConnected) el.src = objUrl(blob);
+    } catch { /* offline: thumbnail kosong */ }
+  });
+  wrap.querySelectorAll('[data-old-thumb]').forEach(async (img) => {
+    const m = await db.getMedia(img.dataset.oldThumb);
+    if (m && (m.thumb || m.blob) && img.isConnected) img.src = objUrl(m.thumb || m.blob);
+  });
+  wrap.addEventListener('click', async (e) => {
+    const act = e.target.closest('[data-rev]')?.dataset.rev;
+    if (act === 'skip') { closeSheet(); skipRevision(n); return; }
+    if (act !== 'apply') return;
+    if (!navigator.onLine) { toast('Perlu internet untuk mengunduh gambar revisi'); return; }
+    const btn = e.target.closest('button');
+    btn.disabled = true;
+    btn.textContent = 'Memasang…';
+    try {
+      const r = await applyFeedRevision(n, it);
+      await finishPending(n.id, rev, r.note.updated);
+      scheduleSync();
+      closeSheet();
+      const warn = [r.lost && `coretan di ${r.lost} gambar tidak bisa dibawa karena gambarnya diganti/dihapus`, r.missing && `${r.missing} gambar tidak ada di feed`].filter(Boolean);
+      toast(warn.length ? `Revisi dipasang. Catatan: ${warn.join('; ')}.` : 'Revisi dipasang', warn.length ? 6000 : 3000);
+      renderNote(n.id);
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Pakai revisi';
+      toast('Gagal memasang revisi: ' + (err?.message || err), 6000);
+    }
+  });
 }
 
 async function checkFeed({ manual = false } = {}) {
@@ -2906,15 +3461,17 @@ async function checkFeed({ manual = false } = {}) {
   if (!manual && (await db.getMeta('feedEnabled')) === false) return;
   feedChecking = true;
   try {
-    const res = await fetch(`${FEED_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if (res.status === 404) { if (manual) toast('Belum ada auto updates baru'); return; }
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const feed = await res.json();
+    const token = await getGhToken();
+    if (!token) { if (manual) toast('Hubungkan GitHub dulu di tab AI (token cukup diisi sekali; perangkat lain menerimanya lewat sinkron)', 6000); return; }
+    const { data: feed } = await github.readJson(token, FEED_FILE);
+    if (!feed) { if (manual) toast('Belum ada auto updates baru'); return; }
     const imported = new Set((await db.getMeta('feedImported')) || []);
     const revs = (await db.getMeta('feedRevs')) || {};
     const tomb = new Set(((await db.getMeta('tombstones')) || []).map((x) => x.id));
     let added = 0;
     let revised = 0;
+    let pending = 0;
+    let retry = 0;
     for (const it of feed.items || []) {
       if (!it || !it.id || !it.title || !it.body) continue;
       const id = 'ilmu-' + String(it.id).replace(/[^\w-]/g, '').slice(0, 60);
@@ -2924,24 +3481,43 @@ async function checkFeed({ manual = false } = {}) {
       if (imported.has(id) || existing) {
         imported.add(id);
         const known = revs[id] || { rev: 1, updated: existing ? existing.created : 0 };
+        // Catatan lama (sebelum 0.17) belum punya salinan versi feed; bila belum kamu ubah, isinya sendiri adalah salinannya.
+        if (existing && !existing.feed && existing.updated === known.updated) {
+          existing.feed = { rev: known.rev, title: existing.title, body: existing.body, tags: [...existing.tags], type: existing.type, stase: existing.stase };
+          const { mediaIds, ...stored } = existing;
+          await db.saveNote(stored);
+        }
         if (!existing || rev <= known.rev) continue;
-        // Revisi (mis. tambahan gambar/guideline) hanya dipasang bila catatannya belum kamu ubah.
-        if (existing.updated === feedUpdated(it)) { revs[id] = { rev, updated: existing.updated }; continue; } // sudah tiba lewat sinkron
-        if (existing.updated !== known.updated) { revs[id] = { rev, updated: known.updated }; continue; }
-        const { note, media } = await feedItemToNote(it, id);
-        const remove = existing.mediaIds.filter((m) => !media.some((x) => x.id === m));
-        await db.saveNote(note, media, [], remove);
-        remove.forEach((m) => state.mediaMeta.delete(m));
-        media.forEach(({ blob, thumb, ...meta }) => state.mediaMeta.set(meta.id, meta));
-        note.mediaIds = media.map((m) => m.id);
-        state.notes.set(id, note);
-        indexNote(note);
-        revs[id] = { rev, updated: note.updated };
+        // Sudah tiba lewat sinkron, atau sudah kamu tolak di perangkat lain.
+        const arrived = (existing.feed?.rev || 0) >= rev || (!existing.feed && existing.updated === feedUpdated(it));
+        if (arrived || (existing.feedSkip || 0) >= rev) {
+          revs[id] = { rev, updated: existing.updated };
+          state.feedPending.delete(id);
+          continue;
+        }
+        // Sematan, coretan, bagian Catatanku, dan tag tambahan tidak dihitung "diubah": semuanya ikut dibawa.
+        // Bila isi/judul kamu ubah, revisi menunggu persetujuan dengan pratinjau perubahan.
+        if (feedUserEdited(existing, known)) {
+          state.feedPending.set(id, it);
+          pending++;
+          continue;
+        }
+        let r;
+        try {
+          r = await applyFeedRevision(existing, it);
+        } catch (e) {
+          if (!e?.transient) throw e;
+          retry++; // dicoba lagi pada pengecekan berikutnya; catatan lama tetap utuh
+          continue;
+        }
+        revs[id] = { rev, updated: r.note.updated };
+        state.feedPending.delete(id);
         state.feedUnread.add(id);
         revised++;
         continue;
       }
-      const { note, media } = await feedItemToNote(it, id);
+      const { note, media, transient } = await feedItemToNote(it, id);
+      if (transient) { retry++; continue; } // gambar gagal diunduh: impor ditunda ke pengecekan berikutnya
       await db.saveNote(note, media);
       media.forEach(({ blob, thumb, ...meta }) => state.mediaMeta.set(meta.id, meta));
       note.mediaIds = media.map((m) => m.id);
@@ -2954,16 +3530,21 @@ async function checkFeed({ manual = false } = {}) {
     }
     await db.setMeta('feedImported', [...imported]);
     await db.setMeta('feedRevs', revs);
+    await db.setMeta('feedPending', Object.fromEntries(state.feedPending));
     await db.setMeta('feedUnread', [...state.feedUnread]);
     await db.setMeta('feedChecked', Date.now());
-    if (added || revised) {
+    updateAiBadge();
+    if (added || revised || pending || retry) {
       const parts = [];
       if (added) parts.push(`${added} catatan baru`);
       if (revised) parts.push(`${revised} catatan diperbarui`);
+      if (pending) parts.push(`${pending} revisi menunggu persetujuanmu`);
+      if (retry) parts.push(`${retry} ditunda karena gambar gagal diunduh`);
       toast(`✨ Auto updates: ${parts.join(', ')}`, 4000);
       scheduleSync();
       if (!location.hash || location.hash === '#/') renderHome();
     } else if (manual) toast('Belum ada auto updates baru');
+    if (pending && location.hash.startsWith('#/catatan/ilmu-')) route();
   } catch (e) {
     console.warn('Feed', e);
     if (manual) toast('Gagal memeriksa auto updates: ' + (e?.message || e), 5000);
@@ -2980,6 +3561,7 @@ async function feedSectionHtml() {
     <h4>✨ Auto updates</h4>
     <p>Setiap 4 jam (05.00-23.00 WIB) Claude merangkum satu topik dari guideline, buku ajar, atau jurnal tepercaya, lengkap dengan sumber, guideline terkait, dan gambar atau ilustrasi yang relevan (mis. contoh EKG). Rangkuman itu otomatis masuk ke catatanmu (tag <b>#${FEED_TAG}</b>) saat aplikasi dibuka dan ada internet.</p>
     <label class="switch-row"><input type="checkbox" id="feed-on" ${enabled ? 'checked' : ''}> Terima auto updates</label>
+    ${(await getGhToken()) ? '' : '<p class="hint">⚠️ Feed ada di repo privat: isi token di Koneksi GitHub (tab AI) agar auto updates bisa diambil.</p>'}
     <p class="hint">${count} catatan auto updates · terakhir diperiksa ${checked ? fmtDate(checked) + ' ' + new Date(checked).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'belum pernah'}</p>
     <div class="row"><button class="btn ghost" id="feed-check">Periksa sekarang</button></div>
   </section>`;
@@ -2992,6 +3574,381 @@ function bindFeedSection() {
     if (e.target.checked) checkFeed();
   });
   $('#feed-check')?.addEventListener('click', () => checkFeed({ manual: true }));
+}
+
+// ---------- Tab AI: permintaan catatan, revisi, Auto updates, jenis & stase ----------
+
+const REQ_FILE = 'feed/permintaan.json';
+const TAX_FILE = 'feed/pengaturan.json';
+const getGhToken = () => db.getMeta('githubToken');
+const feedNoteId = (itemId) => 'ilmu-' + String(itemId).replace(/[^\w-]/g, '').slice(0, 60);
+const cleanText = (t, max) => String(t || '').replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, '').trim().slice(0, max);
+
+function updateAiBadge() {
+  const el = $('#aibadge');
+  if (!el) return;
+  const n = [...state.feedPending.entries()].filter(([id, it]) => {
+    const note = state.notes.get(id);
+    return note && feedRev(it) > Math.max(note.feed?.rev || 0, note.feedSkip || 0);
+  }).length;
+  el.textContent = n || '';
+  el.classList.toggle('hidden', !n);
+}
+
+// File di repo data privat; tanpa token tidak bisa dibaca.
+async function readRepoJson(file) {
+  const token = await getGhToken();
+  return token ? (await github.readJson(token, file)).data : null;
+}
+
+async function setGhToken(value) {
+  await db.setMeta('githubToken', value);
+  await db.setMeta('githubTokenAt', Date.now());
+  scheduleSync();
+}
+
+// Jenis & stase: yang terbaru (waktu ubah) menang antara perangkat ini dan repo.
+async function syncTaxonomy() {
+  if (!navigator.onLine) return;
+  const local = await db.getMeta('taxonomy');
+  const remote = await readRepoJson(TAX_FILE).catch(() => null);
+  if (remote?.types && (remote.updated || 0) > (local?.updated || 0)) {
+    await db.setMeta('taxonomy', remote);
+    applyTaxonomy(remote);
+    if (location.hash === '#/' || !location.hash) renderHome();
+    return;
+  }
+  const token = await getGhToken();
+  if (local && token && (local.updated || 0) > (remote?.updated || 0)) {
+    await github.updateJson(token, TAX_FILE, () => local, 'Pengaturan jenis & stase');
+  }
+}
+
+async function saveTaxonomy(cfg) {
+  cfg.updated = Date.now();
+  await db.setMeta('taxonomy', cfg);
+  applyTaxonomy(cfg);
+  const token = await getGhToken();
+  if (!token) return 'local';
+  if (!navigator.onLine) return 'offline';
+  await github.updateJson(token, TAX_FILE, () => cfg, 'Pengaturan jenis & stase');
+  return 'repo';
+}
+
+// Prompt untuk aplikasi Claude/Gemini; hasilnya dimasukkan lewat "Tempel dari Claude".
+function requestPrompt(r) {
+  const t = TYPES[r.type];
+  return `Buatkan materi untuk catatan koas-ku tentang: ${r.topik}${r.stase ? ` (stase ${r.stase})` : ''}${t ? `, jenis catatan ${t.label}` : ''}.
+${r.detail ? `Fokus/permintaan khusus: ${r.detail}\n` : ''}Riset dulu dari sumber tepercaya dan buka sumbernya: PNPK/PPK Kemenkes, konsensus perhimpunan, WHO, NICE, atau jurnal bereputasi. Setiap angka (dosis, batas, kriteria) harus dari sumber itu, bukan dari ingatan. Jelaskan "mengapa", bukan hanya "apa".${t?.template ? `\nGunakan bagian-bagian ini: ${t.template.split('\n').filter((l) => l.trim()).join(' ')}` : ''}
+
+Lalu tulis hasilnya dengan aturan berikut:
+
+${CLAUDE_PROMPT}`;
+}
+
+async function copyText(text, okMsg) {
+  try { await navigator.clipboard.writeText(text); toast(okMsg); return true; } catch { return false; }
+}
+
+async function renderAi() {
+  releaseUrls();
+  const token = await getGhToken();
+  if (location.hash !== '#/ai') return;
+  const typeOpts = visibleTypes().map(([k, t]) => `<option value="${k}" ${k === 'topik' ? 'selected' : ''}>${t.icon} ${esc(t.label)}</option>`).join('');
+  const staseOpts = `<option value="">Bebas (AI memilih)</option>` + STASE.map((x) => `<option>${esc(x)}</option>`).join('');
+  view().innerHTML = `
+    <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">✨ AI</span></div>
+    <div class="settings ai-tab">
+      <section>
+        <h4>Minta Catatan Baru</h4>
+        <form id="ai-req" class="ai-form" onsubmit="return false">
+          <input id="ai-topik" required maxlength="120" placeholder="Topik, mis. Sindrom nefrotik pada anak" autocomplete="off">
+          <textarea id="ai-detail" maxlength="600" rows="3" placeholder="Fokus atau permintaan khusus (opsional), mis. tekankan dosis steroid dan kapan merujuk"></textarea>
+          <div class="row"><select id="ai-stase" aria-label="Stase">${staseOpts}</select><select id="ai-type" aria-label="Jenis">${typeOpts}</select></div>
+          <div class="row wrap">
+            <button type="button" class="btn" id="ai-send" ${token ? '' : 'disabled'}>📨 Kirim ke rutin AI</button>
+            <button type="button" class="btn ghost" id="ai-copy">📋 Salin prompt untuk Claude</button>
+          </div>
+          <p class="hint">${token ? 'Dikirim ke antrean di repo data privat; rutin AI berikutnya mengerjakannya lebih dulu, lalu hasilnya masuk sebagai catatan Auto updates.' : 'Kirim otomatis butuh token GitHub (lihat Koneksi GitHub di bawah). Tanpa token, salin prompt, tempel di aplikasi Claude, lalu masukkan jawabannya lewat Tempel dari Claude.'} Tetap hindari data pasien: permintaan dibaca layanan AI.</p>
+        </form>
+      </section>
+      <section>
+        <h4>Riwayat Permintaan</h4>
+        <div id="ai-history" class="ai-list"><p class="hint">Memuat…</p></div>
+      </section>
+      <section>
+        <h4>Revisi Menunggu</h4>
+        <div id="ai-pending" class="ai-list"></div>
+      </section>
+      ${await feedSectionHtml()}
+      <section>
+        <h4>Tempel dari Claude</h4>
+        <p>Jadikan jawaban atau rangkuman dari aplikasi Claude sebagai catatan baru.</p>
+        <div class="row wrap"><a class="btn ghost" href="#/tempel">✨ Tempel dari Claude</a><button type="button" class="btn ghost" id="ai-fmt">📋 Salin prompt format</button></div>
+      </section>
+      <section>
+        <h4>Jenis dan Stase</h4>
+        <p>${Object.values(TYPES).filter((t) => !t.hidden).length} jenis aktif · ${STASE.length} stase · ${(state.taxonomy?.stase || defaultTaxonomy().stase).filter((x) => x.rutin).length} stase dalam giliran rutin AI${(state.taxonomy?.stase || []).some((x) => x.fokus) ? ` · fokus: ${state.taxonomy.stase.filter((x) => x.fokus).map((x) => esc(x.name)).join(', ')}` : ''}</p>
+        <div class="row"><a class="btn ghost" href="#/ai/jenis-stase">Atur jenis dan stase</a></div>
+      </section>
+      <section>
+        <h4>Koneksi GitHub</h4>
+        ${token
+          ? `<p>Terhubung ke repo data privat <b>${esc(github.githubRepo())}</b>: Auto updates, permintaan, serta jenis dan stase dibaca dan ditulis di sana.</p><div class="row"><button type="button" class="btn ghost danger" id="gh-del">Hapus token dari semua perangkat</button></div>`
+          : `<p>Auto updates dan permintaan ke rutin AI disimpan di repo privat <b>${esc(github.githubRepo())}</b>, jadi aplikasi butuh token untuk membacanya. Buat <b>fine-grained personal access token</b> di GitHub (Settings › Developer settings) dengan akses <b>hanya</b> ke repo itu dan izin <b>Contents: Read and write</b>, beri masa berlaku, lalu tempel di sini. Cukup sekali: perangkat lain menerimanya lewat sinkron Google Drive.</p>
+             <div class="row"><input id="gh-token" type="password" autocomplete="off" placeholder="github_pat_…" aria-label="Token GitHub"><button type="button" class="btn" id="gh-save">Simpan</button></div>`}
+        <p class="hint">🔒 Token ikut sinkron Google Drive dalam keadaan terenkripsi dengan kata sandi sinkronmu (Google tidak bisa membacanya), tidak masuk file backup, dan hanya dikirim ke api.github.com. Siapa pun yang membuka perangkatmu dalam keadaan tidak terkunci bisa memakainya; cabut token di GitHub bila perangkat hilang.</p>
+      </section>
+    </div>`;
+  bindFeedSection();
+  $('#ai-fmt').onclick = async () => { if (!(await copyText(CLAUDE_PROMPT, 'Prompt format disalin'))) toast('Gagal menyalin'); };
+  const readForm = () => ({
+    topik: cleanText($('#ai-topik').value, 120), detail: cleanText($('#ai-detail').value, 600),
+    stase: $('#ai-stase').value, type: $('#ai-type').value,
+  });
+  $('#ai-copy').onclick = async () => {
+    const r = readForm();
+    if (!r.topik) { toast('Isi topik dulu'); $('#ai-topik').focus(); return; }
+    if (!(await copyText(requestPrompt(r), 'Prompt disalin. Tempel di aplikasi Claude, lalu masukkan jawabannya lewat Tempel dari Claude.'))) { toast('Gagal menyalin'); return; }
+    const local = (await db.getMeta('aiRequestsLocal')) || [];
+    local.push({ id: 'l' + uid(), ...r, created: new Date().toISOString(), status: 'disalin' });
+    await db.setMeta('aiRequestsLocal', local.slice(-50));
+    loadAiHistory();
+  };
+  $('#ai-send').onclick = async (e) => {
+    const r = readForm();
+    if (!r.topik) { toast('Isi topik dulu'); $('#ai-topik').focus(); return; }
+    if (!navigator.onLine) { toast('Perlu internet untuk mengirim permintaan'); return; }
+    const btn = e.currentTarget;
+    btn.disabled = true;
+    try {
+      const req = { id: new Date().toISOString().replace(/\D/g, '').slice(0, 14) + '-' + Math.random().toString(36).slice(2, 6), ...r, created: new Date().toISOString(), status: 'menunggu' };
+      await github.updateJson(await getGhToken(), REQ_FILE, (d) => {
+        d = d && Array.isArray(d.items) ? d : { items: [] };
+        if (d.items.filter((x) => x.status === 'menunggu').length >= 20) throw new Error('Antrean penuh (20 permintaan menunggu)');
+        d.items.push(req);
+        d.items = d.items.slice(-100);
+        d.updated = req.created;
+        return d;
+      }, `Permintaan catatan: ${r.topik}`);
+      toast('Permintaan masuk antrean rutin AI');
+      $('#ai-topik').value = '';
+      $('#ai-detail').value = '';
+      loadAiHistory();
+    } catch (err) {
+      toast('Gagal mengirim: ' + (err?.message || err), 6000);
+    } finally {
+      btn.disabled = false;
+    }
+  };
+  $('#gh-save')?.addEventListener('click', async () => {
+    const t = $('#gh-token').value.trim();
+    if (!t) return;
+    try {
+      await github.checkToken(t);
+      await setGhToken(t);
+      toast('Terhubung ke GitHub. Token ikut sinkron ke perangkatmu yang lain.', 4000);
+      syncTaxonomy().catch(() => {});
+      checkFeed();
+      renderAi();
+    } catch (err) {
+      toast(err?.message || String(err), 6000);
+    }
+  });
+  $('#gh-del')?.addEventListener('click', async () => {
+    await setGhToken(null);
+    toast('Token dihapus dari semua perangkat (lewat sinkron). Cabut juga di GitHub bila tidak dipakai lagi.', 5000);
+    renderAi();
+  });
+  renderAiPending();
+  loadAiHistory();
+}
+
+function renderAiPending() {
+  const box = $('#ai-pending');
+  if (!box) return;
+  const rows = [...state.feedPending.entries()].map(([id, it]) => [state.notes.get(id), it])
+    .filter(([n, it]) => n && feedRev(it) > Math.max(n.feed?.rev || 0, n.feedSkip || 0));
+  box.innerHTML = rows.length
+    ? rows.map(([n, it]) => `<div class="ai-item"><span class="grow"><b>${esc(judulEYD(n.title))}</b><small>rev ${feedRev(it)}${Date.parse(it.revised) ? ' · ' + fmtDate(Date.parse(it.revised)) : ''}${it.revNote ? ' · ' + esc(String(it.revNote)) : ''}</small></span><button type="button" class="btn small" data-open-rev="${esc(n.id)}">Lihat perubahan</button></div>`).join('')
+    : '<p class="hint">Tidak ada. Revisi untuk catatan yang belum kamu ubah dipasang otomatis.</p>';
+  box.onclick = (e) => {
+    const id = e.target.closest('[data-open-rev]')?.dataset.openRev;
+    if (!id) return;
+    state.openRevPreview = id;
+    location.hash = '#/catatan/' + id;
+  };
+}
+
+const REQ_STATUS = { menunggu: '⏳ Menunggu', dikerjakan: '⚙️ Dikerjakan', selesai: '✅ Selesai', gagal: '⚠️ Gagal', disalin: '📋 Prompt disalin' };
+
+async function loadAiHistory() {
+  const box = $('#ai-history');
+  if (!box) return;
+  let remote = [];
+  let note = '';
+  try {
+    remote = navigator.onLine ? ((await readRepoJson(REQ_FILE))?.items || []) : [];
+    if (!navigator.onLine) note = 'Offline: hanya riwayat di perangkat ini.';
+  } catch (e) {
+    note = 'Gagal memuat antrean dari repo: ' + (e?.message || e);
+  }
+  const local = (await db.getMeta('aiRequestsLocal')) || [];
+  if (!box.isConnected) return;
+  const token = await getGhToken();
+  const all = [...remote, ...local].filter((r) => r && r.id && r.topik).sort((a, b) => String(b.created).localeCompare(String(a.created))).slice(0, 30);
+  box.innerHTML = (note ? `<p class="hint">${esc(note)}</p>` : '') + (all.length ? all.map((r) => {
+    const nid = r.itemId ? feedNoteId(r.itemId) : '';
+    const link = r.status === 'selesai' && nid ? (state.notes.has(nid) ? `<a class="btn small ghost" href="#/catatan/${esc(nid)}">Buka</a>` : '<small class="muted">menunggu diimpor</small>') : '';
+    const cancel = r.status === 'menunggu' && token ? `<button type="button" class="btn small ghost" data-cancel="${esc(r.id)}">Batalkan</button>` : '';
+    const recopy = r.status === 'disalin' ? `<button type="button" class="btn small ghost" data-recopy="${esc(r.id)}">Salin lagi</button>` : '';
+    return `<div class="ai-item"><span class="grow"><b>${esc(r.topik)}</b><small>${REQ_STATUS[r.status] || esc(r.status)} · ${r.created ? fmtDate(Date.parse(r.created)) : ''}${r.stase ? ' · ' + esc(r.stase) : ''}${r.catatan ? ' · ' + esc(String(r.catatan)) : ''}</small></span>${link}${cancel}${recopy}</div>`;
+  }).join('') : '<p class="hint">Belum ada permintaan.</p>');
+  box.onclick = async (e) => {
+    const c = e.target.closest('[data-cancel]')?.dataset.cancel;
+    const rc = e.target.closest('[data-recopy]')?.dataset.recopy;
+    if (rc) { const r = local.find((x) => x.id === rc); if (r) copyText(requestPrompt(r), 'Prompt disalin'); return; }
+    if (!c) return;
+    try {
+      await github.updateJson(await getGhToken(), REQ_FILE, (d) => {
+        const i = d?.items?.findIndex((x) => x.id === c && x.status === 'menunggu') ?? -1;
+        if (i < 0) throw new Error('Permintaan sudah dikerjakan atau tidak ada');
+        d.items.splice(i, 1);
+        d.updated = new Date().toISOString();
+        return d;
+      }, 'Batalkan permintaan catatan');
+      toast('Permintaan dibatalkan');
+      loadAiHistory();
+    } catch (err) {
+      toast('Gagal membatalkan: ' + (err?.message || err), 5000);
+      loadAiHistory();
+    }
+  };
+}
+
+// ----- Atur jenis dan stase -----
+
+async function renderTaxonomy() {
+  releaseUrls();
+  const base = structuredClone(state.taxonomy || defaultTaxonomy());
+  // Stase lama yang belum ada di daftar ikut ditampilkan sesuai daftar aktif.
+  const known = new Set(base.stase.map((x) => x.name));
+  const work = { ...base, types: base.types.map((t) => ({ ...t })), stase: base.stase.map((x) => ({ ...x, orig: x.name })) };
+  const usage = (key) => [...state.notes.values()].filter((n) => n.type === key).length;
+  const staseUse = (name) => [...state.notes.values()].filter((n) => n.stase === name).length;
+  const orphan = [...new Set([...state.notes.values()].map((n) => n.stase).filter((x) => x && !known.has(x)))];
+  const root = document.createElement('div');
+  view().replaceChildren(root);
+  const draw = () => {
+    root.innerHTML = `
+      <div class="topbar"><a href="#/ai" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Jenis dan stase</span><button class="btn small" id="tx-save">Simpan</button></div>
+      <div class="settings taxo">
+        <section>
+          <h4>Jenis Catatan</h4>
+          <p class="hint">Jenis bawaan tidak bisa dihapus, hanya disembunyikan (catatan lama tetap tampil). Template mengisi catatan baru jenis itu.</p>
+          ${work.types.map((t, i) => `<div class="tx-row" data-kind="type" data-i="${i}">
+            <input class="tx-icon" data-f="icon" value="${esc(t.icon)}" maxlength="8" aria-label="Ikon">
+            <input class="grow" data-f="label" value="${esc(t.label)}" maxlength="40" aria-label="Nama jenis">
+            <label class="tx-check"><input type="checkbox" data-f="show" ${t.hidden ? '' : 'checked'} ${t.key === 'bebas' ? 'disabled' : ''}> Tampil</label>
+            <span class="tx-btns"><button type="button" class="iconbtn" data-mv="-1" aria-label="Naikkan">${icon('up')}</button><button type="button" class="iconbtn" data-mv="1" aria-label="Turunkan">${icon('down')}</button>${BUILTIN_TYPES[t.key] ? '' : `<button type="button" class="iconbtn" data-del aria-label="Hapus jenis">${icon('trash')}</button>`}</span>
+            <details class="tx-tpl"><summary>Template${usage(t.key) ? ` · ${usage(t.key)} catatan` : ''}</summary><textarea data-f="template" rows="5" placeholder="Satu label per baris, mis. Definisi:">${esc(t.template)}</textarea></details>
+          </div>`).join('')}
+          <div class="row"><button type="button" class="btn small ghost" id="tx-add-type">＋ Jenis baru</button></div>
+        </section>
+        <section>
+          <h4>Stase</h4>
+          <p class="hint"><b>Rutin AI</b>: stase ikut giliran Auto updates. <b>Fokus</b>: dapat giliran dua kali lebih sering (mis. stase yang sedang kamu jalani). Mengganti nama stase ikut mengubah catatan yang memakainya.</p>
+          ${work.stase.map((x, i) => `<div class="tx-row" data-kind="stase" data-i="${i}">
+            <input class="grow" data-f="name" value="${esc(x.name)}" maxlength="40" aria-label="Nama stase">
+            <label class="tx-check"><input type="checkbox" data-f="rutin" ${x.rutin ? 'checked' : ''}> Rutin AI</label>
+            <label class="tx-check"><input type="checkbox" data-f="fokus" ${x.fokus ? 'checked' : ''}> Fokus</label>
+            <span class="tx-btns"><button type="button" class="iconbtn" data-mv="-1" aria-label="Naikkan">${icon('up')}</button><button type="button" class="iconbtn" data-mv="1" aria-label="Turunkan">${icon('down')}</button><button type="button" class="iconbtn" data-del aria-label="Hapus stase">${icon('trash')}</button></span>
+            ${x.orig && staseUse(x.orig) ? `<small class="tx-use">${staseUse(x.orig)} catatan</small>` : ''}
+          </div>`).join('')}
+          ${orphan.length ? `<p class="hint">Stase di catatanmu yang belum ada di daftar: ${orphan.map((o) => `<button type="button" class="linkbtn" data-orphan="${esc(o)}">＋ ${esc(o)}</button>`).join(' ')}</p>` : ''}
+          <div class="row"><button type="button" class="btn small ghost" id="tx-add-stase">＋ Stase baru</button></div>
+        </section>
+        <section>
+          <div class="row"><button type="button" class="btn ghost danger" id="tx-reset">Kembalikan bawaan</button></div>
+        </section>
+      </div>`;
+  };
+  draw();
+  const list = (kind) => (kind === 'type' ? work.types : work.stase);
+  root.addEventListener('input', (e) => {
+    const row = e.target.closest('.tx-row');
+    const f = e.target.dataset.f;
+    if (!row || !f) return;
+    const item = list(row.dataset.kind)[+row.dataset.i];
+    if (f === 'show') item.hidden = !e.target.checked;
+    else if (e.target.type === 'checkbox') item[f] = e.target.checked;
+    else item[f] = e.target.value;
+  });
+  root.addEventListener('click', async (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    const row = b.closest('.tx-row');
+    if (row && b.dataset.mv) {
+      const arr = list(row.dataset.kind); const i = +row.dataset.i; const j = i + +b.dataset.mv;
+      if (j < 0 || j >= arr.length) return;
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      draw();
+    } else if (row && b.hasAttribute('data-del')) {
+      const arr = list(row.dataset.kind);
+      arr.splice(+row.dataset.i, 1);
+      draw();
+    } else if (b.id === 'tx-add-type') {
+      work.types.push({ key: 'j-' + uid().slice(-6), label: 'Jenis baru', icon: '🗂️', template: '', hidden: false });
+      draw();
+    } else if (b.id === 'tx-add-stase') {
+      work.stase.push({ name: '', rutin: false, fokus: false });
+      draw();
+      [...root.querySelectorAll('.tx-row[data-kind="stase"] input[data-f="name"]')].at(-1)?.focus();
+    } else if (b.dataset.orphan) {
+      work.stase.push({ name: b.dataset.orphan, orig: b.dataset.orphan, rutin: false, fokus: false });
+      orphan.splice(orphan.indexOf(b.dataset.orphan), 1);
+      draw();
+    } else if (b.id === 'tx-reset') {
+      const d = defaultTaxonomy();
+      work.types = d.types;
+      work.stase = d.stase.map((x) => ({ ...x, orig: x.name }));
+      draw();
+      toast('Bawaan dipulihkan. Tekan Simpan untuk menerapkan.');
+    } else if (b.id === 'tx-save') {
+      const names = work.stase.map((x) => x.name.trim());
+      if (names.some((x) => !x)) { toast('Nama stase tidak boleh kosong'); return; }
+      if (new Set(names.map((x) => x.toLowerCase())).size !== names.length) { toast('Ada nama stase yang sama'); return; }
+      if (work.types.some((t) => !t.label.trim())) { toast('Nama jenis tidak boleh kosong'); return; }
+      const removedTypes = base.types.filter((t) => !work.types.some((x) => x.key === t.key)).map((t) => t.key);
+      const renamed = work.stase.filter((x) => x.orig && x.orig !== x.name.trim());
+      const affected = [...state.notes.values()].filter((n) => removedTypes.includes(n.type) || renamed.some((x) => x.orig === n.stase));
+      b.disabled = true;
+      try {
+        for (const n of affected) {
+          if (removedTypes.includes(n.type)) n.type = 'bebas';
+          const rn = renamed.find((x) => x.orig === n.stase);
+          if (rn) n.stase = rn.name.trim();
+          touch(n);
+          const { mediaIds, ...stored } = n;
+          await db.saveNote(stored);
+          indexNote(n);
+        }
+        if (affected.length) scheduleSync();
+        const cfg = {
+          updated: 0,
+          types: work.types.map((t) => ({ key: t.key, label: t.label.trim(), icon: t.icon.trim() || '📝', template: t.template, hidden: t.key === 'bebas' ? false : !!t.hidden })),
+          stase: work.stase.map((x) => ({ name: x.name.trim(), rutin: !!x.rutin, fokus: !!x.fokus })),
+        };
+        const where = await saveTaxonomy(cfg);
+        toast(where === 'repo' ? 'Disimpan dan dikirim ke rutin AI' : where === 'offline' ? 'Disimpan di perangkat ini; dikirim ke repo saat online' : 'Disimpan di perangkat ini (isi token GitHub agar rutin AI ikut memakai daftar ini)', 5000);
+        if (affected.length) toast(`${affected.length} catatan ikut diperbarui`, 4000);
+        location.hash = '#/ai';
+      } catch (err) {
+        b.disabled = false;
+        toast('Gagal menyimpan ke repo: ' + (err?.message || err) + '. Perubahan tetap tersimpan di perangkat ini.', 6000);
+      }
+    }
+  });
 }
 
 // ---------- Sinkronisasi Google Drive ----------
@@ -3041,6 +3998,10 @@ async function runSync({ manual = false } = {}) {
   await updateSyncBadge('busy');
   try {
     const st = await sync.syncNow((t) => { if (manual && t) toast(t, 60000); });
+    if (st.secrets) {
+      if (await getGhToken()) { checkFeed(); syncTaxonomy().catch(() => {}); }
+      if (location.hash === '#/ai' && !state.editor) renderAi();
+    }
     if (st.down || st.deleted) {
       await reloadAll();
       if (!state.editor && !document.querySelector('.docviewer')) route();
@@ -3205,6 +4166,8 @@ async function start() {
     authResult = 'Login Google gagal: ' + (e?.message || e);
   }
   try {
+    const tax = await db.getMeta('taxonomy');
+    if (tax) applyTaxonomy(tax);
     await loadAll();
   } catch (e) {
     view().innerHTML = `<div class="empty"><h2>Penyimpanan Tidak Bisa Dibuka</h2><p>${esc(e?.message || e)}. Jika memakai mode Private di Safari, buka di tab biasa.</p></div>`;
@@ -3220,6 +4183,8 @@ async function start() {
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { runSync(); checkFeed(); } });
   window.addEventListener('online', () => { runSync(); checkFeed(); });
   checkFeed();
+  syncTaxonomy().catch((e) => console.warn('Jenis & stase', e));
+  updateAiBadge();
   setInterval(() => document.visibilityState === 'visible' && checkFeed(), 30 * 60 * 1000);
   if (authResult === 'ok') {
     if (await db.getMeta('syncAfterAuth')) {
