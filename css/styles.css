@@ -204,6 +204,8 @@ figcaption { padding: 6px 10px; font-size: 13px; color: var(--muted); }
 /* Tempel dari Claude */
 .paste { display: flex; flex-direction: column; gap: 12px; }
 .paste .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.paste .field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+.paste .field select { width: 100%; font: inherit; font-size: 16px; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
 .steps { margin: 0; padding: 14px 14px 14px 34px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; gap: 8px; line-height: 1.5; }
 .steps .btn { margin-top: 6px; display: inline-flex; }
 .paste-box { width: 100%; min-height: 200px; font: inherit; font-size: 16px; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; outline: 0; resize: vertical; line-height: 1.5; }

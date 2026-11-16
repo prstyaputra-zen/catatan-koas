@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.20.3';
+const APP_VERSION = '0.20.4';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -64,6 +64,7 @@ const state = {
   objectUrls: [],
   editor: null,
   draft: null,
+  appendDraft: null, // { noteId, draft }: hasil "Tempel dari AI" yang ditambahkan ke catatan yang ada
   anchor: null,           // kunci judul bagian yang dibawa saat berpindah mode Baca/Ubah
   noteNav: null,          // fungsi penyegar daftar isi & rujukan catatan yang sedang dibuka
   filterFresh: false,     // hanya tampilkan catatan "auto updates"
@@ -1708,7 +1709,7 @@ function renderNewPicker() {
     <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Catatan baru</span></div>
     <div class="picker">
       ${visibleTypes().map(([k, t]) => `<a class="pick" href="#/baru/${k}"><span class="big">${t.icon}</span><b>${esc(t.label)}</b><small>${esc(pickHint(k))}</small></a>`).join('')}
-      <a class="pick pick-claude" href="#/tempel"><span class="big">✨</span><b>Tempel dari Claude</b><small>Jadikan obrolan dengan Claude catatan baru</small></a>
+      <a class="pick pick-claude" href="#/tempel"><span class="big">✨</span><b>Tempel dari AI</b><small>Jawaban Claude, ChatGPT, atau Gemini jadi catatan baru atau tambahan catatan</small></a>
     </div>`;
 }
 
@@ -2209,26 +2210,63 @@ function openTableEditor(initialRows, { editing = false, sheets = null, onSave, 
   });
 }
 
-// ---------- Tempel dari Claude ----------
+// ---------- Tempel dari AI (Claude, ChatGPT, Gemini) ----------
 
-function renderPaste() {
+// Isi tempelan ditambahkan ke catatan yang ada. Catatan Auto updates: masuk ke bagian "## Catatanku" agar tetap ada
+// saat catatan itu direvisi; judul di dalam tempelan diturunkan ke ### supaya tidak memotong bagian itu.
+function appendPasteBody(n, d) {
+  const when = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+  const content = d.body.trim().replace(/^#{1,3}\s+/gm, (m) => (n.feed ? '#### ' : m));
+  const head = `${n.feed ? '###' : '##'} Dari AI: ${d.title || 'tanpa judul'} (${when})`;
+  const block = `${head}\n\n${content}`;
+  const body = (n.body || '').replace(/\s+$/, '');
+  if (!n.feed) return `${body}\n\n${block}\n`;
+  const lines = body.split('\n');
+  const h = lines.findIndex((l) => MINE_HEAD.test(l.trim()));
+  if (h < 0) return `${body}\n\n## Catatanku\n\n${block}\n`;
+  let end = lines.findIndex((l, i) => i > h && /^#{1,2}\s+\S/.test(l));
+  if (end < 0) end = lines.length;
+  const before = lines.slice(0, end).join('\n').replace(/\s+$/, '');
+  const after = lines.slice(end).join('\n');
+  return `${before}\n\n${block}\n${after ? '\n' + after : ''}`;
+}
+
+function renderPaste(targetId) {
   releaseUrls();
+  const notes = [...state.notes.values()].sort((a, b) => b.updated - a.updated);
+  const opt = (n) => `<option value="${esc(n.id)}" ${n.id === targetId ? 'selected' : ''}>${esc((n.title || '(tanpa judul)').slice(0, 70))}</option>`;
   view().innerHTML = `
-    <div class="topbar"><a href="#/baru" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Tempel dari Claude</span></div>
+    <div class="topbar"><a href="#/baru" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Tempel dari AI</span></div>
     <div class="paste">
       <ol class="steps">
-        <li>Di akhir obrolan dengan Claude, kirim prompt ini supaya materinya tersalin utuh dan rapi. <button type="button" class="btn small ghost" id="copyprompt">📋 Salin prompt</button></li>
-        <li>Di aplikasi Claude, ketuk <b>Salin</b> (Copy) di bawah jawabannya.</li>
-        <li>Kembali ke sini dan tempel. Jawaban biasa tanpa format juga bisa.</li>
+        <li>Di Claude, ChatGPT, atau Gemini, ketuk <b>Salin</b> (Copy) di bawah jawaban yang ingin disimpan.</li>
+        <li>Kembali ke sini dan tempel. Jawaban biasa tanpa format juga bisa; ulangi untuk jawaban berikutnya.</li>
+        <li>Khusus Claude: kirim prompt ini di akhir obrolan supaya materinya tersalin utuh, rapi, dan gambarnya ikut. <button type="button" class="btn small ghost" id="copyprompt">📋 Salin prompt</button></li>
       </ol>
+      <label class="field"><span>Simpan ke</span>
+        <select id="p-target">
+          <option value="">📄 Catatan baru</option>
+          <optgroup label="Tambahkan ke catatan yang ada">${notes.map(opt).join('')}</optgroup>
+        </select>
+      </label>
+      <p class="hint" id="p-target-hint"></p>
       <div class="row"><button type="button" class="btn" id="pastebtn">📥 Tempel</button><span class="hint grow">atau tahan lalu pilih Tempel di kotak bawah</span></div>
-      <textarea id="p-text" class="paste-box" placeholder="Tempel jawaban Claude di sini…"></textarea>
+      <textarea id="p-text" class="paste-box" placeholder="Tempel jawaban AI di sini…"></textarea>
       <div id="p-preview" class="paste-preview hidden"></div>
       <p class="hint">🔒 Periksa lagi isinya. Jawaban AI bisa keliru, cocokkan dengan guideline atau buku sebelum dipakai.</p>
       <button type="button" class="btn" id="p-next" disabled>Lanjut ke editor</button>
     </div>`;
   const box = $('#p-text');
   let parsed = null;
+  const target = () => state.notes.get($('#p-target').value) || null;
+  const targetHint = () => {
+    const n = target();
+    $('#p-target-hint').textContent = !n ? 'Judul, jenis, stase, dan tag diambil dari isi tempelan; bisa diubah di editor.'
+      : n.feed ? 'Ditambahkan ke bagian "Catatanku" di catatan Auto updates ini, jadi tetap ada saat catatannya direvisi.'
+      : 'Ditambahkan di akhir catatan ini. Periksa di editor sebelum disimpan.';
+    $('#p-next').textContent = n ? 'Lanjut ke editor catatan ini' : 'Lanjut ke editor';
+  };
+  $('#p-target').addEventListener('change', targetHint);
   const update = () => {
     const raw = box.value;
     parsed = raw.trim() ? parseClaude(raw, { knownStase: allStase() }) : null;
@@ -2245,7 +2283,7 @@ function renderPaste() {
   $('#pastebtn').onclick = async () => {
     try {
       const txt = await navigator.clipboard.readText();
-      if (!txt.trim()) { toast('Clipboard kosong. Salin jawaban Claude dulu.'); return; }
+      if (!txt.trim()) { toast('Clipboard kosong. Salin jawaban AI dulu.'); return; }
       box.value = txt;
       update();
     } catch {
@@ -2267,9 +2305,16 @@ function renderPaste() {
       const failed = draft.images.length - draft.inlineMedia.filter(Boolean).length;
       if (failed) toast(`${failed} gambar tidak bisa dibuat (kode SVG rusak atau terpotong). Keterangannya tetap ada di teks.`, 5000);
     }
+    const n = target();
+    if (n) {
+      state.appendDraft = { noteId: n.id, draft };
+      location.hash = '#/ubah/' + n.id;
+      return;
+    }
     state.draft = draft;
     location.hash = '#/baru/' + draft.type;
   };
+  targetHint();
 }
 
 // Kode SVG dari Claude diubah jadi PNG berlatar putih agar tampil, tersinkron, dan terbackup seperti foto biasa.
@@ -2311,6 +2356,10 @@ async function renderEditor(id, type) {
   if (id && !existing) { location.hash = '#/'; return; }
   const draft = !existing && state.draft;
   state.draft = null;
+  // Tempel dari AI ke catatan yang ada: isi tempelan ditambahkan, gambar SVG-nya diproses seperti catatan baru.
+  const append = existing && state.appendDraft?.noteId === id ? state.appendDraft.draft : null;
+  state.appendDraft = null;
+  const paste = draft || append;
   const note = existing
     ? { ...existing, tags: [...existing.tags] }
     : draft ? { id: uid(), type: draft.type, title: draft.title, body: draft.body, tags: draft.tags, stase: draft.stase, pinned: false, created: Date.now(), updated: Date.now() }
@@ -2318,11 +2367,15 @@ async function renderEditor(id, type) {
   // Blob tidak dimuat di sini agar membuka editor tetap cepat walau lampirannya besar.
   const all = existing ? currentAndArchived(existing) : { current: [], archived: [] };
   const media = all.current.map((m) => ({ ...m, isNew: false, dirty: false }));
-  state.editor = { note, media, archived: all.archived.map((m) => m.id), removed: [], dirty: !!draft, isNew: !existing };
-  if (draft && draft.images && draft.images.length) {
+  if (append) {
+    note.body = appendPasteBody(existing, append);
+    note.tags = [...new Set([...note.tags, ...append.tags])];
+  }
+  state.editor = { note, media, archived: all.archived.map((m) => m.id), removed: [], dirty: !!paste, isNew: !existing };
+  if (paste && paste.images && paste.images.length) {
     // Penanda "![..](svg:N)" dari hasil tempel diganti gambar sungguhan; yang gagal dibuat menjadi teks keterangan.
     note.body = note.body.replace(/^!\[([^\]]*)\]\(svg:(\d+)\)$/gm, (m, cap, n) => {
-      const im = (draft.inlineMedia || [])[+n];
+      const im = (paste.inlineMedia || [])[+n];
       if (!im) return cap ? `[Gambar tidak terbaca: ${cap}]` : '[Gambar tidak terbaca]';
       const mid = uid();
       media.push({ id: mid, noteId: note.id, kind: 'image', name: im.name, mime: im.blob.type || 'image/png', size: im.blob.size, caption: '', blob: im.blob, thumb: im.thumb, created: Date.now(), isNew: true });
@@ -3021,7 +3074,7 @@ async function route() {
   switch (page) {
     case 'catatan': return renderNote(arg);
     case 'baru': return arg ? renderEditor(null, arg) : renderNewPicker();
-    case 'tempel': return renderPaste();
+    case 'tempel': return renderPaste(arg);
     case 'alat': return arg === 'bmi' ? renderBmi() : arg === 'puyer' ? renderPuyer() : arg === 'cairan' ? renderFluid() : renderTools();
     case 'ubah': return renderEditor(arg);
     case 'pengaturan': return renderSettings();
@@ -3135,11 +3188,13 @@ async function feedItemToNote(it, id) {
     stase: it.stase || '', pinned: false, created: Date.parse(it.created) || Date.now(), updated: feedUpdated(it),
   };
   // Salinan versi feed: dasar untuk mengetahui apa yang kamu ubah dan apa yang diubah revisi berikutnya.
-  note.feed = { rev, title: note.title, body: note.body, tags: [...note.tags], type: note.type, stase: note.stase };
+  note.feed = { rev, title: note.title, body: note.body, tags: [...note.tags], type: note.type, stase: note.stase, imgs: images.length };
   return { note, media, missing: images.length - media.length, transient };
 }
 
-const feedImages = (it) => (it.images || []).filter((x) => x && (x.file || x.url)).slice(0, 6);
+// Sebelum 0.20.4 dibatasi 6 gambar; catatan yang terpotong diimpor ulang di checkFeed (lihat feed.imgs).
+const FEED_MAX_IMAGES = 30;
+const feedImages = (it) => (it.images || []).filter((x) => x && (x.file || x.url)).slice(0, FEED_MAX_IMAGES);
 const feedImageCaption = (img) => [img.caption, img.credit].filter(Boolean).join(' · ').slice(0, 300);
 const feedImageName = (img) => String(img.file || img.url).split('/').pop().split('?')[0] || 'gambar';
 
@@ -3490,10 +3545,13 @@ async function checkFeed({ manual = false } = {}) {
           const { mediaIds, ...stored } = existing;
           await db.saveNote(stored);
         }
-        if (!existing || rev <= known.rev) continue;
+        // Catatan yang diimpor saat gambar masih dibatasi 6 (sebelum 0.20.4) diimpor ulang sekali bila belum kamu ubah.
+        const missingImgs = !!existing?.feed && rev <= known.rev && (existing.feed.imgs ?? Math.min(6, (it.images || []).length)) < feedImages(it).length
+          && !feedUserEdited(existing, known);
+        if (!existing || (rev <= known.rev && !missingImgs)) continue;
         // Sudah tiba lewat sinkron, atau sudah kamu tolak di perangkat lain.
         const arrived = (existing.feed?.rev || 0) >= rev || (!existing.feed && existing.updated === feedUpdated(it));
-        if (arrived || (existing.feedSkip || 0) >= rev) {
+        if (!missingImgs && (arrived || (existing.feedSkip || 0) >= rev)) {
           revs[id] = { rev, updated: existing.updated };
           state.feedPending.delete(id);
           continue;
@@ -3610,6 +3668,11 @@ const REQ_FILE = 'feed/permintaan.json';
 const TAX_FILE = 'feed/pengaturan.json';
 const getGhToken = () => db.getMeta('githubToken');
 const feedNoteId = (itemId) => 'ilmu-' + String(itemId).replace(/[^\w-]/g, '').slice(0, 60);
+// Link share ChatGPT dinormalkan ke https://chatgpt.com/share/<uuid>; selain itu null.
+function shareUrl(v) {
+  const m = String(v || '').trim().match(/^https:\/\/(?:chatgpt\.com|chat\.openai\.com)\/share\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:[?#].*)?$/i);
+  return m ? 'https://chatgpt.com/share/' + m[1].toLowerCase() : null;
+}
 const cleanText = (t, max) => String(t || '').replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, '').trim().slice(0, max);
 
 function updateAiBadge() {
@@ -3686,6 +3749,10 @@ async function renderAi() {
   if (location.hash !== '#/ai') return;
   const typeOpts = visibleTypes().map(([k, t]) => `<option value="${k}" ${k === 'topik' ? 'selected' : ''}>${t.icon} ${esc(t.label)}</option>`).join('');
   const staseOpts = `<option value="">Bebas (AI memilih)</option>` + STASE.map((x) => `<option>${esc(x)}</option>`).join('');
+  // Hanya catatan Auto updates yang bisa direvisi rutin (isinya ada di repo data); catatan pribadi: pakai Tempel dari AI.
+  const feedNotes = [...state.notes.values()].filter((n) => n.id.startsWith('ilmu-')).sort((a, b) => a.title.localeCompare(b.title, 'id'));
+  const targetOpts = `<option value="">📄 Jadikan catatan baru</option><optgroup label="Tambahkan ke catatan Auto updates">`
+    + feedNotes.map((n) => `<option value="${esc(n.id.slice(5))}">${esc(n.title.slice(0, 70))}</option>`).join('') + '</optgroup>';
   view().innerHTML = `
     <div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">✨ AI</span></div>
     <div class="settings ai-tab">
@@ -3698,14 +3765,17 @@ async function renderAi() {
       <section>
         <h4>Minta Catatan Baru</h4>
         <form id="ai-req" class="ai-form" onsubmit="return false">
-          <input id="ai-topik" required maxlength="120" placeholder="Topik, mis. Sindrom nefrotik pada anak" autocomplete="off">
+          <input id="ai-topik" maxlength="120" placeholder="Topik, mis. Sindrom nefrotik pada anak" autocomplete="off">
           <textarea id="ai-detail" maxlength="600" rows="3" placeholder="Fokus atau permintaan khusus (opsional), mis. tekankan dosis steroid dan kapan merujuk"></textarea>
+          <input id="ai-share" type="url" maxlength="200" placeholder="Link share ChatGPT (opsional): https://chatgpt.com/share/…" autocomplete="off">
+          <select id="ai-target" aria-label="Tujuan">${targetOpts}</select>
+          <p class="hint">Dengan link share ChatGPT, rutin membaca seluruh percakapan beserta gambarnya, mencocokkan angka dengan sumber resmi, lalu menyusunnya dengan format catatan koas. Bila memilih catatan Auto updates, hanya bagian yang belum ada yang ditambahkan sebagai revisi. Topik boleh dikosongkan. Biarkan link share tetap aktif sampai permintaan selesai.</p>
           <div class="row"><select id="ai-stase" aria-label="Stase">${staseOpts}</select><select id="ai-type" aria-label="Jenis">${typeOpts}</select></div>
           <div class="row wrap">
             <button type="button" class="btn" id="ai-send" ${token ? '' : 'disabled'}>📨 Kirim ke rutin AI</button>
             <button type="button" class="btn ghost" id="ai-copy">📋 Salin prompt untuk Claude</button>
           </div>
-          <p class="hint">${token ? 'Dikirim ke antrean di repo data privat; rutin AI berikutnya mengerjakannya lebih dulu, lalu hasilnya masuk sebagai catatan Auto updates.' : 'Kirim otomatis butuh token GitHub (lihat Koneksi GitHub di bawah). Tanpa token, salin prompt, tempel di aplikasi Claude, lalu masukkan jawabannya lewat Tempel dari Claude.'} Tetap hindari data pasien: permintaan dibaca layanan AI.</p>
+          <p class="hint">${token ? 'Dikirim ke antrean di repo data privat; rutin AI berikutnya mengerjakannya lebih dulu, lalu hasilnya masuk sebagai catatan Auto updates.' : 'Kirim otomatis butuh token GitHub (lihat Koneksi GitHub di bawah). Tanpa token, salin prompt, tempel di aplikasi Claude, lalu masukkan jawabannya lewat Tempel dari AI.'} Tetap hindari data pasien: permintaan dibaca layanan AI.</p>
         </form>
       </section>
       <section>
@@ -3718,9 +3788,9 @@ async function renderAi() {
       </section>
       ${await feedSectionHtml()}
       <section>
-        <h4>Tempel dari Claude</h4>
-        <p>Jadikan jawaban atau rangkuman dari aplikasi Claude sebagai catatan baru.</p>
-        <div class="row wrap"><a class="btn ghost" href="#/tempel">✨ Tempel dari Claude</a><button type="button" class="btn ghost" id="ai-fmt">📋 Salin prompt format</button></div>
+        <h4>Tempel dari AI</h4>
+        <p>Jadikan jawaban Claude, ChatGPT, atau Gemini catatan baru, atau tambahkan ke catatan yang sudah ada.</p>
+        <div class="row wrap"><a class="btn ghost" href="#/tempel">✨ Tempel dari AI</a><button type="button" class="btn ghost" id="ai-fmt">📋 Salin prompt format</button></div>
       </section>
       <section>
         <h4>Jenis dan Stase</h4>
@@ -3738,22 +3808,38 @@ async function renderAi() {
     </div>`;
   bindFeedSection();
   $('#ai-fmt').onclick = async () => { if (!(await copyText(CLAUDE_PROMPT, 'Prompt format disalin'))) toast('Gagal menyalin'); };
-  const readForm = () => ({
-    topik: cleanText($('#ai-topik').value, 120), detail: cleanText($('#ai-detail').value, 600),
-    stase: $('#ai-stase').value, type: $('#ai-type').value,
-  });
+  const readForm = () => {
+    const r = {
+      topik: cleanText($('#ai-topik').value, 120), detail: cleanText($('#ai-detail').value, 600),
+      stase: $('#ai-stase').value, type: $('#ai-type').value,
+    };
+    const share = shareUrl($('#ai-share').value);
+    const target = $('#ai-target').value;
+    if (share) r.share = share;
+    if (target) r.target = target;
+    if (!r.topik && (share || target)) {
+      const n = target && state.notes.get(feedNoteId(target));
+      r.topik = n ? cleanText('Tambahan: ' + n.title, 120) : 'Percakapan ChatGPT';
+    }
+    return r;
+  };
+  const shareError = () => {
+    const v = $('#ai-share').value.trim();
+    return v && !shareUrl(v) ? 'Link harus berupa link share ChatGPT: https://chatgpt.com/share/…' : '';
+  };
   $('#ai-copy').onclick = async () => {
     const r = readForm();
     if (!r.topik) { toast('Isi topik dulu'); $('#ai-topik').focus(); return; }
-    if (!(await copyText(requestPrompt(r), 'Prompt disalin. Tempel di aplikasi Claude, lalu masukkan jawabannya lewat Tempel dari Claude.'))) { toast('Gagal menyalin'); return; }
+    if (!(await copyText(requestPrompt(r), 'Prompt disalin. Tempel di aplikasi Claude, lalu masukkan jawabannya lewat Tempel dari AI.'))) { toast('Gagal menyalin'); return; }
     const local = (await db.getMeta('aiRequestsLocal')) || [];
     local.push({ id: 'l' + uid(), ...r, created: new Date().toISOString(), status: 'disalin' });
     await db.setMeta('aiRequestsLocal', local.slice(-50));
     loadAiHistory();
   };
   $('#ai-send').onclick = async (e) => {
+    if (shareError()) { toast(shareError(), 5000); $('#ai-share').focus(); return; }
     const r = readForm();
-    if (!r.topik) { toast('Isi topik dulu'); $('#ai-topik').focus(); return; }
+    if (!r.topik) { toast('Isi topik atau link share ChatGPT dulu'); $('#ai-topik').focus(); return; }
     if (!navigator.onLine) { toast('Perlu internet untuk mengirim permintaan'); return; }
     const btn = e.currentTarget;
     btn.disabled = true;
@@ -3770,6 +3856,8 @@ async function renderAi() {
       toast('Permintaan masuk antrean rutin AI');
       $('#ai-topik').value = '';
       $('#ai-detail').value = '';
+      $('#ai-share').value = '';
+      $('#ai-target').value = '';
       loadAiHistory();
     } catch (err) {
       toast('Gagal mengirim: ' + (err?.message || err), 6000);
@@ -3838,7 +3926,7 @@ async function loadAiHistory() {
     const link = r.status === 'selesai' && nid ? (state.notes.has(nid) ? `<a class="btn small ghost" href="#/catatan/${esc(nid)}">Buka</a>` : '<small class="muted">menunggu diimpor</small>') : '';
     const cancel = r.status === 'menunggu' && token ? `<button type="button" class="btn small ghost" data-cancel="${esc(r.id)}">Batalkan</button>` : '';
     const recopy = r.status === 'disalin' ? `<button type="button" class="btn small ghost" data-recopy="${esc(r.id)}">Salin lagi</button>` : '';
-    return `<div class="ai-item"><span class="grow"><b>${esc(r.topik)}</b><small>${REQ_STATUS[r.status] || esc(r.status)} · ${r.created ? fmtDate(Date.parse(r.created)) : ''}${r.stase ? ' · ' + esc(r.stase) : ''}${r.catatan ? ' · ' + esc(String(r.catatan)) : ''}</small></span>${link}${cancel}${recopy}</div>`;
+    return `<div class="ai-item"><span class="grow"><b>${esc(r.topik)}</b><small>${REQ_STATUS[r.status] || esc(r.status)} · ${r.created ? fmtDate(Date.parse(r.created)) : ''}${r.stase ? ' · ' + esc(r.stase) : ''}${r.share ? ' · 🔗 ChatGPT' : ''}${r.target ? ' · revisi' : ''}${r.catatan ? ' · ' + esc(String(r.catatan)) : ''}</small></span>${link}${cancel}${recopy}</div>`;
   }).join('') : '<p class="hint">Belum ada permintaan.</p>');
   box.onclick = async (e) => {
     const c = e.target.closest('[data-cancel]')?.dataset.cancel;
