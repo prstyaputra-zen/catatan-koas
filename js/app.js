@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.20.2';
+const APP_VERSION = '0.20.3';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -3560,11 +3560,15 @@ async function feedSectionHtml() {
   const enabled = (await db.getMeta('feedEnabled')) !== false;
   const checked = await db.getMeta('feedChecked');
   const count = [...state.notes.values()].filter(isFreshNote).length;
+  const token = await getGhToken();
+  const rutinOn = state.taxonomy?.rutinAktif !== false;
   return `<section>
     <h4>✨ Auto updates</h4>
-    <p>Setiap 4 jam (05.00-23.00 WIB) Claude merangkum satu topik dari guideline, buku ajar, atau jurnal tepercaya, lengkap dengan sumber, guideline terkait, dan gambar atau ilustrasi yang relevan (mis. contoh EKG). Rangkuman itu otomatis masuk ke catatanmu (tag <b>#${FEED_TAG}</b>) saat aplikasi dibuka dan ada internet.</p>
-    <label class="switch-row"><input type="checkbox" id="feed-on" ${enabled ? 'checked' : ''}> Terima auto updates</label>
-    ${(await getGhToken()) ? '' : '<p class="hint">⚠️ Feed ada di repo privat: isi token di Koneksi GitHub (tab AI) agar auto updates bisa diambil.</p>'}
+    <p>Sekali sehari (sekitar pukul 21.00 WIB, selama laptop menyala) AI merangkum satu topik dari guideline, buku ajar, atau jurnal tepercaya, lengkap dengan sumber, guideline terkait, dan gambar atau ilustrasi yang relevan (mis. contoh EKG). Rangkuman itu otomatis masuk ke catatanmu (tag <b>#${FEED_TAG}</b>) saat aplikasi dibuka dan ada internet.</p>
+    <label class="switch-row"><input type="checkbox" id="feed-rutin" ${rutinOn ? 'checked' : ''} ${token ? '' : 'disabled'}> Rutin harian menulis catatan baru</label>
+    <p class="hint">Saat dimatikan, rutin tidak menulis catatan giliran stase, tetapi permintaan catatan yang kamu kirim dari tab AI tetap dikerjakan.</p>
+    <label class="switch-row"><input type="checkbox" id="feed-on" ${enabled ? 'checked' : ''}> Terima auto updates di perangkat ini</label>
+    ${token ? '' : '<p class="hint">⚠️ Feed ada di repo privat: isi token di Koneksi GitHub (tab AI) agar auto updates bisa diambil dan rutin bisa dinyalakan/dimatikan.</p>'}
     <p class="hint">${count} catatan auto updates · terakhir diperiksa ${checked ? fmtDate(checked) + ' ' + new Date(checked).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'belum pernah'}</p>
     <div class="row"><button class="btn ghost" id="feed-check">Periksa sekarang</button></div>
   </section>`;
@@ -3577,6 +3581,27 @@ function bindFeedSection() {
     if (e.target.checked) checkFeed();
   });
   $('#feed-check')?.addEventListener('click', () => checkFeed({ manual: true }));
+  // Tombol on/off rutin harian: disimpan di feed/pengaturan.json (rutinAktif), dibaca run.sh di laptop sebelum agen berjalan.
+  $('#feed-rutin')?.addEventListener('change', async (e) => {
+    const on = e.target.checked;
+    e.target.disabled = true;
+    try {
+      const token = await getGhToken();
+      if (!token || !navigator.onLine) throw new Error(token ? 'sedang offline' : 'token GitHub belum diisi');
+      // Ubah hanya rutinAktif di versi repo (jenis & stase di repo bisa lebih baru daripada salinan perangkat ini).
+      const cfg = await github.updateJson(token, TAX_FILE,
+        (cur) => ({ ...(cur || state.taxonomy || defaultTaxonomy()), rutinAktif: on, updated: Date.now() }),
+        on ? 'Rutin harian dinyalakan' : 'Rutin harian dimatikan');
+      await db.setMeta('taxonomy', cfg);
+      applyTaxonomy(cfg);
+      toast(on ? 'Rutin harian dinyalakan' : 'Rutin harian dimatikan');
+    } catch (err) {
+      e.target.checked = !on;
+      toast('Gagal menyimpan ke repo: ' + (err?.message || err) + '. Coba lagi saat online.', 6000);
+    } finally {
+      e.target.disabled = false;
+    }
+  });
 }
 
 // ---------- Tab AI: permintaan catatan, revisi, Auto updates, jenis & stase ----------
@@ -4402,6 +4427,7 @@ async function renderTaxonomy() {
           updated: 0,
           types: work.types.map((t) => ({ key: t.key, label: t.label.trim(), icon: t.icon.trim() || '📝', template: t.template, hidden: t.key === 'bebas' ? false : !!t.hidden })),
           stase: work.stase.map((x) => ({ name: x.name.trim(), rutin: !!x.rutin, fokus: !!x.fokus })),
+          rutinAktif: state.taxonomy?.rutinAktif !== false,
         };
         const where = await saveTaxonomy(cfg);
         toast(where === 'repo' ? 'Disimpan dan dikirim ke rutin AI' : where === 'offline' ? 'Disimpan di perangkat ini; dikirim ke repo saat online' : 'Disimpan di perangkat ini (isi token GitHub agar rutin AI ikut memakai daftar ini)', 5000);
