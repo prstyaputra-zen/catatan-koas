@@ -8,15 +8,16 @@
 const GEMINI = 'https://generativelanguage.googleapis.com/v1beta';
 const GROQ = 'https://api.groq.com/openai/v1';
 
-// Urutan percobaan. Model yang tidak tersedia untuk key ini (daftar dari API) dilewati.
+// Urutan percobaan: Groq utama (paling cepat), Gemini cadangan. Bila ada gambar, Gemini didahulukan karena
+// hanya Gemini yang bisa membacanya. Model yang tidak tersedia untuk key ini (daftar dari API) dilewati.
 export const KEY_SLOTS = 3;
 
 export const CHAIN = [
-  { provider: 'gemini', model: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash' },
-  { provider: 'gemini', model: 'gemini-3.5-flash-lite', label: 'Gemini 3.5 Flash-Lite' },
   { provider: 'groq', model: 'openai/gpt-oss-120b', label: 'GPT-OSS 120B (Groq)' },
   { provider: 'groq', model: 'qwen/qwen3.8-27b', label: 'Qwen3.8 27B (Groq)' },
   { provider: 'groq', model: 'openai/gpt-oss-20b', label: 'GPT-OSS 20B (Groq)' },
+  { provider: 'gemini', model: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash' },
+  { provider: 'gemini', model: 'gemini-3.5-flash-lite', label: 'Gemini 3.5 Flash-Lite' },
 ];
 
 export const SYSTEM_PROMPT = `Kamu asisten belajar untuk mahasiswa kedokteran yang sedang koas di Indonesia. Jawab dalam Bahasa Indonesia, ringkas dan terstruktur.
@@ -126,14 +127,15 @@ async function askGroq(key, model, system, messages) {
 const cooldown = new Map();
 
 // keys: { gemini: [key|null ×KEY_SLOTS], groq: [...] }; available: { gemini: [ids]|null, groq: [ids]|null }
-// (null = belum diketahui, dicoba saja). images: JPEG base64, hanya bisa dibaca Gemini; bila jatuh ke Groq,
+// (null = belum diketahui, dicoba saja). images: JPEG base64, hanya bisa dibaca Gemini (maka Gemini dicoba dulu); bila jatuh ke Groq,
 // pertanyaan dikirim tanpa gambar dan hasilnya ditandai imagesDropped.
 // Mengembalikan { text, used, keyNo, imagesDropped, tried } atau melempar Error berisi ringkasan semua kegagalan.
 export async function ask({ keys, available = {}, system = SYSTEM_PROMPT, messages, images = [], onTry }) {
   const tried = [];
   const deadKeys = new Set();
   const list = (p) => (keys[p] || []).map((k, i) => ({ k, no: i + 1 })).filter((x) => x.k);
-  for (const step of CHAIN) {
+  const order = images.length ? [...CHAIN.filter((c) => c.provider === 'gemini'), ...CHAIN.filter((c) => c.provider !== 'gemini')] : CHAIN;
+  for (const step of order) {
     const avail = available[step.provider];
     if (Array.isArray(avail) && !avail.includes(step.model)) continue;
     const slots = list(step.provider);
