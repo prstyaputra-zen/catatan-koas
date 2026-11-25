@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.24.0';
+const APP_VERSION = '0.24.1';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -1906,9 +1906,16 @@ function saveKuis(d) { try { localStorage.setItem(KUIS_KEY, JSON.stringify(d)); 
 
 // Jawaban pendek: satu poin, dipotong di batas kata agar muat sebagai pilihan ganda.
 const pendek = (t, max = 80) => (t.length <= max ? t : t.slice(0, t.lastIndexOf(' ', max) > 40 ? t.lastIndexOf(' ', max) : max) + '…');
+// Topik singkat dari judul panjang: bagian sebelum titik dua, kurung, atau tanda pisah.
+const judulPendek = (t) => judulEYD((t || 'catatan ini').split(/\s*[:(–—]\s*|\s+-\s+/)[0].trim() || t);
+// Pilihan jawaban bersih: tanpa label "Sesuatu:" di depan dan tanpa sitasi "(Penulis 2018)".
+const bersihPilihan = (t) => pendek(t
+  .replace(/\s*\((?=[^()]*\b(?:19|20)\d\d\b)[^()]*\)/g, '')
+  .replace(/^\*{0,2}[^:]{2,40}?\*{0,2}:\s+(?=\S)/, '')
+  .replace(/\*\*/g, '').trim(), 90);
 function kartuDari(n) {
   const out = [];
-  const judul = judulEYD(n.title || 'catatan ini');
+  const judul = judulPendek(n.title);
   for (const sec of sectionsOf(n.body, n.type)) {
     const t = sec.title.replace(/\*\*/g, '');
     const baris = sec.lines.map(pointLine).filter(Boolean);
@@ -1916,11 +1923,12 @@ function kartuDari(n) {
     if (/pertanyaan penguji/i.test(t)) {
       baris.forEach((l, i) => {
         const j = baris[i + 1];
-        if (/\?\s*$/.test(l) && j && !/\?\s*$/.test(j)) out.push({ id: `${n.id}|${sec.key}|${l.slice(0, 40)}`, note: n.id, key: sec.key, grup: 'penguji', judul, tanya: l, jawab: pendek(j) });
+        if (/\?\s*$/.test(l) && j && !/\?\s*$/.test(j)) out.push({ id: `${n.id}|${sec.key}|${l.slice(0, 40)}`, note: n.id, key: sec.key, grup: 'penguji', stase: n.stase, judul, tanya: l, jawab: bersihPilihan(j) });
       });
     } else if (KUIS_BAGIAN.test(t)) {
       const grup = t.toLowerCase().match(KUIS_BAGIAN)[1];
-      out.push({ id: `${n.id}|${sec.key}`, note: n.id, key: sec.key, grup, judul, tanya: `${judulEYD(t)} ${judul}?`, jawab: pendek(baris[0]) });
+      const jawab = bersihPilihan(baris[0]);
+      if (jawab.length >= 8) out.push({ id: `${n.id}|${sec.key}`, note: n.id, key: sec.key, grup, stase: n.stase, judul, tanya: `${judulEYD(grup)} ${judul}?`, jawab });
     }
   }
   return out;
@@ -1929,7 +1937,9 @@ const acak = (a) => a.map((x) => [Math.random(), x]).sort((p, q) => p[0] - q[0])
 // Pilihan pengecoh: jawaban kartu sejenis dari catatan lain, lalu bagian lain dari catatan yang sama.
 function pilihanUntuk(k, semua) {
   const beda = (x) => x.jawab !== k.jawab;
-  const pool = [...acak(semua.filter((x) => x.grup === k.grup && x.note !== k.note && beda(x))), ...acak(semua.filter((x) => x.note === k.note && x.grup !== k.grup && beda(x)))];
+  // Hanya bagian sejenis dari catatan lain; yang satu stase didahulukan agar tidak mudah dicoret.
+  const sejenis = semua.filter((x) => x.grup === k.grup && x.note !== k.note && beda(x));
+  const pool = [...acak(sejenis.filter((x) => k.stase && x.stase === k.stase)), ...acak(sejenis.filter((x) => !k.stase || x.stase !== k.stase))];
   const cecoh = [...new Set(pool.map((x) => x.jawab))].slice(0, 3);
   return cecoh.length >= 2 ? acak([k.jawab, ...cecoh]) : null;
 }
