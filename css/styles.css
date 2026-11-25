@@ -1030,3 +1030,75 @@ body.tutup .inti-item:not(.buka) > span:last-child { color: transparent; text-sh
 .pilih.salah::after { content: " ✗"; font-weight: 700; color: #B3402F; }
 .kuis-lanjut { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
 .kuis-skor { font: 700 44px/1 var(--f-tangan); text-align: center; margin: 6px 0 10px; color: var(--accent); }
+
+/* Kartu tebal ala prototipe (0.23.0): header catatan, bagian utama, progres, saklar tutup jawaban */
+:root { --garis: #33403F; --bayang: 4px 4px 0 var(--garis); --ungu-muda: #E7DFE9; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --garis: #000; --ungu-muda: #352D38; } }
+:root[data-theme="dark"] { --garis: #000; --ungu-muda: #352D38; }
+
+.note-head {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: start; margin: 6px 0 22px; padding: 20px;
+  background: var(--surface); border: 2.5px solid var(--garis); border-radius: 16px; box-shadow: var(--bayang);
+}
+.note-head .page-icon {
+  width: 84px; height: 84px; margin: 4px 0 0; display: grid; place-items: center; font-size: 44px;
+  background: var(--oker); border: 2.5px solid var(--garis); border-radius: 20px; box-shadow: 3px 3px 0 var(--garis);
+}
+.note-head h1 { margin: 6px 0 12px; }
+.note-head .props { margin: 0; padding: 0; border: 0; }
+.stase-pil {
+  display: inline-block; padding: 1px 12px; border: 2px solid var(--garis); border-radius: 99px; background: var(--ungu-muda);
+  font: 700 15px/1.6 var(--f-tangan);
+}
+@media (max-width: 560px) {
+  .note-head { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 16px; }
+  .note-head .page-icon { width: 64px; height: 64px; font-size: 34px; border-radius: 16px; }
+}
+
+.bab-chips { display: flex; gap: 6px; overflow-x: auto; margin: 0 -4px 14px; padding: 2px 4px 6px; scrollbar-width: none; }
+.bab-chips button {
+  flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 12px; border: 2px solid transparent;
+  border-radius: 12px; background: none; color: var(--text); font: 600 15px/1.2 inherit; font-family: inherit; cursor: pointer;
+}
+.bab-chips button:hover { border-color: var(--garis); background: var(--surface); }
+.titik { width: 12px; height: 12px; flex: none; border: 2px solid var(--garis); border-radius: 50%; background: var(--surface); }
+.titik.ok { background: var(--sage); }
+
+.paham-bar {
+  display: block; margin: 0 0 14px; padding: 12px 14px; background: var(--surface); color: var(--text); font-weight: 700;
+  border: 2px solid var(--garis); border-radius: 16px; box-shadow: var(--bayang);
+}
+.paham-bar .batang { max-width: none; margin-top: 6px; height: 12px; border: 2px solid var(--garis); background: var(--bg); }
+.saklar {
+  display: flex; align-items: center; gap: 10px; width: 100%; margin: 0 0 22px; padding: 10px 14px; min-height: 48px;
+  background: var(--oker); color: var(--tempel-tinta); border: 2px solid var(--garis); border-radius: 14px; box-shadow: var(--bayang);
+  font: inherit; font-weight: 700; text-align: left; cursor: pointer;
+}
+.saklar[aria-pressed="true"] { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--garis); }
+.saklar .pil { font: 700 12px/1.5 ui-monospace, Menlo, monospace; padding: 1px 8px; border: 2px solid var(--garis); border-radius: 99px; background: var(--surface); color: var(--text); }
+#tutupbtn { display: none; }
+
+/* Bagian utama jadi kartu */
+.note .body > details.sec.utama:not(.tempel) {
+  margin: 0 0 22px; padding: 4px 20px 16px; background: var(--surface);
+  border: 2.5px solid var(--garis); border-radius: 16px; box-shadow: var(--bayang);
+}
+.note .body > details.sec.utama > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 14px; }
+.note .body > details.sec.utama > summary .sec-title {
+  display: inline-block; padding: 0 10px; border: 2px solid var(--garis); border-radius: 6px; background: var(--surface);
+  transform: rotate(-1deg); font-size: 1.45em;
+}
+.label-bagian {
+  flex: none; padding: 1px 10px; border: 2px solid var(--garis); border-radius: 99px; background: var(--ungu-muda);
+  font: 700 15px/1.5 var(--f-tangan); color: var(--text);
+}
+.note .body > details.sec.utama > summary .paham { margin: 0 0 0 auto; min-height: 40px; border: 2px solid var(--garis); }
+.note .body > details.sec.utama.tempel > summary .label-bagian, .note .body > details.sec.utama.tempel > summary .paham { background: rgba(255, 255, 255, .5); color: var(--tempel-tinta); }
+@media (max-width: 560px) { .note .body > details.sec.utama > summary .paham { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { .note .body > details.sec.utama > summary .sec-title, .saklar { transform: none !important; } }
+.note .body > details.sec.utama > summary .sec-title { flex: 0 0 auto; max-width: 100%; }
+.note .body > details.sec.utama > summary .paham { flex: none; }
+.note .body > details.sec.utama.tempel > summary .sec-title { background: rgba(255, 255, 255, .55); color: var(--tempel-tinta); border-color: var(--tempel-tinta); }
+.note .body > details.sec.utama.tempel { margin-bottom: 22px; }
+.bab-chips:not(.hidden) ~ #toc-inline { display: none; }
+.note .body > details.sec.utama.tempel > summary .paham .kotak { border-color: var(--tempel-tinta); }
