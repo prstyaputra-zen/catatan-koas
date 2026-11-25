@@ -1015,3 +1015,18 @@ body.tutup .inti-item:not(.buka) > span:last-child { color: transparent; text-sh
 .kuis-aksi .btn { flex: 1; min-height: 44px; }
 .kuis .row { display: flex; gap: 10px; flex-wrap: wrap; }
 .kuis .linkbtn { border: 0; background: none; padding: 6px 0; color: var(--accent); font: inherit; font-weight: 600; text-align: left; cursor: pointer; }
+.kuis-titik { display: flex; gap: 6px; margin-bottom: 10px; }
+.kuis-titik i { width: 28px; height: 5px; border-radius: 3px; background: var(--line); }
+.kuis-titik i.lewat, .kuis-titik i.kini { background: var(--accent); }
+.kuis-pilih { display: grid; gap: 8px; }
+.pilih {
+  min-height: 48px; padding: 10px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--bg);
+  color: var(--text); font: inherit; font-size: 15px; line-height: 1.4; text-align: left; cursor: pointer;
+}
+.pilih:hover:not(:disabled) { border-color: var(--accent); }
+.pilih.benar { border-color: #2E7D4F; background: color-mix(in srgb, #2E7D4F 14%, var(--surface)); }
+.pilih.salah { border-color: #B3402F; background: color-mix(in srgb, #B3402F 12%, var(--surface)); }
+.pilih.benar::after { content: " ✓"; font-weight: 700; color: #2E7D4F; }
+.pilih.salah::after { content: " ✗"; font-weight: 700; color: #B3402F; }
+.kuis-lanjut { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.kuis-skor { font: 700 44px/1 var(--f-tangan); text-align: center; margin: 6px 0 10px; color: var(--accent); }
