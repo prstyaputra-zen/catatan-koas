@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.24.1';
+const APP_VERSION = '0.25.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -1909,10 +1909,14 @@ const pendek = (t, max = 80) => (t.length <= max ? t : t.slice(0, t.lastIndexOf(
 // Topik singkat dari judul panjang: bagian sebelum titik dua, kurung, atau tanda pisah.
 const judulPendek = (t) => judulEYD((t || 'catatan ini').split(/\s*[:(–—]\s*|\s+-\s+/)[0].trim() || t);
 // Pilihan jawaban bersih: tanpa label "Sesuatu:" di depan dan tanpa sitasi "(Penulis 2018)".
-const bersihPilihan = (t) => pendek(t
-  .replace(/\s*\((?=[^()]*\b(?:19|20)\d\d\b)[^()]*\)/g, '')
-  .replace(/^\*{0,2}[^:]{2,40}?\*{0,2}:\s+(?=\S)/, '')
-  .replace(/\*\*/g, '').trim(), 90);
+const besarAwal = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+const bersihPilihan = (t) => {
+  let x = t.replace(/\s*\((?=[^()]*\b(?:19|20)\d\d\b)[^()]*\)/g, '').replace(/\*\*/g, '').trim();
+  const m = x.match(/^([^:]{2,40}?):\s+(\S.{19,})$/);
+  if (m && !/^(langkah|tahap|step|fase)\b|\d/i.test(m[1])) x = m[2];
+  x = kalimatPertama(x);
+  return x.length > 160 ? '' : besarAwal(x);
+};
 function kartuDari(n) {
   const out = [];
   const judul = judulPendek(n.title);
@@ -1923,12 +1927,12 @@ function kartuDari(n) {
     if (/pertanyaan penguji/i.test(t)) {
       baris.forEach((l, i) => {
         const j = baris[i + 1];
-        if (/\?\s*$/.test(l) && j && !/\?\s*$/.test(j)) out.push({ id: `${n.id}|${sec.key}|${l.slice(0, 40)}`, note: n.id, key: sec.key, grup: 'penguji', stase: n.stase, judul, tanya: l, jawab: bersihPilihan(j) });
+        if (/\?\s*$/.test(l) && j && !/\?\s*$/.test(j) && bersihPilihan(j)) out.push({ id: `${n.id}|${sec.key}|${l.slice(0, 40)}`, note: n.id, key: sec.key, grup: 'penguji', stase: n.stase, judul, tanya: l, jawab: bersihPilihan(j), jelas: j });
       });
     } else if (KUIS_BAGIAN.test(t)) {
       const grup = t.toLowerCase().match(KUIS_BAGIAN)[1];
       const jawab = bersihPilihan(baris[0]);
-      if (jawab.length >= 8) out.push({ id: `${n.id}|${sec.key}`, note: n.id, key: sec.key, grup, stase: n.stase, judul, tanya: `${judulEYD(grup)} ${judul}?`, jawab });
+      if (jawab.length >= 8) out.push({ id: `${n.id}|${sec.key}`, note: n.id, key: sec.key, grup, stase: n.stase, judul, tanya: `${judulEYD(grup)} ${judul}?`, jawab, jelas: baris.slice(0, 3).join(' ') });
     }
   }
   return out;
@@ -1952,7 +1956,7 @@ function sesiKuis() {
   for (const k of [...jatuh, ...baru]) {
     if (kartu.length >= KUIS_PER_SESI) break;
     const pilihan = pilihanUntuk(k, semua);
-    if (pilihan) kartu.push({ ...k, pilihan });
+    if (pilihan) kartu.push({ ...k, pilihan, benarIdx: pilihan.indexOf(k.jawab), alasan: [] });
   }
   return { kartu, jatuh: jatuh.length };
 }
@@ -1963,91 +1967,146 @@ function nilaiKartu(id, ingat) {
   saveKuis(data);
 }
 
-function renderKuis() {
+// Soal pilihan ganda buatan Tanya AI dari catatan sendiri: kasus singkat, 4 pilihan utuh, penjelasan per pilihan.
+const KUIS_AI_SISTEM = `Kamu penyusun soal UKMPPD untuk koas di Indonesia. Buat soal HANYA dari isi catatan yang diberikan; jangan menambah fakta yang tidak ada di catatan.
+Balas HANYA JSON valid tanpa teks lain, bentuk: {"soal":[{"id":"<id catatan>","bagian":"<judul bagian sumber persis>","tanya":"<kasus singkat 1-2 kalimat lalu pertanyaan, maks 260 karakter>","pilihan":["A","B","C","D"],"benar":<0-3>,"jelas":"<kenapa jawaban benar, 1-2 kalimat>","alasan":["<1 kalimat kenapa pilihan ini benar/salah>","…","…","…"]}]}
+Aturan: tepat 4 pilihan, masing-masing kalimat utuh maks 90 karakter, sejenis dan masuk akal (pengecoh = kesalahan umum koas), tanpa "semua benar". Posisi jawaban benar diacak. Bahasa Indonesia baku.`;
+function kuisAiId(note, bagian) {
+  const sec = sectionsOf(note.body, note.type).find((x) => x.title && x.title.replace(/\*\*/g, '').toLowerCase().trim() === String(bagian || '').toLowerCase().trim());
+  return { key: sec?.key || '', id: `${note.id}|${sec?.key || 'ai'}` };
+}
+async function soalAi() {
+  if (!navigator.onLine) return null;
+  const keys = await tanyaKeys();
+  if (![...(keys.gemini || []), ...(keys.groq || [])].some(Boolean)) return null;
+  const data = loadKuis(), now = Date.now();
+  const notes = [...state.notes.values()].filter((n) => visibleBody(n.body, n.type).length > 300);
+  if (!notes.length) return null;
+  const skor = (n) => Object.entries(data).some(([id, v]) => id.startsWith(n.id + '|') && v.due <= now) ? 0 : 1 + Math.random();
+  const pilih = notes.sort((a, b) => skor(a) - skor(b)).slice(0, KUIS_PER_SESI);
+  const isi = pilih.map((n) => `### id: ${n.id}\nJudul: ${n.title}\n${visibleBody(n.body, n.type).slice(0, 3500)}`).join('\n\n');
+  const r = await tanya.ask({ keys, available: (await db.getMeta('tanyaModels')) || {}, system: KUIS_AI_SISTEM,
+    messages: [{ role: 'user', content: `Buat ${pilih.length} soal, satu per catatan, dari bagian klinis yang paling penting (diagnosis, tatalaksana, red flag, dosis).\n\n${isi}` }] });
+  const m = r.text.match(/\{[\s\S]*\}/);
+  const arr = JSON.parse(m ? m[0] : r.text).soal || [];
+  const out = [];
+  for (const q of arr) {
+    const n = state.notes.get(q.id);
+    if (!n || !Array.isArray(q.pilihan) || q.pilihan.length !== 4 || !(q.benar >= 0 && q.benar < 4) || !q.tanya) continue;
+    const { key, id } = kuisAiId(n, q.bagian);
+    out.push({ id, note: n.id, key, judul: judulPendek(n.title), tanya: String(q.tanya), pilihan: q.pilihan.map(String), benarIdx: q.benar,
+      jelas: String(q.jelas || ''), alasan: Array.isArray(q.alasan) ? q.alasan.map(String) : [], ai: true });
+  }
+  return out.length ? out : null;
+}
+
+// Sesi disimpan di memori dan sessionStorage agar tidak hilang saat membuka catatan lalu kembali.
+const KUIS_SESI = 'ck-kuis-sesi';
+function simpanSesi(sesi) { state.kuisSesi = sesi; try { sessionStorage.setItem(KUIS_SESI, JSON.stringify(sesi)); } catch { /* diblokir */ } }
+function ambilSesi() {
+  if (state.kuisSesi) return state.kuisSesi;
+  try { return JSON.parse(sessionStorage.getItem(KUIS_SESI) || 'null'); } catch { return null; }
+}
+function hapusSesi() { state.kuisSesi = null; try { sessionStorage.removeItem(KUIS_SESI); } catch { /* diblokir */ } }
+
+async function renderKuis(baru = false) {
   releaseUrls();
-  const { kartu } = sesiKuis();
-  let i = 0, benar = 0, beruntun = 0, terbaik = 0;
-  const hasil = []; // true/false per soal
-  const salah = [];
+  view().innerHTML = `<div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Kuis</span></div><div id="kuis" class="kuis"></div>`;
+  let sesi = ambilSesi();
+  if (sesi && baru && sesi.selesai) sesi = null;
+  if (!sesi) {
+    $('#kuis').innerHTML = '<div class="kuis-panel kuis-muat"><div class="kuis-emoji">🧠</div><p>Menyusun soal dari catatanmu…</p></div>';
+    let kartu = null, sumber = 'ai', galat = '';
+    try { kartu = await soalAi(); } catch (e) { galat = e.message; }
+    if (!kartu) { kartu = sesiKuis().kartu; sumber = 'offline'; }
+    sesi = { kartu, sumber, galat, i: 0, benar: 0, beruntun: 0, terbaik: 0, hasil: [], dijawab: null };
+    simpanSesi(sesi);
+  }
+  if (!$('#kuis')) return;
   const HURUF = 'ABCD';
   const getar = (ms) => { try { navigator.vibrate?.(ms); } catch { /* tidak didukung */ } };
-  const keCatatan = (note, key) => { state.anchor = key; location.hash = '#/catatan/' + note; };
-  const box = () => $('#kuis');
-  const peta = () => `<div class="peta" aria-label="Kemajuan">${kartu.map((_, j) => `<span class="${j === i ? 'aktif' : hasil[j] === true ? 'ok' : hasil[j] === false ? 'x' : ''}">${j + 1}</span>`).join('')}</div>`;
+  const keCatatan = (note, key) => { simpanSesi(sesi); state.anchor = key; location.hash = '#/catatan/' + note; };
+  const { kartu } = sesi;
+  const peta = () => `<div class="peta" aria-label="Kemajuan">${kartu.map((_, j) => `<span class="${sesi.hasil[j] === true ? 'ok' : sesi.hasil[j] === false ? 'x' : j === sesi.i ? 'aktif' : ''}">${j + 1}</span>`).join('')}</div>`;
   const tampil = () => {
-    const el = box();
+    const el = $('#kuis');
     if (!el) return;
     if (!kartu.length) {
-      el.innerHTML = '<div class="kuis-panel kuis-kosong"><div class="kuis-emoji">🗂️</div><h2>Belum Ada Soal Hari Ini</h2><p>Soal dibuat dari bagian Definisi, Tatalaksana, Red flag, dan Pertanyaan penguji. Tambah beberapa catatan agar ada pilihan jawaban, atau kembali besok.</p><a class="kuis-btn" href="#/">Kembali</a></div>';
+      hapusSesi();
+      el.innerHTML = '<div class="kuis-panel kuis-kosong"><div class="kuis-emoji">🗂️</div><h2>Belum Ada Soal</h2><p>Tambah beberapa catatan dengan bagian Definisi, Tatalaksana, atau Red flag. Dengan API key Tanya AI, soal kasus dibuat otomatis dari catatanmu.</p><a class="kuis-btn" href="#/">Kembali</a></div>';
       return;
     }
-    if (i >= kartu.length) {
-      const sempurna = benar === kartu.length;
+    if (sesi.i >= kartu.length) {
+      sesi.selesai = true; simpanSesi(sesi);
+      const { benar } = sesi, sempurna = benar === kartu.length;
+      const salah = kartu.filter((_, j) => sesi.hasil[j] === false);
       el.innerHTML = `<div class="kuis-panel kuis-akhir">
         <div class="kuis-emoji">${sempurna ? '🏆' : benar ? '💪' : '📖'}</div>
         <div class="kuis-skor-besar"><b>${benar}</b>/${kartu.length}</div>
         <p class="kuis-pesan">${sempurna ? 'Sempurna! Siap ditanya dokter pembimbing.' : benar ? 'Lumayan. Yang salah muncul lagi besok.' : 'Tidak apa-apa, ini justru bagian yang perlu dibaca.'}</p>
-        ${terbaik > 1 ? `<p class="kuis-streak">🔥 Beruntun terbaik: ${terbaik}</p>` : ''}
-        ${salah.length ? `<div class="kuis-ulang"><h3>Baca ulang 1 menit</h3>${salah.map((k) => `<button type="button" class="kuis-ulang-item" data-note="${esc(k.note)}" data-sec="${esc(k.key)}"><span>${inlineHtml(k.tanya)}</span><small>${inlineHtml(k.jawab)}</small></button>`).join('')}</div>` : ''}
-        <div class="kuis-aksi"><a class="kuis-btn" href="#/">Selesai</a></div></div>`;
+        ${sesi.terbaik > 1 ? `<p class="kuis-streak">🔥 Beruntun terbaik: ${sesi.terbaik}</p>` : ''}
+        ${salah.length ? `<div class="kuis-ulang"><h3>Baca ulang 1 menit</h3>${salah.map((k) => `<button type="button" class="kuis-ulang-item" data-note="${esc(k.note)}" data-sec="${esc(k.key)}"><span>${inlineHtml(k.pilihan[k.benarIdx])}</span><small>${esc(k.judul)} ›</small></button>`).join('')}</div>` : ''}
+        <div class="kuis-aksi"><button type="button" class="kuis-btn ghost" id="k-lagi">Sesi baru</button><a class="kuis-btn" href="#/" id="k-done">Selesai</a></div></div>`;
       el.querySelectorAll('[data-note]').forEach((b) => (b.onclick = () => keCatatan(b.dataset.note, b.dataset.sec)));
+      $('#k-lagi').onclick = () => { hapusSesi(); renderKuis(true); };
+      $('#k-done').onclick = hapusSesi;
       return;
     }
-    const k = kartu[i];
+    const k = kartu[sesi.i];
     el.innerHTML = `<div class="kuis-panel">
-      <div class="kuis-atas"><span class="kuis-no">Soal ${i + 1} dari ${kartu.length}</span><span class="kuis-api${beruntun > 1 ? '' : ' hidden'}">🔥 ${beruntun}</span></div>
+      <div class="kuis-atas"><span class="kuis-no">Soal ${sesi.i + 1} dari ${kartu.length}${sesi.sumber === 'ai' ? ' · ✨ AI' : ''}</span><span class="kuis-api${sesi.beruntun > 1 ? '' : ' hidden'}">🔥 ${sesi.beruntun}</span></div>
       ${peta()}
       <div class="kuis-asal">${esc(k.judul)}</div>
-      <h2 class="kuis-tanya">${inlineHtml(k.tanya)}</h2>
-      <div class="kuis-pilih" role="group" aria-label="Pilihan jawaban">${k.pilihan.map((p, j) => `<button type="button" class="opsi" data-i="${j}"><span class="huruf">${HURUF[j]}</span><span class="nama">${inlineHtml(p)}</span></button>`).join('')}</div>
+      <h2 class="kuis-tanya${k.ai ? ' kasus' : ''}">${inlineHtml(k.tanya)}</h2>
+      <div class="kuis-pilih" role="group" aria-label="Pilihan jawaban">${k.pilihan.map((p, j) => `<button type="button" class="opsi" data-i="${j}"><span class="huruf">${HURUF[j]}</span><span class="isi-opsi"><span class="nama">${inlineHtml(p)}</span><span class="alasan-opsi hidden">${inlineHtml(k.alasan[j] || '')}</span></span></button>`).join('')}</div>
       <div class="kuis-umpan" aria-live="polite"></div>
       <p class="kuis-petunjuk">Ketuk jawaban, atau tekan A–D di papan ketik.</p></div>`;
+    const tandai = (pilihanIdx) => {
+      const ok = pilihanIdx === k.benarIdx;
+      el.querySelectorAll('.opsi').forEach((x, j) => {
+        x.disabled = true;
+        if (j === k.benarIdx) x.classList.add('benar');
+        else if (j === pilihanIdx) x.classList.add('salah');
+        else x.classList.add('redup');
+        const al = x.querySelector('.alasan-opsi');
+        if (al.textContent.trim() && (j === k.benarIdx || j === pilihanIdx)) al.classList.remove('hidden');
+      });
+      el.querySelector('.kuis-petunjuk')?.remove();
+      el.querySelector('.kuis-umpan').innerHTML = `<div class="umpan ${ok ? 'ok' : 'x'}"><b>${ok ? ['Tepat!', 'Benar!', 'Mantap!'][sesi.i % 3] : 'Belum tepat.'}</b>${ok ? (sesi.beruntun > 1 ? ` 🔥 ${sesi.beruntun} beruntun` : '') : ` Jawabannya <b>${HURUF[k.benarIdx]}</b>.`}
+        ${k.jelas ? `<p class="umpan-jelas">${inlineHtml(k.jelas)}</p>` : ''}</div>
+        <div class="kuis-aksi"><button type="button" class="kuis-btn ghost" id="k-buka">Lihat catatan</button><button type="button" class="kuis-btn" id="k-next">${sesi.i + 1 < kartu.length ? 'Lanjut →' : 'Lihat hasil'}</button></div>`;
+      $('#k-buka').onclick = () => keCatatan(k.note, k.key);
+      $('#k-next').onclick = () => { sesi.i++; sesi.dijawab = null; simpanSesi(sesi); tampil(); };
+      $('#k-next').focus({ preventScroll: true });
+      el.querySelector('.kuis-umpan').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    };
     const pilih = (b) => {
       if (!b || b.disabled) return;
-      const ok = k.pilihan[b.dataset.i] === k.jawab;
-      el.querySelectorAll('.opsi').forEach((x) => {
-        x.disabled = true;
-        if (k.pilihan[x.dataset.i] === k.jawab) x.classList.add('benar');
-        else if (x !== b) x.classList.add('redup');
-      });
-      hasil[i] = ok;
-      el.querySelectorAll('.peta span')[i].className = ok ? 'ok' : 'x';
+      const j = Number(b.dataset.i), ok = j === k.benarIdx;
+      sesi.hasil[sesi.i] = ok; sesi.dijawab = j;
       nilaiKartu(k.id, ok);
-      const umpan = el.querySelector('.kuis-umpan');
-      el.querySelector('.kuis-petunjuk').remove();
-      if (ok) {
-        benar++; beruntun++; terbaik = Math.max(terbaik, beruntun);
-        getar(15);
-        umpan.innerHTML = `<div class="umpan ok"><b>${['Tepat!', 'Benar!', 'Mantap!', 'Pas!'][Math.floor(Math.random() * 4)]}</b>${beruntun > 1 ? ` 🔥 ${beruntun} beruntun` : ''}</div>`;
-        setTimeout(() => { i++; tampil(); }, 900);
-      } else {
-        b.classList.add('salah');
-        beruntun = 0;
-        salah.push(k);
-        getar([30, 40, 30]);
-        umpan.innerHTML = `<div class="umpan x"><b>Belum tepat.</b> Jawabannya <b>${HURUF[k.pilihan.indexOf(k.jawab)]}</b>.</div>
-          <div class="kuis-aksi"><button type="button" class="kuis-btn ghost" id="k-buka">Lihat catatan</button><button type="button" class="kuis-btn" id="k-next">Lanjut →</button></div>`;
-        $('#k-buka').onclick = () => keCatatan(k.note, k.key);
-        $('#k-next').onclick = () => { i++; tampil(); };
-        $('#k-next').focus();
-      }
+      if (ok) { sesi.benar++; sesi.beruntun++; sesi.terbaik = Math.max(sesi.terbaik, sesi.beruntun); getar(15); }
+      else { sesi.beruntun = 0; getar([30, 40, 30]); }
+      el.querySelectorAll('.peta span')[sesi.i].className = ok ? 'ok' : 'x';
+      simpanSesi(sesi);
+      tandai(j);
     };
-    el.querySelectorAll('.opsi').forEach((b) => (b.onclick = () => pilih(b)));
-    el.onkeydown = null;
+    if (sesi.dijawab != null) tandai(sesi.dijawab);
+    else el.querySelectorAll('.opsi').forEach((b) => (b.onclick = () => pilih(b)));
     document.onkeydown = (e) => {
       if (!$('#kuis')) { document.onkeydown = null; return; }
+      if (e.key === 'Enter' && $('#k-next')) { e.preventDefault(); $('#k-next').click(); return; }
       const j = 'abcd1234'.indexOf(e.key.toLowerCase()) % 4;
       if (e.key.length === 1 && j >= 0 && !e.metaKey && !e.ctrlKey) pilih(el.querySelectorAll('.opsi')[j]);
     };
   };
-  view().innerHTML = `<div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Kuis</span></div><div id="kuis" class="kuis"></div>`;
   tampil();
 }
 function kuisBannerHtml() {
   if (state.query.trim() || !state.notes.size) return '';
   const { kartu, jatuh } = sesiKuis();
   if (!kartu.length) return '';
-  return `<a class="kuis-banner" href="#/kuis"><span class="big">🃏</span><span class="grow"><b>Kuis hari ini</b><small>${kartu.length} soal pilihan ganda · 1 menit</small></span>${icon('chevron')}</a>`;
+  return `<a class="kuis-banner" href="#/kuis/baru"><span class="big">🃏</span><span class="grow"><b>Kuis hari ini</b><small>${kartu.length} soal pilihan ganda · 1 menit</small></span>${icon('chevron')}</a>`;
 }
 
 // ---------- Alat: kalkulator klinis ----------
@@ -3410,7 +3469,7 @@ async function route() {
     case 'alat': return arg === 'bmi' ? renderBmi() : arg === 'puyer' ? renderPuyer() : arg === 'cairan' ? renderFluid() : renderTools();
     case 'ubah': return renderEditor(arg);
     case 'pengaturan': return renderSettings();
-    case 'kuis': return renderKuis();
+    case 'kuis': return renderKuis(arg === 'baru');
     case 'ai': return arg === 'jenis-stase' ? renderTaxonomy() : arg === 'tanya' ? (history.replaceState(null, '', '#/ai'), openTanya(), renderAi()) : renderAi();
     case 'cari':
       state.query = decodeURIComponent(arg || '');

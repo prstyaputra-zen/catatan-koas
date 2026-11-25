@@ -1185,3 +1185,14 @@ body.tutup .inti-item:not(.buka) > span:last-child { color: transparent; text-sh
 .kuis-ulang-item:hover { border-color: #6FB5B0; }
 .kuis-akhir .kuis-aksi { justify-content: center; }
 @media (prefers-reduced-motion: reduce) { .kuis-panel, .opsi, .umpan, .kuis-emoji, .kuis-api { animation: none !important; transition: none !important; } }
+/* Kuis 0.25.0: soal kasus, alasan per pilihan, penjelasan */
+.kuis-tanya.kasus { font: 600 18px/1.5 var(--f-isi, inherit); font-family: inherit; }
+.isi-opsi { display: grid; gap: 4px; min-width: 0; }
+.alasan-opsi { font-size: 13.5px; line-height: 1.45; color: var(--k-redup); }
+.opsi.benar .alasan-opsi { color: #BFE6CB; }
+.opsi.salah .alasan-opsi { color: #FFC9CB; }
+.umpan-jelas { margin: 6px 0 0; color: var(--k-teks); line-height: 1.5; }
+.kuis-muat { text-align: center; }
+.kuis-muat .kuis-emoji { animation: kuis-denyut 1.2s ease-in-out infinite; }
+@keyframes kuis-denyut { 50% { transform: scale(1.12); opacity: .7; } }
+@media (prefers-reduced-motion: reduce) { .kuis-muat .kuis-emoji { animation: none; } }
