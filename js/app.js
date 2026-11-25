@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.21.0';
+const APP_VERSION = '0.21.1';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -297,6 +297,52 @@ function jenisTempel(text) {
   return TEMPEL.find(([, re]) => re.test(t))?.[0] || '';
 }
 
+// Isi catatan dipecah per bagian dengan kunci yang sama seperti tampilan baca (renderBody),
+// dipakai untuk cuplikan hasil pencarian per bagian dan kotak Inti 30 Detik.
+function sectionsOf(body, type) {
+  const out = [{ key: '', title: '', lines: [] }];
+  const seen = new Map();
+  for (const raw of visibleBody(body || '', type).split('\n')) {
+    const hd = headingOf(raw);
+    if (hd) {
+      let key = headingKey(hd);
+      const k = (seen.get(key) || 0) + 1;
+      seen.set(key, k);
+      if (k > 1) key += '#' + k;
+      out.push({ key, title: hd.text, lines: [] });
+    } else if (raw.trim()) out[out.length - 1].lines.push(raw);
+  }
+  return out;
+}
+// Baris isi yang layak jadi poin ringkas: bukan gambar, bukan baris tabel, penanda daftar dibuang.
+const pointLine = (l) => (IMG_LINE.test(l) || /^\s*\|/.test(l) ? '' : l.replace(/^\s*[-*•]\s+/, '').trim());
+
+// Kotak "Inti 30 Detik": bagian Inti/Ringkasan bila ada; bila tidak, dirangkai dari Definisi, Red flag,
+// dan Pertanyaan penguji. Tampil bila ada minimal dua poin.
+const INTI_SENDIRI = /^(inti|ringkasan|poin penting|take home( message)?|kesimpulan|summary)\b/i;
+const INTI_SUMBER = [
+  ['Definisi', /^(definisi|pengertian)\b/i, 1],
+  ['Red flag', /red flag|tanda bahaya/i, 2],
+  ['Ditanya penguji', /pertanyaan penguji/i, 1],
+];
+function intiItems(n) {
+  const secs = sectionsOf(n.body, n.type);
+  const plain = (t) => t.replace(/\*\*/g, '');
+  const own = secs.find((x) => INTI_SENDIRI.test(plain(x.title)));
+  if (own) return own.lines.map(pointLine).filter(Boolean).slice(0, 5).map((text) => ({ label: '', text, key: own.key }));
+  const items = [];
+  for (const [label, re, max] of INTI_SUMBER) {
+    const sec = secs.find((x) => re.test(plain(x.title)));
+    if (!sec) continue;
+    sec.lines.map(pointLine).filter(Boolean).slice(0, max).forEach((text) => items.push({ label, text, key: sec.key }));
+  }
+  return items.length >= 2 ? items : [];
+}
+function intiHtml(n, terms) {
+  const items = intiItems(n);
+  if (!items.length) return '';
+  return `<section class="inti-card" aria-labelledby="inti-title"><h2 id="inti-title">Inti 30 Detik</h2><ul>${items.map((it) => `<li><button type="button" class="inti-item" data-sec="${esc(it.key)}">${it.label ? `<span class="inti-label">${esc(it.label)}</span>` : ''}<span>${inlineHtml(it.text, terms)}</span></button></li>`).join('')}</ul></section>`;
+}
 // "Sudah paham" per bagian utama dan mode tutup jawaban (0.21.0). Disimpan per catatan di perangkat ini.
 const pahamKey = (id) => 'ck-paham:' + id;
 function loadPaham(id) {
@@ -513,11 +559,22 @@ function renderResults() {
     return;
   }
   box.innerHTML = head + items.slice(0, 150).map((n) => cardHtml(n, terms)).join('');
+  box.onclick = (e) => {
+    const hit = e.target.closest('.sec-hit');
+    if (hit) state.jumpSec = hit.dataset.sec;
+  };
   // Muat thumbnail gambar pertama setelah daftar tampil.
   box.querySelectorAll('[data-thumb]').forEach(async (img) => {
     const m = await db.getMedia(img.dataset.thumb);
     if (m && (m.thumb || m.blob) && img.isConnected) img.src = objUrl(m.thumb || m.blob);
   });
+}
+
+// Hingga dua bagian catatan yang memuat kata dicari, masing-masing dengan nama bagian; ketuk untuk langsung ke bagian itu.
+function secHitsHtml(n, terms) {
+  if (!terms || !terms.size) return '';
+  const hits = sectionsOf(n.body, n.type).filter((x) => x.title && (hasTerm(x.title, terms) || x.lines.some((l) => hasTerm(l, terms)))).slice(0, 2);
+  return hits.map((x) => `<p class="snip sec-hit" data-sec="${esc(x.key)}"><b>${highlight(judulEYD(x.title.replace(/\*\*/g, '')), terms)} ›</b> ${snippet(x.lines.join('\n'), terms, 130)}</p>`).join('');
 }
 
 function cardHtml(n, terms) {
@@ -534,7 +591,7 @@ function cardHtml(n, terms) {
       <div class="card-main">
         <div class="card-top"><span class="badge t-${n.type}">${t.icon} ${t.label}</span>${n.stase ? `<span class="badge">${esc(n.stase)}</span>` : ''}${n.pinned ? '<span class="pin">📌</span>' : ''}</div>
         <h3>${highlight(n.title ? judulEYD(n.title) : '(tanpa judul)', terms)}</h3>
-        <p class="snip">${snippet(visibleBody(n.body, n.type), terms)}</p>
+        ${secHitsHtml(n, terms) || `<p class="snip">${snippet(visibleBody(n.body, n.type), terms)}</p>`}
         ${matchedMedia ? `<p class="snip media-hit">${KIND_ICON[matchedMedia.kind]} ${highlight(matchedMedia.caption || matchedMedia.name, terms)}</p>` : ''}
         ${dh ? `<p class="snip media-hit doc-hit"><b>📄 ${esc(dh.m.name)}${dh.m.pageCount ? ` · hal. ${dh.page + 1}` : ''}</b> ${snippet(dh.m.docPages[dh.page], terms, 120)}</p>` : ''}
         <div class="card-foot">
@@ -584,6 +641,7 @@ async function renderNote(id) {
       </dl>
       ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di kartu Rujukan. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
       ${revisionBannerHtml(n)}
+      ${intiHtml(n, terms)}
       <div class="paham-bar hidden" id="paham-bar"><span></span><div class="batang" aria-hidden="true"><i></i></div></div>
       <nav class="toc-card hidden" id="toc-inline" aria-label="Daftar isi"></nav>
       <section class="ref-card hidden" id="refs" aria-labelledby="refs-title"></section>
@@ -615,6 +673,10 @@ async function renderNote(id) {
   bindFolds(n, folds);
   decoratePaham(n);
   bindTutup();
+  view().querySelectorAll('.inti-item').forEach((b) => (b.onclick = () => {
+    if (document.body.classList.contains('tutup') && !b.classList.contains('buka')) { b.classList.add('buka'); return; }
+    jumpToSection(b.dataset.sec);
+  }));
   state.noteNav = setupNoteNav(n);
   bindModeBar('read', n.id);
   restoreReadAnchor();
@@ -733,7 +795,10 @@ function bindNoteFind(n, initialTerms) {
     input.value = state.query;
     marks = [...view().querySelectorAll('.note h1 mark, .note .body mark')];
     countEl.textContent = marks.length ? `${marks.length} hasil` : '';
-    if (marks.length) requestAnimationFrame(() => show(0));
+    const sec = state.jumpSec;
+    state.jumpSec = null;
+    const inSec = sec ? marks.findIndex((m) => m.closest('details.sec')?.closest(`details.sec[data-key="${CSS.escape(sec)}"]`)) : -1;
+    if (marks.length) requestAnimationFrame(() => show(Math.max(0, inSec)));
   }
 }
 
