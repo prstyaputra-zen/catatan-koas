@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.20.4';
+const APP_VERSION = '0.21.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -285,6 +285,58 @@ function judulEYD(text) {
   }).join('');
 }
 
+// Bagian khusus tampil sebagai kertas tempel berwarna, dikenali dari judulnya.
+const TEMPEL = [
+  ['bahaya', /red flag|tanda bahaya|kegawatan|gawat darurat|kapan (harus )?rujuk|rujukan segera/i],
+  ['cerita', /analogi|cerita|ibarat|perumpamaan/i],
+  ['tebak', /mnemonik|jembatan keledai|tips|pertanyaan penguji|jebakan|kenapa/i],
+  ['klinis', /\bkie\b|edukasi|korelasi klinis|contoh kasus|kasus klinis/i],
+];
+function jenisTempel(text) {
+  const t = String(text).replace(/\*\*/g, '');
+  return TEMPEL.find(([, re]) => re.test(t))?.[0] || '';
+}
+
+// "Sudah paham" per bagian utama dan mode tutup jawaban (0.21.0). Disimpan per catatan di perangkat ini.
+const pahamKey = (id) => 'ck-paham:' + id;
+function loadPaham(id) {
+  try { return new Set(JSON.parse(localStorage.getItem(pahamKey(id)) || '[]')); } catch { return new Set(); }
+}
+function savePaham(id, set) {
+  try { set.size ? localStorage.setItem(pahamKey(id), JSON.stringify([...set])) : localStorage.removeItem(pahamKey(id)); } catch { /* penyimpanan diblokir */ }
+}
+// Pasang tombol "Sudah paham" di akhir tiap bagian utama dan perbarui batang progres. Dipanggil ulang tiap isi dirender.
+function decoratePaham(n) {
+  const body = view().querySelector('.note .body');
+  const bar = $('#paham-bar');
+  if (!body || !bar) return;
+  const done = loadPaham(n.id);
+  const secs = [...body.children].filter((el) => el.matches('details.sec'));
+  bar.classList.toggle('hidden', secs.length < 2);
+  const update = () => {
+    const keys = secs.map((d) => d.dataset.key);
+    const count = keys.filter((k) => done.has(k)).length;
+    bar.querySelector('span').textContent = `${count} dari ${keys.length} bagian dipahami`;
+    bar.querySelector('i').style.width = keys.length ? `${(count / keys.length) * 100}%` : '0';
+  };
+  for (const d of secs) {
+    const key = d.dataset.key;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'paham';
+    btn.innerHTML = '<span class="kotak" aria-hidden="true"></span>Sudah paham';
+    btn.setAttribute('aria-pressed', String(done.has(key)));
+    btn.onclick = () => {
+      done.has(key) ? done.delete(key) : done.add(key);
+      btn.setAttribute('aria-pressed', String(done.has(key)));
+      savePaham(n.id, done);
+      update();
+    };
+    d.querySelector(':scope > .sec-body').appendChild(btn);
+  }
+  update();
+}
+
 // Bagian yang dilipat diingat per catatan di perangkat ini.
 const foldKey = (id) => 'ck-fold:' + id;
 function loadFolds(id) {
@@ -317,7 +369,8 @@ function renderBody(body, terms, type, folds = null) {
         seen.set(key, n);
         if (n > 1) key += '#' + n;
         const open = !(folds && folds.has(key));
-        html += `<details class="sec lv-${hd.level}" data-key="${esc(key)}"${open ? ' open' : ''}><summary><span class="chev" aria-hidden="true">${icon('chevron')}</span><span class="sec-title" role="heading" aria-level="${hd.level + 1}">${inlineHtml(judulEYD(hd.text), terms)}</span></summary><div class="sec-body">`;
+        const tempel = jenisTempel(hd.text);
+        html += `<details class="sec lv-${hd.level}${tempel ? ' tempel t-' + tempel : ''}" data-key="${esc(key)}"${open ? ' open' : ''}><summary><span class="chev" aria-hidden="true">${icon('chevron')}</span><span class="sec-title" role="heading" aria-level="${hd.level + 1}">${inlineHtml(judulEYD(hd.text), terms)}</span></summary><div class="sec-body">`;
         stack.push(hd.level);
         continue;
       }
@@ -509,6 +562,7 @@ async function renderNote(id) {
     <div class="topbar">
       <a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a>
       <span class="grow crumb">${t.icon} ${esc(n.title ? judulEYD(n.title) : '(tanpa judul)')}</span>
+      <button class="iconbtn" id="tutupbtn" aria-label="Mode tutup jawaban" aria-pressed="false" title="Tutup jawaban: isi disamarkan, ketuk untuk membuka">${icon('eyeoff')}</button>
       <button class="iconbtn" id="foldall" aria-label="Lipat semua bagian" title="Lipat / buka semua bagian">${icon('collapse')}</button>
       <button class="iconbtn pinbtn ${n.pinned ? 'on' : ''}" id="pin" aria-label="Sematkan di atas daftar" aria-pressed="${!!n.pinned}" title="Sematkan">${icon('pin')}</button>
     </div>
@@ -530,6 +584,7 @@ async function renderNote(id) {
       </dl>
       ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di kartu Rujukan. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
       ${revisionBannerHtml(n)}
+      <div class="paham-bar hidden" id="paham-bar"><span></span><div class="batang" aria-hidden="true"><i></i></div></div>
       <nav class="toc-card hidden" id="toc-inline" aria-label="Daftar isi"></nav>
       <section class="ref-card hidden" id="refs" aria-labelledby="refs-title"></section>
       <div class="body">${renderBody(n.body, terms, n.type, folds)}</div>
@@ -558,6 +613,8 @@ async function renderNote(id) {
     toast(n.pinned ? 'Disematkan di atas daftar' : 'Sematan dilepas');
   };
   bindFolds(n, folds);
+  decoratePaham(n);
+  bindTutup();
   state.noteNav = setupNoteNav(n);
   bindModeBar('read', n.id);
   restoreReadAnchor();
@@ -598,6 +655,30 @@ async function renderNote(id) {
   }
 }
 
+// Mode tutup jawaban: berlaku selama sesi ini, untuk semua catatan yang dibuka.
+function bindTutup() {
+  const btn = $('#tutupbtn');
+  const sync = () => {
+    const on = document.body.classList.contains('tutup');
+    btn.classList.toggle('on', on);
+    btn.setAttribute('aria-pressed', String(on));
+  };
+  btn.onclick = () => {
+    const on = document.body.classList.toggle('tutup');
+    view().querySelectorAll('.note .body .buka').forEach((el) => el.classList.remove('buka'));
+    sync();
+    toast(on ? 'Tutup jawaban: ketuk isi untuk membuka' : 'Semua isi terlihat lagi');
+  };
+  view().querySelector('.note .body').addEventListener('click', (e) => {
+    if (!document.body.classList.contains('tutup')) return;
+    const el = e.target.closest('p, li, td');
+    if (!el || el.classList.contains('buka') || el.closest('summary')) return;
+    e.preventDefault();
+    el.classList.add('buka');
+  });
+  sync();
+}
+
 // Cari kata di dalam catatan yang sedang dibuka: sorot semua, lompat antar hasil.
 function bindNoteFind(n, initialTerms) {
   const bar = $('#nf');
@@ -619,6 +700,7 @@ function bindNoteFind(n, initialTerms) {
     titleEl.innerHTML = highlight(n.title ? judulEYD(n.title) : '(tanpa judul)', terms);
     bodyEl.innerHTML = renderBody(n.body, terms, n.type, loadFolds(n.id));
     hydrateInlineImages(bodyEl, n);
+    decoratePaham(n);
     state.noteNav?.();
     marks = [...view().querySelectorAll('.note h1 mark, .note .body mark')];
     if (jump) show(0); else { cur = -1; countEl.textContent = marks.length ? `${marks.length} hasil` : ''; }
