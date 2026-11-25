@@ -1,5 +1,5 @@
 // Service worker: menyimpan seluruh aplikasi di perangkat agar terbuka tanpa internet.
-const CACHE = 'catatan-koas-v35';
+const CACHE = 'catatan-koas-v36';
 const ASSETS = [
   './',
   'index.html',
