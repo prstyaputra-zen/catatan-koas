@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.21.1';
+const APP_VERSION = '0.22.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -558,7 +558,7 @@ function renderResults() {
     box.innerHTML = head + `<div class="empty small"><p>Tidak ada catatan yang cocok dengan “${esc(state.query)}”.</p></div>`;
     return;
   }
-  box.innerHTML = head + items.slice(0, 150).map((n) => cardHtml(n, terms)).join('');
+  box.innerHTML = kuisBannerHtml() + head + items.slice(0, 150).map((n) => cardHtml(n, terms)).join('');
   box.onclick = (e) => {
     const hit = e.target.closest('.sec-hit');
     if (hit) state.jumpSec = hit.dataset.sec;
@@ -1863,6 +1863,101 @@ function renderNewPicker() {
 function pickHint(k) {
   return { kasus: 'Pasien yang kamu temui', topik: 'Penyakit atau materi', obat: 'Dosis, indikasi, efek samping', prosedur: 'Langkah tindakan', bebas: 'Tanpa template' }[k]
     || (TYPES[k]?.template || '').split('\n').filter((l) => l.trim()).slice(0, 3).join(' · ').replace(/:/g, '') || 'Jenis buatanmu';
+}
+
+// ---------- Kuis harian (0.22.0) ----------
+// Kartu soal dibuat dari isi catatan tanpa internet: tiap baris bertanda tanya di bagian Pertanyaan penguji
+// menjadi satu kartu (jawabannya baris sesudahnya), dan bagian penting lain ditanyakan sebagai
+// "Apa <bagian> pada <judul>?". Jadwal ulang ala Leitner: Ingat naik kotak, Lupa kembali ke kotak 1.
+const KUIS_KEY = 'ck-kuis';
+const KUIS_JEDA = [1, 3, 7, 14, 30]; // hari per kotak
+const KUIS_PER_SESI = 5;
+const KUIS_BAGIAN = /^(definisi|pengertian|etiologi|faktor risiko|patofisiologi|gejala|manifestasi|diagnosis|kriteria|pemeriksaan penunjang|tatalaksana|terapi|penatalaksanaan|komplikasi|red flag|tanda bahaya|dosis|indikasi|kontraindikasi|efek samping|klasifikasi|prognosis)/i;
+const HARI = 86400000;
+function loadKuis() { try { return JSON.parse(localStorage.getItem(KUIS_KEY) || '{}'); } catch { return {}; } }
+function saveKuis(d) { try { localStorage.setItem(KUIS_KEY, JSON.stringify(d)); } catch { /* penyimpanan diblokir */ } }
+
+function kartuDari(n) {
+  const out = [];
+  const judul = judulEYD(n.title || 'catatan ini');
+  for (const sec of sectionsOf(n.body, n.type)) {
+    const t = sec.title.replace(/\*\*/g, '');
+    const baris = sec.lines.map(pointLine).filter(Boolean);
+    if (!t || !baris.length) continue;
+    if (/pertanyaan penguji/i.test(t)) {
+      baris.forEach((l, i) => {
+        if (!/\?\s*$/.test(l)) return;
+        const jawab = [];
+        for (let j = i + 1; j < baris.length && !/\?\s*$/.test(baris[j]); j++) jawab.push(baris[j]);
+        out.push({ id: `${n.id}|${sec.key}|${l.slice(0, 40)}`, note: n.id, key: sec.key, judul, tanya: l, jawab });
+      });
+    } else if (KUIS_BAGIAN.test(t)) {
+      out.push({ id: `${n.id}|${sec.key}`, note: n.id, key: sec.key, judul, tanya: `Apa ${judulEYD(t)} pada ${judul}?`, jawab: baris.slice(0, 8) });
+    }
+  }
+  return out;
+}
+function sesiKuis() {
+  const data = loadKuis(), now = Date.now();
+  const semua = [...state.notes.values()].flatMap(kartuDari);
+  const jatuh = semua.filter((k) => data[k.id] && data[k.id].due <= now).sort((a, b) => data[a.id].due - data[b.id].due);
+  const baru = semua.filter((k) => !data[k.id]).sort(() => Math.random() - 0.5);
+  return { kartu: [...jatuh, ...baru].slice(0, KUIS_PER_SESI), jatuh: jatuh.length, total: semua.length };
+}
+function nilaiKartu(id, ingat) {
+  const data = loadKuis();
+  const box = ingat ? Math.min((data[id]?.box || 0) + 1, KUIS_JEDA.length) : 1;
+  data[id] = { box, due: Date.now() + KUIS_JEDA[box - 1] * HARI - HARI / 4 };
+  saveKuis(data);
+}
+
+function renderKuis() {
+  releaseUrls();
+  const { kartu, total } = sesiKuis();
+  let i = 0, benar = 0;
+  const lupa = [];
+  const tampil = () => {
+    const box = $('#kuis');
+    if (!kartu.length) {
+      box.innerHTML = total
+        ? '<div class="empty"><div class="big">✅</div><h2>Kuis Hari Ini Selesai</h2><p>Semua kartu sudah dijawab. Kartu berikutnya muncul sesuai jadwal ulang.</p><a class="btn ghost" href="#/">Kembali</a></div>'
+        : '<div class="empty"><div class="big">🃏</div><h2>Belum Ada Kartu</h2><p>Kartu dibuat dari bagian seperti Definisi, Tatalaksana, Red flag, dan Pertanyaan penguji (baris yang diakhiri tanda tanya).</p><a class="btn ghost" href="#/">Kembali</a></div>';
+      return;
+    }
+    if (i >= kartu.length) {
+      box.innerHTML = `<div class="kuis-kartu selesai"><h2>Selesai: ${benar} dari ${kartu.length} diingat</h2>
+        ${lupa.length ? `<p>Baca ulang sebentar:</p><ul class="kuis-lupa">${lupa.map((k) => `<li><button type="button" class="linkbtn" data-note="${esc(k.note)}" data-sec="${esc(k.key)}">${esc(k.judul)} › ${inlineHtml(k.tanya.replace(/^Apa | pada .*$/g, ''))}</button></li>`).join('')}</ul>` : '<p>Mantap, semua diingat.</p>'}
+        <div class="row"><button class="btn" id="k-lagi">Sesi lagi</button><a class="btn ghost" href="#/">Selesai</a></div></div>`;
+      box.querySelectorAll('[data-note]').forEach((b) => (b.onclick = () => { state.anchor = b.dataset.sec; location.hash = '#/catatan/' + b.dataset.note; }));
+      $('#k-lagi').onclick = renderKuis;
+      return;
+    }
+    const k = kartu[i];
+    box.innerHTML = `<div class="kuis-kartu">
+      <div class="kuis-prog">Kartu ${i + 1} dari ${kartu.length}</div>
+      <div class="kuis-asal">${esc(k.judul)}</div>
+      <h2 class="kuis-tanya">${inlineHtml(k.tanya)}</h2>
+      <p class="kuis-ajak">Jawab dulu dalam kepala, lalu buka.</p>
+      <div class="kuis-jawab hidden">${k.jawab.length ? `<ul>${k.jawab.map((l) => `<li>${inlineHtml(l)}</li>`).join('')}</ul>` : '<p>Jawaban belum ditulis di catatan.</p>'}
+        <button type="button" class="linkbtn" id="k-buka">Buka di catatan ›</button></div>
+      <div class="row kuis-aksi"><button class="btn" id="k-lihat">Lihat jawaban</button></div></div>`;
+    $('#k-lihat').onclick = () => {
+      box.querySelector('.kuis-jawab').classList.remove('hidden');
+      box.querySelector('.kuis-ajak').classList.add('hidden');
+      box.querySelector('.kuis-aksi').innerHTML = '<button class="btn ghost" id="k-lupa">Lupa</button><button class="btn" id="k-ingat">Ingat</button>';
+      $('#k-ingat').onclick = () => { nilaiKartu(k.id, true); benar++; i++; tampil(); };
+      $('#k-lupa').onclick = () => { nilaiKartu(k.id, false); lupa.push(k); i++; tampil(); };
+    };
+    $('#k-buka').onclick = () => { state.anchor = k.key; location.hash = '#/catatan/' + k.note; };
+  };
+  view().innerHTML = `<div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Kuis Hari Ini</span></div><div id="kuis" class="kuis"></div>`;
+  tampil();
+}
+function kuisBannerHtml() {
+  if (state.query.trim() || !state.notes.size) return '';
+  const { kartu, jatuh } = sesiKuis();
+  if (!kartu.length) return '';
+  return `<a class="kuis-banner" href="#/kuis"><span class="big">🃏</span><span class="grow"><b>Kuis hari ini</b><small>${kartu.length} kartu${jatuh ? ` · ${jatuh} jadwal ulang` : ''} · ±2 menit</small></span>${icon('chevron')}</a>`;
 }
 
 // ---------- Alat: kalkulator klinis ----------
@@ -3225,6 +3320,7 @@ async function route() {
     case 'alat': return arg === 'bmi' ? renderBmi() : arg === 'puyer' ? renderPuyer() : arg === 'cairan' ? renderFluid() : renderTools();
     case 'ubah': return renderEditor(arg);
     case 'pengaturan': return renderSettings();
+    case 'kuis': return renderKuis();
     case 'ai': return arg === 'jenis-stase' ? renderTaxonomy() : arg === 'tanya' ? (history.replaceState(null, '', '#/ai'), openTanya(), renderAi()) : renderAi();
     case 'cari':
       state.query = decodeURIComponent(arg || '');
