@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.22.1';
+const APP_VERSION = '0.23.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -325,6 +325,8 @@ const INTI_SUMBER = [
   ['Red flag', /red flag|tanda bahaya/i, 2],
   ['Ditanya penguji', /pertanyaan penguji/i, 1],
 ];
+// Kalimat pertama saja (titik diikuti spasi dan huruf besar/angka), agar Inti tetap 30 detik.
+const kalimatPertama = (t) => { const m = t.match(/^.+?[.!?](?=\s+["“(]?[A-Z0-9])/); return m ? m[0] : t; };
 function intiItems(n) {
   const secs = sectionsOf(n.body, n.type);
   const plain = (t) => t.replace(/\*\*/g, '');
@@ -336,6 +338,7 @@ function intiItems(n) {
     if (!sec) continue;
     sec.lines.map(pointLine).filter(Boolean).slice(0, max).forEach((text) => items.push({ label, text, key: sec.key }));
   }
+  items.forEach((it) => { it.text = pendek(kalimatPertama(it.text), 150); });
   return items.length >= 2 ? items : [];
 }
 function intiHtml(n, terms) {
@@ -359,27 +362,40 @@ function decoratePaham(n) {
   const done = loadPaham(n.id);
   const secs = [...body.children].filter((el) => el.matches('details.sec'));
   bar.classList.toggle('hidden', secs.length < 2);
+  const chips = $('#bab-chips');
+  if (chips) {
+    chips.classList.toggle('hidden', secs.length < 2);
+    chips.innerHTML = secs.map((d) => `<button type="button" data-sec="${esc(d.dataset.key)}"><i class="titik" aria-hidden="true"></i>${esc(d.querySelector(':scope > summary .sec-title')?.textContent.trim() || '')}</button>`).join('');
+    chips.onclick = (e) => { const b = e.target.closest('[data-sec]'); if (b) jumpToSection(b.dataset.sec); };
+  }
   const update = () => {
     const keys = secs.map((d) => d.dataset.key);
+    chips?.querySelectorAll('[data-sec]').forEach((b) => b.querySelector('.titik').classList.toggle('ok', done.has(b.dataset.sec)));
     const count = keys.filter((k) => done.has(k)).length;
     bar.querySelector('span').textContent = `${count} dari ${keys.length} bagian dipahami`;
     bar.querySelector('i').style.width = keys.length ? `${(count / keys.length) * 100}%` : '0';
   };
-  for (const d of secs) {
+  secs.forEach((d, i) => {
     const key = d.dataset.key;
+    d.classList.add('utama');
+    const sum = d.querySelector(':scope > summary');
+    if (!sum.querySelector('.label-bagian')) sum.querySelector('.sec-title').insertAdjacentHTML('beforebegin', `<span class="label-bagian">Bagian ${i + 1}</span>`);
+    sum.querySelector('.paham')?.remove();
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'paham';
     btn.innerHTML = '<span class="kotak" aria-hidden="true"></span>Sudah paham';
     btn.setAttribute('aria-pressed', String(done.has(key)));
-    btn.onclick = () => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       done.has(key) ? done.delete(key) : done.add(key);
       btn.setAttribute('aria-pressed', String(done.has(key)));
       savePaham(n.id, done);
       update();
     };
-    d.querySelector(':scope > .sec-body').appendChild(btn);
-  }
+    sum.appendChild(btn);
+  });
   update();
 }
 
@@ -631,7 +647,10 @@ async function renderNote(id) {
       <button class="iconbtn" data-nf="close" aria-label="Tutup pencarian">${icon('x')}</button>
     </div>
     <article class="note">
+      <header class="note-head">
       <div class="page-icon" aria-hidden="true">${t.icon}</div>
+      <div class="note-head-isi">
+      ${n.stase ? `<span class="stase-pil">${esc(n.stase)} · ${t.label}</span>` : ''}
       <h1>${highlight(n.title ? judulEYD(n.title) : '(tanpa judul)', terms)}</h1>
       <dl class="props">
         <div><dt>Jenis</dt><dd><span class="badge t-${n.type}">${t.label}</span></dd></div>
@@ -639,10 +658,14 @@ async function renderNote(id) {
         ${n.tags.length ? `<div><dt>Tag</dt><dd class="tags">${n.tags.map((x) => `<a class="tag" href="#/cari/${encodeURIComponent(x)}">#${esc(x)}</a>`).join('')}</dd></div>` : ''}
         <div><dt>Diubah</dt><dd>${fmtDate(n.updated)} <span class="muted">· dibuat ${fmtDate(n.created)}</span></dd></div>
       </dl>
+      </div>
+      </header>
       ${n.id.startsWith('ilmu-') ? '<p class="fresh-note">✨ Dirangkum otomatis oleh Claude dari sumber di kartu Rujukan. Cocokkan dengan sumber aslinya sebelum dipakai untuk pasien.</p>' : ''}
       ${revisionBannerHtml(n)}
       ${intiHtml(n, terms)}
+      <nav class="bab-chips hidden" id="bab-chips" aria-label="Lompat ke bagian"></nav>
       <div class="paham-bar hidden" id="paham-bar"><span></span><div class="batang" aria-hidden="true"><i></i></div></div>
+      <button type="button" class="saklar" id="saklar" aria-pressed="false">${icon('eyeoff')}<span class="grow">Mode tutup jawaban</span><span class="pil">MATI</span></button>
       <nav class="toc-card hidden" id="toc-inline" aria-label="Daftar isi"></nav>
       <section class="ref-card hidden" id="refs" aria-labelledby="refs-title"></section>
       <div class="body">${renderBody(n.body, terms, n.type, folds)}</div>
@@ -724,7 +747,11 @@ function bindTutup() {
     const on = document.body.classList.contains('tutup');
     btn.classList.toggle('on', on);
     btn.setAttribute('aria-pressed', String(on));
+    const sk = $('#saklar');
+    if (sk) { sk.setAttribute('aria-pressed', String(on)); sk.querySelector('.pil').textContent = on ? 'NYALA' : 'MATI'; }
   };
+  const sk = $('#saklar');
+  if (sk) sk.onclick = () => btn.click();
   btn.onclick = () => {
     const on = document.body.classList.toggle('tutup');
     view().querySelectorAll('.note .body .buka').forEach((el) => el.classList.remove('buka'));
