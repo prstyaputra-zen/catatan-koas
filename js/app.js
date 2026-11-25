@@ -10,7 +10,7 @@ import * as github from './github.js';
 import * as tanya from './tanya.js';
 import { DOC_ACCEPT, DOC_LABEL, docTypeOf, extractDocument, openPdf, closePdf, pageMatchRects, renderPdfPageToBlob, extractDocImages } from './docs.js';
 
-const APP_VERSION = '0.23.0';
+const APP_VERSION = '0.24.0';
 
 const TYPES = {
   kasus: { label: 'Kasus', icon: '🩺', template: 'Identitas (inisial/usia/JK, tanpa nama & No. RM):\nKeluhan utama:\nRPS:\nRPD / RPK / sosial:\nPemeriksaan fisik:\nPemeriksaan penunjang:\nDiagnosis:\nTatalaksana:\nPembelajaran:\n' },
@@ -1956,44 +1956,79 @@ function nilaiKartu(id, ingat) {
 function renderKuis() {
   releaseUrls();
   const { kartu } = sesiKuis();
-  let i = 0, benar = 0;
+  let i = 0, benar = 0, beruntun = 0, terbaik = 0;
+  const hasil = []; // true/false per soal
   const salah = [];
+  const HURUF = 'ABCD';
+  const getar = (ms) => { try { navigator.vibrate?.(ms); } catch { /* tidak didukung */ } };
   const keCatatan = (note, key) => { state.anchor = key; location.hash = '#/catatan/' + note; };
+  const box = () => $('#kuis');
+  const peta = () => `<div class="peta" aria-label="Kemajuan">${kartu.map((_, j) => `<span class="${j === i ? 'aktif' : hasil[j] === true ? 'ok' : hasil[j] === false ? 'x' : ''}">${j + 1}</span>`).join('')}</div>`;
   const tampil = () => {
-    const box = $('#kuis');
+    const el = box();
+    if (!el) return;
     if (!kartu.length) {
-      box.innerHTML = '<div class="empty"><div class="big">✅</div><h2>Belum Ada Soal Hari Ini</h2><p>Soal dibuat dari bagian seperti Definisi, Tatalaksana, Red flag, dan Pertanyaan penguji. Butuh beberapa catatan agar ada pilihan jawaban.</p><a class="btn ghost" href="#/">Kembali</a></div>';
+      el.innerHTML = '<div class="kuis-panel kuis-kosong"><div class="kuis-emoji">🗂️</div><h2>Belum Ada Soal Hari Ini</h2><p>Soal dibuat dari bagian Definisi, Tatalaksana, Red flag, dan Pertanyaan penguji. Tambah beberapa catatan agar ada pilihan jawaban, atau kembali besok.</p><a class="kuis-btn" href="#/">Kembali</a></div>';
       return;
     }
     if (i >= kartu.length) {
-      box.innerHTML = `<div class="kuis-kartu selesai"><div class="kuis-skor">${benar}/${kartu.length}</div>
-        ${salah.length ? `<ul class="kuis-lupa">${salah.map((k) => `<li><button type="button" class="linkbtn" data-note="${esc(k.note)}" data-sec="${esc(k.key)}">${esc(k.judul)} ›</button></li>`).join('')}</ul>` : '<p>Semua benar 🎉</p>'}
-        <div class="row"><a class="btn" href="#/">Selesai</a></div></div>`;
-      box.querySelectorAll('[data-note]').forEach((b) => (b.onclick = () => keCatatan(b.dataset.note, b.dataset.sec)));
+      const sempurna = benar === kartu.length;
+      el.innerHTML = `<div class="kuis-panel kuis-akhir">
+        <div class="kuis-emoji">${sempurna ? '🏆' : benar ? '💪' : '📖'}</div>
+        <div class="kuis-skor-besar"><b>${benar}</b>/${kartu.length}</div>
+        <p class="kuis-pesan">${sempurna ? 'Sempurna! Siap ditanya dokter pembimbing.' : benar ? 'Lumayan. Yang salah muncul lagi besok.' : 'Tidak apa-apa, ini justru bagian yang perlu dibaca.'}</p>
+        ${terbaik > 1 ? `<p class="kuis-streak">🔥 Beruntun terbaik: ${terbaik}</p>` : ''}
+        ${salah.length ? `<div class="kuis-ulang"><h3>Baca ulang 1 menit</h3>${salah.map((k) => `<button type="button" class="kuis-ulang-item" data-note="${esc(k.note)}" data-sec="${esc(k.key)}"><span>${inlineHtml(k.tanya)}</span><small>${inlineHtml(k.jawab)}</small></button>`).join('')}</div>` : ''}
+        <div class="kuis-aksi"><a class="kuis-btn" href="#/">Selesai</a></div></div>`;
+      el.querySelectorAll('[data-note]').forEach((b) => (b.onclick = () => keCatatan(b.dataset.note, b.dataset.sec)));
       return;
     }
     const k = kartu[i];
-    box.innerHTML = `<div class="kuis-kartu">
-      <div class="kuis-titik">${kartu.map((_, j) => `<i class="${j < i ? 'lewat' : j === i ? 'kini' : ''}"></i>`).join('')}</div>
+    el.innerHTML = `<div class="kuis-panel">
+      <div class="kuis-atas"><span class="kuis-no">Soal ${i + 1} dari ${kartu.length}</span><span class="kuis-api${beruntun > 1 ? '' : ' hidden'}">🔥 ${beruntun}</span></div>
+      ${peta()}
+      <div class="kuis-asal">${esc(k.judul)}</div>
       <h2 class="kuis-tanya">${inlineHtml(k.tanya)}</h2>
-      <div class="kuis-pilih">${k.pilihan.map((p, j) => `<button type="button" class="pilih" data-i="${j}">${inlineHtml(p)}</button>`).join('')}</div>
-      <div class="kuis-lanjut hidden"></div></div>`;
-    box.querySelectorAll('.pilih').forEach((b) => (b.onclick = () => {
+      <div class="kuis-pilih" role="group" aria-label="Pilihan jawaban">${k.pilihan.map((p, j) => `<button type="button" class="opsi" data-i="${j}"><span class="huruf">${HURUF[j]}</span><span class="nama">${inlineHtml(p)}</span></button>`).join('')}</div>
+      <div class="kuis-umpan" aria-live="polite"></div>
+      <p class="kuis-petunjuk">Ketuk jawaban, atau tekan A–D di papan ketik.</p></div>`;
+    const pilih = (b) => {
+      if (!b || b.disabled) return;
       const ok = k.pilihan[b.dataset.i] === k.jawab;
-      box.querySelectorAll('.pilih').forEach((x) => {
+      el.querySelectorAll('.opsi').forEach((x) => {
         x.disabled = true;
         if (k.pilihan[x.dataset.i] === k.jawab) x.classList.add('benar');
+        else if (x !== b) x.classList.add('redup');
       });
-      if (!ok) b.classList.add('salah');
+      hasil[i] = ok;
+      el.querySelectorAll('.peta span')[i].className = ok ? 'ok' : 'x';
       nilaiKartu(k.id, ok);
-      if (ok) { benar++; i++; setTimeout(tampil, 700); return; }
-      salah.push(k);
-      const lanjut = box.querySelector('.kuis-lanjut');
-      lanjut.innerHTML = '<button type="button" class="linkbtn" id="k-buka">Lihat catatan ›</button><button class="btn" id="k-next">Lanjut</button>';
-      lanjut.classList.remove('hidden');
-      $('#k-buka').onclick = () => keCatatan(k.note, k.key);
-      $('#k-next').onclick = () => { i++; tampil(); };
-    }));
+      const umpan = el.querySelector('.kuis-umpan');
+      el.querySelector('.kuis-petunjuk').remove();
+      if (ok) {
+        benar++; beruntun++; terbaik = Math.max(terbaik, beruntun);
+        getar(15);
+        umpan.innerHTML = `<div class="umpan ok"><b>${['Tepat!', 'Benar!', 'Mantap!', 'Pas!'][Math.floor(Math.random() * 4)]}</b>${beruntun > 1 ? ` 🔥 ${beruntun} beruntun` : ''}</div>`;
+        setTimeout(() => { i++; tampil(); }, 900);
+      } else {
+        b.classList.add('salah');
+        beruntun = 0;
+        salah.push(k);
+        getar([30, 40, 30]);
+        umpan.innerHTML = `<div class="umpan x"><b>Belum tepat.</b> Jawabannya <b>${HURUF[k.pilihan.indexOf(k.jawab)]}</b>.</div>
+          <div class="kuis-aksi"><button type="button" class="kuis-btn ghost" id="k-buka">Lihat catatan</button><button type="button" class="kuis-btn" id="k-next">Lanjut →</button></div>`;
+        $('#k-buka').onclick = () => keCatatan(k.note, k.key);
+        $('#k-next').onclick = () => { i++; tampil(); };
+        $('#k-next').focus();
+      }
+    };
+    el.querySelectorAll('.opsi').forEach((b) => (b.onclick = () => pilih(b)));
+    el.onkeydown = null;
+    document.onkeydown = (e) => {
+      if (!$('#kuis')) { document.onkeydown = null; return; }
+      const j = 'abcd1234'.indexOf(e.key.toLowerCase()) % 4;
+      if (e.key.length === 1 && j >= 0 && !e.metaKey && !e.ctrlKey) pilih(el.querySelectorAll('.opsi')[j]);
+    };
   };
   view().innerHTML = `<div class="topbar"><a href="#/" class="iconbtn" aria-label="Kembali" title="Kembali">${icon('back')}</a><span class="grow title">Kuis</span></div><div id="kuis" class="kuis"></div>`;
   tampil();
